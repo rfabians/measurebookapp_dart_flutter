@@ -8,7 +8,6 @@ void main() => runApp(MyApp());
 class MyApp extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
-    // TODO: implement createState
     return _MyAppState();
   }
 }
@@ -25,7 +24,6 @@ class _MyAppState extends State<MyApp> {
       setState(() {
         _isLoggedIn = true;
         idUser = _googleSignIn.currentUser.id;
-        //print(idUser);
       });
     } catch (err){
       print(err);
@@ -41,8 +39,6 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
-    // Prueba Git
     return MaterialApp(
       home: Scaffold(
         body: Center(
