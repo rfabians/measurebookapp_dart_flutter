@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "163228580868",
+    "firebase_url": "https://measurebook-b85f8.firebaseio.com",
+    "project_id": "measurebook-b85f8",
+    "storage_bucket": "measurebook-b85f8.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:163228580868:android:d2699bf2d00071af",
+        "android_client_info": {
+          "package_name": "com.example.measurebook"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "163228580868-de9sq6g35sf434hjnvpj3fj37vtbvqbc.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB11YgmqW6EzJ6dlzEqz2bxivfLFjYhPqM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "163228580868-de9sq6g35sf434hjnvpj3fj37vtbvqbc.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
