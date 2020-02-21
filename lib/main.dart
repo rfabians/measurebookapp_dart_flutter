@@ -2,6 +2,7 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'pages/proyecto_nuevo.dart';
 
 void main() => runApp(MeasureBookAPP());
 
@@ -176,20 +177,6 @@ class _MyAppState extends State<IniciarSesion> {
                 ),
               )
           )
-        )
-      )
-    );
-  }
-}
-class NuevoProyecto extends StatelessWidget {
-  const NuevoProyecto({Key key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: Center(
-        child: FlatButton(
-          child: Text('Nuevo Proyecto')
         )
       )
     );
