@@ -3,16 +3,28 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
-void main() => runApp(MyApp());
+void main() => runApp(MeasureBookAPP());
 
-class MyApp extends StatefulWidget {
+//
+class MeasureBookAPP extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'Iniciar Sesion',
+      home: IniciarSesion(),
+    );
+  }
+}
+
+class IniciarSesion extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
     return _MyAppState();
   }
 }
+//
 
-class _MyAppState extends State<MyApp> {
+class _MyAppState extends State<IniciarSesion> {
   bool _isLoggedIn = false;
   String idUser = '/*/';
 
@@ -82,8 +94,22 @@ class _MyAppState extends State<MyApp> {
                         color: Color(0xff007FFF),
                         onPressed: (){
                         _logout();
+                      }),
+                      FlatButton(
+                        shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(30.0)),
+                        child: Text('Nueva Pantalla', style: TextStyle(
+                          fontFamily: 'Roboto',
+                          fontSize: 13.0,
+                          color: Colors.white,
+                        ),),
+                        color: Color(0xff007FFF),
+                        onPressed: (){
+                          Navigator.push(context, MaterialPageRoute(
+                            builder: (context) => NuevoProyecto(),
+                          ));
                       })
                     ],
+                    
                   ),
                 )
               :Container(
@@ -150,6 +176,20 @@ class _MyAppState extends State<MyApp> {
                 ),
               )
           )
+        )
+      )
+    );
+  }
+}
+class NuevoProyecto extends StatelessWidget {
+  const NuevoProyecto({Key key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Center(
+        child: FlatButton(
+          child: Text('Nuevo Proyecto')
         )
       )
     );
