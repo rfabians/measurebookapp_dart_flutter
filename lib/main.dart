@@ -1,5 +1,4 @@
 import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'pages/proyecto_nuevo.dart';
@@ -23,7 +22,7 @@ class IniciarSesion extends StatefulWidget {
     return _MyAppState();
   }
 }
-//
+// Importación de base de Datos
 
 class _MyAppState extends State<IniciarSesion> {
   bool _isLoggedIn = false;
@@ -103,7 +102,7 @@ class _MyAppState extends State<IniciarSesion> {
                         child: Text('Nueva Pantalla', style: TextStyle(
                           fontFamily: 'Roboto',
                           fontSize: 13.0,
-                          color: Color(0xffBEBEBE),
+                          color: Colors.white,
                         ),),
                         color: Color(0xff007FFF),
                         onPressed: (){
@@ -149,7 +148,7 @@ class _MyAppState extends State<IniciarSesion> {
                     SizedBox(height: 40.0,),
                     FlatButton(onPressed: (){
                       _login();
-                    }, child: Image.asset('.../images/google.png', height: 50.0,)),
+                    }, child: Image.asset('assets/images/google.png', height: 50.0,)),
                     SizedBox(height: 40.0,),
                     RichText(text: TextSpan(
                       children: <TextSpan> [
