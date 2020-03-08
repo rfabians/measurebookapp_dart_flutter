@@ -1,11 +1,17 @@
+import 'dart:io';
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:measurebookapp/clases/database.dart';
+import 'package:path_provider/path_provider.dart';
 import 'pages/proyecto_nuevo.dart';
+import 'package:sqflite/sqflite.dart';
+import 'package:path/path.dart';
 
 void main() => runApp(MeasureBookAPP());
 
-//
+gestorMBDatabase datos = datos.mbBasedeDatos();
+
 class MeasureBookAPP extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -37,6 +43,7 @@ class _MyAppState extends State<IniciarSesion> {
         _isLoggedIn = true;
         idUser = _googleSignIn.currentUser.id;
         //print(idUser);
+
       });
     } catch (err){
       print(err);
@@ -106,6 +113,7 @@ class _MyAppState extends State<IniciarSesion> {
                         ),),
                         color: Color(0xff007FFF),
                         onPressed: (){
+
                           Navigator.push(context, MaterialPageRoute(
                             builder: (context) => NuevoProyecto(),
                           ));
@@ -183,3 +191,4 @@ class _MyAppState extends State<IniciarSesion> {
     );
   }
 }
+
