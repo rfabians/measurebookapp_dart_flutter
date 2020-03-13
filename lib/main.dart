@@ -66,25 +66,37 @@ class _MyAppState extends State<IniciarSesion> {
         body: Center(
           child: SingleChildScrollView(
             child: _isLoggedIn
-                ? Container(
+                ? Center(
+
                   child: Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.center,
                     // Implementación de Interfaz cuando el usuario ya está logeado
                     children: <Widget>[
-                      SizedBox (height: 50.0),
-                      Image.network(_googleSignIn.currentUser.photoUrl, height: 100.0,),
-                      SizedBox(height: 10.0,),
-                      Text(_googleSignIn.currentUser.email, style: TextStyle(
-                        fontFamily: 'Roboto',
-                        color: Colors.black54,
-                        fontSize: 14.0,
-                      ),),
-                      SizedBox(height: 5.0,),
-                      Text(_googleSignIn.currentUser.displayName, style: TextStyle(
-                        fontFamily: 'Roboto',
-                        color: Color(0xff007FFF),
-                        fontSize: 15.0,
-                      ),),
+                      Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: <Widget>[
+                          SizedBox (width: 30.0),
+                          Image.network(_googleSignIn.currentUser.photoUrl, height: 75.0,),
+                          SizedBox(width: 20.0,),
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: <Widget>[
+                              Text(_googleSignIn.currentUser.displayName, style: TextStyle(
+                                fontFamily: 'Roboto',
+                                color: Color(0xff007FFF),
+                                fontSize: 15.0,
+                              ),),
+                              SizedBox(height: 5.0,),
+                              Text(_googleSignIn.currentUser.email, style: TextStyle(
+                                fontFamily: 'Roboto',
+                                color: Colors.black54,
+                                fontSize: 14.0,
+                              ),
+                              )
+                            ],
+                          )
+                      ]),
+
                       SizedBox(height: 5.0,),
                       Divider(),
                       Container(
@@ -165,7 +177,7 @@ class _MyAppState extends State<IniciarSesion> {
                         TextSpan(text: 'Tu Cartera de ', style: TextStyle(
                           fontFamily: 'Roboto',
                           height: 12.0,
-                          color: Color(0xffBEBEBE),
+                          color: Colors.black54,
                         )),
                         TextSpan(text: 'Topografía', style: TextStyle(
                           fontFamily: 'Roboto',
@@ -174,7 +186,7 @@ class _MyAppState extends State<IniciarSesion> {
                         )),
                         TextSpan(text: ', ahora en tu dispositivo ', style: TextStyle(
                           fontFamily: 'Roboto',
-                          color: Color(0xffBEBEBE),
+                          color: Colors.black54,
                           height: 12.0,
                         )),
                         TextSpan(text: 'Movil', style: TextStyle(
@@ -193,7 +205,7 @@ class _MyAppState extends State<IniciarSesion> {
                       children: <TextSpan> [
                         TextSpan(text: 'Ingresa a la ', style: TextStyle(
                           fontFamily: 'Roboto',
-                          color: Color(0xffBEBEBE),
+                          color: Colors.black54,
                           height: 12.0,
                         )),
                         TextSpan(text: 'APP ', style: TextStyle(
@@ -203,7 +215,7 @@ class _MyAppState extends State<IniciarSesion> {
                         )),
                         TextSpan(text: 'con tu cuenta de ', style: TextStyle(
                           fontFamily: 'Roboto',
-                          color: Color(0xffBEBEBE),
+                          color: Colors.black54,
                           height: 12.0,
                         )),
                         TextSpan(text: 'Google', style: TextStyle(
