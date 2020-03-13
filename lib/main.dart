@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'dart:ui';
 import 'package:flutter/material.dart';
+import 'package:flutter_swiper/flutter_swiper.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:measurebookapp/clases/database.dart';
 import 'package:path_provider/path_provider.dart';
@@ -61,11 +62,11 @@ class _MyAppState extends State<IniciarSesion> {
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
-        backgroundColor: Color(0xff292929),
+        backgroundColor: Colors.white,
         body: Center(
           child: SingleChildScrollView(
             child: _isLoggedIn
-                ? Center(
+                ? Container(
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.start,
                     // Implementación de Interfaz cuando el usuario ya está logeado
@@ -75,22 +76,52 @@ class _MyAppState extends State<IniciarSesion> {
                       SizedBox(height: 10.0,),
                       Text(_googleSignIn.currentUser.email, style: TextStyle(
                         fontFamily: 'Roboto',
-                        color: Color(0xffBEBEBE),
+                        color: Colors.black54,
                         fontSize: 14.0,
                       ),),
-                      SizedBox(height: 10.0,),
+                      SizedBox(height: 5.0,),
                       Text(_googleSignIn.currentUser.displayName, style: TextStyle(
                         fontFamily: 'Roboto',
                         color: Color(0xff007FFF),
                         fontSize: 15.0,
                       ),),
-                      SizedBox(height: 20.0,),
+                      SizedBox(height: 5.0,),
                       Divider(),
                       Container(
+                        child: Container(
                         height: 400,
-                        child: ListView(
-
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.all(Radius.circular(10.0)),
                         ),
+                        child: Swiper(
+
+                          itemBuilder: (BuildContext context, int index) {
+                            return Container(
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(10.0),
+
+                                image: new DecorationImage(image: new AssetImage("assets/images/fondoblackbogota.jpg"), fit: BoxFit.cover,),
+                              ),
+                              child: Center(
+                                child: Column(
+                                  children: <Widget>[
+                                    Text('NombreProyecto', style: TextStyle(
+                                      fontFamily: 'Roboto',
+                                      color: Color(0xff007FFF),
+                                      fontSize: 20.0,
+                                    ),
+                                    ),
+
+                                  ],
+                                ),
+                              ),
+                            );
+                          },
+                          itemCount: 10,
+                          viewportFraction: 0.8,
+                          scale: 0.9,
+                        ),
+                      ),
                       ),
                       Divider(),
                       FlatButton(
@@ -106,7 +137,7 @@ class _MyAppState extends State<IniciarSesion> {
                       }),
                       FlatButton(
                         shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(30.0)),
-                        child: Text('Nueva Pantalla', style: TextStyle(
+                        child: Text('Nuevo proyecto', style: TextStyle(
                           fontFamily: 'Roboto',
                           fontSize: 13.0,
                           color: Colors.white,

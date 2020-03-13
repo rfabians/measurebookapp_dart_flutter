@@ -1,13 +1,13 @@
 import 'dart:io';
 import 'dart:async';
+import 'package:measurebookapp/modelos/departamentos.dart';
+import 'package:measurebookapp/modelos/municipios.dart';
+import 'package:measurebookapp/modelos/proyectos.dart';
 import 'package:path/path.dart';
 import 'dart:typed_data';
 import 'package:flutter/services.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:sqflite/sqflite.dart';
-import 'package:measurebookapp/modelos/prueba.dart';
-import 'dart:developer';
-import 'package:measurebookapp/modelos/prueba.dart';
 
 
 
@@ -52,12 +52,38 @@ class gestorMBDatabase {
     return measurebookAPP_DB;
   }
 
-  Future<List<consultaMunicipios>> getMunicipios() async {
+  /*Future<List<consultaMunicipios>> getMunicipios() async {
     Database db = await mbBasedeDatos();
     var respuesta = await db.rawQuery("SELECT PK_MUNICIPIOS, NOMBRE FROM MUNICIPIOS");
     print(respuesta);
     List<consultaMunicipios> listaMunicipios = respuesta.map((c)=> consultaMunicipios.fromMap(c)).toList();
     return listaMunicipios;
+  }*/
+
+    // Consultar Listado de Municipios
+
+  Future<List<municipios>> getMunicipios(int codigoDepartamento) async {
+    Database db = await mbBasedeDatos();
+    var response = await db.rawQuery("SELECT PK_MUNICIPIOS, NOMBRE FROM MUNICIPIOS WHERE FK_DEPARTAMENTOS=$codigoDepartamento");
+    print(response);
+    List<municipios> listaMunicipios = response.map((c)=> municipios.fromMap(c)).toList();
+    return listaMunicipios;
   }
+  // Consulta Lista departamentos
+  Future<List<departamentos>> getDepartamentos() async {
+    Database db = await mbBasedeDatos();
+    var response = await db.rawQuery("SELECT * FROM DEPARTAMENTOS");
+    List<departamentos> listaDepartamentos= response.map((c)=> departamentos.fromMap(c)).toList();
+    return listaDepartamentos;
+  }
+  // Consulta lista de Proyectos
+  Future<List<proyectos>> getProyectos() async {
+    Database db = await mbBasedeDatos();
+    var response= await db.rawQuery("SELECT * FROM PROYECTOS");
+    print(response);
+    List<proyectos> listaProyectos = response.map((c)=> proyectos.fromMap(c)).toList();
+    return listaProyectos;
+  }
+  
 
 }
