@@ -21,9 +21,13 @@ dependencies:
     sdk: flutter
   google_sign_in: ^4.0.2
   sqflite: ^1.2.0
-  path_provider: ^1.5.1
+  path_provider: any
   json_annotation: ^3.0.1
   flutter_swiper : ^1.1.6
+  flutter_map: ^0.8.2
+  flutter_map_marker_cluster: any
+  user_location: any
+  geojson: any
 
 
   # The following adds the Cupertino Icons font to your application.

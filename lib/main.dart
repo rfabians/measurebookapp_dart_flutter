@@ -72,10 +72,13 @@ class _MyAppState extends State<IniciarSesion> {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     // Implementación de Interfaz cuando el usuario ya está logeado
                     children: <Widget>[
+                      SizedBox(
+                        height: 45.0,
+                      ),
                       Row(
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: <Widget>[
-                          SizedBox (width: 30.0),
+                          SizedBox (width: 60.0),
                           Image.network(_googleSignIn.currentUser.photoUrl, height: 75.0,),
                           SizedBox(width: 20.0,),
                           Column(
@@ -101,7 +104,7 @@ class _MyAppState extends State<IniciarSesion> {
                       Divider(),
                       Container(
                         child: Container(
-                        height: 400,
+                        height: 500,
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.all(Radius.circular(10.0)),
                         ),
@@ -111,6 +114,7 @@ class _MyAppState extends State<IniciarSesion> {
                             return Container(
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(10.0),
+                                color: Colors.black26,
 
                                 image: new DecorationImage(image: new AssetImage("assets/images/fondoblackbogota.jpg"), fit: BoxFit.cover,),
                               ),
@@ -129,38 +133,59 @@ class _MyAppState extends State<IniciarSesion> {
                               ),
                             );
                           },
-                          itemCount: 10,
+                          itemCount: 14,
                           viewportFraction: 0.8,
                           scale: 0.9,
+                          pagination: SwiperPagination(),
                         ),
                       ),
                       ),
                       Divider(),
-                      FlatButton(
-                        shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(30.0)),
-                        child: Text('Cerrar Sesión', style: TextStyle(
-                          fontFamily: 'Roboto',
-                          fontSize: 13.0,
-                          color: Colors.white,
-                        ),),
-                        color: Color(0xff007FFF),
-                        onPressed: (){
-                        _logout();
-                      }),
-                      FlatButton(
-                        shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(30.0)),
-                        child: Text('Nuevo proyecto', style: TextStyle(
-                          fontFamily: 'Roboto',
-                          fontSize: 13.0,
-                          color: Colors.white,
-                        ),),
-                        color: Color(0xff007FFF),
-                        onPressed: (){
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          FlatButton(
+                              shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(5.0)),
+                              child: Text('Cerrar Sesión', style: TextStyle(
+                                fontFamily: 'Roboto',
+                                fontSize: 13.0,
+                                color: Colors.white,
+                              ),),
+                              color: Color(0xff007FFF),
+                              onPressed: (){
+                                _logout();
+                              }),
+                          SizedBox(width: 10.0),
+                          FlatButton(
+                              shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(5.0)),
+                              child: Text('Nuevo proyecto', style: TextStyle(
+                                fontFamily: 'Roboto',
+                                fontSize: 13.0,
+                                color: Colors.white,
+                              ),),
+                              color: Color(0xff007FFF),
+                              onPressed: (){
 
-                          Navigator.push(context, MaterialPageRoute(
-                            builder: (context) => NuevoProyecto(),
-                          ));
-                      })
+                                Navigator.push(context, MaterialPageRoute(
+                                  builder: (context) => NuevoProyecto(),
+                                ));
+                              }),
+                        ],
+                      ),
+                      FlatButton(
+                          shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(5.0)),
+                          child: Text('Red Pasiva IGAC', style: TextStyle(
+                            fontFamily: 'Roboto',
+                            fontSize: 13.0,
+                            color: Colors.white,
+                          ),),
+                          color: Color(0xff007FFF),
+                          onPressed: (){
+
+                            Navigator.push(context, MaterialPageRoute(
+                              builder: (context) => NuevoProyecto(),
+                            ));
+                          }),
                     ],
                     
                   ),

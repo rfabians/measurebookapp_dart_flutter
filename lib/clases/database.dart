@@ -82,6 +82,7 @@ class gestorMBDatabase {
     var response= await db.rawQuery("SELECT * FROM PROYECTOS");
     print(response);
     List<proyectos> listaProyectos = response.map((c)=> proyectos.fromMap(c)).toList();
+    print(listaProyectos);
     return listaProyectos;
   }
   
