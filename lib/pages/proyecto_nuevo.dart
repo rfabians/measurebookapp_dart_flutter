@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
 import 'package:measurebookapp/clases/database.dart';
 import 'package:measurebookapp/modelos/proyectos.dart';
+import 'package:measurebookapp/pages/seleccionSistemaCoordenadas.dart';
 
 class NuevoProyecto extends StatefulWidget {
   NuevoProyecto({Key key}) : super(key: key);
@@ -15,13 +16,9 @@ class NuevoProyecto extends StatefulWidget {
 class _NuevoProyectoState extends State<NuevoProyecto> {
 
   // Definición de Variables a Usar
+  String nombreProyectoMB,ubicacionMB, clienteMB, empresaMB, proyeccionMB, decripcionMB;
 
-  String nombreProyecto;
-  String ubicacion;
-  String fecha;
-  String empresa;
-  String cliente;
-  String descripcion;
+
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   @override
@@ -62,7 +59,7 @@ class _NuevoProyectoState extends State<NuevoProyecto> {
                             fontFamily: 'Roboto',
                             color: Color(0xff007FFF),
                             fontSize: 18,)),
-                          SizedBox(height: 20),
+                          
                           TextFormField(
                             decoration: InputDecoration(
                                 icon: Icon(Icons.folder_open),
@@ -71,7 +68,10 @@ class _NuevoProyectoState extends State<NuevoProyecto> {
                             validator: (String nProyecto) {
                               if (nProyecto.isEmpty) {
                                 return 'Nombre de Proyecto no valido';
-                              }return null;
+                              }else {
+                              nombreProyectoMB = nProyecto;
+                                return null;
+                              }
                             },
                           ),
                           TextFormField(
@@ -82,8 +82,10 @@ class _NuevoProyectoState extends State<NuevoProyecto> {
                             validator: (String nUbicacion) {
                               if (nUbicacion.isEmpty) {
                                 return 'Ubicación del Proyecto no valida';
-                              }return null;
-                            },
+                              }else {
+                              ubicacionMB = nUbicacion;
+                                return null;
+                            }},
                           ),
                           TextFormField(
                             decoration: InputDecoration(
@@ -93,8 +95,10 @@ class _NuevoProyectoState extends State<NuevoProyecto> {
                             validator: (String nDescripcion) {
                               if (nDescripcion.isEmpty) {
                                 return 'Descripción del Proyecto no valido';
-                              }return null;
-                            },
+                              } else {
+                                decripcionMB = nDescripcion;
+                                return null;
+                          }},
                           ),
                           TextFormField(
                             decoration: InputDecoration(
@@ -104,8 +108,10 @@ class _NuevoProyectoState extends State<NuevoProyecto> {
                             validator: (String nCliente) {
                               if (nCliente.isEmpty) {
                                 return 'Nombre del cliente no valido';
-                              }return null;
-                            },
+                              } else{
+                                clienteMB = nCliente;
+                              return null;
+                            }},
                           ),
                           TextFormField(
                             decoration: InputDecoration(
@@ -115,38 +121,75 @@ class _NuevoProyectoState extends State<NuevoProyecto> {
                             validator: (String nEmpresa) {
                               if (nEmpresa.isEmpty) {
                                 return 'Nombre de la empresa no valida';
-                              }return null;
-                            },
-                          ),
-                          SizedBox(height: 50,),
-                          Text('Los datos Ingresados, serán usados unicamente para la generación de reportes', style: TextStyle(
-                              fontFamily: 'Roboto',
-                              color: Colors.black54,
-                              fontSize: 12,
+                              } else {
+                                empresaMB = nEmpresa;
+                                return null;
+                            }},
 
-                          ),),
-                          SizedBox(height: 30.0),
-                          FlatButton(
-                              onPressed:(){
-                                if (_formKey.currentState.validate()) {
-                                // If the form is valid, display a Snackbar.
-                                Scaffold.of(context)
-                                    .showSnackBar(SnackBar(content: Text('Processing Data')));
-                                                          }
-                                else {
-                                }
-                              },
-                              child: Column(
-                                children: <Widget>[
-                                  Icon(Icons.chevron_right, size: 75.0, color: Color(0xff007FFF),),
-                                  Text('Continuar', style: TextStyle(
-                                      fontFamily: 'Roboto',
-                                      color: Color(0xff007FFF),
-                                      fontSize: 18
-                                  ),)
-                                ],
-                              )
-                          )
+                          ),
+                          SizedBox(height: 25,),
+                          Text('Seleccione el tipo de proyección a Utilizar', style: TextStyle(
+                            fontFamily: 'Roboto',
+                            color: Color(0xff007FFF),
+                            fontSize: 16,)),
+                          Container(
+                            height: 180,
+                            child:MediaQuery.removePadding(removeTop: true,
+                            context: context,
+                             child: ListView(
+                              children: <Widget>[
+                                      SizedBox(height: 20,),
+                                      ListTile(
+                                        leading: Icon(Icons.add_location, color: Color(0xff007FFF)),
+                                        title: Text('Proyección Gauss Krüger'),
+                                        subtitle: Text('Sistema de coordenadas proyectadas Cilindricas, Colombia cuenta con seis Origenes'),
+                                        onTap: (){
+                                          if (_formKey.currentState.validate()) {
+                                            proyeccionMB = 'Gauss';
+                                            Navigator.push(context, MaterialPageRoute(
+                                            builder: (context) => SeleccionSistemaCoordendas(
+                                              clienteMB: clienteMB,
+                                              decripcionMB: decripcionMB,
+                                              empresaMB: empresaMB,
+                                              nombreProyectoMB: nombreProyectoMB,
+                                              proyeccionMB: proyeccionMB,
+                                              ubicacionMB: ubicacionMB,
+                                              gauss: true,
+                                            ),
+                                            ));
+                                          }
+                                          // No diligenciaron todos los campos
+                                        }
+                                      ),
+                                      SizedBox(height: 10,),
+                                      ListTile(
+                                        leading: Icon(Icons.add_location, color: Color(0xff007FFF)),
+                                        title: Text('Proyección Plana Cartesiana',style: TextStyle(
+                                          color: Color(0xff007FFF)
+                                        ),),
+                                        subtitle: Text('Sistema de proyección cartesiano, usado para grandes escalas, razón por la cual existen tantos origenes como municipios'),
+                                        onTap: (){
+                                          if (_formKey.currentState.validate()) {
+                                            proyeccionMB = 'Cartesiana';
+                                            Navigator.push(context, MaterialPageRoute(
+                                            builder: (context) => SeleccionSistemaCoordendas(
+                                              clienteMB: clienteMB,
+                                              decripcionMB: decripcionMB,
+                                              empresaMB: empresaMB,
+                                              nombreProyectoMB: nombreProyectoMB,
+                                              proyeccionMB: proyeccionMB,
+                                              ubicacionMB: ubicacionMB,
+                                              gauss: false,
+                                            ),
+                                            ));
+                                          }
+                                          // No diligenciaron todos los campos
+                                        },
+                                      )
+                              ],
+                             ),
+                            ),
+                          ),
                         ],
 
                   )
