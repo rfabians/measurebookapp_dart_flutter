@@ -2,6 +2,7 @@ import 'dart:io';
 import 'dart:async';
 import 'package:measurebookapp/modelos/departamentos.dart';
 import 'package:measurebookapp/modelos/municipios.dart';
+import 'package:measurebookapp/modelos/origenesGauss.dart';
 import 'package:measurebookapp/modelos/proyectos.dart';
 import 'package:path/path.dart';
 import 'dart:typed_data';
@@ -82,9 +83,18 @@ class gestorMBDatabase {
     var response= await db.rawQuery("SELECT * FROM PROYECTOS");
     print(response);
     List<proyectos> listaProyectos = response.map((c)=> proyectos.fromMap(c)).toList();
-    print(listaProyectos);
     return listaProyectos;
   }
+
+  // Consultar Listado de Sistema de coordenadas GAUSS
+  Future<List<origenesGauss>> getGauss() async {
+    Database db = await mbBasedeDatos();
+    var response= await db.rawQuery("SELECT PK_ORIGENES_GAUSS, NOMBRE, LATITUD, LONGITUD, NORTE, ESTE FROM ORIGENES_GAUSS WHERE FK_SISTEMA = 1");
+    List<origenesGauss> listaGauss = response.map((c)=> origenesGauss.fromMap(c)).toList();
+    return listaGauss;
+  }
+
+
   
 
 }
