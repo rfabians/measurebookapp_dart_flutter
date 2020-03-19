@@ -34,8 +34,6 @@ body: Center(
     ? Center(
 child: Text('gauss'),
     )
-    :Container(
-child: Text('cartesianas'),
     )
   )
 
