@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:measurebookapp/clases/database.dart';
+import 'package:measurebookapp/modelos/proyectos.dart';
 import 'pages/proyecto_nuevo.dart';
 
 void main() => runApp(MeasureBookAPP());
@@ -38,7 +39,7 @@ class _MyAppState extends State<IniciarSesion> {
       setState(() {
         _isLoggedIn = true;
         idUser = _googleSignIn.currentUser.id;
-        //print(idUser);
+        print(idUser);
 
       });
     } catch (err){
@@ -103,35 +104,24 @@ class _MyAppState extends State<IniciarSesion> {
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.all(Radius.circular(10.0)),
                         ),
-                        child: Swiper(
-
-                          itemBuilder: (BuildContext context, int index) {
-                            return Container(
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(10.0),
-                                color: Colors.black26,
-
-                                image: new DecorationImage(image: new AssetImage("assets/images/fondoblackbogota.jpg"), fit: BoxFit.cover,),
-                              ),
-                              child: Center(
-                                child: Column(
-                                  children: <Widget>[
-                                    Text('NombreProyecto', style: TextStyle(
-                                      fontFamily: 'Roboto',
-                                      color: Color(0xff007FFF),
-                                      fontSize: 20.0,
-                                    ),
-                                    ),
-
-                                  ],
-                                ),
-                              ),
-                            );
-                          },
-                          itemCount: 14,
-                          viewportFraction: 0.8,
-                          scale: 0.9,
-                          pagination: SwiperPagination(),
+                        child: Scaffold(
+                         body: FutureBuilder<List<proyectos>> (
+                           future: gestorMBDatabase.db.getProyectos(),
+                            builder: (BuildContext context, AsyncSnapshot<List<proyectos>> snapshot){
+                              if (snapshot.hasData) {
+                                if(snapshot.data.length>1){
+                                    // Implementar Swiper Cuando se tiene Varios Proyectos
+                                }else {
+                                  // Implementar cuando no se tiene un solo proyecto
+                                }
+                              } else {
+                                return Center(
+                                  //Implementar Cuando no se tengan Proyectos
+                                  child: CircularProgressIndicator(),
+                                );
+                              }
+                            }
+                         ),
                         ),
                       ),
                       ),
@@ -162,7 +152,9 @@ class _MyAppState extends State<IniciarSesion> {
                               onPressed: (){
 
                                 Navigator.push(context, MaterialPageRoute(
-                                  builder: (context) => NuevoProyecto(),
+                                  builder: (context) => NuevoProyecto(
+                                    idUsuario: idUser,
+                                  ),
                                 ));
                               }),
                         ],
@@ -178,7 +170,9 @@ class _MyAppState extends State<IniciarSesion> {
                           onPressed: (){
 
                             Navigator.push(context, MaterialPageRoute(
-                              builder: (context) => NuevoProyecto(),
+                              builder: (context) => NuevoProyecto(
+                                idUsuario: idUser,
+                              ),
                             ));
                           }),
                     ],

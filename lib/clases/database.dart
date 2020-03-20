@@ -90,4 +90,11 @@ class gestorMBDatabase {
     List<origenesCartesianos> listaCartesianas = response.map((c)=> origenesCartesianos.fromMap(c)).toList();
     return listaCartesianas;
   }  
+
+  void InserDataSQL (String inserSQL) async{
+    Database db = await mbBasedeDatos();
+    db.rawQuery(inserSQL);
+  }
+  
 }
+

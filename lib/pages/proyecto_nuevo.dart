@@ -7,7 +7,8 @@ import 'package:measurebookapp/modelos/proyectos.dart';
 import 'package:measurebookapp/pages/seleccionSistemaCoordenadas.dart';
 
 class NuevoProyecto extends StatefulWidget {
-  NuevoProyecto({Key key}) : super(key: key);
+  String idUsuario;
+  NuevoProyecto({Key key, this.idUsuario}) : super(key: key);
 
   @override
   _NuevoProyectoState createState() => _NuevoProyectoState();
@@ -157,6 +158,7 @@ class _NuevoProyectoState extends State<NuevoProyecto> {
                                               ubicacionMB: ubicacionMB,
                                               gauss: true,
                                               fk_Municipio: 1,
+                                              id_Usuario: widget.idUsuario,
                                             ),
                                             ));
                                           }
@@ -314,6 +316,7 @@ class _NuevoProyectoState extends State<NuevoProyecto> {
                           proyeccionMB = 'Planas Cartesianas';
                             Navigator.push(context, MaterialPageRoute(
                             builder: (context) => SeleccionSistemaCoordendas(
+                            id_Usuario: widget.idUsuario,
                             clienteMB: clienteMB,
                             decripcionMB: decripcionMB,
                             empresaMB: empresaMB,
@@ -322,6 +325,7 @@ class _NuevoProyectoState extends State<NuevoProyecto> {
                             ubicacionMB: ubicacionMB,
                             gauss: false,
                             fk_Municipio: listaMun.PK_MUNICIPIOS,
+
                            ),
                           ));
                         },
