@@ -6,7 +6,7 @@ class departamentos {
 
   // pasando los Datos a JSON
   factory departamentos.fromMap(Map<String, dynamic> json) => new departamentos(
-    PK_DEPARTAMENTO: json["PK_DEPARTAMENTOS"],
+    PK_DEPARTAMENTO: json["PK_DEPARTAMENTO"],
     NOMBRE: json["NOMBRE"]
 
   );

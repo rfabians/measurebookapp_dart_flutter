@@ -2,12 +2,12 @@ import 'dart:io';
 import 'dart:async';
 import 'package:measurebookapp/modelos/departamentos.dart';
 import 'package:measurebookapp/modelos/municipios.dart';
+import 'package:measurebookapp/modelos/origenesCartesianos.dart';
 import 'package:measurebookapp/modelos/origenesGauss.dart';
 import 'package:measurebookapp/modelos/proyectos.dart';
 import 'package:path/path.dart';
 import 'dart:typed_data';
 import 'package:flutter/services.dart';
-import 'package:path_provider/path_provider.dart';
 import 'package:sqflite/sqflite.dart';
 
 
@@ -52,29 +52,20 @@ class gestorMBDatabase {
 
     return measurebookAPP_DB;
   }
-
-  /*Future<List<consultaMunicipios>> getMunicipios() async {
-    Database db = await mbBasedeDatos();
-    var respuesta = await db.rawQuery("SELECT PK_MUNICIPIOS, NOMBRE FROM MUNICIPIOS");
-    print(respuesta);
-    List<consultaMunicipios> listaMunicipios = respuesta.map((c)=> consultaMunicipios.fromMap(c)).toList();
-    return listaMunicipios;
-  }*/
-
     // Consultar Listado de Municipios
 
   Future<List<municipios>> getMunicipios(int codigoDepartamento) async {
     Database db = await mbBasedeDatos();
     var response = await db.rawQuery("SELECT PK_MUNICIPIOS, NOMBRE FROM MUNICIPIOS WHERE FK_DEPARTAMENTOS=$codigoDepartamento");
-    print(response);
     List<municipios> listaMunicipios = response.map((c)=> municipios.fromMap(c)).toList();
     return listaMunicipios;
   }
   // Consulta Lista departamentos
   Future<List<departamentos>> getDepartamentos() async {
     Database db = await mbBasedeDatos();
-    var response = await db.rawQuery("SELECT * FROM DEPARTAMENTOS");
+    var response = await db.rawQuery("SELECT PK_DEPARTAMENTO,NOMBRE FROM DEPARTAMENTOS");
     List<departamentos> listaDepartamentos= response.map((c)=> departamentos.fromMap(c)).toList();
+    
     return listaDepartamentos;
   }
   // Consulta lista de Proyectos
@@ -92,9 +83,11 @@ class gestorMBDatabase {
     var response= await db.rawQuery("SELECT PK_ORIGENES_GAUSS, NOMBRE, LATITUD, LONGITUD, NORTE, ESTE FROM ORIGENES_GAUSS WHERE FK_SISTEMA = 1");
     List<origenesGauss> listaGauss = response.map((c)=> origenesGauss.fromMap(c)).toList();
     return listaGauss;
-  }
-
-
-  
-
+  }  
+  Future<List<origenesCartesianos>> getCartesianas(int fk_Municipio) async {
+    Database db = await mbBasedeDatos();
+    var response= await db.rawQuery("SELECT PK_ORIGENES_CART, FK_MUNICIPIOS, NOMBRE, LATITUD, LONGITUD, NORTE, ESTE, PLANO_PROY, DESCRIP FROM ORIGENES_CART WHERE (FK_SISTEMA=1) AND (FK_MUNICIPIOS=${fk_Municipio})");
+    List<origenesCartesianos> listaCartesianas = response.map((c)=> origenesCartesianos.fromMap(c)).toList();
+    return listaCartesianas;
+  }  
 }

@@ -8,9 +8,9 @@ class origenesCartesianos{
   double NORTE;
   double ESTE;
   double PLANO_PROY;
-  String DESCRIPCION;
+  String DESCRIP;
 
-  origenesCartesianos({this.PK_ORIGENES_CART, this.FK_MUNICIPIOS, this.NOMBRE, this.LATITUD, this.LONGITUD, this.NORTE, this.ESTE, this.PLANO_PROY, this.DESCRIPCION});
+  origenesCartesianos({this.PK_ORIGENES_CART, this.FK_MUNICIPIOS, this.NOMBRE, this.LATITUD, this.LONGITUD, this.NORTE, this.ESTE, this.PLANO_PROY, this.DESCRIP});
 
   factory origenesCartesianos.fromMap(Map<String, dynamic> json) => new origenesCartesianos(
     PK_ORIGENES_CART: json["PK_ORIGENES_CART"],
@@ -21,6 +21,6 @@ class origenesCartesianos{
     NORTE: json["NORTE"],
     ESTE: json["ESTE"],
     PLANO_PROY: json["PLANO_PROY"],
-    DESCRIPCION: json["DESCRIPCION"],
+    DESCRIP: json["DESCRIP"],
   );
 }

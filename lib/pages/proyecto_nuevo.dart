@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
 import 'package:measurebookapp/clases/database.dart';
+import 'package:measurebookapp/modelos/departamentos.dart';
+import 'package:measurebookapp/modelos/municipios.dart';
 import 'package:measurebookapp/modelos/proyectos.dart';
 import 'package:measurebookapp/pages/seleccionSistemaCoordenadas.dart';
 
@@ -144,7 +146,7 @@ class _NuevoProyectoState extends State<NuevoProyecto> {
                                         subtitle: Text('Sistema de coordenadas proyectadas Cilindricas, Colombia cuenta con seis Origenes'),
                                         onTap: (){
                                           if (_formKey.currentState.validate()) {
-                                            proyeccionMB = 'Gauss';
+                                            proyeccionMB = 'Gauss Krüger';
                                             Navigator.push(context, MaterialPageRoute(
                                             builder: (context) => SeleccionSistemaCoordendas(
                                               clienteMB: clienteMB,
@@ -154,6 +156,7 @@ class _NuevoProyectoState extends State<NuevoProyecto> {
                                               proyeccionMB: proyeccionMB,
                                               ubicacionMB: ubicacionMB,
                                               gauss: true,
+                                              fk_Municipio: 1,
                                             ),
                                             ));
                                           }
@@ -169,18 +172,7 @@ class _NuevoProyectoState extends State<NuevoProyecto> {
                                         subtitle: Text('Sistema de proyección cartesiano, usado para grandes escalas, razón por la cual existen tantos origenes como municipios'),
                                         onTap: (){
                                           if (_formKey.currentState.validate()) {
-                                            proyeccionMB = 'Cartesiana';
-                                            Navigator.push(context, MaterialPageRoute(
-                                            builder: (context) => SeleccionSistemaCoordendas(
-                                              clienteMB: clienteMB,
-                                              decripcionMB: decripcionMB,
-                                              empresaMB: empresaMB,
-                                              nombreProyectoMB: nombreProyectoMB,
-                                              proyeccionMB: proyeccionMB,
-                                              ubicacionMB: ubicacionMB,
-                                              gauss: false,
-                                            ),
-                                            ));
+                                            _alertDialogoCartesianas(context);
                                           }
                                           // No diligenciaron todos los campos
                                         },
@@ -203,4 +195,155 @@ class _NuevoProyectoState extends State<NuevoProyecto> {
 
        );
   }
+  void _alertDialogoCartesianas(BuildContext context) {
+  showDialog(
+    context: context,
+    builder: (context) => Container(
+      height: 500,
+      
+      child: Scaffold(
+        body: FutureBuilder<List<departamentos>>(
+          future: gestorMBDatabase.db.getDepartamentos(),
+          builder: (BuildContext context, AsyncSnapshot<List<departamentos>> listaDep){
+            if(listaDep.hasData) {
+                return Container(
+                  height: 700,
+                  child: Column(
+                    children: <Widget>[
+                      SizedBox(height: 30),
+                      Text('Seleccione un Departamento', style: TextStyle(
+                        color: Color(0xff007FFF),
+                        fontSize: 16.0
+                      ),),
+                      SizedBox(
+                        height: 14.0,
+                      ),
+                      Flexible(
+                      child: ListView.builder(
+                      itemCount: listaDep.data.length,
+                      itemBuilder: (BuildContext context, int index){
+                      departamentos listaDepartamentos = listaDep.data[index];
+                      return Dismissible(
+                      onDismissed: (direction){},
+                      key: UniqueKey(), 
+                      child: Container(
+                        height: 50,
+                        width: MediaQuery.of(context).size.width,
+                        child: ListTile(
+                          title: Text(listaDepartamentos.NOMBRE, style: TextStyle(
+                            color: Colors.black54,
+                            fontSize: 14.0
+                          ),),
+                        trailing: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: <Widget>[
+                            Icon(Icons.chevron_right, color: Colors.blueAccent)
+                          ],
+                        ),
+                        onTap: (){
+                          _alertDialogoCartesianasMunicipio(context, listaDepartamentos.PK_DEPARTAMENTO);
+                        },
+                        )
+                      )
+                      );
+                      }   
+                      ),
+                      )
+                    ],
+                  )
+                );
+                    } else {
+                      return Center(
+                        child: CircularProgressIndicator(),
+              );
+            }
+          }
+          ),
+      ),
+    )
+  );
 }
+
+  void _alertDialogoCartesianasMunicipio(BuildContext context, int fk_Departamento) {
+  showDialog(
+    context: context,
+    builder: (context) => Container(
+      height: 500,
+      
+      child: Scaffold(
+        body: FutureBuilder<List<municipios>>(
+          future: gestorMBDatabase.db.getMunicipios(fk_Departamento),
+          builder: (BuildContext context, AsyncSnapshot<List<municipios>> listaMunicipios){
+            if(listaMunicipios.hasData) {
+                return Container(
+                  height: 700,
+                  child: Column(
+                    children: <Widget>[
+                      SizedBox(height: 30),
+                      Text('Seleccione un Municipio', style: TextStyle(
+                        color: Color(0xff007FFF),
+                        fontSize: 16.0
+                      ),),
+                      SizedBox(
+                        height: 14.0,
+                      ),
+                      Flexible(
+                      child: ListView.builder(
+                      itemCount: listaMunicipios.data.length,
+                      itemBuilder: (BuildContext context, int index){
+                      municipios listaMun = listaMunicipios.data[index];
+                      return Dismissible(
+                      key: UniqueKey(), 
+                      child: Container(
+                        height: 50,
+                        width: MediaQuery.of(context).size.width,
+                        child: ListTile(
+                          title: Text(listaMun.NOMBRE, style: TextStyle(
+                            color: Colors.black54,
+                            fontSize: 14.0
+                          ),),
+                        trailing: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: <Widget>[
+                            Icon(Icons.chevron_right, color: Colors.blueAccent)
+                          ],
+                        ),
+                        onTap: (){
+                          proyeccionMB = 'Planas Cartesianas';
+                            Navigator.push(context, MaterialPageRoute(
+                            builder: (context) => SeleccionSistemaCoordendas(
+                            clienteMB: clienteMB,
+                            decripcionMB: decripcionMB,
+                            empresaMB: empresaMB,
+                            nombreProyectoMB: nombreProyectoMB,
+                            proyeccionMB: proyeccionMB,
+                            ubicacionMB: ubicacionMB,
+                            gauss: false,
+                            fk_Municipio: listaMun.PK_MUNICIPIOS,
+                           ),
+                          ));
+                        },
+                        )
+                      )
+                      );
+                      }   
+                      ),
+                      )
+                    ],
+                  )
+                );
+                    } else {
+                      return Center(
+                        child: CircularProgressIndicator(),
+              );
+            }
+          }
+          ),
+      ),
+    )
+  );
+}
+}
+
