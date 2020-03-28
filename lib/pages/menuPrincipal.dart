@@ -15,19 +15,22 @@ this.id_proyeccion, this.ubicacionMB, this.empresaMB, this.clienteMB, this.decri
 class _MenuPrincipalMBState extends State<MenuPrincipalMB> {
   @override
   Widget build(BuildContext context) {
-    return Container(
-       child: Column(
-         children: <Widget>[
-           Text(widget.id_usuario),
-           Text(widget.nombreProyectoMB),
-           Text(widget.proyeccionMB),
-           Text(widget.id_proyeccion.toString()),
-           Text(widget.ubicacionMB),
-           Text(widget.empresaMB),
-           Text(widget.clienteMB),
-           Text(widget.decripcionMB),
-         ],
-       ),
+    return Scaffold(
+      body: SingleChildScrollView(
+        child: Container(
+          child: Column(
+          children: <Widget>[
+            SizedBox(height: 75.0),
+            Center(
+              child: Image.asset('assets/images/measure.png', height: 80.0,),
+            ),
+            RichText(text: TextSpan(
+              children: <TextSpa
+            ))
+          ],
+        ),
+        ),
+      ),
     );
   }
 }
