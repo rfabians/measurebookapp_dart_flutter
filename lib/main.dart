@@ -109,15 +109,25 @@ class _MyAppState extends State<IniciarSesion> {
                            future: gestorMBDatabase.db.getProyectos(),
                             builder: (BuildContext context, AsyncSnapshot<List<proyectos>> snapshot){
                               if (snapshot.hasData) {
-                                if(snapshot.data.length>1){
-                                    // Implementar Swiper Cuando se tiene Varios Proyectos
+                                if(snapshot.data.length == 0){
+                                  return Center(
+                                    child: Text('No hay proyectos'),
+                                  );
                                 }else {
-                                  // Implementar cuando no se tiene un solo proyecto
+                                  if (snapshot.data.length >1) {
+                                      return Center(
+                                        child:   Text('Varios Proyectos'),
+                                      );
+                                  } else {
+                                      return Center(
+                                        child: Text('Un Solo proyecto'),
+                                      );
+                                  }
                                 }
                               } else {
                                 return Center(
                                   //Implementar Cuando no se tengan Proyectos
-                                  child: CircularProgressIndicator(),
+                                  child: CircularProgressIndicator()
                                 );
                               }
                             }

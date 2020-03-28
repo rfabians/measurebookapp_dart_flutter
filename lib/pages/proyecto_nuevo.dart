@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_swiper/flutter_swiper.dart';
 import 'package:measurebookapp/clases/database.dart';
 import 'package:measurebookapp/modelos/departamentos.dart';
 import 'package:measurebookapp/modelos/municipios.dart';
-import 'package:measurebookapp/modelos/proyectos.dart';
 import 'package:measurebookapp/pages/seleccionSistemaCoordenadas.dart';
 
 class NuevoProyecto extends StatefulWidget {
@@ -25,25 +23,6 @@ class _NuevoProyectoState extends State<NuevoProyecto> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: FutureBuilder<List<proyectos>> (
-        future: gestorMBDatabase.db.getProyectos(),
-        builder: (BuildContext context, AsyncSnapshot<List<proyectos>> snapshot){
-          int contadorProyectos = snapshot.data.length;
-
-          if(contadorProyectos>0){
-            print(contadorProyectos);
-            // Interfaz si se tienen proyectos existentes.
-            return Scaffold(
-              body: Swiper(
-                  itemBuilder: (BuildContext context, int index) {
-                    return new Image.network("http://via.placeholder.com/350x150",fit: BoxFit.fill,);
-                  },
-                  itemCount: 3,
-                  control: new SwiperControl(),
-              ),
-            );
-          } else {
             return Scaffold(
               body: SingleChildScrollView(
                 child:Card(
@@ -192,11 +171,6 @@ class _NuevoProyectoState extends State<NuevoProyecto> {
               )
             );
           }
-        },
-      ),
-
-       );
-  }
   void _alertDialogoCartesianas(BuildContext context) {
   showDialog(
     context: context,

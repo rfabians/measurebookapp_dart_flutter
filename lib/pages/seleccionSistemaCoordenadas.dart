@@ -257,7 +257,7 @@ class _SeleccionSistemaCoordendasState extends State<SeleccionSistemaCoordendas>
                                   children: <Widget>[
                                     FlatButton(
                                       onPressed: (){
-                                        gestorMBDatabase.db.InserDataSQL('INSERT INTO PROYECTOS (ID_USUARIO, Nombre_Proyecto, Tipo_Proyeccion, ID_Proyeccion, Ubicacion, Empresa, Cliente, Descripcion) VALUES (${widget.id_Usuario}, ${widget.nombreProyectoMB}, Gauss-Krüger, ${listaOrigenes.PK_ORIGENES_GAUSS}, ${widget.ubicacionMB}, ${widget.empresaMB}, ${widget.clienteMB},  ${widget.decripcionMB} )');
+                                        gestorMBDatabase.db.InserDataSQL('INSERT INTO PROYECTOS (ID_USUARIO, Nombre_Proyecto, Tipo_Proyeccion, ID_Proyeccion, Ubicacion, Empresa, Cliente, Descripcion) VALUES ("${widget.id_Usuario}", "${widget.nombreProyectoMB}", "Gauss-Krüger", ${listaOrigenes.PK_ORIGENES_GAUSS}, "${widget.ubicacionMB}", "${widget.empresaMB}", "${widget.clienteMB}",  "${widget.decripcionMB}")');
                                                 Navigator.push(context, MaterialPageRoute(
                                                 builder: (context) => MenuPrincipalMB(
                                                  clienteMB: widget.clienteMB,
@@ -524,7 +524,7 @@ class _SeleccionSistemaCoordendasState extends State<SeleccionSistemaCoordendas>
                                                                           children: <Widget>[
                                                                             FlatButton(
                                                                               onPressed: (){
-                                                                                gestorMBDatabase.db.InserDataSQL('INSERT INTO PROYECTOS (ID_USUARIO, Nombre_Proyecto, Tipo_Proyeccion, ID_Proyeccion, Ubicacion, Empresa, Cliente, Descripcion) VALUES (${widget.id_Usuario}, ${widget.nombreProyectoMB}, Plano Cartesiano, ${listaOrigenes.PK_ORIGENES_CART}, ${widget.ubicacionMB}, ${widget.empresaMB}, ${widget.clienteMB},  ${widget.decripcionMB} )');
+                                                                                gestorMBDatabase.db.InserDataSQL('INSERT INTO PROYECTOS (ID_USUARIO, Nombre_Proyecto, Tipo_Proyeccion, ID_Proyeccion, Ubicacion, Empresa, Cliente, Descripcion) VALUES (${widget.id_Usuario}, "${widget.nombreProyectoMB}", "Plano Cartesiano", ${listaOrigenes.PK_ORIGENES_CART}, "${widget.ubicacionMB}", "${widget.empresaMB}", "${widget.clienteMB}", "${widget.decripcionMB}")');
                                                                                 Navigator.push(context, MaterialPageRoute(
                                                                                 builder: (context) => MenuPrincipalMB(
                                                                                 clienteMB: widget.clienteMB,
