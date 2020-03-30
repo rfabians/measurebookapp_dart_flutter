@@ -5,6 +5,7 @@ import 'package:google_sign_in/google_sign_in.dart';
 import 'package:measurebookapp/clases/database.dart';
 import 'package:measurebookapp/modelos/proyectos.dart';
 import 'pages/proyecto_nuevo.dart';
+import 'package:flare_flutter/flare_actor.dart';
 
 void main() => runApp(MeasureBookAPP());
 
@@ -108,25 +109,343 @@ class _MyAppState extends State<IniciarSesion> {
                          body: FutureBuilder<List<proyectos>> (
                            future: gestorMBDatabase.db.getProyectos(),
                             builder: (BuildContext context, AsyncSnapshot<List<proyectos>> snapshot){
+                              
                               if (snapshot.hasData) {
                                 if(snapshot.data.length == 0){
                                   return Center(
-                                    child: Text('No hay proyectos'),
+                                    child: Container(
+                                      child: FlareActor('assets/images/sin_proyectos.flr', animation: 'Search location',),
+                                    ),
                                   );
                                 }else {
                                   if (snapshot.data.length >1) {
-                                      return Center(
-                                        child:   Text('Varios Proyectos'),
+                                      return Swiper(
+                                        itemCount: snapshot.data.length,
+                                        itemWidth: 300.0,
+                                        layout: SwiperLayout.STACK,
+                                        itemBuilder: (BuildContext context, int index){
+                                          proyectos listaProyectos = snapshot.data[index];
+                                        return Center(
+                                            child: Container(
+                                              width: 300.0,
+                                              height: 480.0,
+                                                  decoration: BoxDecoration(
+                                                    image: DecorationImage(
+                                                      image: AssetImage('assets/images/fondo_sistemas.png'),
+                                                      fit: BoxFit.cover,
+                                                      ),
+                                                    borderRadius: BorderRadius.all(Radius.circular(25.0)),
+                                                    boxShadow: [
+                                                    BoxShadow(
+                                                    color: Colors.black45,
+                                                    blurRadius: 5.0, // has the effect of softening the shadow
+                                                    spreadRadius: 3.0, // has the effect of extending the shadow
+                                                    offset: Offset(
+                                                      10.0, // horizontal, move right 10
+                                                      10.0, // vertical, move down 10
+                                                    ),
+                                                  )
+                                                ],
+                                                ),
+                                            child: SingleChildScrollView(
+                                              child: Padding(
+                                                padding: const EdgeInsets.all(15.0),
+                                                child: Column(
+                                                   children: <Widget>[
+                                                     Text('${listaProyectos.Nombre_Proyecto}', style: TextStyle(
+                                                      fontFamily: 'Roboto',
+                                                      color: Colors.white,
+                                                      fontSize: 16.0
+                                                     ),),
+                                                     SizedBox(height: 30.0),
+                                                     Text('Datos del Proyecto', style: TextStyle(
+                                                        fontFamily: 'Roboto',
+                                                        color: Colors.blueAccent,
+                                                        fontSize: 16.0)),
+                                                     Divider(),
+                                                     Align(
+                                                        alignment: Alignment.centerLeft,
+                                                        child: RichText(text: TextSpan(
+                                                        children: <TextSpan>[
+                                                        TextSpan(text: 'Ubicación: \n', style: TextStyle(
+                                                        fontFamily: 'Roboto',
+                                                        color: Colors.black54,
+                                                        fontSize: 12.0
+                                                        )),
+                                                        TextSpan( text: '${listaProyectos.Ubicacion}', style: TextStyle(
+                                                        fontFamily: 'Roboto',
+                                                        color: Color(0xff007FFF),
+                                                        fontSize: 12.0
+                                                      ))
+                                                      ]
+                                                      )),
+                                                      ),
+                                                      Divider(),
+                                                     Align(
+                                                        alignment: Alignment.centerLeft,
+                                                        child: RichText(text: TextSpan(
+                                                        children: <TextSpan>[
+                                                        TextSpan(text: 'Descripción: \n', style: TextStyle(
+                                                        fontFamily: 'Roboto',
+                                                        color: Colors.black54,
+                                                        fontSize: 12.0
+                                                        )),
+                                                        TextSpan( text: '${listaProyectos.Descripcion}', style: TextStyle(
+                                                        fontFamily: 'Roboto',
+                                                        color: Color(0xff007FFF),
+                                                        fontSize: 12.0
+                                                      ))
+                                                      ]
+                                                      )),
+                                                      ),
+                                                      Divider(),
+                                                     Align(
+                                                        alignment: Alignment.centerLeft,
+                                                        child: RichText(text: TextSpan(
+                                                        children: <TextSpan>[
+                                                        TextSpan(text: 'Cliente: \n', style: TextStyle(
+                                                        fontFamily: 'Roboto',
+                                                        color: Colors.black54,
+                                                        fontSize: 12.0
+                                                        )),
+                                                        TextSpan( text: '${listaProyectos.Cliente}', style: TextStyle(
+                                                        fontFamily: 'Roboto',
+                                                        color: Color(0xff007FFF),
+                                                        fontSize: 12.0
+                                                      ))
+                                                      ]
+                                                      )),
+                                                      ),
+                                                      Divider(),
+                                                     Align(
+                                                        alignment: Alignment.centerLeft,
+                                                        child: RichText(text: TextSpan(
+                                                        children: <TextSpan>[
+                                                        TextSpan(text: 'Empresa: \n', style: TextStyle(
+                                                        fontFamily: 'Roboto',
+                                                        color: Colors.black54,
+                                                        fontSize: 12.0
+                                                        )),
+                                                        TextSpan( text: '${listaProyectos.Empresa}', style: TextStyle(
+                                                        fontFamily: 'Roboto',
+                                                        color: Color(0xff007FFF),
+                                                        fontSize: 12.0
+                                                      ))
+                                                      ]
+                                                      )),
+                                                      ),
+                                                      Divider(),
+                                                     Align(
+                                                        alignment: Alignment.centerLeft,
+                                                        child: RichText(text: TextSpan(
+                                                        children: <TextSpan>[
+                                                        TextSpan(text: 'Proyeccion: \n', style: TextStyle(
+                                                        fontFamily: 'Roboto',
+                                                        color: Colors.black54,
+                                                        fontSize: 12.0
+                                                        )),
+                                                        TextSpan( text: '${listaProyectos.Tipo_Proyeccion}', style: TextStyle(
+                                                        fontFamily: 'Roboto',
+                                                        color: Color(0xff007FFF),
+                                                        fontSize: 12.0
+                                                      ))
+                                                      ]
+                                                      )),
+                                                      ),
+                                                      Divider(),
+                                                     Align(
+                                                        alignment: Alignment.centerLeft,
+                                                        child: RichText(text: TextSpan(
+                                                        children: <TextSpan>[
+                                                        TextSpan(text: 'Nombre Origen: \n', style: TextStyle(
+                                                        fontFamily: 'Roboto',
+                                                        color: Colors.black54,
+                                                        fontSize: 12.0
+                                                        )),
+                                                        TextSpan( text: '${listaProyectos.ID_Proyeccion}', style: TextStyle(
+                                                        fontFamily: 'Roboto',
+                                                        color: Color(0xff007FFF),
+                                                        fontSize: 12.0
+                                                      ))
+                                                      ]
+                                                      )),
+                                                      ),
+                                                      Divider(),
+                                                      FlatButton(onPressed: (){}, 
+                                                      child: Icon(Icons.chevron_right, size: 50.0, color: Colors.blueAccent,))
+                                                   ],
+                                                ),
+                                              ),
+                                            ),
+                                          )
+                                        );}
                                       );
                                   } else {
-                                      return Center(
-                                        child: Text('Un Solo proyecto'),
+                                    // Interfaz para cuando solo se tiene un proyecto creado
+                                      return Swiper(
+                                        itemCount: snapshot.data.length,
+                                        itemBuilder: (BuildContext context, int index){
+                                          proyectos listaProyectos = snapshot.data[index];
+                                        return Center(
+                                            child: Container(
+                                              width: 300.0,
+                                              height: 480.0,
+                                                  decoration: BoxDecoration(
+                                                    image: DecorationImage(
+                                                      image: AssetImage('assets/images/fondo_sistemas.png'),
+                                                      fit: BoxFit.cover,
+                                                      ),
+                                                    borderRadius: BorderRadius.all(Radius.circular(25.0)),
+                                                    boxShadow: [
+                                                    BoxShadow(
+                                                    color: Colors.black45,
+                                                    blurRadius: 5.0, // has the effect of softening the shadow
+                                                    spreadRadius: 3.0, // has the effect of extending the shadow
+                                                    offset: Offset(
+                                                      10.0, // horizontal, move right 10
+                                                      10.0, // vertical, move down 10
+                                                    ),
+                                                  )
+                                                ],
+                                                ),
+                                            child: SingleChildScrollView(
+                                              child: Padding(
+                                                padding: const EdgeInsets.all(15.0),
+                                                child: Column(
+                                                   children: <Widget>[
+                                                     Text('${listaProyectos.Nombre_Proyecto}', style: TextStyle(
+                                                      fontFamily: 'Roboto',
+                                                      color: Colors.white,
+                                                      fontSize: 16.0
+                                                     ),),
+                                                     SizedBox(height: 30.0),
+                                                     Text('Datos del Proyecto', style: TextStyle(
+                                                        fontFamily: 'Roboto',
+                                                        color: Colors.blueAccent,
+                                                        fontSize: 16.0)),
+                                                     Divider(),
+                                                     Align(
+                                                        alignment: Alignment.centerLeft,
+                                                        child: RichText(text: TextSpan(
+                                                        children: <TextSpan>[
+                                                        TextSpan(text: 'Ubicación: \n', style: TextStyle(
+                                                        fontFamily: 'Roboto',
+                                                        color: Colors.black54,
+                                                        fontSize: 12.0
+                                                        )),
+                                                        TextSpan( text: '${listaProyectos.Ubicacion}', style: TextStyle(
+                                                        fontFamily: 'Roboto',
+                                                        color: Color(0xff007FFF),
+                                                        fontSize: 12.0
+                                                      ))
+                                                      ]
+                                                      )),
+                                                      ),
+                                                      Divider(),
+                                                     Align(
+                                                        alignment: Alignment.centerLeft,
+                                                        child: RichText(text: TextSpan(
+                                                        children: <TextSpan>[
+                                                        TextSpan(text: 'Descripción: \n', style: TextStyle(
+                                                        fontFamily: 'Roboto',
+                                                        color: Colors.black54,
+                                                        fontSize: 12.0
+                                                        )),
+                                                        TextSpan( text: '${listaProyectos.Descripcion}', style: TextStyle(
+                                                        fontFamily: 'Roboto',
+                                                        color: Color(0xff007FFF),
+                                                        fontSize: 12.0
+                                                      ))
+                                                      ]
+                                                      )),
+                                                      ),
+                                                      Divider(),
+                                                     Align(
+                                                        alignment: Alignment.centerLeft,
+                                                        child: RichText(text: TextSpan(
+                                                        children: <TextSpan>[
+                                                        TextSpan(text: 'Cliente: \n', style: TextStyle(
+                                                        fontFamily: 'Roboto',
+                                                        color: Colors.black54,
+                                                        fontSize: 12.0
+                                                        )),
+                                                        TextSpan( text: '${listaProyectos.Cliente}', style: TextStyle(
+                                                        fontFamily: 'Roboto',
+                                                        color: Color(0xff007FFF),
+                                                        fontSize: 12.0
+                                                      ))
+                                                      ]
+                                                      )),
+                                                      ),
+                                                      Divider(),
+                                                     Align(
+                                                        alignment: Alignment.centerLeft,
+                                                        child: RichText(text: TextSpan(
+                                                        children: <TextSpan>[
+                                                        TextSpan(text: 'Empresa: \n', style: TextStyle(
+                                                        fontFamily: 'Roboto',
+                                                        color: Colors.black54,
+                                                        fontSize: 12.0
+                                                        )),
+                                                        TextSpan( text: '${listaProyectos.Empresa}', style: TextStyle(
+                                                        fontFamily: 'Roboto',
+                                                        color: Color(0xff007FFF),
+                                                        fontSize: 12.0
+                                                      ))
+                                                      ]
+                                                      )),
+                                                      ),
+                                                      Divider(),
+                                                     Align(
+                                                        alignment: Alignment.centerLeft,
+                                                        child: RichText(text: TextSpan(
+                                                        children: <TextSpan>[
+                                                        TextSpan(text: 'Proyeccion: \n', style: TextStyle(
+                                                        fontFamily: 'Roboto',
+                                                        color: Colors.black54,
+                                                        fontSize: 12.0
+                                                        )),
+                                                        TextSpan( text: '${listaProyectos.Tipo_Proyeccion}', style: TextStyle(
+                                                        fontFamily: 'Roboto',
+                                                        color: Color(0xff007FFF),
+                                                        fontSize: 12.0
+                                                      ))
+                                                      ]
+                                                      )),
+                                                      ),
+                                                      Divider(),
+                                                     Align(
+                                                        alignment: Alignment.centerLeft,
+                                                        child: RichText(text: TextSpan(
+                                                        children: <TextSpan>[
+                                                        TextSpan(text: 'Nombre Origen: \n', style: TextStyle(
+                                                        fontFamily: 'Roboto',
+                                                        color: Colors.black54,
+                                                        fontSize: 12.0
+                                                        )),
+                                                        TextSpan( text: '${listaProyectos.ID_Proyeccion}', style: TextStyle(
+                                                        fontFamily: 'Roboto',
+                                                        color: Color(0xff007FFF),
+                                                        fontSize: 12.0
+                                                      ))
+                                                      ]
+                                                      )),
+                                                      ),
+                                                      Divider(),
+                                                      FlatButton(onPressed: (){}, 
+                                                      child: Icon(Icons.chevron_right, size: 50.0, color: Colors.blueAccent,))
+                                                   ],
+                                                ),
+                                              ),
+                                            ),
+                                          )
+                                        );}
                                       );
                                   }
                                 }
                               } else {
                                 return Center(
-                                  //Implementar Cuando no se tengan Proyectos
+                                  // Cargando Datos de Base de Datos Indicador de Progreso Infinito
                                   child: CircularProgressIndicator()
                                 );
                               }
@@ -140,10 +459,10 @@ class _MyAppState extends State<IniciarSesion> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: <Widget>[
                           FlatButton(
-                              shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(5.0)),
+                              shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(20.0)),
                               child: Text('Cerrar Sesión', style: TextStyle(
                                 fontFamily: 'Roboto',
-                                fontSize: 13.0,
+                                fontSize: 12.0,
                                 color: Colors.white,
                               ),),
                               color: Color(0xff007FFF),
@@ -152,10 +471,10 @@ class _MyAppState extends State<IniciarSesion> {
                               }),
                           SizedBox(width: 10.0),
                           FlatButton(
-                              shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(5.0)),
+                              shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(20.0)),
                               child: Text('Nuevo proyecto', style: TextStyle(
                                 fontFamily: 'Roboto',
-                                fontSize: 13.0,
+                                fontSize: 12.0,
                                 color: Colors.white,
                               ),),
                               color: Color(0xff007FFF),
@@ -170,10 +489,10 @@ class _MyAppState extends State<IniciarSesion> {
                         ],
                       ),
                       FlatButton(
-                          shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(5.0)),
+                          shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(20.0)),
                           child: Text('Red Pasiva IGAC', style: TextStyle(
                             fontFamily: 'Roboto',
-                            fontSize: 13.0,
+                            fontSize: 12.0,
                             color: Colors.white,
                           ),),
                           color: Color(0xff007FFF),
@@ -258,4 +577,3 @@ class _MyAppState extends State<IniciarSesion> {
     );
   }
 }
-

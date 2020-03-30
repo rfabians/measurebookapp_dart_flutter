@@ -50,9 +50,12 @@ class _NuevoProyectoState extends State<NuevoProyecto> {
                               if (nProyecto.isEmpty) {
                                 return 'Nombre de Proyecto no valido';
                               }else {
+                                if (nProyecto.length > 35 ){
+                                  return 'Longitud del Nombre Excedida';
+                                } else {
                               nombreProyectoMB = nProyecto;
                                 return null;
-                              }
+                              }}
                             },
                           ),
                           TextFormField(

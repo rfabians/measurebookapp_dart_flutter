@@ -2,6 +2,7 @@ import 'dart:io';
 import 'dart:async';
 import 'package:measurebookapp/modelos/departamentos.dart';
 import 'package:measurebookapp/modelos/municipios.dart';
+import 'package:measurebookapp/modelos/obtenerVarios.dart';
 import 'package:measurebookapp/modelos/origenesCartesianos.dart';
 import 'package:measurebookapp/modelos/origenesGauss.dart';
 import 'package:measurebookapp/modelos/proyectos.dart';
@@ -72,7 +73,6 @@ class gestorMBDatabase {
   Future<List<proyectos>> getProyectos() async {
     Database db = await mbBasedeDatos();
     var response= await db.rawQuery("SELECT * FROM PROYECTOS");
-    print(response);
     List<proyectos> listaProyectos = response.map((c)=> proyectos.fromMap(c)).toList();
     return listaProyectos;
   }
@@ -95,6 +95,7 @@ class gestorMBDatabase {
     Database db = await mbBasedeDatos();
     db.rawQuery(inserSQL);
   }
+
   
 }
 
