@@ -20,9 +20,23 @@ class RedPasivaIGAC extends StatefulWidget {
 
 class _RedPasivaIGACState extends State<RedPasivaIGAC> {
   List<Marker> markers = List<Marker>();
+  List<Marker> ubicacionUser = List<Marker>();
+  MapController mapController = MapController();
+  UserLocationOptions userLocationOptions;
   redPIGACPuntos listaPuntosRedPasivaIGACDB = redPIGACPuntos();
   @override
   Widget build(BuildContext context) {
+    userLocationOptions = UserLocationOptions(
+    context: context,
+        mapController: mapController,
+        markers: ubicacionUser,
+        updateMapLocationOnPositionChange: false,
+        showMoveToCurrentLocationFloatingActionButton: true,
+        zoomToCurrentLocationOnLoad: true,
+        fabBottom: 50,
+        fabRight: 50,
+        verbose: false
+    );
     return Scaffold(
        body: Container(
          child: FutureBuilder(
@@ -32,44 +46,74 @@ class _RedPasivaIGACState extends State<RedPasivaIGAC> {
                if(snapshot.data.length>0) {
                  for (int i = 0; i < snapshot.data.length-1; i++) {
                    redPIGACPuntos listaPuntosRedPasivaIGACDB = snapshot.data[i];
-                   markers.add(Marker(
+                    markers.add(Marker(
                      anchorPos: AnchorPos.align(AnchorAlign.center),
-                     height: 40,
-                     width: 40,
                      point: LatLng(listaPuntosRedPasivaIGACDB.Latitud,listaPuntosRedPasivaIGACDB.Longitud),
-                     builder: (ctx) => Icon(Icons.pin_drop)
+                     builder: (ctx) => FloatingActionButton(
+                      backgroundColor: Colors.transparent,
+                       child: Icon(Icons.location_on, size: 40, color: Colors.blueAccent),
+                       onPressed: (){
+                         AlertDialog datosPuntoRedPasiva = AlertDialog(
+                           title: Text(listaPuntosRedPasivaIGACDB.Nomenclatu),
+                           content: Container(
+                             height: 400,
+                             width: 250,
+                             child: SingleChildScrollView(
+                               child: Padding(padding: EdgeInsets.all(15.0),
+                               child: Column(
+                                 children: <Widget>[
+                                   Text(listaPuntosRedPasivaIGACDB.Municipio),
+                                   Text(listaPuntosRedPasivaIGACDB.Latitud.toString())
+                                 ],
+                               ),
+                               ),
+                             ),
+                           ),
+                         );
+                         showDialog(context: context, barrierDismissible: true, builder: (BuildContext context){
+                           return datosPuntoRedPasiva;
+                         });
+                       },
+                       )
                    ));
                  }
                  return FlutterMap(
-                   options: MapOptions(
+                   options: MapOptions(    
+                     center: LatLng(4.597085, -74.0656539),
+                     zoom: 17,           
                      plugins: [
-                       MarkerClusterPlugin()
+                       MarkerClusterPlugin(),
+                       UserLocationPlugin()
                      ]
                    ),
                    layers: [
+                     userLocationOptions,
                      TileLayerOptions(
-                       urlTemplate: 'https://server.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/{z}/{y}/{x}',
+                       urlTemplate: 'https://mt1.google.com/vt/lyrs=r&x={x}&y={y}&z={z}',
                      ),
                      MarkerClusterLayerOptions(
                        maxClusterRadius: 120,
-                       size: Size(40, 40),
+                       size: Size(60, 40),
                        fitBoundsOptions: FitBoundsOptions(
                          padding: EdgeInsets.all(50),
                        ),
                        markers: markers,
                        polygonOptions: PolygonOptions(
-                         borderColor: Colors.blueAccent,
+                         borderColor: Colors.black54,
                          color: Colors.black12,
                          borderStrokeWidth: 3
                        ),
                        builder: (context, markers) {
                          return FloatingActionButton(
                            child: Text(markers.length.toString()),
+                           backgroundColor: Colors.black54,
                            onPressed: null
                            );
                        }
-                       )
+                       ),
+                       MarkerLayerOptions(markers: ubicacionUser),
                    ],
+                   mapController: mapController,
                    );
 
                }else {
