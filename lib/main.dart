@@ -6,6 +6,7 @@ import 'package:measurebookapp/clases/database.dart';
 import 'package:measurebookapp/modelos/proyectos.dart';
 import 'pages/proyecto_nuevo.dart';
 import 'package:flare_flutter/flare_actor.dart';
+import 'package:measurebookapp/pages/redPasivaIGAC.dart';
 
 void main() => runApp(MeasureBookAPP());
 
@@ -499,8 +500,8 @@ class _MyAppState extends State<IniciarSesion> {
                           onPressed: (){
 
                             Navigator.push(context, MaterialPageRoute(
-                              builder: (context) => NuevoProyecto(
-                                idUsuario: idUser,
+                              builder: (context) => RedPasivaIGAC(
+                              
                               ),
                             ));
                           }),

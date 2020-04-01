@@ -1,11 +1,13 @@
 import 'dart:io';
 import 'dart:async';
+import 'package:measurebookapp/modelos/RedPasivaIGACPuntos.dart';
 import 'package:measurebookapp/modelos/departamentos.dart';
 import 'package:measurebookapp/modelos/municipios.dart';
 import 'package:measurebookapp/modelos/obtenerVarios.dart';
 import 'package:measurebookapp/modelos/origenesCartesianos.dart';
 import 'package:measurebookapp/modelos/origenesGauss.dart';
 import 'package:measurebookapp/modelos/proyectos.dart';
+import 'package:measurebookapp/pages/redPasivaIGAC.dart';
 import 'package:path/path.dart';
 import 'dart:typed_data';
 import 'package:flutter/services.dart';
@@ -95,7 +97,12 @@ class gestorMBDatabase {
     Database db = await mbBasedeDatos();
     db.rawQuery(inserSQL);
   }
+  Future<List<redPIGACPuntos>> getPuntosRedPIGAC() async{
+    Database db = await mbBasedeDatos();
+    var response = await db.rawQuery('SELECT * FROM RED_PASIVA_IGAC');
+    List<redPIGACPuntos>  listaPuntosRedPasivaIGAC = response.map((c)=> redPIGACPuntos.fromMap(c)).toList();
+    return listaPuntosRedPasivaIGAC;
+  }
 
-  
 }
 

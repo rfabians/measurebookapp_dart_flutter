@@ -23,12 +23,14 @@ dependencies:
   rive: ^0.0.1
   sqflite: ^1.2.0
   path_provider: any
+  latlong: ^0.6.1
+  flutter_map_marker_cluster: ^0.2.7
   json_annotation: ^3.0.1
   flutter_swiper : ^1.1.6
   flutter_map: ^0.8.2
-  flutter_map_marker_cluster: any
-  user_location: any
+  user_location: ^0.1.2
   geojson: any
+  map_controller: ^0.7.1
 
 
   # The following adds the Cupertino Icons font to your application.
@@ -54,7 +56,6 @@ flutter:
   # To add assets to your application, add an assets section, like this:
   assets:
      - assets/images/
-     - assets/geojsonData/
      - assets/database/mbdatabase.db
   #  - images/a_dot_burr.jpeg
   #  - images/a_dot_ham.jpeg

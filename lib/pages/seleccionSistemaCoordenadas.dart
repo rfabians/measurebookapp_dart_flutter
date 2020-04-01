@@ -43,7 +43,6 @@ class _SeleccionSistemaCoordendasState extends State<SeleccionSistemaCoordendas>
           future: gestorMBDatabase.db.getGauss(),
           builder: (BuildContext context, AsyncSnapshot<List<origenesGauss>> snapshot) {
             if(snapshot.hasData){
-              print(snapshot.data.length);
               return Swiper(
                 layout: SwiperLayout.STACK,
                 itemWidth: MediaQuery.of(context).size.width * 0.8,
