@@ -1,5 +1,9 @@
 import 'dart:io';
 import 'dart:async';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter_map/flutter_map.dart';
+import 'package:flutter_map_marker_cluster/flutter_map_marker_cluster.dart';
+import 'package:latlong/latlong.dart';
 import 'package:measurebookapp/modelos/RedPasivaIGACPuntos.dart';
 import 'package:measurebookapp/modelos/departamentos.dart';
 import 'package:measurebookapp/modelos/municipios.dart';
@@ -12,16 +16,21 @@ import 'package:path/path.dart';
 import 'dart:typed_data';
 import 'package:flutter/services.dart';
 import 'package:sqflite/sqflite.dart';
+import 'package:flutter/material.dart';
+import 'package:user_location/user_location.dart';
 
 
 
 class gestorMBDatabase {
+  
   gestorMBDatabase._();
+  
 
   static final gestorMBDatabase db = gestorMBDatabase._();
-
+  
 
   mbBasedeDatos() async {
+    WidgetsFlutterBinding.ensureInitialized();
     var obtenerrutaBaseDatos = await getDatabasesPath();
     var rutaDB = join(obtenerrutaBaseDatos, "assets/database/mbdatabase.db");
 
@@ -98,11 +107,34 @@ class gestorMBDatabase {
     db.rawQuery(inserSQL);
   }
   Future<List<redPIGACPuntos>> getPuntosRedPIGAC() async{
+    WidgetsFlutterBinding.ensureInitialized();
     Database db = await mbBasedeDatos();
     var response = await db.rawQuery('SELECT * FROM RED_PASIVA_IGAC');
     List<redPIGACPuntos>  listaPuntosRedPasivaIGAC = response.map((c)=> redPIGACPuntos.fromMap(c)).toList();
+
+    
     return listaPuntosRedPasivaIGAC;
   }
+  Future<List<Marker>> listaMarcadoresRedPasivaIgac() async{
+    List<Marker> markers = List<Marker>();
+    List<redPIGACPuntos> listaPuntosRedPasivaIGAC = await getPuntosRedPIGAC();
+    int contadorPuntos = listaPuntosRedPasivaIGAC.length;
 
+    for (var i = 0; i < contadorPuntos-1; i++) {
+      markers.add(
+        Marker(
+          anchorPos: AnchorPos.align(AnchorAlign.center),
+          point: LatLng(listaPuntosRedPasivaIGAC[i].Latitud, listaPuntosRedPasivaIGAC[i].Longitud),
+          builder: (ctx)=> FloatingActionButton(
+             backgroundColor: Colors.transparent,
+                       child: Icon(Icons.location_on, size: 40, color: Colors.blueAccent),
+                       onPressed: (){
+                       },
+            )
+        )
+      );
+    }
+    return markers;
+  }
 }
 

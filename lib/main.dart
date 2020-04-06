@@ -1,5 +1,6 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:measurebookapp/clases/database.dart';
@@ -8,7 +9,12 @@ import 'pages/proyecto_nuevo.dart';
 import 'package:flare_flutter/flare_actor.dart';
 import 'package:measurebookapp/pages/redPasivaIGAC.dart';
 
-void main() => runApp(MeasureBookAPP());
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await SystemChrome.setEnabledSystemUIOverlays([]);
+  await SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
+  runApp(MeasureBookAPP());
+}
 
 gestorMBDatabase datos = datos.mbBasedeDatos();
 
@@ -26,13 +32,14 @@ class IniciarSesion extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
     return _MyAppState();
+    
   }
 }
 
 class _MyAppState extends State<IniciarSesion> {
   bool _isLoggedIn = false;
   String idUser = '/*/';
-
+  
   GoogleSignIn _googleSignIn = GoogleSignIn(scopes: ['email']);
 
   _login() async{
@@ -500,7 +507,7 @@ class _MyAppState extends State<IniciarSesion> {
                           onPressed: (){
 
                             Navigator.push(context, MaterialPageRoute(
-                              builder: (context) => RedPasivaIGAC(
+                              builder: (context) => RedPasivaIgac(
                               
                               ),
                             ));
