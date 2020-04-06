@@ -120,8 +120,8 @@ class _RedPasivaIgacState extends State<RedPasivaIgac> {
             return  Scaffold(
             body: FlutterMap(
             options: MapOptions(
-            center: LatLng(0, 0),
-            zoom: 15,
+            center: LatLng(4.5970903, -74.0656485),
+            zoom: 17,
             plugins: [
              UserLocationPlugin(),
              MarkerClusterPlugin(),

@@ -19,7 +19,7 @@ class _MenuPrincipalMBState extends State<MenuPrincipalMB> {
         child: Container(
           child: Column(
           children: <Widget>[
-            SizedBox(height: 75.0),
+            SizedBox(height: 20.0),
             Center(
               child: Image.asset('assets/images/measure.png', height: 80.0,),
             ),
@@ -128,7 +128,7 @@ class _MenuPrincipalMBState extends State<MenuPrincipalMB> {
               child: ListView(
                 children: <Widget>[
                   ListTile(
-                    leading: Image.asset('assets/images/poligonal.png'),
+                    leading: Image.asset('assets/images/poligonal_.png'),
                     title: Text('Poligonales',style: TextStyle(
                     fontFamily: 'Roboto', 
                     fontSize: 16.0,
@@ -155,7 +155,7 @@ class _MenuPrincipalMBState extends State<MenuPrincipalMB> {
               child: ListView(
                 children: <Widget>[
                   ListTile(
-                    leading: Image.asset('assets/images/nivelacion.png'),
+                    leading: Image.asset('assets/images/nivelacion_.png'),
                     title: Text('Nivelaciones',style: TextStyle(
                     fontFamily: 'Roboto', 
                     fontSize: 16.0,

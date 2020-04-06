@@ -5,6 +5,7 @@ import 'package:flutter_swiper/flutter_swiper.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:measurebookapp/clases/database.dart';
 import 'package:measurebookapp/modelos/proyectos.dart';
+import 'package:measurebookapp/pages/menuPrincipal.dart';
 import 'pages/proyecto_nuevo.dart';
 import 'package:flare_flutter/flare_actor.dart';
 import 'package:measurebookapp/pages/redPasivaIGAC.dart';
@@ -83,7 +84,7 @@ class _MyAppState extends State<IniciarSesion> {
                       Row(
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: <Widget>[
-                          SizedBox (width: 60.0),
+                          SizedBox (width: 10.0),
                           Image.network(_googleSignIn.currentUser.photoUrl, height: 75.0,),
                           SizedBox(width: 20.0,),
                           Column(
@@ -117,7 +118,6 @@ class _MyAppState extends State<IniciarSesion> {
                          body: FutureBuilder<List<proyectos>> (
                            future: gestorMBDatabase.db.getProyectos(),
                             builder: (BuildContext context, AsyncSnapshot<List<proyectos>> snapshot){
-                              
                               if (snapshot.hasData) {
                                 if(snapshot.data.length == 0){
                                   return Center(
@@ -146,11 +146,11 @@ class _MyAppState extends State<IniciarSesion> {
                                                     boxShadow: [
                                                     BoxShadow(
                                                     color: Colors.black45,
-                                                    blurRadius: 5.0, // has the effect of softening the shadow
-                                                    spreadRadius: 3.0, // has the effect of extending the shadow
+                                                    blurRadius: 5.0, 
+                                                    spreadRadius: 3.0,
                                                     offset: Offset(
-                                                      10.0, // horizontal, move right 10
-                                                      10.0, // vertical, move down 10
+                                                      10.0, 
+                                                      10.0, 
                                                     ),
                                                   )
                                                 ],
@@ -279,7 +279,20 @@ class _MyAppState extends State<IniciarSesion> {
                                                       )),
                                                       ),
                                                       Divider(),
-                                                      FlatButton(onPressed: (){}, 
+                                                      FlatButton(onPressed: (){
+                                                        Navigator.push(context, MaterialPageRoute(
+                                                          builder: (context) => MenuPrincipalMB(
+                                                          clienteMB: listaProyectos.Cliente,
+                                                          decripcionMB: listaProyectos.Descripcion,
+                                                          empresaMB: listaProyectos.Empresa,
+                                                          id_proyeccion: listaProyectos.ID_Proyeccion,
+                                                          id_usuario: listaProyectos.ID_USUARIO,
+                                                          nombreProyectoMB: listaProyectos.Nombre_Proyecto,
+                                                          proyeccionMB: listaProyectos.Tipo_Proyeccion,
+                                                          ubicacionMB: listaProyectos.Ubicacion,
+                                                          ),
+                                                        ));
+                                                      }, 
                                                       child: Icon(Icons.chevron_right, size: 50.0, color: Colors.blueAccent,))
                                                    ],
                                                 ),
@@ -440,7 +453,20 @@ class _MyAppState extends State<IniciarSesion> {
                                                       )),
                                                       ),
                                                       Divider(),
-                                                      FlatButton(onPressed: (){}, 
+                                                      FlatButton(onPressed: (){
+                                                        Navigator.push(context, MaterialPageRoute(
+                                                          builder: (context) => MenuPrincipalMB(
+                                                          clienteMB: listaProyectos.Cliente,
+                                                          decripcionMB: listaProyectos.Descripcion,
+                                                          empresaMB: listaProyectos.Empresa,
+                                                          id_proyeccion: listaProyectos.ID_Proyeccion,
+                                                          id_usuario: listaProyectos.ID_USUARIO,
+                                                          nombreProyectoMB: listaProyectos.Nombre_Proyecto,
+                                                          proyeccionMB: listaProyectos.Tipo_Proyeccion,
+                                                          ubicacionMB: listaProyectos.Ubicacion,
+                                                          ),
+                                                        ));
+                                                      }, 
                                                       child: Icon(Icons.chevron_right, size: 50.0, color: Colors.blueAccent,))
                                                    ],
                                                 ),

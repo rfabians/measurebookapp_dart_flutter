@@ -211,7 +211,7 @@ class _NuevoProyectoState extends State<NuevoProyecto> {
                         child: ListTile(
                           title: Text(listaDepartamentos.NOMBRE, style: TextStyle(
                             color: Colors.black54,
-                            fontSize: 14.0
+                            fontSize: 16.0
                           ),),
                         trailing: Row(
                           mainAxisSize: MainAxisSize.min,
