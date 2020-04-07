@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import 'importarPuntosRedPasivaIGAC.dart';
 import 'nuevoPunto.dart';
 
 class GestosPuntos extends StatefulWidget {
@@ -77,7 +78,11 @@ class _GestosPuntosState extends State<GestosPuntos> {
                         )),
                         subtitle: Text('Ingresa las coordeandas, descripción y registro fotográfico de los puntos que utilizaras en este proyecto'),
                         trailing: Icon(Icons.chevron_right, size: 30.0, color: Colors.blueAccent,),
-                        onTap: (){},
+                        onTap: (){
+                        Navigator.push(context, MaterialPageRoute(
+                        builder: (context) => ImportPuntosRedPasivaIGAC(
+                        )));
+                        },
                         ),
                         Divider(height: 20),
                         ListTile(

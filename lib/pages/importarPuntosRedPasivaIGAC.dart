@@ -5,30 +5,29 @@ import 'package:latlong/latlong.dart';
 import 'package:measurebookapp/clases/database.dart';
 import 'package:measurebookapp/modelos/RedPasivaIGACPuntos.dart';
 import 'package:user_location/user_location.dart';
-class RedPasivaIgac extends StatefulWidget {
-  RedPasivaIgac({Key key}) : super(key: key);
+
+import 'importPuntoRP_IGAC.dart';
+
+class ImportPuntosRedPasivaIGAC extends StatefulWidget {
+  ImportPuntosRedPasivaIGAC({Key key}) : super(key: key);
 
   @override
-  _RedPasivaIgacState createState() => _RedPasivaIgacState();
+  _ImportPuntosRedPasivaIGACState createState() => _ImportPuntosRedPasivaIGACState();
 }
 
-class _RedPasivaIgacState extends State<RedPasivaIgac> {
-  // Inicialización de Variables
+class _ImportPuntosRedPasivaIGACState extends State<ImportPuntosRedPasivaIGAC> {
+  @override
   MapController mapController = MapController();
   UserLocationOptions userLocationOptions;
   List<Marker> markersUserLocation = [];
   List<Marker> markersClauster = [];
-  // Contrucción de UI
-  @override
   Widget build(BuildContext context) {
-
     userLocationOptions = UserLocationOptions(
       context: context, 
       markers: markersUserLocation,
       mapController: mapController,
       updateMapLocationOnPositionChange: false
       );
-
     return Scaffold(
       body: SafeArea(
         child: FutureBuilder(
@@ -44,7 +43,7 @@ class _RedPasivaIgacState extends State<RedPasivaIgac> {
                       anchorPos: AnchorPos.align(AnchorAlign.center),
                       point: LatLng(listaPuntos.Latitud, listaPuntos.Longitud),
                       builder: (ctx) => FloatingActionButton(
-                        heroTag: 'RedPasivaIgac_1',
+                        heroTag: 'ImportarPuntosRedPasivaIgac_8100${i}',
                       backgroundColor: Colors.transparent,
                       child: Icon(Icons.location_on, size: 40, color: Colors.blueAccent),
                       onPressed: (){
@@ -105,6 +104,18 @@ class _RedPasivaIgacState extends State<RedPasivaIgac> {
                         Divider(),
                         Align(alignment: Alignment.centerRight,child: Text('Vz', style: TextStyle(fontFamily: 'Roboto',color: Colors.black54,fontSize: 12.0),),),
                         Align(alignment: Alignment.centerRight,child: Text('${listaPuntos.Vz}', style: TextStyle(fontFamily: 'Roboto',color: Colors.blueAccent,fontSize: 14.0),),),
+                        ListTile(
+                          title: Text('Importar', style: TextStyle(
+                            fontSize: 16.0,
+                            color: Colors.blueAccent,
+                          )),
+                          onTap: (){
+                            Navigator.push(context, MaterialPageRoute(
+                            builder: (context) => ImportPuntoRP_IGAC(
+                            )));
+                            Navigator.of(context, rootNavigator: true).pop();
+                          },
+                        )
                         ],
                         ),
                         ),
@@ -147,10 +158,10 @@ class _RedPasivaIgacState extends State<RedPasivaIgac> {
               ),
               builder: (context, markers) {
               return FloatingActionButton(
-                heroTag: 'RedPasivaIgac_3',
               onPressed: null,
               child: Text(markers.length.toString()),
               backgroundColor: Colors.black54,
+              heroTag: 'importarPuntoRedPasivaIgac_1',
               );
                                   }
               ),
@@ -176,5 +187,6 @@ class _RedPasivaIgacState extends State<RedPasivaIgac> {
         ),
       ),
     );
+    
   }
 }

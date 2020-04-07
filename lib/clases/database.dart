@@ -115,26 +115,5 @@ class gestorMBDatabase {
     
     return listaPuntosRedPasivaIGAC;
   }
-  Future<List<Marker>> listaMarcadoresRedPasivaIgac() async{
-    List<Marker> markers = List<Marker>();
-    List<redPIGACPuntos> listaPuntosRedPasivaIGAC = await getPuntosRedPIGAC();
-    int contadorPuntos = listaPuntosRedPasivaIGAC.length;
-
-    for (var i = 0; i < contadorPuntos-1; i++) {
-      markers.add(
-        Marker(
-          anchorPos: AnchorPos.align(AnchorAlign.center),
-          point: LatLng(listaPuntosRedPasivaIGAC[i].Latitud, listaPuntosRedPasivaIGAC[i].Longitud),
-          builder: (ctx)=> FloatingActionButton(
-             backgroundColor: Colors.transparent,
-                       child: Icon(Icons.location_on, size: 40, color: Colors.blueAccent),
-                       onPressed: (){
-                       },
-            )
-        )
-      );
-    }
-    return markers;
-  }
 }
 

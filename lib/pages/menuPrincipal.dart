@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-
+import 'importarPuntosRedPasivaIGAC.dart';
 import 'gestorPuntos.dart';
 
 class MenuPrincipalMB extends StatefulWidget {
@@ -99,6 +99,9 @@ class _MenuPrincipalMBState extends State<MenuPrincipalMB> {
                         color: Colors.black54,
                       )),
                       trailing: Icon(Icons.chevron_right, size: 30.0, color: Colors.blueAccent,),
+                      onTap: (){
+                        
+                      },
                     )
                   ],
                 )
