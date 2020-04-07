@@ -23,6 +23,7 @@ class MeasureBookAPP extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'Iniciar Sesion',
       home: IniciarSesion(),
     );
@@ -67,6 +68,7 @@ class _MyAppState extends State<IniciarSesion> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       home: Scaffold(
         backgroundColor: Colors.white,
         body: Center(
@@ -79,7 +81,7 @@ class _MyAppState extends State<IniciarSesion> {
                     // Implementación de Interfaz cuando el usuario ya está logeado
                     children: <Widget>[
                       SizedBox(
-                        height: 45.0,
+                        height: 5.0,
                       ),
                       Row(
                         crossAxisAlignment: CrossAxisAlignment.center,
