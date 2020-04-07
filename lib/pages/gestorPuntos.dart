@@ -3,7 +3,8 @@ import 'package:flutter/material.dart';
 import 'nuevoPunto.dart';
 
 class GestosPuntos extends StatefulWidget {
-  GestosPuntos({Key key}) : super(key: key);
+  final String nombreProyecto, proyeccionMB, idUser, idProyeccion;
+  GestosPuntos({Key key, this.nombreProyecto, this.proyeccionMB, this.idUser, this.idProyeccion}) : super(key: key);
 
   @override
   _GestosPuntosState createState() => _GestosPuntosState();
@@ -60,7 +61,10 @@ class _GestosPuntosState extends State<GestosPuntos> {
                         trailing: Icon(Icons.chevron_right, size: 30.0, color: Colors.blueAccent,),
                         onTap: (){
                         Navigator.push(context, MaterialPageRoute(
-                        builder: (context) => PuntoNuevo()));
+                        builder: (context) => PuntoNuevo(
+                          idUserMB: widget.idUser,
+                          nombreProyecto: widget.nombreProyecto,
+                        )));
                         },
                         ),
                         Divider(height: 20),

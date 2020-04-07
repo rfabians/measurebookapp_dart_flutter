@@ -65,7 +65,12 @@ class _MenuPrincipalMBState extends State<MenuPrincipalMB> {
                       trailing: Icon(Icons.chevron_right, size: 30.0, color: Colors.blueAccent,),
                       onTap: () {
                         Navigator.push(context, MaterialPageRoute(
-                        builder: (context) => GestosPuntos()));
+                        builder: (context) => GestosPuntos(
+                          idUser: widget.id_usuario,
+                          idProyeccion: widget.id_proyeccion,
+                          nombreProyecto: widget.nombreProyectoMB,
+                          proyeccionMB: widget.proyeccionMB,
+                        )));
                       },
                     )
                   ],
