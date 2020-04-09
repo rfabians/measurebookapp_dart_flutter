@@ -5,7 +5,9 @@ import 'package:flutter_map/flutter_map.dart';
 import 'package:flutter_map_marker_cluster/flutter_map_marker_cluster.dart';
 import 'package:latlong/latlong.dart';
 import 'package:measurebookapp/modelos/RedPasivaIGACPuntos.dart';
+import 'package:measurebookapp/modelos/cartesianasCS.dart';
 import 'package:measurebookapp/modelos/departamentos.dart';
+import 'package:measurebookapp/modelos/gaussCS.dart';
 import 'package:measurebookapp/modelos/municipios.dart';
 import 'package:measurebookapp/modelos/obtenerVarios.dart';
 import 'package:measurebookapp/modelos/origenesCartesianos.dart';
@@ -110,10 +112,38 @@ class gestorMBDatabase {
     WidgetsFlutterBinding.ensureInitialized();
     Database db = await mbBasedeDatos();
     var response = await db.rawQuery('SELECT * FROM RED_PASIVA_IGAC');
-    List<redPIGACPuntos>  listaPuntosRedPasivaIGAC = response.map((c)=> redPIGACPuntos.fromMap(c)).toList();
-
-    
+    List<redPIGACPuntos>  listaPuntosRedPasivaIGAC = response.map((c)=> redPIGACPuntos.fromMap(c)).toList();    
     return listaPuntosRedPasivaIGAC;
   }
+
+   Future<GaussCS> getOrigenGaussData(int idProyeccionGauss) async {
+     Database db = await mbBasedeDatos();
+       var response = await db.rawQuery('SELECT PK_ORIGENES_GAUSS, LATITUD, LONGITUD, NORTE, ESTE, N0 FROM ORIGENES_GAUSS WHERE PK_ORIGENES_GAUSS = ${idProyeccionGauss}'); 
+       List<GaussCS>  datosOrigenGauss = response.map((c)=> GaussCS.fromMap(c)).toList(); 
+       GaussCS datosGaussOrigen;
+       datosGaussOrigen.PK_ORIGENES_GAUSS = datosOrigenGauss[0].PK_ORIGENES_GAUSS;
+       datosGaussOrigen.LATITUD = datosOrigenGauss[0].LATITUD;
+       datosGaussOrigen.LONGITUD = datosOrigenGauss[0].LONGITUD;
+       datosGaussOrigen.NORTE = datosOrigenGauss[0].NORTE;
+       datosGaussOrigen.ESTE = datosOrigenGauss[0].ESTE;
+       datosGaussOrigen.N0 = datosOrigenGauss[0].N0;
+
+       return datosGaussOrigen;
+   }
+
+   Future<CartesianasCS> getOrigenCartesianoData(int idProyeccionCartesiana) async {
+     Database db = await mbBasedeDatos();
+     var response = await db.rawQuery('SELECT PK_ORIGENES_CART, LATITUD, LONGITUD, NORTE, ESTE, PLANO_PROY FROM ORIGENES_CART WHERE PK_ORIGENES_CART = ${idProyeccionCartesiana}');
+     List<CartesianasCS>  datosOrigenCartesianos = response.map((c)=> CartesianasCS.fromMap(c)).toList();
+     CartesianasCS datosCartesainosOrigen ;
+     datosCartesainosOrigen.PK_ORIGENES_CART = datosOrigenCartesianos[0].PK_ORIGENES_CART;
+     datosCartesainosOrigen.LATITUD = datosOrigenCartesianos[0].LATITUD;
+     datosCartesainosOrigen.LONGITUD = datosOrigenCartesianos[0].LONGITUD;
+     datosCartesainosOrigen.NORTE = datosOrigenCartesianos[0].NORTE;
+     datosCartesainosOrigen.ESTE = datosOrigenCartesianos[0].ESTE;
+     datosCartesainosOrigen.PLANO_PROY = datosOrigenCartesianos[0].PLANO_PROY;
+
+     return datosCartesainosOrigen;
+   }
 }
 

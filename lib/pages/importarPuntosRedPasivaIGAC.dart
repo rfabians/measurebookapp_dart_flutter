@@ -4,6 +4,7 @@ import 'package:flutter_map_marker_cluster/flutter_map_marker_cluster.dart';
 import 'package:latlong/latlong.dart';
 import 'package:measurebookapp/clases/database.dart';
 import 'package:measurebookapp/modelos/RedPasivaIGACPuntos.dart';
+import 'package:measurebookapp/pages/puntoIgacImportado.dart';
 import 'package:user_location/user_location.dart';
 
 import 'importPuntoRP_IGAC.dart';
@@ -57,8 +58,29 @@ class _ImportPuntosRedPasivaIGACState extends State<ImportPuntosRedPasivaIGAC> {
                         child: SingleChildScrollView(
                         child: Column(
                         children: <Widget>[
-                        Align(alignment: Alignment.center,child: Text('${listaPuntos.Nomenclatu}', style: TextStyle(fontFamily: 'Roboto',color: Colors.blueAccent,fontSize: 16.0),),),
-                        Divider(),
+                        Container(
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10.0),
+                          ),
+                          child: ListTile(
+                            title: Text('Importar Punto ${listaPuntos.Nomenclatu}', style: TextStyle(
+                              color: Colors.black54,
+                              fontSize: 16.0
+                            ),),
+                            onTap: (){
+                              Navigator.push(context, MaterialPageRoute(
+                              builder: (context) => PuntoIgacImportado(
+                                altura: listaPuntos.Altura_eli,
+                                nombrePunto: listaPuntos.Nomenclatu,
+                              )));
+                              Navigator.of(context, rootNavigator: true).pop();
+                            },
+                            trailing: Icon(Icons.chevron_right, color: Colors.blueAccent,),
+                            leading: Image.asset('assets/images/import.png', height: 100,),
+
+                          ),
+                        ),
+                        Divider(height: 20.0,),
                         Align(alignment: Alignment.centerLeft,child: Text('Datos Básicos', style: TextStyle(fontFamily: 'Roboto',color: Colors.blueAccent,fontSize: 12.0),),),
                         Align(alignment: Alignment.centerRight,child: Text('Municipio', style: TextStyle(fontFamily: 'Roboto',color: Colors.black54,fontSize: 12.0),),),
                         Align(alignment: Alignment.centerRight,child: Text('${listaPuntos.Municipio}', style: TextStyle(fontFamily: 'Roboto',color: Colors.blueAccent,fontSize: 14.0),),),
@@ -104,18 +126,6 @@ class _ImportPuntosRedPasivaIGACState extends State<ImportPuntosRedPasivaIGAC> {
                         Divider(),
                         Align(alignment: Alignment.centerRight,child: Text('Vz', style: TextStyle(fontFamily: 'Roboto',color: Colors.black54,fontSize: 12.0),),),
                         Align(alignment: Alignment.centerRight,child: Text('${listaPuntos.Vz}', style: TextStyle(fontFamily: 'Roboto',color: Colors.blueAccent,fontSize: 14.0),),),
-                        ListTile(
-                          title: Text('Importar', style: TextStyle(
-                            fontSize: 16.0,
-                            color: Colors.blueAccent,
-                          )),
-                          onTap: (){
-                            Navigator.push(context, MaterialPageRoute(
-                            builder: (context) => ImportPuntoRP_IGAC(
-                            )));
-                            Navigator.of(context, rootNavigator: true).pop();
-                          },
-                        )
                         ],
                         ),
                         ),
