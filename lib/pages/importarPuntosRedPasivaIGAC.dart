@@ -2,21 +2,67 @@ import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:flutter_map_marker_cluster/flutter_map_marker_cluster.dart';
 import 'package:latlong/latlong.dart';
+import 'package:measurebookapp/clases/conversionCoordenadasMB.dart';
 import 'package:measurebookapp/clases/database.dart';
 import 'package:measurebookapp/modelos/RedPasivaIGACPuntos.dart';
+import 'package:measurebookapp/modelos/cPlanasGenerico.dart';
+import 'package:measurebookapp/modelos/cartesianasCS.dart';
+import 'package:measurebookapp/modelos/coordenadasCartesianas.dart';
+import 'package:measurebookapp/modelos/coordenadasElipsoidales.dart';
+import 'package:measurebookapp/modelos/coordenadasPlanasGauss.dart';
+import 'package:measurebookapp/modelos/gaussCS.dart';
 import 'package:measurebookapp/pages/puntoIgacImportado.dart';
 import 'package:user_location/user_location.dart';
-
-import 'importPuntoRP_IGAC.dart';
+import 'dart:math' as m;
 
 class ImportPuntosRedPasivaIGAC extends StatefulWidget {
-  ImportPuntosRedPasivaIGAC({Key key}) : super(key: key);
+  final String idusuario, idProyeccion, idProyecto, proyeccion; 
+  ImportPuntosRedPasivaIGAC({ Key key, this.idProyeccion, this.idProyecto, this.idusuario, this.proyeccion}) : super(key: key);
+
+
 
   @override
   _ImportPuntosRedPasivaIGACState createState() => _ImportPuntosRedPasivaIGACState();
 }
 
 class _ImportPuntosRedPasivaIGACState extends State<ImportPuntosRedPasivaIGAC> {
+  Future<CPlanasGenerico>  coordenadasInportadas (double latitud, double longitud, double alturaPunto) async {
+  if (widget.proyeccion == 'Gauss-Krüger')  {
+    GaussCS gaussCS = await gestorMBDatabase.db.getOrigenGaussData(widget.idProyeccion);
+    CoordenadasElipsoidales coordenadasElipsoidales = CoordenadasElipsoidales();
+    coordenadasElipsoidales.latitud = latitud;
+    coordenadasElipsoidales.longitud = longitud;
+    coordenadasElipsoidales.altitud = alturaPunto;
+    ConversionCoordenadasMB conversionCoordenadasMB = ConversionCoordenadasMB();
+    CoordenadasGauss coordenadasGauss = CoordenadasGauss();
+    coordenadasGauss = conversionCoordenadasMB.elipsoidales2Gauss(coordenadasElipsoidales,gaussCS);
+    CPlanasGenerico cPlanasGenerico = CPlanasGenerico();
+    cPlanasGenerico.norte = coordenadasGauss.norte;
+    cPlanasGenerico.este = coordenadasGauss.este;
+    cPlanasGenerico.altura = alturaPunto;
+    return cPlanasGenerico;
+    
+  }else {
+    CartesianasCS cartesianasCS = await gestorMBDatabase.db.getOrigenCartesianoData(widget.idProyeccion);
+    CoordenadasElipsoidales coordenadasElipsoidales = CoordenadasElipsoidales();
+    coordenadasElipsoidales.latitud = latitud;
+    coordenadasElipsoidales.longitud = longitud;
+    coordenadasElipsoidales.altitud = alturaPunto;
+    ConversionCoordenadasMB conversionCoordenadasMB = ConversionCoordenadasMB();
+    CoordenadasCartesianas coordenadasCartesianas = conversionCoordenadasMB.elipsoidales2Cartesianas(cartesianasCS, coordenadasElipsoidales);
+    CPlanasGenerico cPlanasGenerico = CPlanasGenerico();
+    cPlanasGenerico.norte = coordenadasCartesianas.norte;
+    cPlanasGenerico.este = coordenadasCartesianas.este;
+    cPlanasGenerico.altura = alturaPunto;
+    return cPlanasGenerico;
+  }
+}
+
+  double roundDouble(double value, int places){ 
+   double mod = m.pow(10.0, places); 
+   return ((value * mod).round().toDouble() / mod); 
+}
+
   @override
   MapController mapController = MapController();
   UserLocationOptions userLocationOptions;
@@ -67,11 +113,20 @@ class _ImportPuntosRedPasivaIGACState extends State<ImportPuntosRedPasivaIGAC> {
                               color: Colors.black54,
                               fontSize: 16.0
                             ),),
-                            onTap: (){
+                            onTap: ()async {
+                              CPlanasGenerico coordenadasSalida = CPlanasGenerico();
+                              coordenadasSalida= await coordenadasInportadas(listaPuntos.Latitud, listaPuntos.Longitud, listaPuntos.Altura_eli);
                               Navigator.push(context, MaterialPageRoute(
                               builder: (context) => PuntoIgacImportado(
-                                altura: listaPuntos.Altura_eli,
+                                altura: roundDouble(listaPuntos.Altura_eli, 3),
                                 nombrePunto: listaPuntos.Nomenclatu,
+                                pkSistemaCoordenadas: widget.idProyeccion,
+                                idUsuario: widget.idusuario,
+                                norte: roundDouble(coordenadasSalida.norte, 3),
+                                nombreProyecto: widget.idProyecto,
+                                este: roundDouble(coordenadasSalida.este,3),
+                                ondulacion: roundDouble(listaPuntos.Ondulacion, 3), 
+                                sistemaCoordenadas: widget.proyeccion,
                               )));
                               Navigator.of(context, rootNavigator: true).pop();
                             },

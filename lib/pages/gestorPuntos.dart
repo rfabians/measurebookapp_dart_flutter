@@ -81,6 +81,10 @@ class _GestosPuntosState extends State<GestosPuntos> {
                         onTap: (){
                         Navigator.push(context, MaterialPageRoute(
                         builder: (context) => ImportPuntosRedPasivaIGAC(
+                          idProyeccion: widget.idProyeccion,
+                          idProyecto: widget.nombreProyecto,
+                          idusuario: widget.idProyeccion,
+                          proyeccion: widget.proyeccionMB,
                         )));
                         },
                         ),

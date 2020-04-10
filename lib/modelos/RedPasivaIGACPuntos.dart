@@ -16,7 +16,7 @@ class redPIGACPuntos{
       FECHA: json["FECHA"],
       Latitud: json["Latitud"],
       Longitud: json["Longitud"],
-      Altura_eli: json["Longitud"],
+      Altura_eli: json["Altura_eli"],
       X: json["X"],
       Y: json["Y"],
       Z: json["Z"],

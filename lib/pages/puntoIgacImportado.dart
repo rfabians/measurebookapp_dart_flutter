@@ -4,12 +4,14 @@ import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:measurebookapp/clases/database.dart';
 import 'gestorPuntos.dart';
+import 'dart:math' as m;
 
 class PuntoIgacImportado extends StatefulWidget {
-  final String idUsuario, nombreProyecto, nombrePunto;
+  final String idUsuario, nombreProyecto, nombrePunto, sistemaCoordenadas,pkSistemaCoordenadas;
   final double norte, este, altura, ondulacion;
   final bool tipoAltura;
-  PuntoIgacImportado({Key key, this.idUsuario, this.nombreProyecto,this.nombrePunto, this.norte, this.este, this.altura, this.tipoAltura, this.ondulacion}) : super(key: key);
+
+  PuntoIgacImportado({Key key, this.sistemaCoordenadas, this.pkSistemaCoordenadas,this.idUsuario, this.nombreProyecto,this.nombrePunto, this.norte, this.este, this.altura, this.tipoAltura, this.ondulacion}) : super(key: key);
 
   @override
   _PuntoIgacImportadoState createState() => _PuntoIgacImportadoState();
@@ -17,7 +19,6 @@ class PuntoIgacImportado extends StatefulWidget {
 
 class _PuntoIgacImportadoState extends State<PuntoIgacImportado> {
 
-  
 
   bool alturaOrtometrica = true;
   double nortePuntoNuevo;
@@ -34,13 +35,35 @@ class _PuntoIgacImportadoState extends State<PuntoIgacImportado> {
   List<int> fotoEsteBytes = null;
   List<int> fotoSurBytes = null;
   List<int> fotoOesteBytes = null;
+  @override
+  final _textEditingAlturaController = TextEditingController();
 
+  @override
+  void initState() { 
+    super.initState();
+    _textEditingAlturaController.addListener(_textEditingAlturaControllerListener);
+  }
+
+  void _textEditingAlturaControllerListener(){
+    if(alturaOrtometrica == true){
+      _textEditingAlturaController.text = (widget.altura-widget.ondulacion).toString();
+    }else {
+      _textEditingAlturaController.text = (widget.altura).toString();
+    }
+  }
+
+//Conversión de Coordenadas importadas
+  double roundDouble(double value, int places){ 
+   double mod = m.pow(10.0, places); 
+   return ((value * mod).round().toDouble() / mod); 
+}
+// Estado tipo de Altura
 String tipoaltura(bool tipoALturaSw){
-    if (tipoALturaSw == true) {
+    if (alturaOrtometrica == true) {
       String alturaOrtometricaSW = 'Ortométrica';
       setState(() {
         alturaPuntoNuevo = widget.altura-widget.ondulacion;
-      });
+      }); 
       return alturaOrtometricaSW;
     }else {
       String alturaOrtometricaSW = 'Elipsoidal';
@@ -271,6 +294,7 @@ String tipoaltura(bool tipoALturaSw){
                         },
                       ),
                       TextFormField(
+                      initialValue: '${widget.norte}',
                       decoration: InputDecoration(
                         icon: Icon(Icons.add_location),
                         labelText: 'Coordenada Norte',
@@ -287,6 +311,7 @@ String tipoaltura(bool tipoALturaSw){
                         },
                       ),
                       TextFormField(
+                        initialValue: '${widget.este}',
                         decoration: InputDecoration(
                           icon: Icon(Icons.add_location),
                           labelText: 'Coordenada Este',
@@ -303,9 +328,10 @@ String tipoaltura(bool tipoALturaSw){
                       },
                     ),
                     TextFormField(
+                      initialValue: '${ roundDouble(widget.altura-widget.ondulacion,3)}',
                       decoration: InputDecoration(
                         icon: Icon(Icons.add_location),
-                        labelText: 'Altura del Punto',
+                        labelText: 'Altura Ortometrica del Punto',
                       ),
                       keyboardType: TextInputType.number,
                       inputFormatters: [WhitelistingTextInputFormatter(new RegExp(r'^[+]?([0-9]+([.][0-9]*)?|[.][0-9]+)$'))],
@@ -323,24 +349,6 @@ String tipoaltura(bool tipoALturaSw){
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: <Widget>[
-                          Center(
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: <Widget>[
-                              Text('Altura Ortométrica'),
-                              Align(
-                              alignment: Alignment.centerLeft,
-                              child: CupertinoSwitch(
-                              value: alturaOrtometrica,
-                              activeColor: Colors.blueAccent,
-                              onChanged: (altOrtometrico){
-                              alturaOrtometrica = altOrtometrico;
-                              },
-                            ),
-                          ),
-                              ],
-                            ),
-                          ),
                         ],
                       ),
                     ),

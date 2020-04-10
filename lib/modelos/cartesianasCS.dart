@@ -1,10 +1,10 @@
 class CartesianasCS {
-   int PK_ORIGENES_CART;
+   String NOMBRE;
    double LATITUD, LONGITUD, NORTE, ESTE, PLANO_PROY;
-   CartesianasCS({ this.PK_ORIGENES_CART, this.LATITUD, this.LONGITUD, this.NORTE, this.ESTE, this.PLANO_PROY});
+   CartesianasCS({ this.NOMBRE, this.LATITUD, this.LONGITUD, this.NORTE, this.ESTE, this.PLANO_PROY});
    
    factory CartesianasCS.fromMap(Map<String, dynamic> json) => new CartesianasCS(
-    PK_ORIGENES_CART: json["PK_ORIGENES_GAUSS"],
+    NOMBRE: json["NOMBRE"],
     LATITUD: json['LATITUD'],
     LONGITUD: json['LONGITUD'],
     NORTE: json['NORTE'],

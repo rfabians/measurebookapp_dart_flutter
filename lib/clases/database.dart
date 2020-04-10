@@ -116,12 +116,12 @@ class gestorMBDatabase {
     return listaPuntosRedPasivaIGAC;
   }
 
-   Future<GaussCS> getOrigenGaussData(int idProyeccionGauss) async {
+   Future<GaussCS> getOrigenGaussData(String idProyeccionGauss) async {
      Database db = await mbBasedeDatos();
-       var response = await db.rawQuery('SELECT PK_ORIGENES_GAUSS, LATITUD, LONGITUD, NORTE, ESTE, N0 FROM ORIGENES_GAUSS WHERE PK_ORIGENES_GAUSS = ${idProyeccionGauss}'); 
+       var response = await db.rawQuery('SELECT NOMBRE, LATITUD, LONGITUD, NORTE, ESTE, N0 FROM ORIGENES_GAUSS WHERE NOMBRE = "${idProyeccionGauss}" AND FK_SISTEMA = 1;'); 
        List<GaussCS>  datosOrigenGauss = response.map((c)=> GaussCS.fromMap(c)).toList(); 
-       GaussCS datosGaussOrigen;
-       datosGaussOrigen.PK_ORIGENES_GAUSS = datosOrigenGauss[0].PK_ORIGENES_GAUSS;
+       GaussCS datosGaussOrigen = GaussCS();
+       datosGaussOrigen.NOMBRE = datosOrigenGauss[0].NOMBRE;
        datosGaussOrigen.LATITUD = datosOrigenGauss[0].LATITUD;
        datosGaussOrigen.LONGITUD = datosOrigenGauss[0].LONGITUD;
        datosGaussOrigen.NORTE = datosOrigenGauss[0].NORTE;
@@ -131,12 +131,12 @@ class gestorMBDatabase {
        return datosGaussOrigen;
    }
 
-   Future<CartesianasCS> getOrigenCartesianoData(int idProyeccionCartesiana) async {
+   Future<CartesianasCS> getOrigenCartesianoData(String idProyeccionCartesiana) async {
      Database db = await mbBasedeDatos();
-     var response = await db.rawQuery('SELECT PK_ORIGENES_CART, LATITUD, LONGITUD, NORTE, ESTE, PLANO_PROY FROM ORIGENES_CART WHERE PK_ORIGENES_CART = ${idProyeccionCartesiana}');
+     var response = await db.rawQuery('SELECT NOMBRE, LATITUD, LONGITUD, NORTE, ESTE, PLANO_PROY FROM ORIGENES_CART WHERE NOMBRE = "${idProyeccionCartesiana}" AND FK_SISTEMA = 1');
      List<CartesianasCS>  datosOrigenCartesianos = response.map((c)=> CartesianasCS.fromMap(c)).toList();
-     CartesianasCS datosCartesainosOrigen ;
-     datosCartesainosOrigen.PK_ORIGENES_CART = datosOrigenCartesianos[0].PK_ORIGENES_CART;
+     CartesianasCS datosCartesainosOrigen = CartesianasCS();
+     datosCartesainosOrigen.NOMBRE = datosOrigenCartesianos[0].NOMBRE;
      datosCartesainosOrigen.LATITUD = datosOrigenCartesianos[0].LATITUD;
      datosCartesainosOrigen.LONGITUD = datosOrigenCartesianos[0].LONGITUD;
      datosCartesainosOrigen.NORTE = datosOrigenCartesianos[0].NORTE;

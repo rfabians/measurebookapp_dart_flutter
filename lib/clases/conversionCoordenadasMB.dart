@@ -69,7 +69,7 @@ return _coordenadasGeocentricas;
 
 //Conversión de coordenadas Elipsoidales a Gauss
 CoordenadasGauss elipsoidales2Gauss(CoordenadasElipsoidales _elipsoidales, GaussCS _gaussOrigen) {
-  double _latitudPunto = _elipsoidales.longitud;
+  double _latitudPunto = _elipsoidales.latitud;
   double _longitudPunto = _elipsoidales.longitud;
   double _alturaPunto = _elipsoidales.altitud;
   // Constantes Elipsoide
@@ -102,16 +102,17 @@ CoordenadasGauss elipsoidales2Gauss(CoordenadasElipsoidales _elipsoidales, Gauss
   double _N2 = _t * _N / 24 * m.pow(m.cos(_laRad), 4) * (5 - m.pow(_t, 2) + 9 * _eta2 + 4 * m.pow(_eta2, 2)) * m.pow(_l, 4);
   double _N3 = _t * _N / 720 * m.pow(m.cos(_laRad), 6) * (61 - 58 * m.pow(_t, 2) + m.pow(_t, 4) + 270 * _eta2 - 330 * _eta2 * m.pow(_t, 2)) * m.pow(_l, 6);
   double _N4 = _t * _N / 40320 * m.pow(m.cos(_laRad), 8) * (1385 - 3111 * m.pow(_t, 2) + 543 * m.pow(_t, 4) - m.pow(_t, 6)) * m.pow(_l, 8);
-  double _norte = 1000000.000 + _Darcos + _N1 + _N2 + _N3 + _N4;
+  double _norte = 1000000 + _Darcos + _N1 + _N2 + _N3 + _N4;
   double _E1 = _N * _l * m.cos(_laRad);
   double _E2 = _N / 6 * m.pow(m.cos(_laRad), 3) * (1 - m.pow(_t, 2) + _eta2) * m.pow(_l, 3);
   double _E3 = _N / 120 * m.pow(m.cos(_laRad), 5) * (5 - 18 * m.pow(_t, 2) + m.pow(_t, 4) + 14 * _eta2 - 58 * m.pow(_t, 2) * _eta2) * m.pow(_l, 5);
   double _E4 = _N / 5040 * m.pow(m.cos(_laRad), 7) * (61 - 479 * m.pow(_t, 2) + 179 * m.pow(_t, 4) - m.pow(_t, 6)) * m.pow(_l, 7);
-  double _east = 1000000.000 + _E1 + _E2 + _E3 + _E4;
-  CoordenadasGauss coordenadasGauss;
+  double _east = 1000000 + _E1 + _E2 + _E3 + _E4;
+  CoordenadasGauss coordenadasGauss = CoordenadasGauss();
   coordenadasGauss.norte = _norte;
   coordenadasGauss.este = _east;
   coordenadasGauss.altura = _alturaPunto;
+  return coordenadasGauss;
 }
 // Coversión de coordenadas Gauss a Elipsoidales
 CoordenadasElipsoidales gauss2Elipsoidales (GaussCS _origenGauss, CoordenadasGauss _gauss) {
@@ -187,8 +188,8 @@ CoordenadasCartesianas elipsoidales2Cartesianas (CartesianasCS _cartesianasO, Co
   double _E2 = 1 + _pP / _No;
   double _east = _E1 * _E2 + 92334.879;
 
-  CoordenadasCartesianas _coordenadasCartesianas;
-  _coordenadasCartesianas.norte = _north;
+  CoordenadasCartesianas _coordenadasCartesianas = CoordenadasCartesianas();
+  _coordenadasCartesianas.norte =  _north;
   _coordenadasCartesianas.este = _east;
   _coordenadasCartesianas.altura = _alturaP;
 
