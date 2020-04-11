@@ -35,17 +35,14 @@ class _MapaPuntosReferenciaState extends State<MapaPuntosReferencia> {
     GaussCS gaussCS = await gestorMBDatabase.db.getOrigenGaussData(widget.idCoordenadas);
     List<puntosReferencia> listaRef = await gestorMBDatabase.db.getPuntosReferenciaData(widget.nombreProyecto);
     int cont = listaRef.length;
+    ConversionCoordenadasMB conversionCoordenadasMB = ConversionCoordenadasMB();
 
     for (var i = 0; i < cont; i++) {
-    List<CoordenadasGauss> listacoordenadasGauss = List<CoordenadasGauss>();
-    listacoordenadasGauss[i].norte = listaRef[i].Norte;
-    listacoordenadasGauss[i].este = listaRef[iOSHorizontalOffset].Este;
-    listacoordenadasGauss[i].altura = listaRef[i].Altura;
-    ConversionCoordenadasMB conversionCoordenadasMB = ConversionCoordenadasMB();
-    CoordenadasElipsoidales coordenadasElipsoidales = CoordenadasElipsoidales();
-    coordenadasElipsoidales = conversionCoordenadasMB.gauss2Elipsoidales(gaussCS, listacoordenadasGauss[i]);
-    listaRef[i].latitud = coordenadasElipsoidales.latitud;
-    listaRef[i].longitud = coordenadasElipsoidales.longitud;
+    List<CoordenadasElipsoidales> listCoorElip = List<CoordenadasElipsoidales>(cont);
+    listCoorElip[i] = conversionCoordenadasMB.gauss2Elipsoidales(gaussCS, CoordenadasGauss(norte: listaRef[i].Norte, este: listaRef[i].Este, altura: listaRef[i].Altura));
+    listaRef[i].latitud = listCoorElip[i].latitud;
+    listaRef[i].longitud = listCoorElip[i].longitud;
+    listaRef[i].Altura = listCoorElip[i].altitud;
     }
     return listaRef;
     
@@ -60,7 +57,6 @@ class _MapaPuntosReferenciaState extends State<MapaPuntosReferencia> {
     listaRef[i].latitud = listCoorElip[i].latitud;
     listaRef[i].longitud = listCoorElip[i].longitud;
     listaRef[i].Altura = listCoorElip[i].altitud;
-    
     }
     return listaRef;
   }

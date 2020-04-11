@@ -148,7 +148,7 @@ CoordenadasElipsoidales gauss2Elipsoidales (GaussCS _origenGauss, CoordenadasGau
   double _lo4 = 1 / (5040 * m.pow(_C, 7) * m.cos(_y)) * (-61 - 662 * m.pow(_B0, 2) - 1320 * m.pow(_B0, 4) - 720 * m.pow(_B0, 6)) * m.pow(_A1, 7);
   double _lon = grados2Radianes(_origenGauss.LONGITUD) + _loIni + _lo + _lo3 + _lo4;
   double _longitude = radianes2Grados(_lon);
-  CoordenadasElipsoidales elipCoor;
+  CoordenadasElipsoidales elipCoor = CoordenadasElipsoidales();
   elipCoor.longitud = _longitude;
   elipCoor.latitud = _latitude;
   elipCoor.altitud= _alturaPunto;
@@ -199,7 +199,7 @@ CoordenadasCartesianas elipsoidales2Cartesianas (CartesianasCS _cartesianasO, Co
 // conversion de coordenadas Elipsoidales a Planas Cartesianas
 
 CoordenadasElipsoidales cartesianas2Elipoidales(CoordenadasCartesianas _coordenadasCartesianas, CartesianasCS _cartesianasCS) {
-   
+  
   double _No = _coordenadasCartesianas.norte;
   double _e2 = _coordenadasCartesianas.este;
   double _alturaPunto = _coordenadasCartesianas.altura;
@@ -211,9 +211,9 @@ CoordenadasElipsoidales cartesianas2Elipoidales(CoordenadasCartesianas _coordena
   double _A1 = grados2Radianes(_cartesianasCS.LONGITUD);
   double _A2 = _cartesianasCS.PLANO_PROY;
   //Falso Norte
-  double _J2 = _No - _coordenadasCartesianas.norte;
+  double _J2 = _No - _cartesianasCS.NORTE;
   //Falso Este
-  double _J4 = _e2 - _coordenadasCartesianas.este;
+  double _J4 = _e2 - _cartesianasCS.ESTE;
   double _J6 = m.sin(_a);
   double _al = 1 - _laIni * m.pow(_J6, 2);
   double _be = _X / m.sqrt(_al);
@@ -230,14 +230,10 @@ CoordenadasElipsoidales cartesianas2Elipoidales(CoordenadasCartesianas _coordena
   double _loIni = _J4 / (_Np * m.cos(_N) * (1 + _A2 / _X));
   double _lo = _A1 + _loIni;
   double _lon = _lo * 57.29577951308232;
-  double _Latitud = _latitude;
-  double _Longitud = _lon;
-
-  CoordenadasElipsoidales _coordenadasElipsoidales;
-  _coordenadasElipsoidales.latitud = _Latitud;
-  _coordenadasElipsoidales.longitud = _Longitud;
+  CoordenadasElipsoidales _coordenadasElipsoidales = CoordenadasElipsoidales();
+  _coordenadasElipsoidales.latitud = _latitude;
+  _coordenadasElipsoidales.longitud = _lon;
   _coordenadasElipsoidales.altitud = _alturaPunto;
-
   return _coordenadasElipsoidales;    
 }
 }

@@ -1,5 +1,4 @@
 
-import 'dart:html';
 
 class puntosReferencia{
   int ID_Punto;
@@ -9,16 +8,18 @@ class puntosReferencia{
   double Norte;
   double Este;
   double Altura;
+  double latitud;
+  double longitud;
   String Tipo_Altura;
   String Descripcion;
   // Revisar almacensamiento de BLOB
-  Blob Foto_Placa;
-  Blob Foto_Norte;
-  Blob Foto_Este;
-  Blob Foto_Sur;
-  Blob Foto_Oeste;
+  List<int> Foto_Placa;
+  List<int> Foto_Norte;
+  List<int> Foto_Este;
+  List<int> Foto_Sur;
+  List<int> Foto_Oeste;
 
-  puntosReferencia({this.ID_Punto, this.ID_Usuario, this.Proyecto, this.Nombre_Punto, this.Norte, this.Este, this.Altura, this.Tipo_Altura, this.Descripcion, this.Foto_Placa, this.Foto_Norte, this.Foto_Este, this.Foto_Sur, this.Foto_Oeste});
+  puntosReferencia({this.ID_Punto, this.ID_Usuario, this.Proyecto, this.Nombre_Punto, this.Norte, this.Este, this.Altura, this.Tipo_Altura,this.latitud, this.longitud ,this.Descripcion, this.Foto_Placa, this.Foto_Norte, this.Foto_Este, this.Foto_Sur, this.Foto_Oeste});
 
   factory puntosReferencia.fromMap(Map<String, dynamic> json) => new puntosReferencia(
       ID_Punto: json["ID_Punto"],

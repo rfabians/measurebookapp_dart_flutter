@@ -13,6 +13,7 @@ import 'package:measurebookapp/modelos/obtenerVarios.dart';
 import 'package:measurebookapp/modelos/origenesCartesianos.dart';
 import 'package:measurebookapp/modelos/origenesGauss.dart';
 import 'package:measurebookapp/modelos/proyectos.dart';
+import 'package:measurebookapp/modelos/puntosReferencia.dart';
 import 'package:measurebookapp/pages/redPasivaIGAC.dart';
 import 'package:path/path.dart';
 import 'dart:typed_data';
@@ -145,5 +146,12 @@ class gestorMBDatabase {
 
      return datosCartesainosOrigen;
    }
+
+  Future<List<puntosReferencia>> getPuntosReferenciaData(String nombrePRoyecto) async {
+    Database db = await mbBasedeDatos();
+    var response = await db.rawQuery('SELECT Id_Usuario, Proyecto, Nombre_Punto, Norte,  Este, Altura, Tipo_Altura, Foto_Placa, Foto_Norte,Foto_Este, Foto_Sur, Foto_Oeste  FROM PUNTOS_REFERENCIA WHERE Proyecto = "${nombrePRoyecto}"');
+    List<puntosReferencia>  listaPuntosRef = response.map((c)=> puntosReferencia.fromMap(c)).toList(); 
+    return listaPuntosRef;
+  }
 }
 

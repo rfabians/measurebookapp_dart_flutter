@@ -8,8 +8,8 @@ import 'gestorPuntos.dart';
 
 class PuntoNuevo extends StatefulWidget {
   final String idUserMB;
-  final String nombreProyecto;
-  PuntoNuevo({Key key, this.idUserMB, this.nombreProyecto}) : super(key: key);
+  final String nombreProyecto, proyeccion, id_sistemaCoor;
+  PuntoNuevo({Key key, this.idUserMB, this.nombreProyecto, this.id_sistemaCoor, this.proyeccion}) : super(key: key);
   @override
   _PuntoNuevoState createState() => _PuntoNuevoState();
 }
@@ -441,6 +441,10 @@ class _PuntoNuevoState extends State<PuntoNuevo> {
                           gestorMBDatabase.db.InserDataSQL('INSERT INTO PUNTOS_REFERENCIA (Id_Usuario, Proyecto, Nombre_Punto, Norte, Este, Altura, Tipo_Altura, Foto_Placa, Foto_Norte, Foto_Este, Foto_Sur, Foto_Oeste) VALUES ("${widget.idUserMB}", "${widget.nombreProyecto}", "${nombrePuntoNuevo}", ${nortePuntoNuevo}, ${estePuntoNuevo}, ${alturaPuntoNuevo}, "${tipoaltura(alturaOrtometrica)}", "${fotoPlacaBytes}", "${fotoNorteBytes}", "${fotoEsteBytes}", "${fotoSurBytes}", "${fotoOesteBytes}")');
                           Navigator.push(context, MaterialPageRoute(
                           builder: (context) => GestosPuntos(
+                            idProyeccion: widget.id_sistemaCoor,
+                            idUser: widget.idUserMB,
+                            nombreProyecto: widget.nombreProyecto,
+                            proyeccionMB: widget.proyeccion,
                         )));
                       }else {
                         // No se Diligenciaron los Campos

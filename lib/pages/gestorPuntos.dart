@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:measurebookapp/pages/mapaPuntosRefencia.dart';
 
 import 'importarPuntosRedPasivaIGAC.dart';
 import 'nuevoPunto.dart';
@@ -65,6 +66,8 @@ class _GestosPuntosState extends State<GestosPuntos> {
                         builder: (context) => PuntoNuevo(
                           idUserMB: widget.idUser,
                           nombreProyecto: widget.nombreProyecto,
+                          id_sistemaCoor: widget.idProyeccion,
+                          proyeccion: widget.proyeccionMB,
                         )));
                         },
                         ),
@@ -98,8 +101,13 @@ class _GestosPuntosState extends State<GestosPuntos> {
                         )),
                         subtitle: Text('Ingresa las coordeandas, descripción y registro fotográfico de los puntos que utilizaras en este proyecto'),
                         trailing: Icon(Icons.chevron_right, size: 30.0, color: Colors.blueAccent,),
-                        onTap: (){
-
+                        onTap: (){ 
+                          Navigator.push(context, MaterialPageRoute(
+                          builder: (context) => MapaPuntosReferencia(
+                          idCoordenadas: widget.idProyeccion,
+                          nombreProyecto: widget.nombreProyecto,
+                          sistemaCoordenadas: widget.proyeccionMB,
+                        )));
                         },
                         ),
                         Divider(height: 20),

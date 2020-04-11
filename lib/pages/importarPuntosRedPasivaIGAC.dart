@@ -90,7 +90,7 @@ class _ImportPuntosRedPasivaIGACState extends State<ImportPuntosRedPasivaIGAC> {
                       anchorPos: AnchorPos.align(AnchorAlign.center),
                       point: LatLng(listaPuntos.Latitud, listaPuntos.Longitud),
                       builder: (ctx) => FloatingActionButton(
-                        heroTag: 'ImportarPuntosRedPasivaIgac_8100${i}',
+                        heroTag: 'ImportarPuntosRedPasivaIgac_15000${i}',
                       backgroundColor: Colors.transparent,
                       child: Icon(Icons.location_on, size: 40, color: Colors.blueAccent),
                       onPressed: (){

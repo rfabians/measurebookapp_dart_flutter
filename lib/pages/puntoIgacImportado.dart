@@ -459,6 +459,10 @@ String tipoaltura(bool tipoALturaSw){
                           gestorMBDatabase.db.InserDataSQL('INSERT INTO PUNTOS_REFERENCIA (Id_Usuario, Proyecto, Nombre_Punto, Norte, Este, Altura, Tipo_Altura, Foto_Placa, Foto_Norte, Foto_Este, Foto_Sur, Foto_Oeste) VALUES ("${widget.idUsuario}", "${widget.nombreProyecto}", "${nombrePuntoNuevo}", ${nortePuntoNuevo}, ${estePuntoNuevo}, ${alturaPuntoNuevo}, "${tipoaltura(alturaOrtometrica)}", "${fotoPlacaBytes}", "${fotoNorteBytes}", "${fotoEsteBytes}", "${fotoSurBytes}", "${fotoOesteBytes}")');
                           Navigator.push(context, MaterialPageRoute(
                           builder: (context) => GestosPuntos(
+                            idProyeccion: widget.pkSistemaCoordenadas,
+                            idUser: widget.idUsuario,
+                            nombreProyecto: widget.nombreProyecto,
+                            proyeccionMB: widget.sistemaCoordenadas,
                         )));
                       }else {
                         // No se Diligenciaron los Campos
