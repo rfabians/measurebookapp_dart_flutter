@@ -170,8 +170,10 @@ class _MapaPuntosReferenciaState extends State<MapaPuntosReferencia> {
            ),
             );
             } else {
-              return Center(
-                child: CircularProgressIndicator(),
+              return Scaffold(
+                body: Center(
+                  child: Text('Aun no tienes puntos Creados'),
+                )
               );
             }
             }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:measurebookapp/pages/importarPuntoOSCoor.dart';
 import 'package:measurebookapp/pages/mapaPuntosRefencia.dart';
 
 import 'importarPuntosRedPasivaIGAC.dart';
@@ -120,7 +121,12 @@ class _GestosPuntosState extends State<GestosPuntos> {
                         )),
                         subtitle: Text('Ingresa las coordeandas, descripción y registro fotográfico de los puntos que utilizaras en este proyecto'),
                         trailing: Icon(Icons.chevron_right, size: 30.0, color: Colors.blueAccent,),
-                        onTap: (){},
+                        onTap: (){
+                          Navigator.push(context, MaterialPageRoute(
+                          builder: (context) => ImportarPuntoOSCoor(
+
+                        )));
+                        },
                         ),
                         Divider(height: 20),
                       ],

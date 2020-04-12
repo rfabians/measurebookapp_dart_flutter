@@ -128,7 +128,7 @@ class _ImportPuntosRedPasivaIGACState extends State<ImportPuntosRedPasivaIGAC> {
                                 ondulacion: roundDouble(listaPuntos.Ondulacion, 3), 
                                 sistemaCoordenadas: widget.proyeccion,
                               )));
-                              Navigator.of(context, rootNavigator: true).pop();
+                             
                             },
                             trailing: Icon(Icons.chevron_right, color: Colors.blueAccent,),
                             leading: Image.asset('assets/images/import.png', height: 100,),
