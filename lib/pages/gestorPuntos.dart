@@ -124,7 +124,11 @@ class _GestosPuntosState extends State<GestosPuntos> {
                         onTap: (){
                           Navigator.push(context, MaterialPageRoute(
                           builder: (context) => ImportarPuntoOSCoor(
-
+                              
+                              idProyeccion: widget.idProyeccion,
+                              idProyecto: widget.nombreProyecto,
+                              idusuario: widget.idUser,
+                              proyeccion: widget.proyeccionMB,
                         )));
                         },
                         ),
