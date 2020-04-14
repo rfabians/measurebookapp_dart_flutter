@@ -6,6 +6,7 @@ import 'package:measurebookapp/modelos/cPlanasGenerico.dart';
 import 'package:measurebookapp/modelos/cartesianasCS.dart';
 import 'package:measurebookapp/modelos/coordenadasCartesianas.dart';
 import 'package:measurebookapp/modelos/coordenadasElipsoidales.dart';
+import 'package:measurebookapp/modelos/coordenadasGeocenticas.dart';
 import 'package:measurebookapp/modelos/coordenadasPlanasGauss.dart';
 import 'package:measurebookapp/modelos/gaussCS.dart';
 import 'package:measurebookapp/pages/puntoIgacImportado.dart';
@@ -19,12 +20,14 @@ class ConversionPunto extends StatefulWidget {
 }
 final GlobalKey<FormState> _formElipsoidales = GlobalKey<FormState>();
 final GlobalKey<FormState> _formElipsoidalesHexa = GlobalKey<FormState>();
+final GlobalKey<FormState> _formGeocentricas = GlobalKey<FormState>();
 String valorNS = 'Norte';
 String valorEO = 'Oeste';
 double latitudepunto, longitudPunto, alturaPunto;
 double gradosLatitudF, minutosLatitudF, segundosLatitudF;
 double gradosLongitudF, minutosLongitudF, segundosLongitudF;
 double altura;
+double xGeocentricaF, yGeocentricaF, zGeocentricaF;
 class _ConversionPuntoState extends State<ConversionPunto> {
   Future<CPlanasGenerico>  coordenadasInportadas (double latitud, double longitud, double alturaPunto) async {
   if (widget.proyeccion == 'Gauss-Krüger')  {
@@ -65,6 +68,7 @@ class _ConversionPuntoState extends State<ConversionPunto> {
 
   @override
   Widget build(BuildContext context) {
+    // Importar Coordenadas Elipsoidales en formato decimal
     if (widget.sistemaOrigen == 'Coordenadas Elipsoidales') {
 
       if (widget.proyeccion == 'Plano Cartesiano') {
@@ -286,23 +290,241 @@ class _ConversionPuntoState extends State<ConversionPunto> {
     } else if(widget.sistemaOrigen == 'Coordenadas Geocentricas'){
       if (widget.proyeccion == 'Plano Cartesiano') {
         return Scaffold(
-          body: SafeArea(child:Center(
-            child: Column(
-              children: <Widget>[
-                Text('Coordenadas Geocentricas'),
-                Text('Plano Cartesiano')
-              ],
+          body: SafeArea(child:SingleChildScrollView(
+            child: Center(
+              child: Column(
+                children: <Widget>[
+                  Form(
+                    key: _formGeocentricas,
+                    child: Padding(
+                      padding: const EdgeInsets.all(30),
+                      child: Column(
+                        children: <Widget>[
+                          Center(
+                            child: Column(
+                              children: <Widget>[
+                              Text('Coordenadas Geocentricas', style: TextStyle(
+                              color: Colors.blueAccent,
+                              fontSize: 16.0,
+                              ),),
+                              Divider(height: 20,),
+                              Image.asset('assets/images/geocentrica.png', height: 300,alignment: Alignment.center, ),
+                              Divider(),
+                              TextFormField(
+                                decoration: InputDecoration(
+                                icon: Icon(Icons.add_location),
+                                labelText: 'Coordenadas X Geocentrica',
+                                ),
+                                keyboardType: TextInputType.number,
+                                validator: (String xGeo){
+                                  double xGeocentrica = double.tryParse(xGeo);
+                                if (xGeocentrica == null) {
+                                return 'La Coordenada X, esta en un formato no valido';
+                                } else {
+                                    setState(() {
+                                      xGeocentricaF=xGeocentrica;
+                                  });
+                                  return null;
+                                }
+                                },
+                              ),
+                              TextFormField(
+                                decoration: InputDecoration(
+                                icon: Icon(Icons.add_location),
+                                labelText: 'Coordenadas Y Geocentrica',
+                                ),
+                                keyboardType: TextInputType.number,
+                                validator: (String yGeo){
+                                  double yGeocentrica = double.tryParse(yGeo);
+                                if (yGeocentrica == null) {
+                                return 'La Coordenada Y, esta en un formato no valido';
+                                } else {
+                                  setState(() {
+                                    yGeocentricaF = yGeocentrica;
+                                  });
+                                return null;
+                                }
+                                },
+                              ),
+                              TextFormField(
+                                decoration: InputDecoration(
+                                icon: Icon(Icons.add_location),
+                                labelText: 'Coordenadas Z Geocentrica',
+                                ),
+                                keyboardType: TextInputType.number,
+                                validator: (String zGeo){
+                                  double zGeocentrica = double.tryParse(zGeo);
+                                if (zGeocentrica == null) {
+                                return 'La Coordenada Z, esta en un formato no valido';
+                                } else {
+                                  setState(() {
+                                    zGeocentricaF=zGeocentrica;
+                                  });
+                                  return null;
+                                }
+                                },
+                              ),
+                              Divider(height: 30.0),
+                              ],
+                            ),
+                          ),
+                          FlatButton(
+                                  shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(20.0)),
+                                  child: Text('Importar', style: TextStyle(
+                                  fontFamily: 'Roboto',
+                                  fontSize: 12.0,
+                                  color: Colors.white,
+                                  ),),
+                                  color: Color(0xff007FFF),
+                                  onPressed: () async {
+                                  if (_formGeocentricas.currentState.validate()){
+                                  ConversionCoordenadasMB conversionCoordenadasMB = ConversionCoordenadasMB();
+                                  CoordenadasGeocentricas coordenadasGeocentricas = CoordenadasGeocentricas();
+                                  coordenadasGeocentricas.x = xGeocentricaF;
+                                  coordenadasGeocentricas.y = yGeocentricaF;
+                                  coordenadasGeocentricas.z = zGeocentricaF;
+                                  CoordenadasElipsoidales coordenadasElipsoidales = conversionCoordenadasMB.geocentricas2Elipsoidales(coordenadasGeocentricas);
+                                  CPlanasGenerico planasGenerico = await  coordenadasInportadas(coordenadasElipsoidales.latitud, coordenadasElipsoidales.longitud, coordenadasElipsoidales.altitud);
+                                  Navigator.push(context, MaterialPageRoute(
+                                  builder: (context) => PuntoIgacImportado(
+                                  altura: planasGenerico.altura,
+                                  nombreProyecto: widget.idProyecto,
+                                  idUsuario: widget.idusuario,
+                                  este: roundDouble(planasGenerico.este,3),
+                                  nombrePunto: 'SIN NOMBRAR',
+                                  ondulacion: 0,
+                                  norte: roundDouble(planasGenerico.norte, 3),
+                                  pkSistemaCoordenadas: widget.idProyeccion,
+                                  sistemaCoordenadas: widget.proyeccion,
+                                  ),
+                                  ));}
+                           })
+                        ],
+                      ),
+                    ),
+                  ),
+                ],
+              ),
             ),
           )),
         );}
         else {
           return Scaffold(
-          body: SafeArea(child:Center(
-            child: Column(
-              children: <Widget>[
-                Text('Coordenadas Geocentricas'),
-                Text('Gauss Krüger')
-              ],
+          body: SafeArea(child:SingleChildScrollView(
+            child: Center(
+              child: Column(
+                children: <Widget>[
+                  Form(
+                    key: _formGeocentricas,
+                    child: Padding(
+                      padding: const EdgeInsets.all(30),
+                      child: Column(
+                        children: <Widget>[
+                          Center(
+                            child: Column(
+                              children: <Widget>[
+                              Text('Coordenadas Geocentricas', style: TextStyle(
+                              color: Colors.blueAccent,
+                              fontSize: 16.0,
+                              ),),
+                              Divider(height: 20,),
+                              Image.asset('assets/images/geocentrica.png', height: 300,alignment: Alignment.center, ),
+                              Divider(),
+                              TextFormField(
+                                decoration: InputDecoration(
+                                icon: Icon(Icons.add_location),
+                                labelText: 'Coordenadas X Geocentrica',
+                                ),
+                                keyboardType: TextInputType.number,
+                                validator: (String xGeo){
+                                  double xGeocentrica = double.tryParse(xGeo);
+                                if (xGeocentrica == null) {
+                                return 'La Coordenada X, esta en un formato no valido';
+                                } else {
+                                    setState(() {
+                                      xGeocentricaF=xGeocentrica;
+                                  });
+                                  return null;
+                                }
+                                },
+                              ),
+                              TextFormField(
+                                decoration: InputDecoration(
+                                icon: Icon(Icons.add_location),
+                                labelText: 'Coordenadas Y Geocentrica',
+                                ),
+                                keyboardType: TextInputType.number,
+                                validator: (String yGeo){
+                                  double yGeocentrica = double.tryParse(yGeo);
+                                if (yGeocentrica == null) {
+                                return 'La Coordenada Y, esta en un formato no valido';
+                                } else {
+                                  setState(() {
+                                    yGeocentricaF = yGeocentrica;
+                                  });
+                                return null;
+                                }
+                                },
+                              ),
+                              TextFormField(
+                                decoration: InputDecoration(
+                                icon: Icon(Icons.add_location),
+                                labelText: 'Coordenadas Z Geocentrica',
+                                ),
+                                keyboardType: TextInputType.number,
+                                validator: (String zGeo){
+                                  double zGeocentrica = double.tryParse(zGeo);
+                                if (zGeocentrica == null) {
+                                return 'La Coordenada Z, esta en un formato no valido';
+                                } else {
+                                  setState(() {
+                                    zGeocentricaF=zGeocentrica;
+                                  });
+                                  return null;
+                                }
+                                },
+                              ),
+                              Divider(height: 30.0),
+                              ],
+                            ),
+                          ),
+                          FlatButton(
+                                  shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(20.0)),
+                                  child: Text('Importar', style: TextStyle(
+                                  fontFamily: 'Roboto',
+                                  fontSize: 12.0,
+                                  color: Colors.white,
+                                  ),),
+                                  color: Color(0xff007FFF),
+                                  onPressed: () async {
+                                  if (_formGeocentricas.currentState.validate()){
+                                  ConversionCoordenadasMB conversionCoordenadasMB = ConversionCoordenadasMB();
+                                  CoordenadasGeocentricas coordenadasGeocentricas = CoordenadasGeocentricas();
+                                  coordenadasGeocentricas.x = xGeocentricaF;
+                                  coordenadasGeocentricas.y = yGeocentricaF;
+                                  coordenadasGeocentricas.z = zGeocentricaF;
+                                  CoordenadasElipsoidales coordenadasElipsoidales = conversionCoordenadasMB.geocentricas2Elipsoidales(coordenadasGeocentricas);
+                                  CPlanasGenerico planasGenerico = await  coordenadasInportadas(coordenadasElipsoidales.latitud, coordenadasElipsoidales.longitud, coordenadasElipsoidales.altitud);
+                                  Navigator.push(context, MaterialPageRoute(
+                                  builder: (context) => PuntoIgacImportado(
+                                  altura: planasGenerico.altura,
+                                  nombreProyecto: widget.idProyecto,
+                                  idUsuario: widget.idusuario,
+                                  este: roundDouble(planasGenerico.este,3),
+                                  nombrePunto: 'SIN NOMBRAR',
+                                  ondulacion: 0,
+                                  norte: roundDouble(planasGenerico.norte, 3),
+                                  pkSistemaCoordenadas: widget.idProyeccion,
+                                  sistemaCoordenadas: widget.proyeccion,
+                                  ),
+                                  ));}
+                           })
+                        ],
+                      ),
+                    ),
+                  ),
+                ],
+              ),
             ),
           )),
         );
@@ -331,6 +553,7 @@ class _ConversionPuntoState extends State<ConversionPunto> {
           )),
         );
         }
+   // Importar Coordenadas Elipsoidales en sistema Hexadecimal
   } else if(widget.sistemaOrigen == 'Hexa'){
     if (widget.proyeccion == 'Plano Cartesiano') {
         return Scaffold(

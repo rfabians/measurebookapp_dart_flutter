@@ -40,7 +40,7 @@ CoordenadasElipsoidales geocentricas2Elipsoidales (CoordenadasGeocentricas coord
       ));
   double _N = (_a)/(m.sqrt(1-_e1*m.pow(m.sin(grados2Radianes(_latitud)),2)));
   double _altura = ((m.sqrt(_x2+_y2))/(m.cos(grados2Radianes(_latitud))))-_N;
-  CoordenadasElipsoidales _coordenadasElipsoidales;
+  CoordenadasElipsoidales _coordenadasElipsoidales = CoordenadasElipsoidales();
   _coordenadasElipsoidales.altitud = _altura;
   _coordenadasElipsoidales.latitud = _latitud;
   _coordenadasElipsoidales.longitud = _longitud;
