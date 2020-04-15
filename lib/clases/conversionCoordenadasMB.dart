@@ -123,7 +123,7 @@ CoordenadasElipsoidales gauss2Elipsoidales (GaussCS _origenGauss, CoordenadasGau
   double _Y = 6356752.31414;
   double _laIni = 0.00669438002290;
   double _V = 0.00673949677548;
-  double _gNO = _origenGauss.N0;
+  double _gNO = 491767.5344;
   double _a = _No - _gNO;
   double _A1 = _e2 - 1000000.0;
   double _A2 = (_X - _Y) / (_X + _Y);

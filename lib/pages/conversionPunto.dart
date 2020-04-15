@@ -13,14 +13,17 @@ import 'package:measurebookapp/pages/puntoIgacImportado.dart';
 import 'dart:math' as m;
 
 class ConversionPunto extends StatefulWidget {
-  final String idusuario, idProyeccion, idProyecto, proyeccion, sistemaOrigen; 
-  ConversionPunto({Key key, this.idProyeccion, this.idProyecto, this.idusuario, this.proyeccion, this.sistemaOrigen}) : super(key: key);
+  final String idusuario, idProyeccion, idProyecto, proyeccion, sistemaOrigen;
+  final CartesianasCS cartesianasCS;
+  final GaussCS gaussCS;
+  ConversionPunto({Key key, this.idProyeccion, this.idProyecto, this.idusuario, this.proyeccion, this.sistemaOrigen,this.cartesianasCS, this.gaussCS}) : super(key: key);
   @override
   _ConversionPuntoState createState() => _ConversionPuntoState();
 }
 final GlobalKey<FormState> _formElipsoidales = GlobalKey<FormState>();
 final GlobalKey<FormState> _formElipsoidalesHexa = GlobalKey<FormState>();
 final GlobalKey<FormState> _formGeocentricas = GlobalKey<FormState>();
+final GlobalKey<FormState> _formCartesianas = GlobalKey<FormState>();
 String valorNS = 'Norte';
 String valorEO = 'Oeste';
 double latitudepunto, longitudPunto, alturaPunto;
@@ -28,6 +31,8 @@ double gradosLatitudF, minutosLatitudF, segundosLatitudF;
 double gradosLongitudF, minutosLongitudF, segundosLongitudF;
 double altura;
 double xGeocentricaF, yGeocentricaF, zGeocentricaF;
+double norteCartesianas, esteCartesianas, alturaCartesianas;
+double norteGauss, esteGauss, alturaGauss;
 class _ConversionPuntoState extends State<ConversionPunto> {
   Future<CPlanasGenerico>  coordenadasInportadas (double latitud, double longitud, double alturaPunto) async {
   if (widget.proyeccion == 'Gauss-Krüger')  {
@@ -532,23 +537,242 @@ class _ConversionPuntoState extends State<ConversionPunto> {
     } else if(widget.sistemaOrigen == 'Coordenadas Gauss - Krüger'){
       if (widget.proyeccion == 'Plano Cartesiano') {
         return Scaffold(
-          body: SafeArea(child:Center(
-            child: Column(
-              children: <Widget>[
-                Text('Coordenadas Gauss - Krüger'),
-                Text('Plano Cartesiano')
-              ],
+          body: SafeArea(child:SingleChildScrollView(
+            child: Center(
+              child: Column(
+                children: <Widget>[
+                  Form(
+                    key: _formCartesianas,
+                    child: Padding(
+                      padding: const EdgeInsets.all(30),
+                      child: Column(
+                        children: <Widget>[
+                          Center(
+                            child: Column(
+                              children: <Widget>[
+                              Text('Coordenadas Gauss Krüger', style: TextStyle(
+                              color: Colors.blueAccent,
+                              fontSize: 16.0,
+                              ),),
+                              Divider(height: 20,),
+                              Image.asset('assets/images/geocentrica.png', height: 300,alignment: Alignment.center, ),
+                              Divider(),
+                              TextFormField(
+                                decoration: InputDecoration(
+                                icon: Icon(Icons.add_location),
+                                labelText: 'Coordenada Norte',
+                                ),
+                                keyboardType: TextInputType.number,
+                                validator: (String nGa){
+                                  double nGauss = double.tryParse(nGa);
+                                if (nGauss == null) {
+                                return 'La Coordenada Norte, esta en un formato no valido';
+                                } else {
+                                    setState(() {
+                                      norteGauss=nGauss;
+                                  });
+                                  return null;
+                                }
+                                },
+                              ),
+                              TextFormField(
+                                decoration: InputDecoration(
+                                icon: Icon(Icons.add_location),
+                                labelText: 'Coordenadas Este',
+                                ),
+                                keyboardType: TextInputType.number,
+                                validator: (String eGa){
+                                  double eGauss = double.tryParse(eGa);
+                                if (eGauss == null) {
+                                return 'La Coordenada Este, esta en un formato no valido';
+                                } else {
+                                  setState(() {
+                                    esteGauss = eGauss;
+                                  });
+                                return null;
+                                }
+                                },
+                              ),
+                              TextFormField(
+                                decoration: InputDecoration(
+                                icon: Icon(Icons.add_location),
+                                labelText: 'Altura',
+                                ),
+                                keyboardType: TextInputType.number,
+                                validator: (String aGa){
+                                  double aGausss = double.tryParse(aGa);
+                                if (aGausss == null) {
+                                return 'La Altura, esta en un formato no valido';
+                                } else {
+                                  setState(() {
+                                    alturaGauss=aGausss;
+                                  });
+                                  return null;
+                                }
+                                },
+                              ),
+                              Divider(height: 30.0),
+                              ],
+                            ),
+                          ),
+                          FlatButton(
+                                  shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(20.0)),
+                                  child: Text('Importar', style: TextStyle(
+                                  fontFamily: 'Roboto',
+                                  fontSize: 12.0,
+                                  color: Colors.white,
+                                  ),),
+                                  color: Color(0xff007FFF),
+                                  onPressed: () async {
+                                  if (_formCartesianas.currentState.validate()){
+                                  ConversionCoordenadasMB conversionCoordenadasMB = ConversionCoordenadasMB();
+                                  CoordenadasGauss coordenadasGauss = CoordenadasGauss();
+                                  coordenadasGauss.este = esteGauss;
+                                  coordenadasGauss.norte = norteGauss;
+                                  coordenadasGauss.altura = alturaGauss;
+                                  CoordenadasElipsoidales coordenadasElipsoidales = conversionCoordenadasMB.gauss2Elipsoidales(widget.gaussCS, coordenadasGauss);
+                                  CPlanasGenerico planasGenerico = await  coordenadasInportadas(coordenadasElipsoidales.latitud, coordenadasElipsoidales.longitud, coordenadasElipsoidales.altitud);
+                                  Navigator.push(context, MaterialPageRoute(
+                                  builder: (context) => PuntoIgacImportado(
+                                  altura: planasGenerico.altura,
+                                  nombreProyecto: widget.idProyecto,
+                                  idUsuario: widget.idusuario,
+                                  este: roundDouble(planasGenerico.este,3),
+                                  nombrePunto: 'SIN NOMBRAR',
+                                  ondulacion: 0,
+                                  norte: roundDouble(planasGenerico.norte, 3),
+                                  pkSistemaCoordenadas: widget.idProyeccion,
+                                  sistemaCoordenadas: widget.proyeccion,
+                                  ),
+                                  ));}
+                           })
+                        ],
+                      ),
+                    ),
+                  ),
+                ],
+              ),
             ),
           )),
-        );}
+        );
+        }
         else {
           return Scaffold(
-          body: SafeArea(child:Center(
-            child: Column(
-              children: <Widget>[
-                Text('Coordenadas Gauss - Krüger'),
-                Text('Gauss Krüger')
-              ],
+          body: SafeArea(child:SingleChildScrollView(
+            child: Center(
+              child: Column(
+                children: <Widget>[
+                  Form(
+                    key: _formCartesianas,
+                    child: Padding(
+                      padding: const EdgeInsets.all(30),
+                      child: Column(
+                        children: <Widget>[
+                          Center(
+                            child: Column(
+                              children: <Widget>[
+                              Text('Coordenadas Gauss Krüger', style: TextStyle(
+                              color: Colors.blueAccent,
+                              fontSize: 16.0,
+                              ),),
+                              Divider(height: 20,),
+                              Image.asset('assets/images/geocentrica.png', height: 300,alignment: Alignment.center, ),
+                              Divider(),
+                              TextFormField(
+                                decoration: InputDecoration(
+                                icon: Icon(Icons.add_location),
+                                labelText: 'Coordenada Norte',
+                                ),
+                                keyboardType: TextInputType.number,
+                                validator: (String nGa){
+                                  double nGauss = double.tryParse(nGa);
+                                if (nGauss == null) {
+                                return 'La Coordenada Norte, esta en un formato no valido';
+                                } else {
+                                    setState(() {
+                                      norteGauss=nGauss;
+                                  });
+                                  return null;
+                                }
+                                },
+                              ),
+                              TextFormField(
+                                decoration: InputDecoration(
+                                icon: Icon(Icons.add_location),
+                                labelText: 'Coordenadas Este',
+                                ),
+                                keyboardType: TextInputType.number,
+                                validator: (String eGa){
+                                  double eGauss = double.tryParse(eGa);
+                                if (eGauss == null) {
+                                return 'La Coordenada Este, esta en un formato no valido';
+                                } else {
+                                  setState(() {
+                                    esteGauss = eGauss;
+                                  });
+                                return null;
+                                }
+                                },
+                              ),
+                              TextFormField(
+                                decoration: InputDecoration(
+                                icon: Icon(Icons.add_location),
+                                labelText: 'Altura',
+                                ),
+                                keyboardType: TextInputType.number,
+                                validator: (String aGa){
+                                  double aGausss = double.tryParse(aGa);
+                                if (aGausss == null) {
+                                return 'La Altura, esta en un formato no valido';
+                                } else {
+                                  setState(() {
+                                    alturaGauss=aGausss;
+                                  });
+                                  return null;
+                                }
+                                },
+                              ),
+                              Divider(height: 30.0),
+                              ],
+                            ),
+                          ),
+                          FlatButton(
+                                  shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(20.0)),
+                                  child: Text('Importar', style: TextStyle(
+                                  fontFamily: 'Roboto',
+                                  fontSize: 12.0,
+                                  color: Colors.white,
+                                  ),),
+                                  color: Color(0xff007FFF),
+                                  onPressed: () async {
+                                  if (_formCartesianas.currentState.validate()){
+                                  ConversionCoordenadasMB conversionCoordenadasMB = ConversionCoordenadasMB();
+                                  CoordenadasGauss coordenadasGauss = CoordenadasGauss();
+                                  coordenadasGauss.este = esteGauss;
+                                  coordenadasGauss.norte = norteGauss;
+                                  coordenadasGauss.altura = alturaGauss;
+                                  CoordenadasElipsoidales coordenadasElipsoidales = conversionCoordenadasMB.gauss2Elipsoidales(widget.gaussCS, coordenadasGauss);
+                                  CPlanasGenerico planasGenerico = await  coordenadasInportadas(coordenadasElipsoidales.latitud, coordenadasElipsoidales.longitud, coordenadasElipsoidales.altitud);
+                                  Navigator.push(context, MaterialPageRoute(
+                                  builder: (context) => PuntoIgacImportado(
+                                  altura: planasGenerico.altura,
+                                  nombreProyecto: widget.idProyecto,
+                                  idUsuario: widget.idusuario,
+                                  este: roundDouble(planasGenerico.este,3),
+                                  nombrePunto: 'SIN NOMBRAR',
+                                  ondulacion: 0,
+                                  norte: roundDouble(planasGenerico.norte, 3),
+                                  pkSistemaCoordenadas: widget.idProyeccion,
+                                  sistemaCoordenadas: widget.proyeccion,
+                                  ),
+                                  ));}
+                           })
+                        ],
+                      ),
+                    ),
+                  ),
+                ],
+              ),
             ),
           )),
         );
@@ -1211,27 +1435,246 @@ class _ConversionPuntoState extends State<ConversionPunto> {
   } else {
     if (widget.proyeccion == 'Plano Cartesiano') {
         return Scaffold(
-          body: SafeArea(child:Center(
-            child: Column(
-              children: <Widget>[
-                Text('Plano Cartesiano'),
-                Text('Plano Cartesiano')
-              ],
+          body: SafeArea(child:SingleChildScrollView(
+            child: Center(
+              child: Column(
+                children: <Widget>[
+                  Form(
+                    key: _formCartesianas,
+                    child: Padding(
+                      padding: const EdgeInsets.all(30),
+                      child: Column(
+                        children: <Widget>[
+                          Center(
+                            child: Column(
+                              children: <Widget>[
+                              Text('Coordenadas Planas Cartesianas', style: TextStyle(
+                              color: Colors.blueAccent,
+                              fontSize: 16.0,
+                              ),),
+                              Divider(height: 20,),
+                              Image.asset('assets/images/geocentrica.png', height: 300,alignment: Alignment.center, ),
+                              Divider(),
+                              TextFormField(
+                                decoration: InputDecoration(
+                                icon: Icon(Icons.add_location),
+                                labelText: 'Coordenada Norte',
+                                ),
+                                keyboardType: TextInputType.number,
+                                validator: (String nCarte){
+                                  double nCartesiana = double.tryParse(nCarte);
+                                if (nCartesiana == null) {
+                                return 'La Coordenada Norte, esta en un formato no valido';
+                                } else {
+                                    setState(() {
+                                      norteCartesianas=nCartesiana;
+                                  });
+                                  return null;
+                                }
+                                },
+                              ),
+                              TextFormField(
+                                decoration: InputDecoration(
+                                icon: Icon(Icons.add_location),
+                                labelText: 'Coordenadas Este',
+                                ),
+                                keyboardType: TextInputType.number,
+                                validator: (String eCarte){
+                                  double eCartesiana = double.tryParse(eCarte);
+                                if (eCartesiana == null) {
+                                return 'La Coordenada Este, esta en un formato no valido';
+                                } else {
+                                  setState(() {
+                                    esteCartesianas = eCartesiana;
+                                  });
+                                return null;
+                                }
+                                },
+                              ),
+                              TextFormField(
+                                decoration: InputDecoration(
+                                icon: Icon(Icons.add_location),
+                                labelText: 'Altura',
+                                ),
+                                keyboardType: TextInputType.number,
+                                validator: (String aCar){
+                                  double aCartesiana = double.tryParse(aCar);
+                                if (aCartesiana == null) {
+                                return 'La Altura, esta en un formato no valido';
+                                } else {
+                                  setState(() {
+                                    alturaCartesianas=aCartesiana;
+                                  });
+                                  return null;
+                                }
+                                },
+                              ),
+                              Divider(height: 30.0),
+                              ],
+                            ),
+                          ),
+                          FlatButton(
+                                  shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(20.0)),
+                                  child: Text('Importar', style: TextStyle(
+                                  fontFamily: 'Roboto',
+                                  fontSize: 12.0,
+                                  color: Colors.white,
+                                  ),),
+                                  color: Color(0xff007FFF),
+                                  onPressed: () async {
+                                  if (_formCartesianas.currentState.validate()){
+                                  ConversionCoordenadasMB conversionCoordenadasMB = ConversionCoordenadasMB();
+                                  CoordenadasCartesianas coordenadasCartesianas = CoordenadasCartesianas();
+                                  coordenadasCartesianas.este = esteCartesianas;
+                                  coordenadasCartesianas.norte = norteCartesianas;
+                                  coordenadasCartesianas.altura = alturaCartesianas;
+                                  CoordenadasElipsoidales coordenadasElipsoidales = conversionCoordenadasMB.cartesianas2Elipoidales(coordenadasCartesianas, widget.cartesianasCS);
+                                  CPlanasGenerico planasGenerico = await  coordenadasInportadas(coordenadasElipsoidales.latitud, coordenadasElipsoidales.longitud, coordenadasElipsoidales.altitud);
+                                  Navigator.push(context, MaterialPageRoute(
+                                  builder: (context) => PuntoIgacImportado(
+                                  altura: planasGenerico.altura,
+                                  nombreProyecto: widget.idProyecto,
+                                  idUsuario: widget.idusuario,
+                                  este: roundDouble(planasGenerico.este,3),
+                                  nombrePunto: 'SIN NOMBRAR',
+                                  ondulacion: 0,
+                                  norte: roundDouble(planasGenerico.norte, 3),
+                                  pkSistemaCoordenadas: widget.idProyeccion,
+                                  sistemaCoordenadas: widget.proyeccion,
+                                  ),
+                                  ));}
+                           })
+                        ],
+                      ),
+                    ),
+                  ),
+                ],
+              ),
             ),
           )),
         );}
         else {
           return Scaffold(
-          body: SafeArea(child:Center(
-            child: Column(
-              children: <Widget>[
-                Text('Plano Cartesiano'),
-                Text('Gauss Krüger')
-              ],
+          body: SafeArea(child:SingleChildScrollView(
+            child: Center(
+              child: Column(
+                children: <Widget>[
+                  Form(
+                    key: _formCartesianas,
+                    child: Padding(
+                      padding: const EdgeInsets.all(30),
+                      child: Column(
+                        children: <Widget>[
+                          Center(
+                            child: Column(
+                              children: <Widget>[
+                              Text('Coordenadas Planas Cartesianas', style: TextStyle(
+                              color: Colors.blueAccent,
+                              fontSize: 16.0,
+                              ),),
+                              Divider(height: 20,),
+                              Image.asset('assets/images/geocentrica.png', height: 300,alignment: Alignment.center, ),
+                              Divider(),
+                              TextFormField(
+                                decoration: InputDecoration(
+                                icon: Icon(Icons.add_location),
+                                labelText: 'Coordenada Norte',
+                                ),
+                                keyboardType: TextInputType.number,
+                                validator: (String nCarte){
+                                  double nCartesiana = double.tryParse(nCarte);
+                                if (nCartesiana == null) {
+                                return 'La Coordenada Norte, esta en un formato no valido';
+                                } else {
+                                    setState(() {
+                                      norteCartesianas=nCartesiana;
+                                  });
+                                  return null;
+                                }
+                                },
+                              ),
+                              TextFormField(
+                                decoration: InputDecoration(
+                                icon: Icon(Icons.add_location),
+                                labelText: 'Coordenadas Este',
+                                ),
+                                keyboardType: TextInputType.number,
+                                validator: (String eCarte){
+                                  double eCartesiana = double.tryParse(eCarte);
+                                if (eCartesiana == null) {
+                                return 'La Coordenada Este, esta en un formato no valido';
+                                } else {
+                                  setState(() {
+                                    esteCartesianas = eCartesiana;
+                                  });
+                                return null;
+                                }
+                                },
+                              ),
+                              TextFormField(
+                                decoration: InputDecoration(
+                                icon: Icon(Icons.add_location),
+                                labelText: 'Altura',
+                                ),
+                                keyboardType: TextInputType.number,
+                                validator: (String aCar){
+                                  double aCartesiana = double.tryParse(aCar);
+                                if (aCartesiana == null) {
+                                return 'La Altura, esta en un formato no valido';
+                                } else {
+                                  setState(() {
+                                    alturaCartesianas=aCartesiana;
+                                  });
+                                  return null;
+                                }
+                                },
+                              ),
+                              Divider(height: 30.0),
+                              ],
+                            ),
+                          ),
+                          FlatButton(
+                                  shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(20.0)),
+                                  child: Text('Importar', style: TextStyle(
+                                  fontFamily: 'Roboto',
+                                  fontSize: 12.0,
+                                  color: Colors.white,
+                                  ),),
+                                  color: Color(0xff007FFF),
+                                  onPressed: () async {
+                                  if (_formCartesianas.currentState.validate()){
+                                  ConversionCoordenadasMB conversionCoordenadasMB = ConversionCoordenadasMB();
+                                  CoordenadasCartesianas coordenadasCartesianas = CoordenadasCartesianas();
+                                  coordenadasCartesianas.este = esteCartesianas;
+                                  coordenadasCartesianas.norte = norteCartesianas;
+                                  coordenadasCartesianas.altura = alturaCartesianas;
+                                  CoordenadasElipsoidales coordenadasElipsoidales = conversionCoordenadasMB.cartesianas2Elipoidales(coordenadasCartesianas, widget.cartesianasCS);
+                                  CPlanasGenerico planasGenerico = await  coordenadasInportadas(coordenadasElipsoidales.latitud, coordenadasElipsoidales.longitud, coordenadasElipsoidales.altitud);
+                                  Navigator.push(context, MaterialPageRoute(
+                                  builder: (context) => PuntoIgacImportado(
+                                  altura: planasGenerico.altura,
+                                  nombreProyecto: widget.idProyecto,
+                                  idUsuario: widget.idusuario,
+                                  este: roundDouble(planasGenerico.este,3),
+                                  nombrePunto: 'SIN NOMBRAR',
+                                  ondulacion: 0,
+                                  norte: roundDouble(planasGenerico.norte, 3),
+                                  pkSistemaCoordenadas: widget.idProyeccion,
+                                  sistemaCoordenadas: widget.proyeccion,
+                                  ),
+                                  ));}
+                           })
+                        ],
+                      ),
+                    ),
+                  ),
+                ],
+              ),
             ),
           )),
         );
         }
   }
   }
+
 }
