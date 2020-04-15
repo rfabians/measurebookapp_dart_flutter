@@ -153,5 +153,16 @@ class gestorMBDatabase {
     List<puntosReferencia>  listaPuntosRef = response.map((c)=> puntosReferencia.fromMap(c)).toList(); 
     return listaPuntosRef;
   }
+
+  Future<bool> validarNombreProyecto (String nomProyecto) async{
+    Database db = await mbBasedeDatos();
+    var response= await db.rawQuery('SELECT Nombre_Proyecto FROM PROYECTOS WHERE Nombre_Proyecto = "${nomProyecto}"');
+    List<proyectos> listaProyectos = response.map((c)=> proyectos.fromMap(c)).toList();
+    if (listaProyectos.length > 0) {
+      return true;
+    }else {
+      return false;
+    }
+  }
 }
 

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:measurebookapp/clases/database.dart';
 import 'package:measurebookapp/modelos/departamentos.dart';
 import 'package:measurebookapp/modelos/municipios.dart';
@@ -18,7 +19,7 @@ class _NuevoProyectoState extends State<NuevoProyecto> {
   // Definición de Variables a Usar
   String nombreProyectoMB,ubicacionMB, clienteMB, empresaMB, proyeccionMB, decripcionMB;
 
-
+  bool validadorNombreProyecto;
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   @override
@@ -41,24 +42,22 @@ class _NuevoProyectoState extends State<NuevoProyecto> {
                               fontFamily: 'Roboto',
                               color: Color(0xff007FFF),
                               fontSize: 18,)),
-                            
                             TextFormField(
-                              decoration: InputDecoration(
-                                  icon: Icon(Icons.folder_open),
-                                  labelText: 'Nombre Proyecto'
+                                decoration: InputDecoration(
+                                    icon: Icon(Icons.folder_open),
+                                    labelText: 'Nombre Proyecto'
+                                ),
+                                validator: (String nProyecto) {
+                                  
+                                  if (nProyecto.isEmpty) {
+                                    return 'Nombre de Proyecto no valido';
+                                  }else {
+                                    setState(() {
+                                      nombreProyectoMB = nProyecto;
+                                      return null;
+                                    });
+                                  }}
                               ),
-                              validator: (String nProyecto) {
-                                if (nProyecto.isEmpty) {
-                                  return 'Nombre de Proyecto no valido';
-                                }else {
-                                  if (nProyecto.length > 35 ){
-                                    return 'Longitud del Nombre Excedida';
-                                  } else {
-                                nombreProyectoMB = nProyecto;
-                                  return null;
-                                }}
-                              },
-                            ),
                             TextFormField(
                               decoration: InputDecoration(
                                   icon: Icon(Icons.location_on),
@@ -103,10 +102,11 @@ class _NuevoProyectoState extends State<NuevoProyecto> {
                                   icon: Icon(Icons.location_city),
                                   labelText: 'Empresa'
                               ),
-                              validator: (String nEmpresa) {
+                              validator: (String nEmpresa){
                                 if (nEmpresa.isEmpty) {
                                   return 'Nombre de la empresa no valida';
                                 } else {
+                                  
                                   empresaMB = nEmpresa;
                                   return null;
                               }},
@@ -128,10 +128,14 @@ class _NuevoProyectoState extends State<NuevoProyecto> {
                                           leading: Icon(Icons.add_location, color: Color(0xff007FFF)),
                                           title: Text('Proyección Gauss Krüger'),
                                           subtitle: Text('Sistema de coordenadas proyectadas Cilindricas, Colombia cuenta con seis Origenes'),
-                                          onTap: (){
+                                          onTap: ()async {
                                             if (_formKey.currentState.validate()) {
                                               proyeccionMB = 'Gauss Krüger';
-                                              Navigator.push(context, MaterialPageRoute(
+                                              bool validarNombre = await gestorMBDatabase.db.validarNombreProyecto(nombreProyectoMB);
+                                              if(validarNombre == true) {
+                                                mostrarAlertaNombreProyecto();
+                                              } else {
+                                                Navigator.push(context, MaterialPageRoute(
                                               builder: (context) => SeleccionSistemaCoordendas(
                                                 clienteMB: clienteMB,
                                                 decripcionMB: decripcionMB,
@@ -144,6 +148,8 @@ class _NuevoProyectoState extends State<NuevoProyecto> {
                                                 id_Usuario: widget.idUsuario,
                                               ),
                                               ));
+                                              }
+                                              
                                             }
                                             // No diligenciaron todos los campos
                                           }
@@ -155,12 +161,20 @@ class _NuevoProyectoState extends State<NuevoProyecto> {
                                             color: Color(0xff007FFF)
                                           ),),
                                           subtitle: Text('Sistema de proyección cartesiano, usado para grandes escalas, razón por la cual existen tantos origenes como municipios'),
-                                          onTap: (){
-                                            if (_formKey.currentState.validate()) {
-                                              _alertDialogoCartesianas(context);
+                                          onTap: ()async {
+                                            
+                                            if(_formKey.currentState.validate()) {
+                                              bool validarNombre = await gestorMBDatabase.db.validarNombreProyecto(nombreProyectoMB);
+                                              if(validarNombre == true) {
+                                                mostrarAlertaNombreProyecto();
+                                              } else {
+                                                _alertDialogoCartesianas(context);
+                                              }
+                                            }else {
+                                            
                                             }
-                                            // No diligenciaron todos los campos
-                                          },
+                                            }                                          
+                                          
                                         )
                                 ],
                                ),
@@ -328,5 +342,14 @@ class _NuevoProyectoState extends State<NuevoProyecto> {
     )
   );
 }
+
+  void mostrarAlertaNombreProyecto(){
+    Fluttertoast.showToast(
+    msg: "El proyecto ya existe",
+    toastLength: Toast.LENGTH_LONG,
+    gravity: ToastGravity.CENTER,
+    timeInSecForIosWeb: 1
+    );
+  }
 }
 

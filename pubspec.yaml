@@ -34,6 +34,7 @@ dependencies:
   floop: ^3.0.1
   geolocator: ^5.1.5
   image_picker: ^0.6.4
+  fluttertoast: ^4.0.0
 
 
 
