@@ -48,6 +48,8 @@ class _PuntoNuevoState extends State<PuntoNuevo> {
       var fPlaca = await ImagePicker.pickImage(
       source: ImageSource.camera,
       imageQuality: 30,
+      maxHeight: 1500,
+      maxWidth: 1200,
       
     );
     fotoPlacaBytes = await fPlaca.readAsBytes();
@@ -59,6 +61,8 @@ class _PuntoNuevoState extends State<PuntoNuevo> {
       var fNorte = await ImagePicker.pickImage(
       source: ImageSource.camera,
       imageQuality: 30,
+      maxHeight: 1500,
+      maxWidth: 1200,
       );
       fotoNorteBytes = await fNorte.readAsBytes();
       this.setState(() {
@@ -68,6 +72,8 @@ class _PuntoNuevoState extends State<PuntoNuevo> {
       var fEste = await ImagePicker.pickImage(
       source: ImageSource.camera,
       imageQuality: 30,
+      maxHeight: 1500,
+      maxWidth: 1200,
       );
       fotoEsteBytes = await fEste.readAsBytes();
       this.setState(() {
@@ -77,6 +83,8 @@ class _PuntoNuevoState extends State<PuntoNuevo> {
       var fSur = await ImagePicker.pickImage(
       source: ImageSource.camera,
       imageQuality: 30,
+      maxHeight: 1500,
+      maxWidth: 1200,
       );
       fotoSurBytes = await fSur.readAsBytes();
       this.setState((){
@@ -86,6 +94,8 @@ class _PuntoNuevoState extends State<PuntoNuevo> {
     var fOeste = await ImagePicker.pickImage(
       source: ImageSource.camera,
       imageQuality: 30,
+      maxHeight: 1500,
+      maxWidth: 1200,
     );
     fotoOesteBytes = await fOeste.readAsBytes();
     this.setState(() {
@@ -97,7 +107,9 @@ class _PuntoNuevoState extends State<PuntoNuevo> {
   void _abrirGaleria (BuildContext context,String nombreFoto) async {
     if (nombreFoto == 'placa') {
       var fPlaca = await ImagePicker.pickImage(
-      source: ImageSource.gallery
+      source: ImageSource.gallery,
+      maxHeight: 1500,
+      maxWidth: 1200,
     );
     fotoPlacaBytes = await fPlaca.readAsBytes();
     this.setState(() {
@@ -105,7 +117,9 @@ class _PuntoNuevoState extends State<PuntoNuevo> {
     });
     } else if(nombreFoto == 'norte') {
       var fNorte = await ImagePicker.pickImage(
-      source: ImageSource.gallery
+      source: ImageSource.gallery,
+      maxHeight: 1500,
+      maxWidth: 1200,
       );
       fotoNorteBytes =  await fNorte.readAsBytes();
       this.setState((){
@@ -113,7 +127,9 @@ class _PuntoNuevoState extends State<PuntoNuevo> {
     });
     } else if (nombreFoto == 'este') {
       var fEste = await ImagePicker.pickImage(
-      source: ImageSource.gallery
+      source: ImageSource.gallery,
+      maxHeight: 1500,
+      maxWidth: 1200,
       );
       fotoEsteBytes = await fEste.readAsBytes();
       this.setState((){
@@ -121,7 +137,9 @@ class _PuntoNuevoState extends State<PuntoNuevo> {
     });
     } else if (nombreFoto == 'sur') {
       var fSur = await ImagePicker.pickImage(
-      source: ImageSource.gallery
+      source: ImageSource.gallery,
+      maxHeight: 1500,
+      maxWidth: 1200,
       );
       fotoSurBytes = await fSur.readAsBytes();
       this.setState((){
@@ -129,7 +147,9 @@ class _PuntoNuevoState extends State<PuntoNuevo> {
     });
   }else {
     var fOeste = await ImagePicker.pickImage(
-      source: ImageSource.gallery
+      source: ImageSource.gallery,
+      maxHeight: 1500,
+      maxWidth: 1200,
     );
     fotoOesteBytes =  await fOeste.readAsBytes();
     this.setState((){

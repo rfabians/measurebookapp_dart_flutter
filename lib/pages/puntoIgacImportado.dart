@@ -79,17 +79,21 @@ String tipoaltura(bool tipoALturaSw){
       var fPlaca = await ImagePicker.pickImage(
       source: ImageSource.camera,
       imageQuality: 30,
-      
+      maxHeight: 1500,
+      maxWidth: 1200,
     );
     fotoPlacaBytes = await fPlaca.readAsBytes();
     this.setState(() {
       fotoPlaca = fPlaca;
+      
       
     });
     } else if(nombreFoto == 'norte'){
       var fNorte = await ImagePicker.pickImage(
       source: ImageSource.camera,
       imageQuality: 30,
+      maxHeight: 1500,
+      maxWidth: 1200,
       );
       fotoNorteBytes = await fNorte.readAsBytes();
       this.setState(() {
@@ -99,6 +103,8 @@ String tipoaltura(bool tipoALturaSw){
       var fEste = await ImagePicker.pickImage(
       source: ImageSource.camera,
       imageQuality: 30,
+      maxHeight: 1500,
+      maxWidth: 1200,
       );
       fotoEsteBytes = await fEste.readAsBytes();
       this.setState(() {
@@ -108,6 +114,8 @@ String tipoaltura(bool tipoALturaSw){
       var fSur = await ImagePicker.pickImage(
       source: ImageSource.camera,
       imageQuality: 30,
+      maxHeight: 1500,
+      maxWidth: 1200,
       );
       fotoSurBytes = await fSur.readAsBytes();
       this.setState((){
@@ -117,6 +125,8 @@ String tipoaltura(bool tipoALturaSw){
     var fOeste = await ImagePicker.pickImage(
       source: ImageSource.camera,
       imageQuality: 30,
+      maxHeight: 1500,
+      maxWidth: 1200,
     );
     fotoOesteBytes = await fOeste.readAsBytes();
     this.setState(() {
@@ -128,7 +138,9 @@ String tipoaltura(bool tipoALturaSw){
   void _abrirGaleria (BuildContext context,String nombreFoto) async {
     if (nombreFoto == 'placa') {
       var fPlaca = await ImagePicker.pickImage(
-      source: ImageSource.gallery
+      source: ImageSource.gallery,
+      maxHeight: 1500,
+      maxWidth: 1200,
     );
     fotoPlacaBytes = await fPlaca.readAsBytes();
     this.setState(() {
@@ -136,7 +148,9 @@ String tipoaltura(bool tipoALturaSw){
     });
     } else if(nombreFoto == 'norte') {
       var fNorte = await ImagePicker.pickImage(
-      source: ImageSource.gallery
+      source: ImageSource.gallery,
+      maxHeight: 1500,
+      maxWidth: 1200,
       );
       fotoNorteBytes =  await fNorte.readAsBytes();
       this.setState((){
@@ -144,7 +158,9 @@ String tipoaltura(bool tipoALturaSw){
     });
     } else if (nombreFoto == 'este') {
       var fEste = await ImagePicker.pickImage(
-      source: ImageSource.gallery
+      source: ImageSource.gallery,
+      maxHeight: 1500,
+      maxWidth: 1200,
       );
       fotoEsteBytes = await fEste.readAsBytes();
       this.setState((){
@@ -152,7 +168,9 @@ String tipoaltura(bool tipoALturaSw){
     });
     } else if (nombreFoto == 'sur') {
       var fSur = await ImagePicker.pickImage(
-      source: ImageSource.gallery
+      source: ImageSource.gallery,
+      maxHeight: 1500,
+      maxWidth: 1200,
       );
       fotoSurBytes = await fSur.readAsBytes();
       this.setState((){
@@ -160,7 +178,9 @@ String tipoaltura(bool tipoALturaSw){
     });
   }else {
     var fOeste = await ImagePicker.pickImage(
-      source: ImageSource.gallery
+      source: ImageSource.gallery,
+      maxHeight: 1500,
+      maxWidth: 1200,
     );
     fotoOesteBytes =  await fOeste.readAsBytes();
     this.setState((){

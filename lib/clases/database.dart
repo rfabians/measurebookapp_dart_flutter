@@ -149,7 +149,7 @@ class gestorMBDatabase {
 
   Future<List<puntosReferencia>> getPuntosReferenciaData(String nombrePRoyecto) async {
     Database db = await mbBasedeDatos();
-    var response = await db.rawQuery('SELECT Id_Usuario, Proyecto, Nombre_Punto, Norte,  Este, Altura, Tipo_Altura, Foto_Placa, Foto_Norte,Foto_Este, Foto_Sur, Foto_Oeste  FROM PUNTOS_REFERENCIA WHERE Proyecto = "${nombrePRoyecto}"');
+    var response = await db.rawQuery('SELECT Id_Usuario, Proyecto, Nombre_Punto, Norte,  Este, Altura, Tipo_Altura, Foto_Placa FROM PUNTOS_REFERENCIA WHERE Proyecto = "${nombrePRoyecto}"');
     List<puntosReferencia>  listaPuntosRef = response.map((c)=> puntosReferencia.fromMap(c)).toList(); 
     return listaPuntosRef;
   }
