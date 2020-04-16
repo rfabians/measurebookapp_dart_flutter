@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:measurebookapp/pages/importarPuntoOSCoor.dart';
+import 'package:measurebookapp/pages/listadoPuntos.dart';
 import 'package:measurebookapp/pages/mapaPuntosRefencia.dart';
 
 import 'importarPuntosRedPasivaIGAC.dart';
@@ -27,7 +28,7 @@ class _GestosPuntosState extends State<GestosPuntos> {
                    children: <Widget>[
                      SizedBox(height: 5.0),
                      Padding(
-                       padding: EdgeInsets.all(20.0),
+                       padding: EdgeInsets.all(10.0),
                        child: Center(
                          child: Image.asset('assets/images/puntos.png',height: 80.0),),
                      ),
@@ -38,14 +39,16 @@ class _GestosPuntosState extends State<GestosPuntos> {
                           fontSize: 16.0,
                           color: Color(0xff007FFF),
                           )),
-                          TextSpan(text: 'Crea, elimina y visualiza los puntos de referencia que usaras dentro de tu proyecto ', style: TextStyle(
+                          TextSpan(text: 'Crea, elimina y visualiza los puntos de referencia que usaras dentro de tu proyecto', style: TextStyle(
                           fontFamily: 'Roboto', 
-                          fontSize: 16.0,
+                          fontSize: 14.0,
                           color: Colors.black54,
                           )),
                         ]
                       )),
-                      SizedBox(height: 30.0),
+                      SizedBox(height: 15.0),
+                      
+                      Divider(height: 5.0,),
                       Container(
                         height: 450,
                         padding: EdgeInsets.all(5.0),
@@ -54,13 +57,32 @@ class _GestosPuntosState extends State<GestosPuntos> {
                         child: ListView(
                         children: <Widget>[
                         ListTile(
-                        leading: Image.asset('assets/images/nuevo.png'),
+                        leading: Icon(Icons.description, size: 50,color: Colors.blueGrey),
+                        title: Text('Listado de Puntos',style: TextStyle(
+                        fontFamily: 'Roboto', 
+                        fontSize: 16.0,
+                        color: Color(0xff007FFF),
+                        )),
+                        subtitle: Text('Visualiza el listado de tus puntos de referencia que se usaran en el proyecto'),
+                        trailing: Icon(Icons.chevron_right, size: 30.0, color: Colors.blueAccent,),
+                        onTap: (){
+                        Navigator.push(context, MaterialPageRoute(
+                        builder: (context) => ListadoPuntoRef(
+                          idUsuario: widget.idUser,
+                          idProyeccion: widget.idProyeccion,
+                          proyeccion: widget.proyeccionMB,
+                          nombreProyecto: widget.nombreProyecto,
+                        )));
+                        },
+                        ),
+                        ListTile(
+                        leading: Image.asset('assets/images/nuevo.png', height: 45,),
                         title: Text('Crear Nuevo Punto',style: TextStyle(
                         fontFamily: 'Roboto', 
                         fontSize: 16.0,
                         color: Color(0xff007FFF),
                         )),
-                        subtitle: Text('Ingresa las coordeandas, descripción y registro fotográfico de los puntos que utilizaras en este proyecto'),
+                        subtitle: Text('Crea nuevos puntos de referencia ingresando coordenadas y registro fotográfico'),
                         trailing: Icon(Icons.chevron_right, size: 30.0, color: Colors.blueAccent,),
                         onTap: (){
                         Navigator.push(context, MaterialPageRoute(
@@ -72,15 +94,15 @@ class _GestosPuntosState extends State<GestosPuntos> {
                         )));
                         },
                         ),
-                        Divider(height: 20),
+                        Divider(height: 5),
                         ListTile(
-                        leading: Image.asset('assets/images/delta.png'),
+                        leading: Image.asset('assets/images/delta.png', height: 45),
                         title: Text('Importar Puntos de la Red Pasiva del IGAC',style: TextStyle(
                         fontFamily: 'Roboto', 
                         fontSize: 16.0,
                         color: Color(0xff007FFF),
                         )),
-                        subtitle: Text('Ingresa las coordeandas, descripción y registro fotográfico de los puntos que utilizaras en este proyecto'),
+                        subtitle: Text('Usa dentro de tu proyecto Puntos de la Red Pasiva del IGAC'),
                         trailing: Icon(Icons.chevron_right, size: 30.0, color: Colors.blueAccent,),
                         onTap: (){
                         Navigator.push(context, MaterialPageRoute(
@@ -92,15 +114,15 @@ class _GestosPuntosState extends State<GestosPuntos> {
                         )));
                         },
                         ),
-                        Divider(height: 20),
+                        Divider(height: 5),
                         ListTile(
-                        leading: Image.asset('assets/images/measure.png'),
+                        leading: Image.asset('assets/images/measure.png', height: 45,),
                         title: Text('Vizualizar en mapa todos los puntos',style: TextStyle(
                         fontFamily: 'Roboto', 
                         fontSize: 16.0,
                         color: Color(0xff007FFF),
                         )),
-                        subtitle: Text('Ingresa las coordeandas, descripción y registro fotográfico de los puntos que utilizaras en este proyecto'),
+                        subtitle: Text('Genera un visor en el cual puedes ver la ubicación de tus puntos de referencia'),
                         trailing: Icon(Icons.chevron_right, size: 30.0, color: Colors.blueAccent,),
                         onTap: (){ 
                           Navigator.push(context, MaterialPageRoute(
@@ -111,15 +133,15 @@ class _GestosPuntosState extends State<GestosPuntos> {
                         )));
                         },
                         ),
-                        Divider(height: 20),
+                        Divider(height: 5),
                         ListTile(
-                        leading: Image.asset('assets/images/conversion.png'),
+                        leading: Image.asset('assets/images/conversion.png', height: 45),
                         title: Text('Importar Punto de otro sistema de Coordenadas',style: TextStyle(
                         fontFamily: 'Roboto', 
                         fontSize: 16.0,
                         color: Color(0xff007FFF),
                         )),
-                        subtitle: Text('Ingresa las coordeandas, descripción y registro fotográfico de los puntos que utilizaras en este proyecto'),
+                        subtitle: Text('Crea puntos de referencia que se encuentran en otro sistema de Coordenadas'),
                         trailing: Icon(Icons.chevron_right, size: 30.0, color: Colors.blueAccent,),
                         onTap: (){
                           Navigator.push(context, MaterialPageRoute(
@@ -132,7 +154,7 @@ class _GestosPuntosState extends State<GestosPuntos> {
                         )));
                         },
                         ),
-                        Divider(height: 20),
+                        Divider(height: 5),
                       ],
                       
                      )

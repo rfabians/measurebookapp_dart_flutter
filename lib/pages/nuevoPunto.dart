@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/cupertino.dart';
@@ -30,7 +32,7 @@ class _PuntoNuevoState extends State<PuntoNuevo> {
   List<int> fotoEsteBytes = null;
   List<int> fotoSurBytes = null;
   List<int> fotoOesteBytes = null;
-
+  String fotoPlacaSTRING,fotoNorteSTRING,fotoEsteSTRING,fotoSurSTRING,fotoOesteSTRING;
 
   //Obtener tipo de ALtura de Shuch
   String tipoaltura(bool tipoALturaSw){
@@ -53,6 +55,8 @@ class _PuntoNuevoState extends State<PuntoNuevo> {
       
     );
     fotoPlacaBytes = await fPlaca.readAsBytes();
+    fotoPlacaSTRING = base64.encode(fotoPlacaBytes);
+    
     this.setState(() {
       fotoPlaca = fPlaca;
       
@@ -65,6 +69,7 @@ class _PuntoNuevoState extends State<PuntoNuevo> {
       maxWidth: 1200,
       );
       fotoNorteBytes = await fNorte.readAsBytes();
+      fotoNorteSTRING = base64.encode(fotoNorteBytes);
       this.setState(() {
       fotoNorte = fNorte;
     });
@@ -76,6 +81,7 @@ class _PuntoNuevoState extends State<PuntoNuevo> {
       maxWidth: 1200,
       );
       fotoEsteBytes = await fEste.readAsBytes();
+      fotoEsteSTRING = base64.encode(fotoEsteBytes);
       this.setState(() {
       fotoEste = fEste;
     });
@@ -87,6 +93,7 @@ class _PuntoNuevoState extends State<PuntoNuevo> {
       maxWidth: 1200,
       );
       fotoSurBytes = await fSur.readAsBytes();
+      fotoSurSTRING = base64.encode(fotoSurBytes);
       this.setState((){
       fotoSur = fSur;
     });
@@ -98,6 +105,7 @@ class _PuntoNuevoState extends State<PuntoNuevo> {
       maxWidth: 1200,
     );
     fotoOesteBytes = await fOeste.readAsBytes();
+    fotoOesteSTRING = base64.encode(fotoOesteBytes);
     this.setState(() {
       fotoOeste = fOeste;
     });
@@ -112,6 +120,7 @@ class _PuntoNuevoState extends State<PuntoNuevo> {
       maxWidth: 1200,
     );
     fotoPlacaBytes = await fPlaca.readAsBytes();
+    fotoPlacaSTRING = base64.encode(fotoPlacaBytes);
     this.setState(() {
       fotoPlaca = fPlaca;
     });
@@ -122,6 +131,7 @@ class _PuntoNuevoState extends State<PuntoNuevo> {
       maxWidth: 1200,
       );
       fotoNorteBytes =  await fNorte.readAsBytes();
+      fotoNorteSTRING = base64.encode(fotoNorteBytes);
       this.setState((){
       fotoNorte = fNorte;
     });
@@ -132,6 +142,7 @@ class _PuntoNuevoState extends State<PuntoNuevo> {
       maxWidth: 1200,
       );
       fotoEsteBytes = await fEste.readAsBytes();
+      fotoEsteSTRING = base64.encode(fotoEsteBytes);
       this.setState((){
       fotoEste = fEste;
     });
@@ -142,6 +153,7 @@ class _PuntoNuevoState extends State<PuntoNuevo> {
       maxWidth: 1200,
       );
       fotoSurBytes = await fSur.readAsBytes();
+      fotoSurSTRING = base64.encode(fotoSurBytes);
       this.setState((){
       fotoSur = fSur;
     });
@@ -152,6 +164,7 @@ class _PuntoNuevoState extends State<PuntoNuevo> {
       maxWidth: 1200,
     );
     fotoOesteBytes =  await fOeste.readAsBytes();
+    fotoOesteSTRING = base64.encode(fotoOesteBytes);
     this.setState((){
       fotoOeste = fOeste;
     });
@@ -458,7 +471,7 @@ class _PuntoNuevoState extends State<PuntoNuevo> {
                     Divider(height: 20,),
                     FlatButton(onPressed: () {
                       if (_formKey.currentState.validate()) {
-                          gestorMBDatabase.db.InserDataSQL('INSERT INTO PUNTOS_REFERENCIA (Id_Usuario, Proyecto, Nombre_Punto, Norte, Este, Altura, Tipo_Altura, Foto_Placa, Foto_Norte, Foto_Este, Foto_Sur, Foto_Oeste) VALUES ("${widget.idUserMB}", "${widget.nombreProyecto}", "${nombrePuntoNuevo}", ${nortePuntoNuevo}, ${estePuntoNuevo}, ${alturaPuntoNuevo}, "${tipoaltura(alturaOrtometrica)}", "${fotoPlacaBytes}", "${fotoNorteBytes}", "${fotoEsteBytes}", "${fotoSurBytes}", "${fotoOesteBytes}")');
+                          gestorMBDatabase.db.InserDataSQL('INSERT INTO PUNTOS_REFERENCIA (Id_Usuario, Proyecto, Nombre_Punto, Norte, Este, Altura, Tipo_Altura, Foto_Placa, Foto_Norte, Foto_Este, Foto_Sur, Foto_Oeste) VALUES ("${widget.idUserMB}", "${widget.nombreProyecto}", "${nombrePuntoNuevo}", ${nortePuntoNuevo}, ${estePuntoNuevo}, ${alturaPuntoNuevo}, "${tipoaltura(alturaOrtometrica)}", "${fotoPlacaSTRING}", "${fotoNorteSTRING}", "${fotoEsteSTRING}", "${fotoSurSTRING}", "${fotoOesteSTRING}")');
                           Navigator.push(context, MaterialPageRoute(
                           builder: (context) => GestosPuntos(
                             idProyeccion: widget.id_sistemaCoor,

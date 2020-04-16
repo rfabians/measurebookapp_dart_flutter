@@ -13,11 +13,11 @@ class puntosReferencia{
   String Tipo_Altura;
   String Descripcion;
   // Revisar almacensamiento de BLOB
-  List<int> Foto_Placa;
-  List<int> Foto_Norte;
-  List<int> Foto_Este;
-  List<int> Foto_Sur;
-  List<int> Foto_Oeste;
+  String Foto_Placa;
+  String Foto_Norte;
+  String Foto_Este;
+  String Foto_Sur;
+  String Foto_Oeste;
 
   puntosReferencia({this.ID_Punto, this.ID_Usuario, this.Proyecto, this.Nombre_Punto, this.Norte, this.Este, this.Altura, this.Tipo_Altura,this.latitud, this.longitud ,this.Descripcion, this.Foto_Placa, this.Foto_Norte, this.Foto_Este, this.Foto_Sur, this.Foto_Oeste});
 
@@ -30,6 +30,11 @@ class puntosReferencia{
       Este: json["Este"],
       Altura: json["Altura"],
       Tipo_Altura: json["Tipo_Altura"],
-      Descripcion: json["Descripcion"]
+      Descripcion: json["Descripcion"],
+      Foto_Placa: json["Foto_Placa"],
+      Foto_Este: json["Foto_Este"],
+      Foto_Norte: json["Foto_Norte"],
+      Foto_Oeste: json["Foto_Oeste"],
+      Foto_Sur: json["Foto_Sur"]
   );
 }

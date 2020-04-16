@@ -1,3 +1,7 @@
+import 'dart:convert';
+import 'dart:io';
+import 'dart:typed_data';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:flutter_map_marker_cluster/flutter_map_marker_cluster.dart';
@@ -80,6 +84,8 @@ class _MapaPuntosReferenciaState extends State<MapaPuntosReferencia> {
             if(snapshot.data.length > 0) {
               for (var i = 0; i < snapshot.data.length; i++) {
                 puntosReferencia listaPuntos = snapshot.data[i]; 
+                Image ftoPlaca = Image.memory(base64Decode(listaPuntos.Foto_Placa));
+                
                 markersClauster.add(
                   Marker(
                       anchorPos: AnchorPos.align(AnchorAlign.center),
@@ -114,6 +120,13 @@ class _MapaPuntosReferenciaState extends State<MapaPuntosReferencia> {
                         Align(alignment: Alignment.centerRight,child: Text('Tipo Altura', style: TextStyle(fontFamily: 'Roboto',color: Colors.black54,fontSize: 12.0),),),
                         Align(alignment: Alignment.centerRight,child: Text('${listaPuntos.Tipo_Altura}', style: TextStyle(fontFamily: 'Roboto',color: Colors.blueAccent,fontSize: 14.0),),),
                         Divider(),
+                        Align(alignment: Alignment.center,child: Text('Foto Placa', style: TextStyle(fontFamily: 'Roboto',color: Colors.blueAccent,fontSize: 16.0),),),
+                        Container(
+                        child:  ClipRRect(
+                        borderRadius: BorderRadius.circular(8.0),
+                        child: ftoPlaca
+                        )
+                        )
                         ],
                         ),
                         ),
