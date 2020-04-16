@@ -63,7 +63,7 @@ class _GestosPuntosState extends State<GestosPuntos> {
                         fontSize: 16.0,
                         color: Color(0xff007FFF),
                         )),
-                        subtitle: Text('Visualiza el listado de tus puntos de referencia que se usaran en el proyecto'),
+                        subtitle: Text('Visualiza y elimina el listado de tus puntos de referencia que se usaran en el proyecto'),
                         trailing: Icon(Icons.chevron_right, size: 30.0, color: Colors.blueAccent,),
                         onTap: (){
                         Navigator.push(context, MaterialPageRoute(
@@ -75,6 +75,7 @@ class _GestosPuntosState extends State<GestosPuntos> {
                         )));
                         },
                         ),
+                        Divider(),
                         ListTile(
                         leading: Image.asset('assets/images/nuevo.png', height: 45,),
                         title: Text('Crear Nuevo Punto',style: TextStyle(
@@ -156,20 +157,9 @@ class _GestosPuntosState extends State<GestosPuntos> {
                         ),
                         Divider(height: 5),
                       ],
-                      
                      )
                     ),
                     ),
-                    FlatButton(
-                    shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(10.0)),
-                    child: Text('Eliminar Puntos', style: TextStyle(
-                    fontFamily: 'Roboto',
-                    fontSize: 14.0,
-                    color: Colors.white,
-                    ),),
-                    color: Color(0xff007FFF),
-                    onPressed: (){
-                    }),
                    ],
                  ),
                ),
