@@ -26,7 +26,7 @@ class _GestosPuntosState extends State<GestosPuntos> {
                  child: Column(
                    mainAxisAlignment: MainAxisAlignment.start,
                    children: <Widget>[
-                     SizedBox(height: 5.0),
+                     Align(alignment: Alignment.centerRight,child: Icon(Icons.add_location),),
                      Padding(
                        padding: EdgeInsets.all(10.0),
                        child: Center(
