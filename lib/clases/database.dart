@@ -5,6 +5,7 @@ import 'package:flutter_map/flutter_map.dart';
 import 'package:flutter_map_marker_cluster/flutter_map_marker_cluster.dart';
 import 'package:latlong/latlong.dart';
 import 'package:measurebookapp/modelos/RedPasivaIGACPuntos.dart';
+import 'package:measurebookapp/modelos/altNiveladas.dart';
 import 'package:measurebookapp/modelos/cartesianasCS.dart';
 import 'package:measurebookapp/modelos/departamentos.dart';
 import 'package:measurebookapp/modelos/gaussCS.dart';
@@ -115,6 +116,13 @@ class gestorMBDatabase {
     var response = await db.rawQuery('SELECT * FROM RED_PASIVA_IGAC');
     List<redPIGACPuntos>  listaPuntosRedPasivaIGAC = response.map((c)=> redPIGACPuntos.fromMap(c)).toList();    
     return listaPuntosRedPasivaIGAC;
+  }
+  Future<List<AltNiveladas>> getPuntosAlturasNiveladasPIGAC() async{
+    WidgetsFlutterBinding.ensureInitialized();
+    Database db = await mbBasedeDatos();
+    var response = await db.rawQuery('SELECT * FROM ALTURAS_NIVELADAS');
+    List<AltNiveladas>  alturasNiveladasIGAC = response.map((c)=> AltNiveladas.fromMap(c)).toList();    
+    return alturasNiveladasIGAC;
   }
 
    Future<GaussCS> getOrigenGaussData(String idProyeccionGauss) async {

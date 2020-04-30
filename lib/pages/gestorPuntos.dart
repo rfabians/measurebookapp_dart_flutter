@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:measurebookapp/pages/alturasNiveladas.dart';
 import 'package:measurebookapp/pages/importarPuntoOSCoor.dart';
 import 'package:measurebookapp/pages/listadoPuntos.dart';
 import 'package:measurebookapp/pages/mapaPuntosRefencia.dart';
@@ -26,7 +27,6 @@ class _GestosPuntosState extends State<GestosPuntos> {
                  child: Column(
                    mainAxisAlignment: MainAxisAlignment.start,
                    children: <Widget>[
-                     Align(alignment: Alignment.centerRight,child: Icon(Icons.add_location),),
                      Padding(
                        padding: EdgeInsets.all(10.0),
                        child: Center(
@@ -50,7 +50,7 @@ class _GestosPuntosState extends State<GestosPuntos> {
                       
                       Divider(height: 5.0,),
                       Container(
-                        height: 450,
+                        height: MediaQuery.of(context).size.height,
                         padding: EdgeInsets.all(5.0),
                         child: MediaQuery.removePadding(context: context,
                         removeTop: true,
@@ -103,11 +103,31 @@ class _GestosPuntosState extends State<GestosPuntos> {
                         fontSize: 16.0,
                         color: Color(0xff007FFF),
                         )),
-                        subtitle: Text('Usa dentro de tu proyecto Puntos de la Red Pasiva del IGAC'),
+                        subtitle: Text('Usa dentro de tu proyecto Puntos de la Red Pasiva del IGAC (Coordenadas)'),
                         trailing: Icon(Icons.chevron_right, size: 30.0, color: Colors.blueAccent,),
                         onTap: (){
                         Navigator.push(context, MaterialPageRoute(
                         builder: (context) => ImportPuntosRedPasivaIGAC(
+                          idProyeccion: widget.idProyeccion,
+                          idProyecto: widget.nombreProyecto,
+                          idusuario: widget.idProyeccion,
+                          proyeccion: widget.proyeccionMB,
+                        )));
+                        },
+                        ),
+                        Divider(height: 5),
+                        ListTile(
+                        leading: Image.asset('assets/images/nivelacion_.png', height: 45),
+                        title: Text('Importar Puntos de la Red Pasiva del IGAC',style: TextStyle(
+                        fontFamily: 'Roboto', 
+                        fontSize: 16.0,
+                        color: Color(0xff007FFF),
+                        )),
+                        subtitle: Text('Usa dentro de tu proyecto Puntos de la Red Pasiva del IGAC (Alturas Niveladas)'),
+                        trailing: Icon(Icons.chevron_right, size: 30.0, color: Colors.blueAccent,),
+                        onTap: (){
+                        Navigator.push(context, MaterialPageRoute(
+                        builder: (context) => AlturaNiveladasMap(
                           idProyeccion: widget.idProyeccion,
                           idProyecto: widget.nombreProyecto,
                           idusuario: widget.idProyeccion,
