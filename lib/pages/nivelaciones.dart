@@ -27,6 +27,9 @@ class _NivelacionesState extends State<Nivelaciones> {
                     subtitle: Text('Visualiza los puntos que poseen altura nivelada por IGAC', style: TextStyle(color: Colors.black54),),
                     leading: Image.asset('assets/images/measure.png'),
                     trailing: Icon(Icons.chevron_right, color: Colors.blueAccent,size: 40.0),
+                    onTap: (){
+                      
+                    },
                   ),
                   Divider(height: 10),
                   ListTile(

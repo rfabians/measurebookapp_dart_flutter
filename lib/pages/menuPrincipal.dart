@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:measurebookapp/pages/nivelaciones.dart';
+import 'package:measurebookapp/pages/observacionesGNSS.dart';
 import 'importarPuntosRedPasivaIGAC.dart';
 import 'gestorPuntos.dart';
 
@@ -130,6 +131,11 @@ class _MenuPrincipalMBState extends State<MenuPrincipalMB> {
                         color: Colors.black54,
                       )),
                       trailing: Icon(Icons.chevron_right, size: 30.0, color: Colors.blueAccent,),
+                      onTap: (){
+                        Navigator.push(context, MaterialPageRoute(
+                        builder: (context) => ObservacionesGNSS(
+                        )));
+                      },
                     )
                   ],
                 )

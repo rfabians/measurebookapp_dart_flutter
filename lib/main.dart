@@ -42,14 +42,14 @@ class _MyAppState extends State<IniciarSesion> {
   bool _isLoggedIn = false;
   String idUser = '/*/';
   
-  GoogleSignIn _googleSignIn = GoogleSignIn(scopes: ['email']);
+  GoogleSignIn googleSignIn = GoogleSignIn(scopes: ['email']);
 
-  _login() async{
+  login() async{
     try{
-      await _googleSignIn.signIn();
+      await googleSignIn.signIn();
       setState(() {
         _isLoggedIn = true;
-        idUser = _googleSignIn.currentUser.id;
+        idUser = googleSignIn.currentUser.id;
         print(idUser);
 
       });
@@ -58,8 +58,8 @@ class _MyAppState extends State<IniciarSesion> {
     }
   }
 
-  _logout(){
-    _googleSignIn.signOut();
+  logout(){
+    googleSignIn.signOut();
     setState(() {
       _isLoggedIn = false;
     });
@@ -87,18 +87,18 @@ class _MyAppState extends State<IniciarSesion> {
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: <Widget>[
                           SizedBox (width: 10.0),
-                          Image.network(_googleSignIn.currentUser.photoUrl, height: 75.0,),
+                          Image.network(googleSignIn.currentUser.photoUrl, height: 75.0,),
                           SizedBox(width: 20.0,),
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: <Widget>[
-                              Text(_googleSignIn.currentUser.displayName, style: TextStyle(
+                              Text(googleSignIn.currentUser.displayName, style: TextStyle(
                                 fontFamily: 'Roboto',
                                 color: Color(0xff007FFF),
                                 fontSize: 15.0,
                               ),),
                               SizedBox(height: 5.0,),
-                              Text(_googleSignIn.currentUser.email, style: TextStyle(
+                              Text(googleSignIn.currentUser.email, style: TextStyle(
                                 fontFamily: 'Roboto',
                                 color: Colors.black54,
                                 fontSize: 14.0,
@@ -503,7 +503,7 @@ class _MyAppState extends State<IniciarSesion> {
                               ),),
                               color: Color(0xff007FFF),
                               onPressed: (){
-                                _logout();
+                                logout();
                               }),
                           SizedBox(width: 10.0),
                           FlatButton(
@@ -577,7 +577,7 @@ class _MyAppState extends State<IniciarSesion> {
                     )),
                     SizedBox(height: 40.0,),
                     FlatButton(onPressed: (){
-                      _login();
+                      login();
                     }, child: Image.asset('assets/images/google.png', height: 50.0,)),
                     SizedBox(height: 40.0,),
                     RichText(text: TextSpan(
