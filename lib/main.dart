@@ -5,6 +5,7 @@ import 'package:flutter_swiper/flutter_swiper.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:measurebookapp/clases/database.dart';
 import 'package:measurebookapp/modelos/proyectos.dart';
+import 'package:measurebookapp/modelos/usuario.dart';
 import 'package:measurebookapp/pages/menuPrincipal.dart';
 import 'pages/proyecto_nuevo.dart';
 import 'package:flare_flutter/flare_actor.dart';
@@ -41,17 +42,21 @@ class IniciarSesion extends StatefulWidget {
 class _MyAppState extends State<IniciarSesion> {
   bool _isLoggedIn = false;
   String idUser = '/*/';
+  Usuario usuario = Usuario();
   
   GoogleSignIn googleSignIn = GoogleSignIn(scopes: ['email']);
 
   login() async{
     try{
       await googleSignIn.signIn();
+      gestorMBDatabase.db.InserDataSQL("INSERT INTO USUARIOS (ID_GOOGLE_USER, NOMBRE_USER, FOTO_URL, EMAIL_USER) VALUES ('${googleSignIn.currentUser.id}', '${googleSignIn.currentUser.displayName}', '${googleSignIn.currentUser.photoUrl}', '${googleSignIn.currentUser.email}')");
       setState(() {
         _isLoggedIn = true;
         idUser = googleSignIn.currentUser.id;
-        print(idUser);
-
+        usuario.ID_GOOGLE_USER = googleSignIn.currentUser.id;
+        usuario.EMAIL_USER = googleSignIn.currentUser.email;
+        usuario.FOTO_URL = googleSignIn.currentUser.photoUrl;
+        usuario.NOMBRE_USER = googleSignIn.currentUser.displayName;
       });
     } catch (err){
       print(err);
@@ -74,7 +79,8 @@ class _MyAppState extends State<IniciarSesion> {
         body: Center(
           child: SingleChildScrollView(
             child: _isLoggedIn
-                ? Center(
+                ? 
+                Center(
 
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.center,

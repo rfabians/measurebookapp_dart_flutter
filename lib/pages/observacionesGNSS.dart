@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-
+import 'package:measurebookapp/pages/observacionGNSSVertice.dart';
 import 'observacionGNSSFotocontrol.dart';
 
 class ObservacionesGNSS extends StatefulWidget {
@@ -84,14 +84,11 @@ class _ObservacionesGNSSState extends State<ObservacionesGNSS> {
                                           color: Colors.black54,
                                         )),
                                         trailing: Icon(Icons.chevron_right, size: 30.0, color: Colors.blueAccent,),
-                                        onTap: () {/*
+                                        onTap: () {
                                           Navigator.push(context, MaterialPageRoute(
-                                          builder: (context) => GestosPuntos(
-                                            idUser: widget.id_usuario,
-                                            idProyeccion: widget.id_proyeccion,
-                                            nombreProyecto: widget.nombreProyectoMB,
-                                            proyeccionMB: widget.proyeccionMB,
-                                          )));*/
+                                          builder: (context) => ObservacionGNSSVertica(
+                                          )));
+                                          Navigator.of(context, rootNavigator: true).pop();
                                         },
                                       ),
                                       Divider(height: 20),
