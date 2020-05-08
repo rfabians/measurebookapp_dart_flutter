@@ -35,6 +35,7 @@ dependencies:
   geolocator: ^5.1.5
   image_picker: ^0.6.4
   fluttertoast: ^4.0.0
+  flutter_custom_clippers: ^1.1.1
 
 
 

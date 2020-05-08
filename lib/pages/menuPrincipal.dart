@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:measurebookapp/pages/conversionCoordenadas.dart';
 import 'package:measurebookapp/pages/nivelaciones.dart';
 import 'package:measurebookapp/pages/observacionesGNSS.dart';
 import 'importarPuntosRedPasivaIGAC.dart';
@@ -43,8 +44,20 @@ class _MenuPrincipalMBState extends State<MenuPrincipalMB> {
                   )),
                 ]
               )),
+              Divider(height: 20),
               //Gestor de Puntos
               Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
+                  boxShadow: [
+                    BoxShadow(
+                      blurRadius: 2.0,
+                      spreadRadius: 2.0,
+                      color: Colors.black.withOpacity(.1)
+                    ),
+                  ],
+                  color: Colors.white
+                ),
                 padding: EdgeInsets.all(20.0),
                 height: 100,
                 child: MediaQuery.removePadding(context: context, 
@@ -79,10 +92,22 @@ class _MenuPrincipalMBState extends State<MenuPrincipalMB> {
                 )
                 ),
               ),
+              Divider(height: 3),
               //Conversión de Coordenadas
               Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
+                  boxShadow: [
+                    BoxShadow(
+                      blurRadius: 2.0,
+                      spreadRadius: 2.0,
+                      color: Colors.black.withOpacity(.1)
+                    ),
+                  ],
+                  color: Colors.white
+                ),
                 padding: EdgeInsets.all(20.0),
-                height: 120,
+                height: 100,
                 child: MediaQuery.removePadding(context: context, 
                 removeTop: true,
                 child: ListView(
@@ -102,15 +127,33 @@ class _MenuPrincipalMBState extends State<MenuPrincipalMB> {
                       )),
                       trailing: Icon(Icons.chevron_right, size: 30.0, color: Colors.blueAccent,),
                       onTap: (){
-                        
+                        Navigator.push(context, MaterialPageRoute(
+                        builder: (context) => CoversionCoordenadas(
+                          idUser: widget.id_usuario,
+                          idProyeccion: widget.id_proyeccion,
+                          nombreProyecto: widget.nombreProyectoMB,
+                          proyeccionMB: widget.proyeccionMB,
+                        )));
                       },
                     )
                   ],
                 )
                 ),
               ),
+              Divider(height: 3),
               // Observaciones GNSS
               Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
+                  boxShadow: [
+                    BoxShadow(
+                      blurRadius: 2.0,
+                      spreadRadius: 2.0,
+                      color: Colors.black.withOpacity(.1)
+                    ),
+                  ],
+                  color: Colors.white
+                ),
                 padding: EdgeInsets.all(20.0),
                 height: 100,
                 child: MediaQuery.removePadding(context: context, 
@@ -141,8 +184,20 @@ class _MenuPrincipalMBState extends State<MenuPrincipalMB> {
                 )
                 ),
               ),
+              Divider(height: 3),
               // Poligonales
               Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
+                  boxShadow: [
+                    BoxShadow(
+                      blurRadius: 2.0,
+                      spreadRadius: 2.0,
+                      color: Colors.black.withOpacity(.1)
+                    ),
+                  ],
+                  color: Colors.white
+                ),
                 padding: EdgeInsets.all(20.0),
                 height: 100,
                 child: MediaQuery.removePadding(context: context, 
@@ -168,10 +223,22 @@ class _MenuPrincipalMBState extends State<MenuPrincipalMB> {
                 )
                 )
               ),
+              Divider(height: 3),
               //Nivelaciones
               Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
+                  boxShadow: [
+                    BoxShadow(
+                      blurRadius: 2.0,
+                      spreadRadius: 2.0,
+                      color: Colors.black.withOpacity(.1)
+                    ),
+                  ],
+                  color: Colors.white
+                ),
                 padding: EdgeInsets.all(20.0),
-                height: 200,
+                height: 100,
                 child: MediaQuery.removePadding(context: context, 
                 removeTop: true,
                 child: ListView(
@@ -193,14 +260,14 @@ class _MenuPrincipalMBState extends State<MenuPrincipalMB> {
                       onTap: (){
                         Navigator.push(context, MaterialPageRoute(
                         builder: (context) => Nivelaciones(
-                        
                         )));
                       },
                     )
                   ],
                 )
                 ),
-              )
+              ),
+              Divider(height: 10)
             ],
           ),
           ),

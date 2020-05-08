@@ -34,10 +34,9 @@ class _SeleccionSistemaCoordendasState extends State<SeleccionSistemaCoordendas>
     // Planas Gauss
     Container(
         decoration: BoxDecoration(
-        borderRadius: BorderRadius.all(Radius.circular(10.0)
-        )
+        borderRadius: BorderRadius.all(Radius.circular(10.0)),
         ),
-        height: MediaQuery.of(context).size.height,
+        height: 700,
         width: MediaQuery.of(context).size.width,
         child: Scaffold(
           body:FutureBuilder<List<origenesGauss>>(
@@ -45,15 +44,30 @@ class _SeleccionSistemaCoordendasState extends State<SeleccionSistemaCoordendas>
             builder: (BuildContext context, AsyncSnapshot<List<origenesGauss>> snapshot) {
               if(snapshot.hasData){
                 return Swiper(
+                  loop: false,
+                  pagination: SwiperPagination(
+                    builder: SwiperPagination.dots
+                  ),
                   layout: SwiperLayout.STACK,
                   itemWidth: MediaQuery.of(context).size.width * 0.8,
-                  itemHeight: MediaQuery.of(context).size.height * 0.8,
+                  itemHeight: 600,
                   itemCount: snapshot.data.length,
                   itemBuilder: (BuildContext context, int index){
                     origenesGauss listaOrigenes = snapshot.data[index];
                     return Container(
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                        boxShadow: [
+                          BoxShadow(
+                          color: Colors.black45,
+                          blurRadius: 5.0, // has the effect of softening the shadow
+                          spreadRadius: 3.0, // has the effect of extending the shadow
+                          offset: Offset(
+                            10.0, // horizontal, move right 10
+                            40.0, // vertical, move down 10
+                          ),
+                        )
+                      ],
                       ),
                       key: UniqueKey(),
                       child: Card(
@@ -67,10 +81,10 @@ class _SeleccionSistemaCoordendasState extends State<SeleccionSistemaCoordendas>
                            )  
                            ),
                           child: Padding(
-                            padding: const EdgeInsets.all(20.0),
+                            padding: const EdgeInsets.all(15.0),
                             child: Column(
                               children: <Widget>[
-                                SizedBox(height: 30.0),
+                                SizedBox(height: 10.0),
                                 Align(
                                   alignment: Alignment.centerLeft,
                                   child: RichText(text: TextSpan(
@@ -78,7 +92,7 @@ class _SeleccionSistemaCoordendasState extends State<SeleccionSistemaCoordendas>
                                     TextSpan(text: 'Gauss-Krüger', style: TextStyle(
                                       fontFamily: 'Roboto',
                                       color: Colors.white,
-                                      fontSize: 18.0
+                                      fontSize: 16.0
                                       )),
                                   ]
                                 )),
@@ -89,11 +103,11 @@ class _SeleccionSistemaCoordendasState extends State<SeleccionSistemaCoordendas>
                                     '${listaOrigenes.NOMBRE}', style: TextStyle(
                                       fontFamily: 'Roboto',
                                       color: Colors.white,
-                                      fontSize: 18.0
+                                      fontSize: 16.0
                                     ),
                                   ),
                                 ),
-                                SizedBox(height: 45.0),
+                                SizedBox(height: 70.0),
                                 Align(
                                   alignment: Alignment.centerLeft,
                                   child: RichText(text: TextSpan(
@@ -106,12 +120,12 @@ class _SeleccionSistemaCoordendasState extends State<SeleccionSistemaCoordendas>
                                     TextSpan( text: 'Magna Sirgas', style: TextStyle(
                                       fontFamily: 'Roboto',
                                       color: Color(0xff007FFF),
-                                      fontSize: 14.0
+                                      fontSize: 13.0
                                     ))
                                   ]
                                 )),
                                 ),
-                                Divider(),
+                                Divider(height: 5),
                                 Align(
                                   alignment: Alignment.centerLeft,
                                   child: RichText(text: TextSpan(
@@ -124,12 +138,12 @@ class _SeleccionSistemaCoordendasState extends State<SeleccionSistemaCoordendas>
                                     TextSpan( text: 'GRS80', style: TextStyle(
                                       fontFamily: 'Roboto',
                                       color: Color(0xff007FFF),
-                                      fontSize: 14.0
+                                      fontSize: 13.0
                                     ))
                                   ]
                                 )),
                                 ),
-                                Divider(),
+                                Divider(height: 5),
                                 Align(
                                   alignment: Alignment.center,
                                   child: RichText(text: TextSpan(
@@ -137,12 +151,12 @@ class _SeleccionSistemaCoordendasState extends State<SeleccionSistemaCoordendas>
                                     TextSpan(text: 'Sistema de Proyección', style: TextStyle(
                                       fontFamily: 'Roboto',
                                       color: Color(0xff007FFF),
-                                      fontSize: 15.0
+                                      fontSize: 14.0
                                     )),
                                   ]
                                 )),
                                 ),
-                                SizedBox(height: 5,),
+                                SizedBox(height: 10),
                                 Align(
                                   alignment: Alignment.centerLeft,
                                   child: RichText(text: TextSpan(
@@ -155,7 +169,7 @@ class _SeleccionSistemaCoordendasState extends State<SeleccionSistemaCoordendas>
                                     TextSpan( text: 'Transversal de Mercator', style: TextStyle(
                                       fontFamily: 'Roboto',
                                       color: Color(0xff007FFF),
-                                      fontSize: 14.0
+                                      fontSize: 13.0
                                     ))
                                   ]
                                 )),
@@ -173,7 +187,7 @@ class _SeleccionSistemaCoordendasState extends State<SeleccionSistemaCoordendas>
                                     TextSpan( text: '${listaOrigenes.LATITUD.toString()}', style: TextStyle(
                                       fontFamily: 'Roboto',
                                       color: Color(0xff007FFF),
-                                      fontSize: 14.0
+                                      fontSize: 13.0
                                     ))
                                   ]
                                 )),
@@ -191,7 +205,7 @@ class _SeleccionSistemaCoordendasState extends State<SeleccionSistemaCoordendas>
                                     TextSpan( text: '${listaOrigenes.LONGITUD.toString()}', style: TextStyle(
                                       fontFamily: 'Roboto',
                                       color: Color(0xff007FFF),
-                                      fontSize: 14.0
+                                      fontSize: 13.0
                                     ))
                                   ]
                                 )),
@@ -209,7 +223,7 @@ class _SeleccionSistemaCoordendasState extends State<SeleccionSistemaCoordendas>
                                     TextSpan( text: '${listaOrigenes.NORTE.toString()}00 m', style: TextStyle(
                                       fontFamily: 'Roboto',
                                       color: Color(0xff007FFF),
-                                      fontSize: 14.0
+                                      fontSize: 13.0
                                     ))
                                   ]
                                 )),
@@ -227,7 +241,7 @@ class _SeleccionSistemaCoordendasState extends State<SeleccionSistemaCoordendas>
                                     TextSpan( text: '${listaOrigenes.ESTE.toString()} m', style: TextStyle(
                                       fontFamily: 'Roboto',
                                       color: Color(0xff007FFF),
-                                      fontSize: 14.0
+                                      fontSize: 13.0
                                     ))
                                   ]
                                 )),
@@ -245,7 +259,7 @@ class _SeleccionSistemaCoordendasState extends State<SeleccionSistemaCoordendas>
                                     TextSpan( text: '1.000000000', style: TextStyle(
                                       fontFamily: 'Roboto',
                                       color: Color(0xff007FFF),
-                                      fontSize: 14.0
+                                      fontSize: 13.0
                                     ))
                                   ]
                                 )),
@@ -272,13 +286,12 @@ class _SeleccionSistemaCoordendasState extends State<SeleccionSistemaCoordendas>
                                                      ),
                                                      ));
                                                      }, 
-                                                     child: Icon(Icons.chevron_right, size: 50, color: Color(0xff007FFF))
-                                                     ),
-                                                     Text('Seleccionar', style: TextStyle(
-                                                     fontFamily: 'Roboto',
-                                                     color: Color(0xff007FFF),
-                                                     fontSize: 14.0
-                                                     ))
+                                                     child: Column(
+                                                        children: <Widget>[
+                                                        Image.asset('assets/images/seleccionar.png', height: 40,),
+                                                        Text('Seleccionar',style: TextStyle(color: Colors.blueAccent, fontSize: 14))
+                                                        ],
+                                                      ))
                                                      ],
                                                      ),
                                                      ),
@@ -306,8 +319,8 @@ class _SeleccionSistemaCoordendasState extends State<SeleccionSistemaCoordendas>
                                                 borderRadius: BorderRadius.all(Radius.circular(10.0)
                                                 )
                                                 ),
-                                                height: MediaQuery.of(context).size.height,
-                                                width: MediaQuery.of(context).size.width,
+                                                height: 720,
+                                                width: 350,
                                                 child: Scaffold(
                                                   body:FutureBuilder<List<origenesCartesianos>>(
                                                     future: gestorMBDatabase.db.getCartesianas(widget.fk_Municipio),
@@ -315,15 +328,30 @@ class _SeleccionSistemaCoordendasState extends State<SeleccionSistemaCoordendas>
                                                       if(snapshot.hasData){             
                                                         if (snapshot.data.length>1) {
                                                           return Swiper(
+                                                          loop: false,
+                                                          pagination: SwiperPagination(
+                                                            builder: SwiperPagination.dots
+                                                          ),
                                                           layout: SwiperLayout.STACK,
                                                           itemWidth: MediaQuery.of(context).size.width * 0.8,
-                                                          itemHeight: MediaQuery.of(context).size.height * 0.8,
+                                                          itemHeight: MediaQuery.of(context).size.height * 0.75,
                                                           itemCount: snapshot.data.length,
                                                           itemBuilder: (BuildContext context, int index){
                                                             origenesCartesianos listaOrigenes = snapshot.data[index];
                                                             return Container(
                                                               decoration: BoxDecoration(
                                                                 borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                                                                boxShadow: [
+                                                                  BoxShadow(
+                                                                  color: Colors.black45,
+                                                                  blurRadius: 5.0, // has the effect of softening the shadow
+                                                                  spreadRadius: 3.0, // has the effect of extending the shadow
+                                                                  offset: Offset(
+                                                                    10.0, // horizontal, move right 10
+                                                                    40.0, // vertical, move down 10
+                                                                  ),
+                                                                )
+                                                              ],
                                                               ),
                                                               key: UniqueKey(),
                                                               child: Card(
@@ -334,7 +362,18 @@ class _SeleccionSistemaCoordendasState extends State<SeleccionSistemaCoordendas>
                                                                   fit: BoxFit.cover,
                                                                    ), 
                                                                    borderRadius: BorderRadius.all(Radius.circular(10.0)
-                                                                   )  
+                                                                   ),
+                                                                   boxShadow: [
+                                                                        BoxShadow(
+                                                                        color: Colors.black45,
+                                                                        blurRadius: 5.0, // has the effect of softening the shadow
+                                                                        spreadRadius: 3.0, // has the effect of extending the shadow
+                                                                        offset: Offset(
+                                                                          10.0, // horizontal, move right 10
+                                                                          10.0, // vertical, move down 10
+                                                                        ),
+                                                                      )
+                                                                    ],
                                                                    ),
                                                                   child: Padding(
                                                                     padding: const EdgeInsets.all(20.0),
@@ -394,7 +433,7 @@ class _SeleccionSistemaCoordendasState extends State<SeleccionSistemaCoordendas>
                                                                             TextSpan( text: 'GRS80', style: TextStyle(
                                                                               fontFamily: 'Roboto',
                                                                               color: Color(0xff007FFF),
-                                                                              fontSize: 14.0
+                                                                              fontSize: 13.0
                                                                             ))
                                                                           ]
                                                                         )),
@@ -407,7 +446,7 @@ class _SeleccionSistemaCoordendasState extends State<SeleccionSistemaCoordendas>
                                                                             TextSpan(text: 'Sistema de Proyección ', style: TextStyle(
                                                                               fontFamily: 'Roboto',
                                                                               color: Color(0xff007FFF),
-                                                                              fontSize: 15.0
+                                                                              fontSize: 14.0
                                                                             )),
                                                                           ]
                                                                         )),
@@ -425,7 +464,7 @@ class _SeleccionSistemaCoordendasState extends State<SeleccionSistemaCoordendas>
                                                                             TextSpan( text: 'Plano Cartesiano IGAC', style: TextStyle(
                                                                               fontFamily: 'Roboto',
                                                                               color: Color(0xff007FFF),
-                                                                              fontSize: 14.0
+                                                                              fontSize: 13.0
                                                                             ))
                                                                           ]
                                                                         )),
@@ -443,7 +482,7 @@ class _SeleccionSistemaCoordendasState extends State<SeleccionSistemaCoordendas>
                                                                             TextSpan( text: '${listaOrigenes.LATITUD.toString()}', style: TextStyle(
                                                                               fontFamily: 'Roboto',
                                                                               color: Color(0xff007FFF),
-                                                                              fontSize: 14.0
+                                                                              fontSize: 13.0
                                                                             ))
                                                                           ]
                                                                         )),
@@ -461,7 +500,7 @@ class _SeleccionSistemaCoordendasState extends State<SeleccionSistemaCoordendas>
                                                                             TextSpan( text: '${listaOrigenes.LONGITUD.toString()}', style: TextStyle(
                                                                               fontFamily: 'Roboto',
                                                                               color: Color(0xff007FFF),
-                                                                              fontSize: 14.0
+                                                                              fontSize: 13.0
                                                                             ))
                                                                           ]
                                                                         )),
@@ -479,7 +518,7 @@ class _SeleccionSistemaCoordendasState extends State<SeleccionSistemaCoordendas>
                                                                             TextSpan( text: '${listaOrigenes.NORTE.toString()} m', style: TextStyle(
                                                                               fontFamily: 'Roboto',
                                                                               color: Color(0xff007FFF),
-                                                                              fontSize: 14.0
+                                                                              fontSize: 13.0
                                                                             ))
                                                                           ]
                                                                         )),
@@ -497,7 +536,7 @@ class _SeleccionSistemaCoordendasState extends State<SeleccionSistemaCoordendas>
                                                                             TextSpan( text: '${listaOrigenes.ESTE.toString()} m', style: TextStyle(
                                                                               fontFamily: 'Roboto',
                                                                               color: Color(0xff007FFF),
-                                                                              fontSize: 14.0
+                                                                              fontSize: 13.0
                                                                             ))
                                                                           ]
                                                                         )),
@@ -515,7 +554,7 @@ class _SeleccionSistemaCoordendasState extends State<SeleccionSistemaCoordendas>
                                                                             TextSpan( text: '${listaOrigenes.PLANO_PROY} m', style: TextStyle(
                                                                               fontFamily: 'Roboto',
                                                                               color: Color(0xff007FFF),
-                                                                              fontSize: 14.0
+                                                                              fontSize: 13.0
                                                                             ))
                                                                           ]
                                                                         )),
@@ -542,13 +581,13 @@ class _SeleccionSistemaCoordendasState extends State<SeleccionSistemaCoordendas>
                                                                                    ),
                                                                                   ));
                                                                                   }, 
-                                                                                  child: Icon(Icons.chevron_right, size: 50, color: Color(0xff007FFF))
+                                                                                  child: Column(
+                                                                                    children: <Widget>[
+                                                                                    Image.asset('assets/images/seleccionar.png', height: 40,),
+                                                                                    Text('Seleccionar',style: TextStyle(color: Colors.blueAccent, fontSize: 14))
+                                                                                    ],
+                                                                                  )
                                                                                   ),
-                                                                                  Text('Seleccionar', style: TextStyle(
-                                                                                    fontFamily: 'Roboto',
-                                                                                    color: Color(0xff007FFF),
-                                                                                    fontSize: 14.0
-                                                                            ))
                                                                               ],
                                                                             ),
                                                                           ),
@@ -562,6 +601,10 @@ class _SeleccionSistemaCoordendasState extends State<SeleccionSistemaCoordendas>
                                                           );
                                                         } else {
                                                           return Swiper(
+                                                          loop: false,
+                                                          pagination: SwiperPagination(
+                                                            builder: SwiperPagination.dots
+                                                          ),
                                                           itemCount: snapshot.data.length,
                                                           itemBuilder: (BuildContext context, int index){
                                                             origenesCartesianos listaOrigenes = snapshot.data[index];
@@ -576,13 +619,24 @@ class _SeleccionSistemaCoordendasState extends State<SeleccionSistemaCoordendas>
                                                                     elevation: 14.0,
                                                                     child: Container(
                                                                       height: 600,
-                                                                      width: 350,
+                                                                      width: 300,
                                                                       decoration: BoxDecoration(
                                                                       image: DecorationImage(image: AssetImage('assets/images/fondo_sistemas.png'),
                                                                       fit: BoxFit.cover,
                                                                        ), 
                                                                        borderRadius: BorderRadius.all(Radius.circular(10.0)
-                                                                       )  
+                                                                       ),
+                                                                       boxShadow: [
+                                                                            BoxShadow(
+                                                                            color: Colors.black45,
+                                                                            blurRadius: 5.0, // has the effect of softening the shadow
+                                                                            spreadRadius: 3.0, // has the effect of extending the shadow
+                                                                            offset: Offset(
+                                                                              10.0, // horizontal, move right 10
+                                                                              10.0, // vertical, move down 10
+                                                                            ),
+                                                                          )
+                                                                        ],
                                                                        ),
                                                                       child: Padding(
                                                                         padding: const EdgeInsets.all(20.0),
@@ -592,7 +646,7 @@ class _SeleccionSistemaCoordendasState extends State<SeleccionSistemaCoordendas>
                                                                               alignment: Alignment.centerLeft,
                                                                               child: RichText(text: TextSpan(
                                                                               children: <TextSpan>[
-                                                                                TextSpan(text: '    Plano Cartesiano', style: TextStyle(
+                                                                                TextSpan(text: 'Plano Cartesiano', style: TextStyle(
                                                                                   fontFamily: 'Roboto',
                                                                                   color: Colors.white,
                                                                                   fontSize: 14.0
@@ -603,14 +657,14 @@ class _SeleccionSistemaCoordendasState extends State<SeleccionSistemaCoordendas>
                                                                             Align(
                                                                               alignment: Alignment.bottomLeft,
                                                                               child: Text(
-                                                                                '    ${listaOrigenes.NOMBRE}', style: TextStyle(
+                                                                                '${listaOrigenes.NOMBRE}', style: TextStyle(
                                                                                   fontFamily: 'Roboto',
                                                                                   color: Colors.white,
                                                                                   fontSize: 14.0
                                                                                 ),
                                                                               ),
                                                                             ),
-                                                                            SizedBox(height: 40.0),
+                                                                            SizedBox(height: 70.0),
                                                                             Align(
                                                                               alignment: Alignment.centerLeft,
                                                                               child: RichText(text: TextSpan(
@@ -620,10 +674,10 @@ class _SeleccionSistemaCoordendasState extends State<SeleccionSistemaCoordendas>
                                                                                   color: Colors.black54,
                                                                                   fontSize: 12.0
                                                                                 )),
-                                                                                TextSpan( text: 'Magna Sirgas        ', style: TextStyle(
+                                                                                TextSpan( text: 'Magna Sirgas', style: TextStyle(
                                                                                   fontFamily: 'Roboto',
                                                                                   color: Color(0xff007FFF),
-                                                                                  fontSize: 14.0
+                                                                                  fontSize: 13.0
                                                                                 ))
                                                                               ]
                                                                             )),
@@ -638,10 +692,10 @@ class _SeleccionSistemaCoordendasState extends State<SeleccionSistemaCoordendas>
                                                                                   color: Colors.black54,
                                                                                   fontSize: 12.0
                                                                                 )),
-                                                                                TextSpan( text: 'GRS80        ', style: TextStyle(
+                                                                                TextSpan( text: 'GRS80', style: TextStyle(
                                                                                   fontFamily: 'Roboto',
                                                                                   color: Color(0xff007FFF),
-                                                                                  fontSize: 14.0
+                                                                                  fontSize: 13.0
                                                                                 ))
                                                                               ]
                                                                             )),
@@ -651,10 +705,10 @@ class _SeleccionSistemaCoordendasState extends State<SeleccionSistemaCoordendas>
                                                                               alignment: Alignment.center,
                                                                               child: RichText(text: TextSpan(
                                                                               children: <TextSpan>[
-                                                                                TextSpan(text: '      Sistema de Proyección ', style: TextStyle(
+                                                                                TextSpan(text: 'Sistema de Proyección ', style: TextStyle(
                                                                                   fontFamily: 'Roboto',
                                                                                   color: Color(0xff007FFF),
-                                                                                  fontSize: 14.0
+                                                                                  fontSize: 13.0
                                                                                 )),
                                                                               ]
                                                                             )),
@@ -672,7 +726,7 @@ class _SeleccionSistemaCoordendasState extends State<SeleccionSistemaCoordendas>
                                                                                 TextSpan( text: 'Plano Cartesiano IGAC', style: TextStyle(
                                                                                   fontFamily: 'Roboto',
                                                                                   color: Color(0xff007FFF),
-                                                                                  fontSize: 14.0
+                                                                                  fontSize: 13.0
                                                                                 ))
                                                                               ]
                                                                             )),
@@ -690,7 +744,7 @@ class _SeleccionSistemaCoordendasState extends State<SeleccionSistemaCoordendas>
                                                                                 TextSpan( text: '${listaOrigenes.LATITUD.toString()}', style: TextStyle(
                                                                                   fontFamily: 'Roboto',
                                                                                   color: Color(0xff007FFF),
-                                                                                  fontSize: 14.0
+                                                                                  fontSize: 13.0
                                                                                 ))
                                                                               ]
                                                                             )),
@@ -708,7 +762,7 @@ class _SeleccionSistemaCoordendasState extends State<SeleccionSistemaCoordendas>
                                                                                 TextSpan( text: '${listaOrigenes.LONGITUD.toString()}', style: TextStyle(
                                                                                   fontFamily: 'Roboto',
                                                                                   color: Color(0xff007FFF),
-                                                                                  fontSize: 14.0
+                                                                                  fontSize: 13.0
                                                                                 ))
                                                                               ]
                                                                             )),
@@ -726,7 +780,7 @@ class _SeleccionSistemaCoordendasState extends State<SeleccionSistemaCoordendas>
                                                                                 TextSpan( text: '${listaOrigenes.NORTE.toString()} m', style: TextStyle(
                                                                                   fontFamily: 'Roboto',
                                                                                   color: Color(0xff007FFF),
-                                                                                  fontSize: 14.0
+                                                                                  fontSize: 13.0
                                                                                 ))
                                                                               ]
                                                                             )),
@@ -744,7 +798,7 @@ class _SeleccionSistemaCoordendasState extends State<SeleccionSistemaCoordendas>
                                                                                 TextSpan( text: '${listaOrigenes.ESTE.toString()} m', style: TextStyle(
                                                                                   fontFamily: 'Roboto',
                                                                                   color: Color(0xff007FFF),
-                                                                                  fontSize: 14.0
+                                                                                  fontSize: 13.0
                                                                                 ))
                                                                               ]
                                                                             )),
@@ -762,7 +816,7 @@ class _SeleccionSistemaCoordendasState extends State<SeleccionSistemaCoordendas>
                                                                                 TextSpan( text: '${listaOrigenes.PLANO_PROY} m', style: TextStyle(
                                                                                   fontFamily: 'Roboto',
                                                                                   color: Color(0xff007FFF),
-                                                                                  fontSize: 14.0
+                                                                                  fontSize: 13.0
                                                                                 ))
                                                                               ]
                                                                             )),
@@ -790,13 +844,13 @@ class _SeleccionSistemaCoordendasState extends State<SeleccionSistemaCoordendas>
                                                                                       ));
                                           
                                                                                       }, 
-                                                                                      child: Icon(Icons.chevron_right, size: 50, color: Color(0xff007FFF))
+                                                                                      child: Column(
+                                                                                        children: <Widget>[
+                                                                                        Image.asset('assets/images/seleccionar.png', height: 40,),
+                                                                                        Text('Seleccionar',style: TextStyle(color: Colors.blueAccent, fontSize: 14))
+                                                                                        ],
+                                                                                      )
                                                                                       ),
-                                                                                      Text('Seleccionar', style: TextStyle(
-                                                                                        fontFamily: 'Roboto',
-                                                                                        color: Color(0xff007FFF),
-                                                                                        fontSize: 14.0
-                                                                                ))
                                                                                   ],
                                                                                 ),
                                                                               ),

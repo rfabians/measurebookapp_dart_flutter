@@ -36,12 +36,12 @@ class _GestosPuntosState extends State<GestosPuntos> {
                         children: <TextSpan> [
                           TextSpan(text: 'Gestor de Puntos MeasureBook, ', style: TextStyle(
                           fontFamily: 'Roboto', 
-                          fontSize: 16.0,
+                          fontSize: 13.0,
                           color: Color(0xff007FFF),
                           )),
                           TextSpan(text: 'Crea, elimina y visualiza los puntos de referencia que usaras dentro de tu proyecto', style: TextStyle(
                           fontFamily: 'Roboto', 
-                          fontSize: 14.0,
+                          fontSize: 13.0,
                           color: Colors.black54,
                           )),
                         ]
@@ -60,7 +60,7 @@ class _GestosPuntosState extends State<GestosPuntos> {
                         leading: Icon(Icons.description, size: 50,color: Colors.blueGrey),
                         title: Text('Listado de Puntos',style: TextStyle(
                         fontFamily: 'Roboto', 
-                        fontSize: 16.0,
+                        fontSize: 14.0,
                         color: Color(0xff007FFF),
                         )),
                         subtitle: Text('Visualiza y elimina el listado de tus puntos de referencia que se usaran en el proyecto'),
@@ -80,7 +80,7 @@ class _GestosPuntosState extends State<GestosPuntos> {
                         leading: Image.asset('assets/images/nuevo.png', height: 45,),
                         title: Text('Crear Nuevo Punto',style: TextStyle(
                         fontFamily: 'Roboto', 
-                        fontSize: 16.0,
+                        fontSize: 14.0,
                         color: Color(0xff007FFF),
                         )),
                         subtitle: Text('Crea nuevos puntos de referencia ingresando coordenadas y registro fotográfico'),
@@ -95,12 +95,12 @@ class _GestosPuntosState extends State<GestosPuntos> {
                         )));
                         },
                         ),
-                        Divider(height: 5),
+                        Divider(),
                         ListTile(
                         leading: Image.asset('assets/images/delta.png', height: 45),
                         title: Text('Importar Puntos de la Red Pasiva del IGAC',style: TextStyle(
                         fontFamily: 'Roboto', 
-                        fontSize: 16.0,
+                        fontSize: 14.0,
                         color: Color(0xff007FFF),
                         )),
                         subtitle: Text('Usa dentro de tu proyecto Puntos de la Red Pasiva del IGAC (Coordenadas)'),
@@ -115,12 +115,12 @@ class _GestosPuntosState extends State<GestosPuntos> {
                         )));
                         },
                         ),
-                        Divider(height: 5),
+                        Divider(),
                         ListTile(
                         leading: Image.asset('assets/images/nivelacion_.png', height: 45),
                         title: Text('Importar Puntos de la Red Pasiva del IGAC',style: TextStyle(
                         fontFamily: 'Roboto', 
-                        fontSize: 16.0,
+                        fontSize: 14.0,
                         color: Color(0xff007FFF),
                         )),
                         subtitle: Text('Usa dentro de tu proyecto Puntos de la Red Pasiva del IGAC (Alturas Niveladas)'),
@@ -135,12 +135,12 @@ class _GestosPuntosState extends State<GestosPuntos> {
                         )));
                         },
                         ),
-                        Divider(height: 5),
+                        Divider(),
                         ListTile(
                         leading: Image.asset('assets/images/measure.png', height: 45,),
                         title: Text('Vizualizar en mapa todos los puntos',style: TextStyle(
                         fontFamily: 'Roboto', 
-                        fontSize: 16.0,
+                        fontSize: 14.0,
                         color: Color(0xff007FFF),
                         )),
                         subtitle: Text('Genera un visor en el cual puedes ver la ubicación de tus puntos de referencia'),
@@ -154,12 +154,12 @@ class _GestosPuntosState extends State<GestosPuntos> {
                         )));
                         },
                         ),
-                        Divider(height: 5),
+                        Divider(),
                         ListTile(
                         leading: Image.asset('assets/images/conversion.png', height: 45),
                         title: Text('Importar Punto de otro sistema de Coordenadas',style: TextStyle(
                         fontFamily: 'Roboto', 
-                        fontSize: 16.0,
+                        fontSize: 14.0,
                         color: Color(0xff007FFF),
                         )),
                         subtitle: Text('Crea puntos de referencia que se encuentran en otro sistema de Coordenadas'),
@@ -175,7 +175,26 @@ class _GestosPuntosState extends State<GestosPuntos> {
                         )));
                         },
                         ),
-                        Divider(height: 5),
+                        Divider(),
+                        ListTile(
+                        leading: Image.asset('assets/images/nuevo.png', height: 45),
+                        title: Text('Reporte de Puntos de Referencia',style: TextStyle(
+                        fontFamily: 'Roboto', 
+                        fontSize: 14.0,
+                        color: Color(0xff007FFF),
+                        )),
+                        subtitle: Text('Crea un reporte en PDF de los puntos de referencia que tienes dentro del Proyecto Actual'),
+                        trailing: Icon(Icons.chevron_right, size: 30.0, color: Colors.blueAccent,),
+                        onTap: (){/*
+                          Navigator.push(context, MaterialPageRoute(
+                          builder: (context) => ImportarPuntoOSCoor(
+                              idProyeccion: widget.idProyeccion,
+                              idProyecto: widget.nombreProyecto,
+                              idusuario: widget.idUser,
+                              proyeccion: widget.proyeccionMB,
+                        )));*/
+                        },
+                        ),
                       ],
                      )
                     ),

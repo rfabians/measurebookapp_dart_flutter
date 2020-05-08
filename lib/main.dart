@@ -13,7 +13,6 @@ import 'package:measurebookapp/pages/redPasivaIGAC.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await SystemChrome.setEnabledSystemUIOverlays([]);
   await SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
   runApp(MeasureBookAPP());
 }
@@ -81,18 +80,14 @@ class _MyAppState extends State<IniciarSesion> {
             child: _isLoggedIn
                 ? 
                 Center(
-
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     // Implementación de Interfaz cuando el usuario ya está logeado
                     children: <Widget>[
-                      SizedBox(
-                        height: 5.0,
-                      ),
                       Row(
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: <Widget>[
-                          SizedBox (width: 10.0),
+                          SizedBox (width: 15.0),
                           Image.network(googleSignIn.currentUser.photoUrl, height: 75.0,),
                           SizedBox(width: 20.0,),
                           Column(
@@ -113,15 +108,9 @@ class _MyAppState extends State<IniciarSesion> {
                             ],
                           )
                       ]),
-
-                      SizedBox(height: 5.0,),
-                      Divider(),
                       Container(
                         child: Container(
-                        height: 500,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.all(Radius.circular(10.0)),
-                        ),
+                        height: 550,
                         child: Scaffold(
                          body: FutureBuilder<List<proyectos>> (
                            future: gestorMBDatabase.db.getProyectos(),
@@ -136,9 +125,13 @@ class _MyAppState extends State<IniciarSesion> {
                                 }else {
                                   if (snapshot.data.length >1) {
                                       return Swiper(
+                                        loop: false,
                                         itemCount: snapshot.data.length,
-                                        itemWidth: 300.0,
-                                        layout: SwiperLayout.STACK,
+                                        itemWidth: 280.0,
+                                        layout: SwiperLayout.DEFAULT,
+                                        pagination: SwiperPagination(
+                                          builder: SwiperPagination.dots
+                                        ),
                                         itemBuilder: (BuildContext context, int index){
                                           proyectos listaProyectos = snapshot.data[index];
                                         return Center(
@@ -153,19 +146,19 @@ class _MyAppState extends State<IniciarSesion> {
                                                     borderRadius: BorderRadius.all(Radius.circular(25.0)),
                                                     boxShadow: [
                                                     BoxShadow(
-                                                    color: Colors.black45,
+                                                    color: Colors.black.withOpacity(.5),
                                                     blurRadius: 5.0, 
                                                     spreadRadius: 3.0,
                                                     offset: Offset(
-                                                      10.0, 
-                                                      10.0, 
+                                                      8.0, 
+                                                      30.0, 
                                                     ),
                                                   )
                                                 ],
                                                 ),
                                             child: SingleChildScrollView(
                                               child: Padding(
-                                                padding: const EdgeInsets.all(15.0),
+                                                padding: const EdgeInsets.all(20.0),
                                                 child: Column(
                                                    children: <Widget>[
                                                      Text('${listaProyectos.Nombre_Proyecto}', style: TextStyle(
@@ -301,7 +294,12 @@ class _MyAppState extends State<IniciarSesion> {
                                                           ),
                                                         ));
                                                       }, 
-                                                      child: Icon(Icons.chevron_right, size: 50.0, color: Colors.blueAccent,))
+                                                      child: Column(
+                                                        children: <Widget>[
+                                                        Image.asset('assets/images/seleccionar.png', height: 40,),
+                                                        Text('Seleccionar',style: TextStyle(color: Colors.blueAccent, fontSize: 14))
+                                                        ],
+                                                      ))
                                                    ],
                                                 ),
                                               ),
@@ -312,6 +310,10 @@ class _MyAppState extends State<IniciarSesion> {
                                   } else {
                                     // Interfaz para cuando solo se tiene un proyecto creado
                                       return Swiper(
+                                        pagination: SwiperPagination(
+                                          builder: SwiperPagination.dots
+                                        ),
+                                        loop: false,
                                         itemCount: snapshot.data.length,
                                         itemBuilder: (BuildContext context, int index){
                                           proyectos listaProyectos = snapshot.data[index];
@@ -460,7 +462,7 @@ class _MyAppState extends State<IniciarSesion> {
                                                       ]
                                                       )),
                                                       ),
-                                                      Divider(),
+                                                      Divider(height: 50,),
                                                       FlatButton(onPressed: (){
                                                         Navigator.push(context, MaterialPageRoute(
                                                           builder: (context) => MenuPrincipalMB(
@@ -475,7 +477,12 @@ class _MyAppState extends State<IniciarSesion> {
                                                           ),
                                                         ));
                                                       }, 
-                                                      child: Icon(Icons.chevron_right, size: 50.0, color: Colors.blueAccent,))
+                                                      child:Column(
+                                                        children: <Widget>[
+                                                        Image.asset('assets/images/seleccionar.png', height: 40,),
+                                                        Text('Seleccionar',style: TextStyle(color: Colors.blueAccent, fontSize: 14))
+                                                        ],
+                                                      ))
                                                    ],
                                                 ),
                                               ),
