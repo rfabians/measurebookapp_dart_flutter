@@ -60,7 +60,7 @@ double _N = (_a)/(m.sqrt(1-_e1*m.pow(m.sin(grados2Radianes(_latitud)),2)));
 double _X = (_N+_altura)*m.cos(grados2Radianes(_latitud))*m.cos(grados2Radianes(_longitud));
 double _Y = (_N+_altura)*m.cos(grados2Radianes(_latitud))*m.sin(grados2Radianes(_longitud));
 double _Z = ((1-_e1)*_N+_altura)*m.sin(grados2Radianes(_latitud));
-CoordenadasGeocentricas _coordenadasGeocentricas;
+CoordenadasGeocentricas _coordenadasGeocentricas = CoordenadasGeocentricas();
 _coordenadasGeocentricas.x = _X;
 _coordenadasGeocentricas.y = _Y;
 _coordenadasGeocentricas.z = _Z;

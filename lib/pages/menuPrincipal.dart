@@ -27,54 +27,45 @@ class _MenuPrincipalMBState extends State<MenuPrincipalMB> {
             children: <Widget>[
               SizedBox(height: 15.0),
               Center(
-                child: Image.asset('assets/images/measure.png', height: 80.0,),
+                child: Image.asset('assets/images/measure.png', height: 50.0,),
               ),
               SizedBox(height: 10,),
               RichText(text: TextSpan(
                 children: <TextSpan> [
                   TextSpan(text: 'Selecciona ', style: TextStyle(
                   fontFamily: 'Roboto', 
-                  fontSize: 16.0,
+                  fontSize: 12.0,
                   color: Color(0xff007FFF),
                   )),
                   TextSpan(text: 'el tipo de Actividad que deseas realizar ', style: TextStyle(
                   fontFamily: 'Roboto', 
-                  fontSize: 16.0,
+                  fontSize: 12.0,
                   color: Colors.black54,
                   )),
                 ]
               )),
-              Divider(height: 20),
               //Gestor de Puntos
               Container(
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(10),
-                  boxShadow: [
-                    BoxShadow(
-                      blurRadius: 2.0,
-                      spreadRadius: 2.0,
-                      color: Colors.black.withOpacity(.1)
-                    ),
-                  ],
-                  color: Colors.white
                 ),
-                padding: EdgeInsets.all(20.0),
+                padding: EdgeInsets.all(10.0),
                 height: 100,
                 child: MediaQuery.removePadding(context: context, 
                 removeTop: true,
                 child: ListView(
                   children: <Widget>[
                     ListTile(
-                      leading: Image.asset('assets/images/puntos.png'),
+                      leading: Image.asset('assets/images/puntos.png', height: 40,),
                       title: Text('Gestor de Puntos',style: TextStyle(
                       fontFamily: 'Roboto', 
-                      fontSize: 16.0,
+                      fontSize: 13.0,
                       color: Color(0xff007FFF),
                       )),
                       subtitle: Text('Crea y edita los puntos que utilizaras como control en tus mediciones', style: 
                       TextStyle(
                         fontFamily: 'Roboto', 
-                        fontSize: 14.0,
+                        fontSize: 12.0,
                         color: Colors.black54,
                       )),
                       trailing: Icon(Icons.chevron_right, size: 30.0, color: Colors.blueAccent,),
@@ -92,37 +83,28 @@ class _MenuPrincipalMBState extends State<MenuPrincipalMB> {
                 )
                 ),
               ),
-              Divider(height: 3),
               //Conversión de Coordenadas
               Container(
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(10),
-                  boxShadow: [
-                    BoxShadow(
-                      blurRadius: 2.0,
-                      spreadRadius: 2.0,
-                      color: Colors.black.withOpacity(.1)
-                    ),
-                  ],
-                  color: Colors.white
                 ),
-                padding: EdgeInsets.all(20.0),
+                padding: EdgeInsets.all(10.0),
                 height: 100,
                 child: MediaQuery.removePadding(context: context, 
                 removeTop: true,
                 child: ListView(
                   children: <Widget>[
                     ListTile(
-                      leading: Image.asset('assets/images/conversion.png'),
+                      leading: Image.asset('assets/images/conversion.png', height: 40,),
                       title: Text('Conversión de Coordenadas',style: TextStyle(
                       fontFamily: 'Roboto', 
-                      fontSize: 16.0,
+                      fontSize: 13.0,
                       color: Color(0xff007FFF),
                       )),
                       subtitle: Text('Importa y convierte coordenadas en otros sistemas diferentes al de tu proyectos', style: 
                       TextStyle(
                         fontFamily: 'Roboto', 
-                        fontSize: 14.0,
+                        fontSize: 12.0,
                         color: Colors.black54,
                       )),
                       trailing: Icon(Icons.chevron_right, size: 30.0, color: Colors.blueAccent,),
@@ -140,37 +122,28 @@ class _MenuPrincipalMBState extends State<MenuPrincipalMB> {
                 )
                 ),
               ),
-              Divider(height: 3),
               // Observaciones GNSS
               Container(
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(10),
-                  boxShadow: [
-                    BoxShadow(
-                      blurRadius: 2.0,
-                      spreadRadius: 2.0,
-                      color: Colors.black.withOpacity(.1)
-                    ),
-                  ],
-                  color: Colors.white
                 ),
-                padding: EdgeInsets.all(20.0),
+                padding: EdgeInsets.all(10.0),
                 height: 100,
                 child: MediaQuery.removePadding(context: context, 
                 removeTop: true,
                 child: ListView(
                   children: <Widget>[
                     ListTile(
-                      leading: Image.asset('assets/images/gnss.png'),
+                      leading: Image.asset('assets/images/gnss.png', height: 40,),
                       title: Text('Observaciones GNSS',style: TextStyle(
                       fontFamily: 'Roboto', 
-                      fontSize: 16.0,
+                      fontSize: 13.0,
                       color: Color(0xff007FFF),
                       )),
                       subtitle: Text('Crea, Continua y gestionas tus Observaciones GNSS', style: 
                       TextStyle(
                         fontFamily: 'Roboto', 
-                        fontSize: 14.0,
+                        fontSize: 12.0,
                         color: Colors.black54,
                       )),
                       trailing: Icon(Icons.chevron_right, size: 30.0, color: Colors.blueAccent,),
@@ -184,37 +157,28 @@ class _MenuPrincipalMBState extends State<MenuPrincipalMB> {
                 )
                 ),
               ),
-              Divider(height: 3),
               // Poligonales
               Container(
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(10),
-                  boxShadow: [
-                    BoxShadow(
-                      blurRadius: 2.0,
-                      spreadRadius: 2.0,
-                      color: Colors.black.withOpacity(.1)
-                    ),
-                  ],
-                  color: Colors.white
                 ),
-                padding: EdgeInsets.all(20.0),
+                padding: EdgeInsets.all(10.0),
                 height: 100,
                 child: MediaQuery.removePadding(context: context, 
                 removeTop: true,
                 child: ListView(
                   children: <Widget>[
                     ListTile(
-                      leading: Image.asset('assets/images/poligonal_.png'),
+                      leading: Image.asset('assets/images/poligonal_.png', height: 40,),
                       title: Text('Poligonales',style: TextStyle(
                       fontFamily: 'Roboto', 
-                      fontSize: 16.0,
+                      fontSize: 13.0,
                       color: Color(0xff007FFF),
                       )),
                       subtitle: Text('Crea, Continua y gestionas tus Poligonales', style: 
                       TextStyle(
                         fontFamily: 'Roboto', 
-                        fontSize: 14.0,
+                        fontSize: 12.0,
                         color: Colors.black54,
                       )),
                       trailing: Icon(Icons.chevron_right, size: 30.0, color: Colors.blueAccent,),
@@ -223,37 +187,29 @@ class _MenuPrincipalMBState extends State<MenuPrincipalMB> {
                 )
                 )
               ),
-              Divider(height: 3),
               //Nivelaciones
               Container(
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(10),
-                  boxShadow: [
-                    BoxShadow(
-                      blurRadius: 2.0,
-                      spreadRadius: 2.0,
-                      color: Colors.black.withOpacity(.1)
-                    ),
-                  ],
-                  color: Colors.white
+                  
                 ),
-                padding: EdgeInsets.all(20.0),
+                padding: EdgeInsets.all(10.0),
                 height: 100,
                 child: MediaQuery.removePadding(context: context, 
                 removeTop: true,
                 child: ListView(
                   children: <Widget>[
                     ListTile(
-                      leading: Image.asset('assets/images/nivelacion_.png'),
+                      leading: Image.asset('assets/images/nivelacion_.png', height: 40,),
                       title: Text('Nivelaciones',style: TextStyle(
                       fontFamily: 'Roboto', 
-                      fontSize: 16.0,
+                      fontSize: 13.0,
                       color: Color(0xff007FFF),
                       )),
                       subtitle: Text('Crea, Continua y gestionas tus Nivelaciones geométricas', style: 
                       TextStyle(
                         fontFamily: 'Roboto', 
-                        fontSize: 14.0,
+                        fontSize: 12.0,
                         color: Colors.black54,
                       )),
                       trailing: Icon(Icons.chevron_right, size: 30.0, color: Colors.blueAccent,),
@@ -267,7 +223,6 @@ class _MenuPrincipalMBState extends State<MenuPrincipalMB> {
                 )
                 ),
               ),
-              Divider(height: 10)
             ],
           ),
           ),
