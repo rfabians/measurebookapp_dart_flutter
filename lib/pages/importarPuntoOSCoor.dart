@@ -910,7 +910,7 @@ void _sistemas2Cartesianos (BuildContext context, int fk_Muninipio) {
   );
 }
 
-void _sistemaGauss (BuildContext){
+void _sistemaGauss (BuildContext context){
   showDialog(
     context: context,
     builder: (context) => Container(
@@ -1191,9 +1191,4 @@ void _sistemaGauss (BuildContext){
 }
 }
 
-  @override
-  Widget build(BuildContext context) {
-    // TODO: implement build
-    return null;
-  }
   
