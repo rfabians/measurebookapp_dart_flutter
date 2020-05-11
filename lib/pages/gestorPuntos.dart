@@ -39,7 +39,7 @@ class _GestosPuntosState extends State<GestosPuntos> {
                           fontSize: 13.0,
                           color: Color(0xff007FFF),
                           )),
-                          TextSpan(text: 'Crea, elimina y visualiza los puntos de referencia que usaras dentro de tu proyecto', style: TextStyle(
+                          TextSpan(text: 'Crea, elimina y visualiza los puntos de referencia que usarás dentro de tu proyecto', style: TextStyle(
                           fontFamily: 'Roboto', 
                           fontSize: 13.0,
                           color: Colors.black54,
@@ -63,7 +63,7 @@ class _GestosPuntosState extends State<GestosPuntos> {
                         fontSize: 14.0,
                         color: Color(0xff007FFF),
                         )),
-                        subtitle: Text('Visualiza y elimina el listado de tus puntos de referencia que se usaran en el proyecto'),
+                        subtitle: Text('Visualiza y elimina el listado de tus puntos de referencia que se usarán en el proyecto'),
                         trailing: Icon(Icons.chevron_right, size: 30.0, color: Colors.blueAccent,),
                         onTap: (){
                         Navigator.push(context, MaterialPageRoute(
@@ -138,7 +138,7 @@ class _GestosPuntosState extends State<GestosPuntos> {
                         Divider(),
                         ListTile(
                         leading: Image.asset('assets/images/measure.png', height: 45,),
-                        title: Text('Vizualizar en mapa todos los puntos',style: TextStyle(
+                        title: Text('Visualizar en el mapa todos los puntos',style: TextStyle(
                         fontFamily: 'Roboto', 
                         fontSize: 14.0,
                         color: Color(0xff007FFF),
@@ -157,12 +157,12 @@ class _GestosPuntosState extends State<GestosPuntos> {
                         Divider(),
                         ListTile(
                         leading: Image.asset('assets/images/conversion.png', height: 45),
-                        title: Text('Importar Punto de otro sistema de Coordenadas',style: TextStyle(
+                        title: Text('Importar Punto de otro Sistema de Coordenadas',style: TextStyle(
                         fontFamily: 'Roboto', 
                         fontSize: 14.0,
                         color: Color(0xff007FFF),
                         )),
-                        subtitle: Text('Crea puntos de referencia que se encuentran en otro sistema de Coordenadas'),
+                        subtitle: Text('Crea puntos de referencia que se encuentran en otro Sistema de Coordenadas'),
                         trailing: Icon(Icons.chevron_right, size: 30.0, color: Colors.blueAccent,),
                         onTap: (){
                           Navigator.push(context, MaterialPageRoute(

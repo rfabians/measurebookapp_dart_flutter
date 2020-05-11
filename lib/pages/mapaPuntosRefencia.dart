@@ -184,9 +184,11 @@ class _MapaPuntosReferenciaState extends State<MapaPuntosReferencia> {
             );
             } else {
               return Scaffold(
+                //Inicio
                 body: Center(
-                  child: Text('Aun no tienes puntos Creados'),
+                  child: Text('Aún no tienes puntos Creados'),
                 )
+                //Final
               );
             }
             }

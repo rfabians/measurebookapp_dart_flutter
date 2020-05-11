@@ -131,7 +131,7 @@ class _CoversionCoordenadasState extends State<CoversionCoordenadas> {
                                       ),),
                                     ),
                                     SizedBox(height: 60.0),
-                                    Image.asset(a.imagen)
+                                    Image.asset(a.imagen,height: 160)
                                     ],
                                   ),
                                 );
@@ -199,7 +199,7 @@ class _CoversionCoordenadasState extends State<CoversionCoordenadas> {
                                       ),),
                                     ),
                                     SizedBox(height: 60.0),
-                                    Image.asset(a.imagen),
+                                    Image.asset(a.imagen,height: 160)
                                     
                                     ],
                                   ),
@@ -317,7 +317,7 @@ class _CoversionCoordenadasState extends State<CoversionCoordenadas> {
                                       ),),
                                     ),
                                     SizedBox(height: 60.0),
-                                    Image.asset(a.imagen)
+                                    Image.asset(a.imagen,height: 160)
                                     ],
                                   ),
                                 );
@@ -385,7 +385,7 @@ class _CoversionCoordenadasState extends State<CoversionCoordenadas> {
                                       ),),
                                     ),
                                     SizedBox(height: 60.0),
-                                    Image.asset(a.imagen),
+                                    Image.asset(a.imagen,height: 160),
                                     
                                     ],
                                   ),
@@ -496,7 +496,7 @@ class _CoversionCoordenadasState extends State<CoversionCoordenadas> {
                                       ),),
                                     ),
                                     SizedBox(height: 60.0),
-                                    Image.asset(a.imagen)
+                                    Image.asset(a.imagen,height: 160)
                                     ],
                                   ),
                                 );
