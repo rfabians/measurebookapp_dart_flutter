@@ -41,6 +41,7 @@ class _ConversionPuntoIndividualState extends State<ConversionPuntoIndividual> {
   double norteCartesianas, esteCartesianas, alturaCartesianas;
   double norteGauss, esteGauss, alturaGauss;
   GaussCS gaussCOrigen = GaussCS();
+  CoordenadasGauss coordenadasGaussForm = CoordenadasGauss();
   final GlobalKey<FormState> _formKeyElipsoidalHex = GlobalKey<FormState>();
   final GlobalKey<FormState> _formKeyElipsoidalDec = GlobalKey<FormState>();
   final GlobalKey<FormState> _formKeyGeocentricas = GlobalKey<FormState>();
@@ -980,8 +981,6 @@ class _ConversionPuntoIndividualState extends State<ConversionPuntoIndividual> {
                     onPressed: (){
                       if (origenGauss == true){
                         if(_formKeyGauss.currentState.validate()){
-                        
-                        CoordenadasGauss coordenadasGaussForm = CoordenadasGauss();
                         coordenadasGaussForm.norte = norteGauss;
                         coordenadasGaussForm.este = esteGauss;
                         coordenadasGaussForm.altura = alturaGauss;
@@ -994,7 +993,7 @@ class _ConversionPuntoIndividualState extends State<ConversionPuntoIndividual> {
                           borderRadius: BorderRadius.circular(20)
                         ),
                         content: Container(
-                          height: 220,
+                          height: 230,
                           width: 200,
                           child: Center(
                             child: Column(
@@ -1058,11 +1057,11 @@ class _ConversionPuntoIndividualState extends State<ConversionPuntoIndividual> {
                       return gauss2Elip;
                       });
                       }else if (widget.destino == 'Gauss - Krüger'){
-                        //_sistemaGauss(context, coordenadasElipsoidales);
+                        _sistemaGauss(context, coordenadasElipsoidales);
                       } else if (widget.destino == 'Planas Cartesianas') {
-                        //_alertDialogoCartesianas (context, coordenadasElipsoidales);
+                        _alertDialogoCartesianas (context, coordenadasElipsoidales);
                       }else if(widget.destino == 'Geocentricas'){
-                        //
+                        
                       }
                       }
                       }else {
@@ -1252,20 +1251,21 @@ void _sistemas2Cartesianos (BuildContext context, int fk_Muninipio, CoordenadasE
                 builder: SwiperPagination.dots
               ),
               loop: false,
-              itemWidth: MediaQuery.of(context).size.width*0.95,
-              itemHeight: MediaQuery.of(context).size.height*.75,
+              itemWidth: MediaQuery.of(context).size.width*0.8,
+              itemHeight: MediaQuery.of(context).size.height*.70,
               itemCount: snapshot.data.length,
               itemBuilder: (BuildContext context, int index){
                 origenesCartesianos listaOrigenes = snapshot.data[index];
                 return Container(
-                  height: 500,
-                  width: 300,
+                  height: 550,
+                  width: 270,
                   decoration: BoxDecoration(
                   ),
                   key: UniqueKey(),
                   child: Card(
                     elevation: 14.0,
                     child: Container(
+                      height: 500,
                       decoration: BoxDecoration(
                       image: DecorationImage(image: AssetImage('assets/images/fondo_sistemas.png'),
                       fit: BoxFit.cover,
@@ -2025,7 +2025,7 @@ void _sistemas2Cartesianos (BuildContext context, int fk_Muninipio, CoordenadasE
       borderRadius: BorderRadius.circular(20)
     ),
     content: Container(
-      height: 220,
+      height: 240,
       width: 200,
       child: Center(
         child: Column(
@@ -2086,6 +2086,19 @@ void _sistemas2Cartesianos (BuildContext context, int fk_Muninipio, CoordenadasE
                 'Coordenada Z: ${zGeocentricaF}\n\n'+
                 'Sistema de Rerencia de Destino: \n'+
                 'Coordenadas Gauss Krüger Origen ${gaussCS.NOMBRE}\n'
+                'Norte: ${roundDouble(coordenadasGauss.norte,3)}\n'+
+                'Este: ${roundDouble(coordenadasGauss.este,3)}\n'+
+                'Altura: ${roundDouble(coordenadasGauss.altura,3)}\n'
+                );
+                }else if(widget.origen == 'Gauss - Krüger'){
+                  Share.share('Conversión de Coordenadas MeasureBookAPP \n\n'+
+                'Sistema de Referencia de Origen: \n'+
+                'Coordenadas Gauss Krüger Origen ${gaussCOrigen.NOMBRE}\n'+
+                'Norte: ${coordenadasGaussForm.norte}\n'+
+                'Este: ${coordenadasGaussForm.este}\n'+
+                'Altura: ${coordenadasGaussForm.altura}\n\n'+
+                'Sistema de Rerencia de Destino: \n'+
+                'Coordenadas Gauss Krüger Origen ${gaussCS.NOMBRE}\n'+
                 'Norte: ${roundDouble(coordenadasGauss.norte,3)}\n'+
                 'Este: ${roundDouble(coordenadasGauss.este,3)}\n'+
                 'Altura: ${roundDouble(coordenadasGauss.altura,3)}\n'
@@ -2180,7 +2193,20 @@ void _sistemas2Cartesianos (BuildContext context, int fk_Muninipio, CoordenadasE
                 'Este: ${roundDouble(coordenadasCartesianas.este,3)}\n'+
                 'Altura: ${roundDouble(coordenadasCartesianas.altura,3)}\n'
                 );
-                }                
+                }else if(widget.origen =='Gauss - Krüger'){
+                Share.share('Conversión de Coordenadas MeasureBookAPP \n\n'+
+                'Sistema de Referencia de Origen: \n'+
+                'Coordenadas Gauss - Krüger Origen ${gaussCOrigen.NOMBRE} \n'+
+                'Norte: ${coordenadasGaussForm.norte}\n'+
+                'Este: ${coordenadasGaussForm.este}\n'+
+                'Altura: ${coordenadasGaussForm.altura}\n\n'+
+                'Sistema de Referencia de Destino: \n'+
+                'Coordenadas Planas Cartesianas Origen ${cartesianasCS.NOMBRE}\n'
+                'Norte: ${roundDouble(coordenadasCartesianas.norte,3)}\n'+
+                'Este: ${roundDouble(coordenadasCartesianas.este,3)}\n'+
+                'Altura: ${roundDouble(coordenadasCartesianas.altura,3)}\n'
+                );
+                }               
               }, 
               child: Icon(Icons.share, color: Colors.black54, size: 30)
               ),
