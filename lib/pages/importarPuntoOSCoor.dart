@@ -159,7 +159,7 @@ class _ImportarPuntoOSCoorState extends State<ImportarPuntoOSCoor> {
                                       ),),
                                     ),
                                     SizedBox(height: 60.0),
-                                    Image.asset(a.imagen),
+                                    Image.asset(a.imagen,height: 160),
                                     SizedBox(height: 50.0),
                                     ListTile(
                                       title: Text('Sistema Decimal', style: TextStyle(color: Colors.blueAccent),),
@@ -176,7 +176,7 @@ class _ImportarPuntoOSCoorState extends State<ImportarPuntoOSCoor> {
                                       },
                                     ),
                                     ListTile(
-                                        title:  Text('Sistema Hexadecimal', style: TextStyle(color: Colors.blueAccent),),
+                                        title:  Text('Sistema Sexadecimal', style: TextStyle(color: Colors.blueAccent),),
                                         trailing: Icon(Icons.chevron_right, color: Colors.blueAccent, size: 30,),
                                         onTap: (){
                                           Navigator.push(context, MaterialPageRoute(
@@ -211,7 +211,7 @@ class _ImportarPuntoOSCoorState extends State<ImportarPuntoOSCoor> {
                                       ),),
                                     ),
                                     SizedBox(height: 60.0),
-                                    Image.asset(a.imagen),
+                                    Image.asset(a.imagen,height: 160),
                                     SizedBox(height: 100.0),
                                     FlatButton(
                                       onPressed: (){

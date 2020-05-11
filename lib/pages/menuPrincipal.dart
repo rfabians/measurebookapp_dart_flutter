@@ -62,7 +62,7 @@ class _MenuPrincipalMBState extends State<MenuPrincipalMB> {
                       fontSize: 13.0,
                       color: Color(0xff007FFF),
                       )),
-                      subtitle: Text('Crea y edita los puntos que utilizaras como control en tus mediciones', style: 
+                      subtitle: Text('Crea y edita los puntos que utilizarás como control en tus mediciones', style: 
                       TextStyle(
                         fontFamily: 'Roboto', 
                         fontSize: 12.0,
@@ -101,7 +101,7 @@ class _MenuPrincipalMBState extends State<MenuPrincipalMB> {
                       fontSize: 13.0,
                       color: Color(0xff007FFF),
                       )),
-                      subtitle: Text('Importa y convierte coordenadas en otros sistemas diferentes al de tu proyectos', style: 
+                      subtitle: Text('Importa y convierte coordenadas en otros sistemas diferentes al de tu proyecto', style: 
                       TextStyle(
                         fontFamily: 'Roboto', 
                         fontSize: 12.0,
@@ -140,7 +140,7 @@ class _MenuPrincipalMBState extends State<MenuPrincipalMB> {
                       fontSize: 13.0,
                       color: Color(0xff007FFF),
                       )),
-                      subtitle: Text('Crea, Continua y gestionas tus Observaciones GNSS', style: 
+                      subtitle: Text('Crea, continúa y gestiona tus Observaciones GNSS', style: 
                       TextStyle(
                         fontFamily: 'Roboto', 
                         fontSize: 12.0,
@@ -175,7 +175,7 @@ class _MenuPrincipalMBState extends State<MenuPrincipalMB> {
                       fontSize: 13.0,
                       color: Color(0xff007FFF),
                       )),
-                      subtitle: Text('Crea, Continua y gestionas tus Poligonales', style: 
+                      subtitle: Text('Crea, continúa y gestiona tus Poligonales', style: 
                       TextStyle(
                         fontFamily: 'Roboto', 
                         fontSize: 12.0,
@@ -206,7 +206,7 @@ class _MenuPrincipalMBState extends State<MenuPrincipalMB> {
                       fontSize: 13.0,
                       color: Color(0xff007FFF),
                       )),
-                      subtitle: Text('Crea, Continua y gestionas tus Nivelaciones geométricas', style: 
+                      subtitle: Text('Crea, continúa y gestiona tus Nivelaciones Geométricas', style: 
                       TextStyle(
                         fontFamily: 'Roboto', 
                         fontSize: 12.0,
