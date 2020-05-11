@@ -43,7 +43,7 @@ class _CoversionCoordenadasState extends State<CoversionCoordenadas> {
                   SizedBox(height: 25),
                   //Convertir Punto Individual
                   Container(
-                     height: 430,
+                     height: 440,
                      width: MediaQuery.of(context).size.width,
                      decoration: BoxDecoration(
                        color: Colors.white,
@@ -110,7 +110,7 @@ class _CoversionCoordenadasState extends State<CoversionCoordenadas> {
                                       sistemaOrigenPI = a.nombreProyeccion;
                                 return Container(
                                   width: 150,
-                                  height: 200,
+                                  height: 210,
                                   decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(20),
                                   ),
@@ -229,7 +229,7 @@ class _CoversionCoordenadasState extends State<CoversionCoordenadas> {
                   SizedBox(height: 25),
                   //Convertir CSV
                   Container(
-                     height: 430,
+                     height: 450,
                      width: MediaQuery.of(context).size.width,
                      decoration: BoxDecoration(
                        color: Colors.white,
@@ -410,7 +410,7 @@ class _CoversionCoordenadasState extends State<CoversionCoordenadas> {
                   SizedBox(height: 25),
                   //Convertir Puntos REF
                   Container(
-                     height: 430,
+                     height: 450,
                      width: MediaQuery.of(context).size.width,
                      decoration: BoxDecoration(
                        color: Colors.white,

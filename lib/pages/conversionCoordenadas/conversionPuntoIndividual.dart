@@ -30,6 +30,8 @@ class ConversionPuntoIndividual extends StatefulWidget {
 
 class _ConversionPuntoIndividualState extends State<ConversionPuntoIndividual> {
   bool hexadecimal = true;
+  bool origenGauss = false;
+  bool origenCartesiano = false;
   String valorNS = 'Norte';
   String valorEO = 'Oeste';
   double latitudepunto, longitudPunto, alturaPunto;
@@ -38,11 +40,16 @@ class _ConversionPuntoIndividualState extends State<ConversionPuntoIndividual> {
   double altura;
   double xGeocentricaF, yGeocentricaF, zGeocentricaF;
   double norteCartesianas, esteCartesianas, alturaCartesianas;
-double norteGauss, esteGauss, alturaGauss;
+  double norteGauss, esteGauss, alturaGauss;
+  GaussCS gaussCOrigen = GaussCS();
+  CartesianasCS origenCartesian =CartesianasCS();
+  CoordenadasGauss coordenadasGaussForm = CoordenadasGauss();
+  CoordenadasCartesianas coordenadasCartesianasForm = CoordenadasCartesianas();
   final GlobalKey<FormState> _formKeyElipsoidalHex = GlobalKey<FormState>();
   final GlobalKey<FormState> _formKeyElipsoidalDec = GlobalKey<FormState>();
   final GlobalKey<FormState> _formKeyGeocentricas = GlobalKey<FormState>();
-
+  final GlobalKey<FormState> _formKeyGauss = GlobalKey<FormState>();
+  final GlobalKey<FormState> _formKeyPlanasCartesianas = GlobalKey<FormState>();
   double roundDouble(double value, int places){ 
    double mod = m.pow(10.0, places); 
    return ((value * mod).round().toDouble() / mod); 
@@ -654,6 +661,7 @@ double norteGauss, esteGauss, alturaGauss;
                                               )
                                             ),
                                           );
+  // Sistema de Coordenadas de Origen Geocentricas
   }else if (widget.origen == 'Geocentricas') {
     return Scaffold(
       body: SafeArea(
@@ -843,12 +851,299 @@ double norteGauss, esteGauss, alturaGauss;
         ),
       ),
     );
+  // Sistema de Coordenadas de Origen Gauss
   }else if (widget.origen == 'Gauss - Krüger') {
     return Scaffold(
       body: SafeArea(
         child: SingleChildScrollView(
           child: Center(
-            child: Text('Gauss - Krüger'),
+            child: Form(
+              key: _formKeyGauss,
+              child: Column(
+                children: <Widget>[
+                  SizedBox(height: 0),
+                    Image.asset('assets/images/conversion.png',height: 80.0),
+                    SizedBox(height: 10),
+                    RichText(text: TextSpan(
+                      children: <TextSpan> [
+                        TextSpan(text: 'Conversion de coordenadas ', style: TextStyle(
+                        fontFamily: 'Roboto', 
+                        fontSize: 13.0,
+                        color: Colors.black54,
+                        )),
+                        TextSpan(text: '${widget.origen} a ${widget.destino}', style: TextStyle(
+                        fontFamily: 'Roboto', 
+                        fontSize: 13.0,
+                        color: Colors.blueAccent,
+                        )),
+                      ]
+                    )),
+                    SizedBox(height: 5.0),
+                    Image.asset('assets/images/gauss.png', height: 220,),
+                    TextFormField(
+                  decoration: InputDecoration(
+                  icon: Icon(Icons.add_location),
+                  labelText: 'Coordenada Norte',
+                  ),
+                  keyboardType: TextInputType.number,
+                  validator: (String nGa){
+                    double nGauss = double.tryParse(nGa);
+                  if (nGauss == null) {
+                  return 'La Coordenada Norte, esta en un formato no valido';
+                  } else {
+                      setState(() {
+                        norteGauss=nGauss;
+                    });
+                    return null;
+                  }
+                  },
+                ),
+                TextFormField(
+                  decoration: InputDecoration(
+                  icon: Icon(Icons.add_location),
+                  labelText: 'Coordenadas Este',
+                  ),
+                  keyboardType: TextInputType.number,
+                  validator: (String eGa){
+                    double eGauss = double.tryParse(eGa);
+                  if (eGauss == null) {
+                  return 'La Coordenada Este, esta en un formato no valido';
+                  } else {
+                    setState(() {
+                      esteGauss = eGauss;
+                    });
+                  return null;
+                  }
+                  },
+                ),
+                TextFormField(
+                  decoration: InputDecoration(
+                  icon: Icon(Icons.add_location),
+                  labelText: 'Altura',
+                  ),
+                  keyboardType: TextInputType.number,
+                  validator: (String aGa){
+                    double aGausss = double.tryParse(aGa);
+                  if (aGausss == null) {
+                  return 'La Altura, esta en un formato no valido';
+                  } else {
+                    setState(() {
+                      alturaGauss=aGausss;
+                    });
+                    return null;
+                  }
+                  },
+                ),
+                SizedBox(height: 20),
+                Container(
+                  child: origenGauss
+                  ?Container(
+                     child: ListTile(
+                      leading: Icon(Icons.add_location, color: Colors.blueAccent, size: 50,),
+                      title: Text('Origen de Cordenadas Seleccionado',style: TextStyle(
+                      fontFamily: 'Roboto', 
+                      fontSize: 13.0,
+                      color: Color(0xff007FFF),
+                      )),
+                      subtitle: Text('${gaussCOrigen.NOMBRE}', style: 
+                      TextStyle(
+                        fontFamily: 'Roboto', 
+                        fontSize: 16.0,
+                        color: Colors.black54,
+                      )),
+                      onTap: (){
+                        _sistemaGauss2(context);
+                      },
+                    )
+                  )
+                  :Container(
+                     child: ListTile(
+                      leading: Icon(Icons.add_location, color: Colors.blueAccent, size: 50,),
+                      title: Text('Seleccionar Origen de Coordenadas del Punto',style: TextStyle(
+                      fontFamily: 'Roboto', 
+                      fontSize: 13.0,
+                      color: Color(0xff007FFF),
+                      )),
+                      subtitle: Text('Selecciona el origen en el que se encuentra el punto ', style: 
+                      TextStyle(
+                        fontFamily: 'Roboto', 
+                        fontSize: 12.0,
+                        color: Colors.black54,
+                      )),
+                      trailing: Icon(Icons.chevron_right, size: 30.0, color: Colors.blueAccent,),
+                      onTap: (){
+                        _sistemaGauss2(context);
+                      },
+                    )
+                  )
+                ),
+                FlatButton(
+                    color: Colors.black54,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(20.0)
+                    ),
+                    onPressed: (){
+                      if (origenGauss == true){
+                        if(_formKeyGauss.currentState.validate()){
+                        coordenadasGaussForm.norte = norteGauss;
+                        coordenadasGaussForm.este = esteGauss;
+                        coordenadasGaussForm.altura = alturaGauss;
+                        ConversionCoordenadasMB conversionCoordenadasMB = ConversionCoordenadasMB();
+                        CoordenadasElipsoidales coordenadasElipsoidales = CoordenadasElipsoidales();
+                        coordenadasElipsoidales  = conversionCoordenadasMB.gauss2Elipsoidales(gaussCOrigen, coordenadasGaussForm);
+                      if (widget.destino == 'Elipsoidales'){
+                       AlertDialog gauss2Elip = AlertDialog(
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(20)
+                        ),
+                        content: Container(
+                          height: 230,
+                          width: 200,
+                          child: Center(
+                            child: Column(
+                              children: <Widget>[
+                                Text('Coordenadas Elipsoidales', style: TextStyle(color: Colors.blueAccent, fontSize: 13)),
+                                Divider(),
+                                Align(
+                                  alignment: Alignment.centerRight,
+                                  child: Text('Latitud', style: TextStyle(color: Colors.black54, fontSize: 12),),
+                                ),
+                                SizedBox(height: 3),
+                                Align(
+                                  alignment: Alignment.centerRight,
+                                  child: Text(roundDouble(coordenadasElipsoidales.latitud, 8).toString(), style: TextStyle(color: Colors.blueAccent, fontSize: 12),),
+                                ),
+                                Divider(),
+                                Align(
+                                  alignment: Alignment.centerRight,
+                                  child: Text('Longitud', style: TextStyle(color: Colors.black54, fontSize: 12),),
+                                ),
+                                SizedBox(height: 3),
+                                Align(
+                                  alignment: Alignment.centerRight,
+                                  child: Text(roundDouble(coordenadasElipsoidales.longitud, 8).toString(), style: TextStyle(color: Colors.blueAccent, fontSize: 12),),
+                                ),
+                                Divider(),
+                                Align(
+                                  alignment: Alignment.centerRight,
+                                  child: Text('Altura', style: TextStyle(color: Colors.black54, fontSize: 12),),
+                                ),
+                                SizedBox(height: 3),
+                                Align(
+                                  alignment: Alignment.centerRight,
+                                  child: Text(roundDouble(coordenadasElipsoidales.altitud, 3).toString(), style: TextStyle(color: Colors.blueAccent, fontSize: 12),),
+                                ),
+                                Divider(height: 10),
+                                FlatButton(
+                                  onPressed: (){
+                                    Share.share('Conversión de Coordenadas MeasureBookAPP \n\n'+
+                                    'Sistema de Rerencia de Origen: \n'+
+                                    'Coordenadas Gauss - Krüger Origen ${gaussCOrigen.NOMBRE} \n'+
+                                    'Norte: ${roundDouble(coordenadasGaussForm.norte,3)}\n'+
+                                    'Este: ${roundDouble(coordenadasGaussForm.este,3)}\n'+
+                                    'Altura: ${roundDouble(coordenadasGaussForm.altura,3)}\n\n'+
+                                    'Sistema de Rerencia de Destino: \n'+
+                                    'Coordenadas ${widget.destino} \n'
+                                    'Latitud: ${roundDouble(coordenadasElipsoidales.latitud, 8)}\n'+
+                                    'Longitud: ${roundDouble(coordenadasElipsoidales.longitud, 8)}\n'+
+                                    'Altura: ${roundDouble(coordenadasElipsoidales.altitud, 3)}\n'
+                                    );
+                                  }, 
+                                  child: Icon(Icons.share, color: Colors.black54, size: 30)
+                                  ),
+                                Text('Compartir', style: TextStyle(color: Colors.blueAccent, fontSize: 13),)
+                              ],
+                            ),
+                          ),
+                        )
+                      );
+                        showDialog(context: context, barrierDismissible: true, builder: (BuildContext context){
+                      return gauss2Elip;
+                      });
+                      }else if (widget.destino == 'Gauss - Krüger'){
+                        _sistemaGauss(context, coordenadasElipsoidales);
+                      } else if (widget.destino == 'Planas Cartesianas') {
+                        _alertDialogoCartesianas (context, coordenadasElipsoidales);
+                      }else if(widget.destino == 'Geocentricas'){
+                        CoordenadasGeocentricas coordenadasGeocentricas = CoordenadasGeocentricas();
+                        coordenadasGeocentricas = conversionCoordenadasMB.elipsoidales2Geocentricas(coordenadasElipsoidales);
+                        AlertDialog gaussGeocen = AlertDialog(
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(20)
+                          ),
+                          content: Container(
+                            height: 250,
+                            width: 200,
+                            child: Center(
+                              child: Column(
+                                children: <Widget>[
+                                  Text('Coordenadas Geocentricas', style: TextStyle(color: Colors.blueAccent, fontSize: 13)),
+                                  Divider(),
+                                  Align(
+                                    alignment: Alignment.centerRight,
+                                    child: Text('Coordenadas X Geocentrica', style: TextStyle(color: Colors.black54, fontSize: 12),),
+                                  ),
+                                  SizedBox(height: 3),
+                                  Align(
+                                    alignment: Alignment.centerRight,
+                                    child: Text(roundDouble(coordenadasGeocentricas.x,3).toString(), style: TextStyle(color: Colors.blueAccent, fontSize: 12),),
+                                  ),
+                                  Divider(),
+                                  Align(
+                                    alignment: Alignment.centerRight,
+                                    child: Text('Coordenadas Y Geocentrica', style: TextStyle(color: Colors.black54, fontSize: 12),),
+                                  ),
+                                  SizedBox(height: 3),
+                                  Align(
+                                    alignment: Alignment.centerRight,
+                                    child: Text(roundDouble(coordenadasGeocentricas.y,3).toString(), style: TextStyle(color: Colors.blueAccent, fontSize: 12),),
+                                  ),
+                                  Divider(),
+                                  Align(
+                                    alignment: Alignment.centerRight,
+                                    child: Text('Coordenadas Z Geocentrica', style: TextStyle(color: Colors.black54, fontSize: 12),),
+                                  ),
+                                  SizedBox(height: 3),
+                                  Align(
+                                    alignment: Alignment.centerRight,
+                                    child: Text(roundDouble(coordenadasGeocentricas.z,3).toString(), style: TextStyle(color: Colors.blueAccent, fontSize: 12),),
+                                  ),
+                                  Divider(height: 10),
+                                  FlatButton(
+                                    onPressed: (){
+                                      Share.share('Conversión de Coordenadas MeasureBookAPP \n\n'+
+                                      'Sistema de Rerencia de Origen: \n'+
+                                      'Coordenadas Gauss - Krüger Origen ${gaussCOrigen.NOMBRE} \n'+
+                                      'Norte: ${roundDouble(coordenadasGaussForm.norte,3)}\n'+
+                                      'Este: ${roundDouble(coordenadasGaussForm.este,3)}\n'+
+                                      'Altura: ${roundDouble(coordenadasGaussForm.altura,3)}\n\n'+
+                                      'Sistema de Rerencia de Destino: \n'+
+                                      'Coordenadas Geocentricas\n'
+                                      'Geocentrica X: ${roundDouble(coordenadasGeocentricas.x,3)}\n'+
+                                      'Geocentrica Y: ${roundDouble(coordenadasGeocentricas.y,3)}\n'+
+                                      'Geocentrica Z: ${roundDouble(coordenadasGeocentricas.z,3)}\n'
+                                      );
+                                    }, 
+                                    child: Icon(Icons.share, color: Colors.black54, size: 30)
+                                    ),
+                                  Text('Compartir', style: TextStyle(color: Colors.blueAccent, fontSize: 13),)
+                                ],
+                              ),
+                            ),
+                          )
+                        );
+                      showDialog(context: context, barrierDismissible: true, builder: (BuildContext context){
+                    return gaussGeocen;
+                  });
+                      }
+                      }
+                      }
+                      },
+                   child: Text('Convertir a ${widget.destino}', style: TextStyle(fontSize: 14.0, color: Colors.white)),
+                   ),
+                ],
+              ),
+            )
           ),
         ),
       ),
@@ -858,7 +1153,301 @@ double norteGauss, esteGauss, alturaGauss;
       body: SafeArea(
         child: SingleChildScrollView(
           child: Center(
-            child: Text('Planas Cartesianas'),
+            child: Padding(
+              padding: const EdgeInsets.all(20.0),
+              child: Form(
+                key:  _formKeyPlanasCartesianas,
+                child: Column(
+                  children: <Widget>[
+                    SizedBox(height: 0),
+                    Image.asset('assets/images/conversion.png',height: 80.0),
+                    SizedBox(height: 10),
+                    RichText(text: TextSpan(
+                      children: <TextSpan> [
+                        TextSpan(text: 'Conversion de coordenadas ', style: TextStyle(
+                        fontFamily: 'Roboto', 
+                        fontSize: 13.0,
+                        color: Colors.black54,
+                        )),
+                        TextSpan(text: '${widget.origen} a ${widget.destino}', style: TextStyle(
+                        fontFamily: 'Roboto', 
+                        fontSize: 13.0,
+                        color: Colors.blueAccent,
+                        )),
+                      ]
+                    )),
+                    SizedBox(height: 5.0),
+                    Image.asset('assets/images/elipsoidal.png', height: 220,),
+                    SizedBox(height: 15),
+                    Divider(),
+                    TextFormField(
+                    decoration: InputDecoration(
+                    icon: Icon(Icons.add_location),
+                    labelText: 'Coordenada Norte',
+                    ),
+                    keyboardType: TextInputType.number,
+                    validator: (String nCarte){
+                      double nCartesiana = double.tryParse(nCarte);
+                    if (nCartesiana == null) {
+                    return 'La Coordenada Norte, esta en un formato no valido';
+                    } else {
+                        setState(() {
+                          norteCartesianas=nCartesiana;
+                      });
+                      return null;
+                    }
+                    },
+                  ),
+                  TextFormField(
+                    decoration: InputDecoration(
+                    icon: Icon(Icons.add_location),
+                    labelText: 'Coordenadas Este',
+                    ),
+                    keyboardType: TextInputType.number,
+                    validator: (String eCarte){
+                      double eCartesiana = double.tryParse(eCarte);
+                    if (eCartesiana == null) {
+                    return 'La Coordenada Este, esta en un formato no valido';
+                    } else {
+                      setState(() {
+                        esteCartesianas = eCartesiana;
+                      });
+                    return null;
+                    }
+                    },
+                  ),
+                  TextFormField(
+                    decoration: InputDecoration(
+                    icon: Icon(Icons.add_location),
+                    labelText: 'Altura',
+                    ),
+                    keyboardType: TextInputType.number,
+                    validator: (String aCar){
+                      double aCartesiana = double.tryParse(aCar);
+                    if (aCartesiana == null) {
+                    return 'La Altura, esta en un formato no valido';
+                    } else {
+                      setState(() {
+                        alturaCartesianas=aCartesiana;
+                      });
+                      return null;
+                    }
+                    },
+                  ),
+                  Divider(height: 10.0),
+                  Container(
+                    child: origenCartesiano
+                    ?Container(
+                      child: ListTile(
+                      leading: Icon(Icons.add_location, color: Colors.blueAccent, size: 50,),
+                      title: Text('Plano Cartesiano de Origen Seleccionado',style: TextStyle(
+                      fontFamily: 'Roboto', 
+                      fontSize: 13.0,
+                      color: Color(0xff007FFF),
+                      )),
+                      subtitle: Text('${origenCartesian.NOMBRE}', style: 
+                      TextStyle(
+                        fontFamily: 'Roboto', 
+                        fontSize: 12.0,
+                        color: Colors.black54,
+                      )),
+                      trailing: Icon(Icons.chevron_right, size: 30.0, color: Colors.blueAccent,),
+                      onTap: (){
+                        _alertDialogoCartesianas2(context);
+                      },
+                    ),
+                    )
+                    : Container(
+                      child: ListTile(
+                      leading: Icon(Icons.add_location, color: Colors.blueAccent, size: 50,),
+                      title: Text('Seleccionar Origen de Coordenadas del Punto',style: TextStyle(
+                      fontFamily: 'Roboto', 
+                      fontSize: 13.0,
+                      color: Color(0xff007FFF),
+                      )),
+                      subtitle: Text('Selecciona el origen en el que se encuentra el punto ', style: 
+                      TextStyle(
+                        fontFamily: 'Roboto', 
+                        fontSize: 12.0,
+                        color: Colors.black54,
+                      )),
+                      trailing: Icon(Icons.chevron_right, size: 30.0, color: Colors.blueAccent,),
+                      onTap: (){
+                        _alertDialogoCartesianas2(context);
+                      },
+                    ),
+                    )
+                  ),
+                  FlatButton(
+                    color: Colors.black54,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(20.0)
+                    ),
+                    onPressed: (){
+                      if (origenCartesiano == true){
+                        if(_formKeyPlanasCartesianas.currentState.validate()){
+                        coordenadasCartesianasForm.norte = norteCartesianas;
+                        coordenadasCartesianasForm.este = esteCartesianas;
+                        coordenadasCartesianasForm.altura = alturaCartesianas;
+                        ConversionCoordenadasMB conversionCoordenadasMB = ConversionCoordenadasMB();
+                        CoordenadasElipsoidales coordenadasElipsoidales = CoordenadasElipsoidales();
+                        coordenadasElipsoidales  = conversionCoordenadasMB.cartesianas2Elipoidales(coordenadasCartesianasForm, origenCartesian);
+                      if (widget.destino == 'Elipsoidales'){
+                       AlertDialog cartesian2Elip = AlertDialog(
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(20)
+                        ),
+                        content: Container(
+                          height: 230,
+                          width: 200,
+                          child: Center(
+                            child: Column(
+                              children: <Widget>[
+                                Text('Coordenadas Elipsoidales', style: TextStyle(color: Colors.blueAccent, fontSize: 13)),
+                                Divider(),
+                                Align(
+                                  alignment: Alignment.centerRight,
+                                  child: Text('Latitud', style: TextStyle(color: Colors.black54, fontSize: 12),),
+                                ),
+                                SizedBox(height: 3),
+                                Align(
+                                  alignment: Alignment.centerRight,
+                                  child: Text(roundDouble(coordenadasElipsoidales.latitud, 8).toString(), style: TextStyle(color: Colors.blueAccent, fontSize: 12),),
+                                ),
+                                Divider(),
+                                Align(
+                                  alignment: Alignment.centerRight,
+                                  child: Text('Longitud', style: TextStyle(color: Colors.black54, fontSize: 12),),
+                                ),
+                                SizedBox(height: 3),
+                                Align(
+                                  alignment: Alignment.centerRight,
+                                  child: Text(roundDouble(coordenadasElipsoidales.longitud, 8).toString(), style: TextStyle(color: Colors.blueAccent, fontSize: 12),),
+                                ),
+                                Divider(),
+                                Align(
+                                  alignment: Alignment.centerRight,
+                                  child: Text('Altura', style: TextStyle(color: Colors.black54, fontSize: 12),),
+                                ),
+                                SizedBox(height: 3),
+                                Align(
+                                  alignment: Alignment.centerRight,
+                                  child: Text(roundDouble(coordenadasElipsoidales.altitud, 3).toString(), style: TextStyle(color: Colors.blueAccent, fontSize: 12),),
+                                ),
+                                Divider(height: 10),
+                                FlatButton(
+                                  onPressed: (){
+                                    Share.share('Conversión de Coordenadas MeasureBookAPP \n\n'+
+                                    'Sistema de Rerencia de Origen: \n'+
+                                    'Coordenadas Planas Cartesianas Origen ${origenCartesian.NOMBRE} \n'+
+                                    'Norte: ${roundDouble(coordenadasGaussForm.norte,3)}\n'+
+                                    'Este: ${roundDouble(coordenadasGaussForm.este,3)}\n'+
+                                    'Altura: ${roundDouble(coordenadasGaussForm.altura,3)}\n\n'+
+                                    'Sistema de Rerencia de Destino: \n'+
+                                    'Coordenadas ${widget.destino} \n'
+                                    'Latitud: ${roundDouble(coordenadasElipsoidales.latitud, 8)}\n'+
+                                    'Longitud: ${roundDouble(coordenadasElipsoidales.longitud, 8)}\n'+
+                                    'Altura: ${roundDouble(coordenadasElipsoidales.altitud, 3)}\n'
+                                    );
+                                  }, 
+                                  child: Icon(Icons.share, color: Colors.black54, size: 30)
+                                  ),
+                                Text('Compartir', style: TextStyle(color: Colors.blueAccent, fontSize: 13),)
+                              ],
+                            ),
+                          ),
+                        )
+                      );
+                        showDialog(context: context, barrierDismissible: true, builder: (BuildContext context){
+                      return cartesian2Elip;
+                      });
+                      }else if (widget.destino == 'Gauss - Krüger'){
+                        _sistemaGauss(context, coordenadasElipsoidales);
+                      } else if (widget.destino == 'Planas Cartesianas') {
+                        _alertDialogoCartesianas (context, coordenadasElipsoidales);
+                      }else if(widget.destino == 'Geocentricas'){
+                            CoordenadasGeocentricas coordenadasGeocentricas = CoordenadasGeocentricas();
+                            coordenadasGeocentricas = conversionCoordenadasMB.elipsoidales2Geocentricas(coordenadasElipsoidales);
+                            AlertDialog cartesian2Geocen = AlertDialog(
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(20)
+                              ),
+                              content: Container(
+                                height: 250,
+                                width: 200,
+                                child: Center(
+                                  child: Column(
+                                    children: <Widget>[
+                                      Text('Coordenadas Geocentricas', style: TextStyle(color: Colors.blueAccent, fontSize: 13)),
+                                      Divider(),
+                                      Align(
+                                        alignment: Alignment.centerRight,
+                                        child: Text('Coordenadas X Geocentrica', style: TextStyle(color: Colors.black54, fontSize: 12),),
+                                      ),
+                                      SizedBox(height: 3),
+                                      Align(
+                                        alignment: Alignment.centerRight,
+                                        child: Text(roundDouble(coordenadasGeocentricas.x,3).toString(), style: TextStyle(color: Colors.blueAccent, fontSize: 12),),
+                                      ),
+                                      Divider(),
+                                      Align(
+                                        alignment: Alignment.centerRight,
+                                        child: Text('Coordenadas Y Geocentrica', style: TextStyle(color: Colors.black54, fontSize: 12),),
+                                      ),
+                                      SizedBox(height: 3),
+                                      Align(
+                                        alignment: Alignment.centerRight,
+                                        child: Text(roundDouble(coordenadasGeocentricas.y,3).toString(), style: TextStyle(color: Colors.blueAccent, fontSize: 12),),
+                                      ),
+                                      Divider(),
+                                      Align(
+                                        alignment: Alignment.centerRight,
+                                        child: Text('Coordenadas Z Geocentrica', style: TextStyle(color: Colors.black54, fontSize: 12),),
+                                      ),
+                                      SizedBox(height: 3),
+                                      Align(
+                                        alignment: Alignment.centerRight,
+                                        child: Text(roundDouble(coordenadasGeocentricas.z,3).toString(), style: TextStyle(color: Colors.blueAccent, fontSize: 12),),
+                                      ),
+                                      Divider(height: 10),
+                                      FlatButton(
+                                        onPressed: (){
+                                          Share.share('Conversión de Coordenadas MeasureBookAPP \n\n'+
+                                          'Sistema de Referencia de Origen: \n'+
+                                          'Coordenadas Planas Cartesianas Origen ${origenCartesian.NOMBRE} \n'+
+                                          'Norte: ${roundDouble(coordenadasGaussForm.norte,3)}\n'+
+                                          'Este: ${roundDouble(coordenadasGaussForm.este,3)}\n'+
+                                          'Altura: ${roundDouble(coordenadasGaussForm.altura,3)}\n\n'+
+                                          'Sistema de Rerencia de Destino: \n'+
+                                          'Coordenadas Geocentricas\n'
+                                          'Geocentrica X: ${roundDouble(coordenadasGeocentricas.x,3)}\n'+
+                                          'Geocentrica Y: ${roundDouble(coordenadasGeocentricas.y,3)}\n'+
+                                          'Geocentrica Z: ${roundDouble(coordenadasGeocentricas.z,3)}\n'
+                                          );
+                                        }, 
+                                        child: Icon(Icons.share, color: Colors.black54, size: 30)
+                                        ),
+                                      Text('Compartir', style: TextStyle(color: Colors.blueAccent, fontSize: 13),)
+                                    ],
+                                  ),
+                                ),
+                              )
+                            );
+                          showDialog(context: context, barrierDismissible: true, builder: (BuildContext context){
+                        return cartesian2Geocen;
+                      });
+                      }
+                      }
+                      }else {
+                        origenGaussSelect();
+                      }
+                      },
+                   child: Text('Convertir a ${widget.destino}', style: TextStyle(fontSize: 14.0, color: Colors.white)),
+                   ),
+                  ],
+                ),
+              ),
+            )
           ),
         ),
       ),
@@ -1027,20 +1616,21 @@ void _sistemas2Cartesianos (BuildContext context, int fk_Muninipio, CoordenadasE
                 builder: SwiperPagination.dots
               ),
               loop: false,
-              itemWidth: MediaQuery.of(context).size.width*0.95,
-              itemHeight: MediaQuery.of(context).size.height*.75,
+              itemWidth: MediaQuery.of(context).size.width*0.8,
+              itemHeight: MediaQuery.of(context).size.height*.70,
               itemCount: snapshot.data.length,
               itemBuilder: (BuildContext context, int index){
                 origenesCartesianos listaOrigenes = snapshot.data[index];
                 return Container(
-                  height: 500,
-                  width: 300,
+                  height: 550,
+                  width: 270,
                   decoration: BoxDecoration(
                   ),
                   key: UniqueKey(),
                   child: Card(
                     elevation: 14.0,
                     child: Container(
+                      height: 500,
                       decoration: BoxDecoration(
                       image: DecorationImage(image: AssetImage('assets/images/fondo_sistemas.png'),
                       fit: BoxFit.cover,
@@ -1485,6 +2075,7 @@ void _sistemas2Cartesianos (BuildContext context, int fk_Muninipio, CoordenadasE
                                             cartesianasCS.PLANO_PROY = listaOrigenes.PLANO_PROY;
                                             cartesianasCS.LATITUD = listaOrigenes.LATITUD;
                                             cartesianasCS.LONGITUD = listaOrigenes.LONGITUD;
+                                            Navigator.pop(context);
                                             _conversionPlanasCartesianas(context, cartesianasCS, elipCoor);
                                           },child: Column(
                                           children: <Widget>[
@@ -1519,6 +2110,7 @@ void _sistemas2Cartesianos (BuildContext context, int fk_Muninipio, CoordenadasE
       )
   );
 }
+ 
  _sistemaGauss (BuildContext context, CoordenadasElipsoidales coorelipso){
   showDialog(
     context: context,
@@ -1800,7 +2392,7 @@ void _sistemas2Cartesianos (BuildContext context, int fk_Muninipio, CoordenadasE
       borderRadius: BorderRadius.circular(20)
     ),
     content: Container(
-      height: 220,
+      height: 240,
       width: 200,
       child: Center(
         child: Column(
@@ -1861,6 +2453,19 @@ void _sistemas2Cartesianos (BuildContext context, int fk_Muninipio, CoordenadasE
                 'Coordenada Z: ${zGeocentricaF}\n\n'+
                 'Sistema de Rerencia de Destino: \n'+
                 'Coordenadas Gauss Krüger Origen ${gaussCS.NOMBRE}\n'
+                'Norte: ${roundDouble(coordenadasGauss.norte,3)}\n'+
+                'Este: ${roundDouble(coordenadasGauss.este,3)}\n'+
+                'Altura: ${roundDouble(coordenadasGauss.altura,3)}\n'
+                );
+                }else if(widget.origen == 'Gauss - Krüger'){
+                  Share.share('Conversión de Coordenadas MeasureBookAPP \n\n'+
+                'Sistema de Referencia de Origen: \n'+
+                'Coordenadas Gauss Krüger Origen ${gaussCOrigen.NOMBRE}\n'+
+                'Norte: ${coordenadasGaussForm.norte}\n'+
+                'Este: ${coordenadasGaussForm.este}\n'+
+                'Altura: ${coordenadasGaussForm.altura}\n\n'+
+                'Sistema de Rerencia de Destino: \n'+
+                'Coordenadas Gauss Krüger Origen ${gaussCS.NOMBRE}\n'+
                 'Norte: ${roundDouble(coordenadasGauss.norte,3)}\n'+
                 'Este: ${roundDouble(coordenadasGauss.este,3)}\n'+
                 'Altura: ${roundDouble(coordenadasGauss.altura,3)}\n'
@@ -1955,11 +2560,20 @@ void _sistemas2Cartesianos (BuildContext context, int fk_Muninipio, CoordenadasE
                 'Este: ${roundDouble(coordenadasCartesianas.este,3)}\n'+
                 'Altura: ${roundDouble(coordenadasCartesianas.altura,3)}\n'
                 );
-                }
-
-
-
-                
+                }else if(widget.origen =='Gauss - Krüger'){
+                Share.share('Conversión de Coordenadas MeasureBookAPP \n\n'+
+                'Sistema de Referencia de Origen: \n'+
+                'Coordenadas Gauss - Krüger Origen ${gaussCOrigen.NOMBRE} \n'+
+                'Norte: ${coordenadasGaussForm.norte}\n'+
+                'Este: ${coordenadasGaussForm.este}\n'+
+                'Altura: ${coordenadasGaussForm.altura}\n\n'+
+                'Sistema de Referencia de Destino: \n'+
+                'Coordenadas Planas Cartesianas Origen ${cartesianasCS.NOMBRE}\n'
+                'Norte: ${roundDouble(coordenadasCartesianas.norte,3)}\n'+
+                'Este: ${roundDouble(coordenadasCartesianas.este,3)}\n'+
+                'Altura: ${roundDouble(coordenadasCartesianas.altura,3)}\n'
+                );
+                }               
               }, 
               child: Icon(Icons.share, color: Colors.black54, size: 30)
               ),
@@ -1982,5 +2596,950 @@ void _sistemas2Cartesianos (BuildContext context, int fk_Muninipio, CoordenadasE
     timeInSecForIosWeb: 1
     );
   }
+  //Alerta de no selección de origen de coordenadas
+  void origenGaussSelect(){
+    Fluttertoast.showToast(
+    msg: "Seleccione el origen del sistema de Coordenadas",
+    toastLength: Toast.LENGTH_LONG,
+    gravity: ToastGravity.CENTER,
+    timeInSecForIosWeb: 1
+    );
+  }
+_sistemaGauss2 (BuildContext context){
+  showDialog(
+    context: context,
+    builder: (context) => Container(
+      child: Container(
+        decoration: BoxDecoration(
+        borderRadius: BorderRadius.all(Radius.circular(10.0)
+        )
+        ),
+        height: MediaQuery.of(context).size.height,
+        width: MediaQuery.of(context).size.width,
+        child: Container(
+          child:FutureBuilder<List<origenesGauss>>(
+            future: gestorMBDatabase.db.getGauss(),
+            builder: (context, AsyncSnapshot<List<origenesGauss>> snapshot) {
+              if(snapshot.hasData){
+                return Swiper(
+                  loop: false,
+                  pagination: SwiperPagination(
+                    builder: SwiperPagination.dots
+                  ),
+                  layout: SwiperLayout.TINDER,
+                  itemWidth: 320,
+                  itemHeight: 580,
+                  itemCount: snapshot.data.length,
+                  itemBuilder: (context, int index){
+                    origenesGauss listaOrigenes = snapshot.data[index];
+                    return Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                      ),
+                      key: UniqueKey(),
+                      child: Card(
+                        elevation: 14.0,
+                        child: Container(
+                          decoration: BoxDecoration(
+                          image: DecorationImage(image: AssetImage('assets/images/fondo_sistemas.png'),
+                          fit: BoxFit.cover,
+                           ),   
+                           ),
+                          child: Padding(
+                            padding: const EdgeInsets.all(20.0),
+                            child: Column(
+                              children: <Widget>[
+                                Align(
+                                  alignment: Alignment.centerLeft,
+                                  child: RichText(text: TextSpan(
+                                  children: <TextSpan>[
+                                    TextSpan(text: 'Gauss-Krüger', style: TextStyle(
+                                      fontFamily: 'Roboto',
+                                      color: Colors.white,
+                                      fontSize: 14.0
+                                      )),
+                                  ]
+                                )),
+                                ),
+                                Align(
+                                  alignment: Alignment.bottomLeft,
+                                  child: Text(
+                                    '${listaOrigenes.NOMBRE}', style: TextStyle(
+                                      fontFamily: 'Roboto',
+                                      color: Colors.white,
+                                      fontSize: 14.0
+                                    ),
+                                  ),
+                                ),
+                                SizedBox(height: 45.0),
+                                Align(
+                                  alignment: Alignment.centerLeft,
+                                  child: RichText(text: TextSpan(
+                                  children: <TextSpan>[
+                                    TextSpan(text: 'DATUM: \n ', style: TextStyle(
+                                      fontFamily: 'Roboto',
+                                      color: Colors.black54,
+                                      fontSize: 12.0
+                                    )),
+                                    TextSpan( text: 'Magna Sirgas', style: TextStyle(
+                                      fontFamily: 'Roboto',
+                                      color: Color(0xff007FFF),
+                                      fontSize: 13.0
+                                    ))
+                                  ]
+                                )),
+                                ),
+                                Divider(),
+                                Align(
+                                  alignment: Alignment.centerLeft,
+                                  child: RichText(text: TextSpan(
+                                  children: <TextSpan>[
+                                    TextSpan(text: 'Elipsoide: \n', style: TextStyle(
+                                      fontFamily: 'Roboto',
+                                      color: Colors.black54,
+                                      fontSize: 12.0
+                                    )),
+                                    TextSpan( text: 'GRS80', style: TextStyle(
+                                      fontFamily: 'Roboto',
+                                      color: Color(0xff007FFF),
+                                      fontSize: 13.0
+                                    ))
+                                  ]
+                                )),
+                                ),
+                                Divider(),
+                                Align(
+                                  alignment: Alignment.center,
+                                  child: RichText(text: TextSpan(
+                                  children: <TextSpan>[
+                                    TextSpan(text: 'Sistema de Proyección', style: TextStyle(
+                                      fontFamily: 'Roboto',
+                                      color: Color(0xff007FFF),
+                                      fontSize: 14.0
+                                    )),
+                                  ]
+                                )),
+                                ),
+                                Divider(),
+                                Align(
+                                  alignment: Alignment.centerLeft,
+                                  child: RichText(text: TextSpan(
+                                  children: <TextSpan>[
+                                    TextSpan(text: 'Proyección \n', style: TextStyle(
+                                      fontFamily: 'Roboto',
+                                      color: Colors.black54,
+                                      fontSize: 12.0
+                                    )),
+                                    TextSpan( text: 'Transversal de Mercator', style: TextStyle(
+                                      fontFamily: 'Roboto',
+                                      color: Color(0xff007FFF),
+                                      fontSize: 13.0
+                                    ))
+                                  ]
+                                )),
+                                ),
+                                Divider(),
+                                Align(
+                                  alignment: Alignment.centerLeft,
+                                  child: RichText(text: TextSpan(
+                                  children: <TextSpan>[
+                                    TextSpan(text: 'Latitud de Origen \n', style: TextStyle(
+                                      fontFamily: 'Roboto',
+                                      color: Colors.black54,
+                                      fontSize: 12.0
+                                    )),
+                                    TextSpan( text: '${listaOrigenes.LATITUD.toString()}', style: TextStyle(
+                                      fontFamily: 'Roboto',
+                                      color: Color(0xff007FFF),
+                                      fontSize: 13.0
+                                    ))
+                                  ]
+                                )),
+                                ), 
+                                Divider(),
+                                Align(
+                                  alignment: Alignment.centerLeft,
+                                  child: RichText(text: TextSpan(
+                                  children: <TextSpan>[
+                                    TextSpan(text: 'Longitud de Origen \n', style: TextStyle(
+                                      fontFamily: 'Roboto',
+                                      color: Colors.black54,
+                                      fontSize: 12.0
+                                    )),
+                                    TextSpan( text: '${listaOrigenes.LONGITUD.toString()}', style: TextStyle(
+                                      fontFamily: 'Roboto',
+                                      color: Color(0xff007FFF),
+                                      fontSize: 13.0
+                                    ))
+                                  ]
+                                )),
+                                ),
+                                Divider(),
+                                Align(
+                                  alignment: Alignment.centerLeft,
+                                  child: RichText(text: TextSpan(
+                                  children: <TextSpan>[
+                                    TextSpan(text: 'Falso Norte \n', style: TextStyle(
+                                      fontFamily: 'Roboto',
+                                      color: Colors.black54,
+                                      fontSize: 12.0
+                                    )),
+                                    TextSpan( text: '${listaOrigenes.NORTE.toString()}00 m', style: TextStyle(
+                                      fontFamily: 'Roboto',
+                                      color: Color(0xff007FFF),
+                                      fontSize: 13.0
+                                    ))
+                                  ]
+                                )),
+                                ),
+                                Divider(),
+                                Align(
+                                  alignment: Alignment.centerLeft,
+                                  child: RichText(text: TextSpan(
+                                  children: <TextSpan>[
+                                    TextSpan(text: 'Falso Este \n', style: TextStyle(
+                                      fontFamily: 'Roboto',
+                                      color: Colors.black54,
+                                      fontSize: 12.0
+                                    )),
+                                    TextSpan( text: '${listaOrigenes.ESTE.toString()} m', style: TextStyle(
+                                      fontFamily: 'Roboto',
+                                      color: Color(0xff007FFF),
+                                      fontSize: 13.0
+                                    ))
+                                  ]
+                                )),
+                                ),
+                                Divider(),
+                                Align(
+                                  alignment: Alignment.centerLeft,
+                                  child: RichText(text: TextSpan(
+                                  children: <TextSpan>[
+                                    TextSpan(text: 'Factor de Escala\n ', style: TextStyle(
+                                      fontFamily: 'Roboto',
+                                      color: Colors.black54,
+                                      fontSize: 12.0
+                                    )),
+                                    TextSpan( text: '1.000000000', style: TextStyle(
+                                      fontFamily: 'Roboto',
+                                      color: Color(0xff007FFF),
+                                      fontSize: 13.0
+                                    ))
+                                  ]
+                                )),
+                                ),
+                                Divider(), 
+                                Align(
+                                  alignment: Alignment.center,
+                                  child: Center(
+                                    child: Column(
+                                      children: <Widget>[
+                                        FlatButton(
+                                          onPressed: (){
+                                              GaussCS gaussC = GaussCS();
+                                              gaussC.NORTE = listaOrigenes.NORTE;
+                                              gaussC.ESTE = listaOrigenes.ESTE;
+                                              gaussC.LATITUD = listaOrigenes.LATITUD;
+                                              gaussC.LONGITUD = listaOrigenes.LONGITUD;
+                                              gaussC.NOMBRE = listaOrigenes.NOMBRE;
+                                              Navigator.pop(context);
+                                             setState(() {
+                                               gaussCOrigen = gaussC;
+                                               origenGauss = true;
+                                             });
+                                              }, 
+                                              child: Column(
+                                                children: <Widget>[
+                                                Image.asset('assets/images/seleccionar.png', height: 40,),
+                                                Text('Seleccionar',style: TextStyle(color: Colors.blueAccent, fontSize: 14))
+                                                ],
+                                              )
+                                              ),
+                                              ],
+                                              ),
+                                              ),
+                                              )
+                                              ],
+                                              ),
+                                            ),
+                                            ),
+                                            ));
+                                          }
+                                          );
+                                        }else {
+                                        return Center(
+                                        child: CircularProgressIndicator(),
+                                      );
+                                    }
+                                    },
+                                    ),
+                          )
+              )
+                                            
+      )
+      );
+      }             
+
+void _alertDialogoCartesianas2(BuildContext context) {
+  showDialog(
+    context: context,
+    builder: (context) => Container(
+      height: 500,
+      
+      child: Scaffold(
+        body: FutureBuilder<List<departamentos>>(
+          future: gestorMBDatabase.db.getDepartamentos(),
+          builder: (BuildContext context, AsyncSnapshot<List<departamentos>> listaDep){
+            if(listaDep.hasData) {
+                return Container(
+                  height: 700,
+                  child: Column(
+                    children: <Widget>[
+                      SizedBox(height: 30),
+                      Text('Seleccione un Departamento', style: TextStyle(
+                        color: Color(0xff007FFF),
+                        fontSize: 16.0
+                      ),),
+                      SizedBox(
+                        height: 14.0,
+                      ),
+                      Flexible(
+                      child: ListView.builder(
+                      itemCount: listaDep.data.length,
+                      itemBuilder: (BuildContext context, int index){
+                      departamentos listaDepartamentos = listaDep.data[index];
+                      return Dismissible(
+                      onDismissed: (direction){},
+                      key: UniqueKey(), 
+                      child: Container(
+                        height: 50,
+                        width: MediaQuery.of(context).size.width,
+                        child: ListTile(
+                          title: Text(listaDepartamentos.NOMBRE, style: TextStyle(
+                            color: Colors.black54,
+                            fontSize: 16.0
+                          ),),
+                        trailing: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: <Widget>[
+                            Icon(Icons.chevron_right, color: Colors.blueAccent)
+                          ],
+                        ),
+                        onTap: (){
+                          Navigator.pop(context);
+                          _alertDialogoCartesianasMunicipio2(context, listaDepartamentos.PK_DEPARTAMENTO);
+                          
+                        },
+                        )
+                      )
+                      );
+                      }   
+                      ),
+                      )
+                    ],
+                  )
+                );
+                    } else {
+                      return Center(
+                        child: CircularProgressIndicator(),
+              );
+            }
+          }
+          ),
+      ),
+    )
+  );
+}
+
+  void _alertDialogoCartesianasMunicipio2(BuildContext context, int fk_Departamento) {
+  showDialog(
+    context: context,
+    builder: (context) => Container(
+      height: 500,
+      
+      child: Scaffold(
+        body: FutureBuilder<List<municipios>>(
+          future: gestorMBDatabase.db.getMunicipios(fk_Departamento),
+          builder: (BuildContext context, AsyncSnapshot<List<municipios>> listaMunicipios){
+            if(listaMunicipios.hasData) {
+                return Container(
+                  height: 700,
+                  child: Column(
+                    children: <Widget>[
+                      SizedBox(height: 30),
+                      Text('Seleccione un Municipio', style: TextStyle(
+                        color: Color(0xff007FFF),
+                        fontSize: 16.0
+                      ),),
+                      SizedBox(
+                        height: 14.0,
+                      ),
+                      Flexible(
+                      child: ListView.builder(
+                      itemCount: listaMunicipios.data.length,
+                      itemBuilder: (BuildContext context, int index){
+                      municipios listaMun = listaMunicipios.data[index];
+                      return Dismissible(
+                      key: UniqueKey(), 
+                      child: Container(
+                        height: 50,
+                        width: MediaQuery.of(context).size.width,
+                        child: ListTile(
+                          title: Text(listaMun.NOMBRE, style: TextStyle(
+                            color: Colors.black54,
+                            fontSize: 14.0
+                          ),),
+                        trailing: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: <Widget>[
+                            Icon(Icons.chevron_right, color: Colors.blueAccent)
+                          ],
+                        ),
+                        onTap: (){
+                            Navigator.pop(context);
+                           _sistemas2Cartesianos2(context, listaMun.PK_MUNICIPIOS);
+                        },
+                        )
+                      )
+                      );
+                      }   
+                      ),
+                      )
+                    ],
+                  )
+                );
+                    } else {
+                      return Center(
+                        child: CircularProgressIndicator(),
+              );
+            }
+          }
+          ),
+      ),
+    )
+  );
+}
+
+void _sistemas2Cartesianos2 (BuildContext context, int fk_Muninipio) {
+  showDialog(
+  context: context,
+    builder: (context) => Container(
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(30)
+      ),
+      child:FutureBuilder<List<origenesCartesianos>>(
+        future: gestorMBDatabase.db.getCartesianas(fk_Muninipio),
+        builder: (BuildContext context, AsyncSnapshot<List<origenesCartesianos>> snapshot) {
+          if(snapshot.hasData){             
+            if (snapshot.data.length>1) {
+              return Swiper(
+              layout: SwiperLayout.TINDER,
+              pagination: SwiperPagination(
+                builder: SwiperPagination.dots
+              ),
+              loop: false,
+              itemWidth: MediaQuery.of(context).size.width*0.8,
+              itemHeight: MediaQuery.of(context).size.height*.70,
+              itemCount: snapshot.data.length,
+              itemBuilder: (BuildContext context, int index){
+                origenesCartesianos listaOrigenes = snapshot.data[index];
+                return Container(
+                  height: 550,
+                  width: 270,
+                  decoration: BoxDecoration(
+                  ),
+                  key: UniqueKey(),
+                  child: Card(
+                    elevation: 14.0,
+                    child: Container(
+                      height: 500,
+                      decoration: BoxDecoration(
+                      image: DecorationImage(image: AssetImage('assets/images/fondo_sistemas.png'),
+                      fit: BoxFit.cover,
+                        ),   
+                        ),
+                      child: Padding(
+                        padding: const EdgeInsets.all(20.0),
+                        child: Column(
+                          children: <Widget>[
+                            SizedBox(height: 5),
+                            Align(
+                              alignment: Alignment.centerLeft,
+                              child: RichText(text: TextSpan(
+                              children: <TextSpan>[
+                                TextSpan(text: 'Plano Cartesiano', style: TextStyle(
+                                  fontFamily: 'Roboto',
+                                  color: Colors.white,
+                                  fontSize: 14.0
+                                  )),
+                              ]
+                            )),
+                            ),
+                            Align(
+                              alignment: Alignment.bottomLeft,
+                              child: Text(
+                                '${listaOrigenes.NOMBRE}', style: TextStyle(
+                                  fontFamily: 'Roboto',
+                                  color: Colors.white,
+                                  fontSize: 14.0
+                                ),
+                              ),
+                            ),
+                            SizedBox(height: 40.0),
+                            Align(
+                              alignment: Alignment.centerLeft,
+                              child: RichText(text: TextSpan(
+                              children: <TextSpan>[
+                                TextSpan(text: 'DATUM \n', style: TextStyle(
+                                  fontFamily: 'Roboto',
+                                  color: Colors.black54,
+                                  fontSize: 12.0
+                                )),
+                                TextSpan( text: 'Magna Sirgas', style: TextStyle(
+                                  fontFamily: 'Roboto',
+                                  color: Color(0xff007FFF),
+                                  fontSize: 13.0
+                                ))
+                              ]
+                            )),
+                            ),
+                            Divider(),
+                            Align(
+                              alignment: Alignment.centerLeft,
+                              child: RichText(text: TextSpan(
+                              children: <TextSpan>[
+                                TextSpan(text: 'Elipsoide\n', style: TextStyle(
+                                  fontFamily: 'Roboto',
+                                  color: Colors.black54,
+                                  fontSize: 12.0
+                                )),
+                                TextSpan( text: 'GRS80', style: TextStyle(
+                                  fontFamily: 'Roboto',
+                                  color: Color(0xff007FFF),
+                                  fontSize: 13.0
+                                ))
+                              ]
+                            )),
+                            ),
+                            SizedBox(height: 5.0,),
+                            Align(
+                              alignment: Alignment.center,
+                              child: RichText(text: TextSpan(
+                              children: <TextSpan>[
+                                TextSpan(text: 'Sistema de Proyección ', style: TextStyle(
+                                  fontFamily: 'Roboto',
+                                  color: Color(0xff007FFF),
+                                  fontSize: 14.0
+                                )),
+                              ]
+                            )),
+                            ),
+                            Align(
+                              alignment: Alignment.centerLeft,
+                              child: RichText(text: TextSpan(
+                              children: <TextSpan>[
+                                TextSpan(text: 'Proyección\n', style: TextStyle(
+                                  fontFamily: 'Roboto',
+                                  color: Colors.black54,
+                                  fontSize: 12.0
+                                )),
+                                TextSpan( text: 'Plano Cartesiano IGAC', style: TextStyle(
+                                  fontFamily: 'Roboto',
+                                  color: Color(0xff007FFF),
+                                  fontSize: 13.0
+                                ))
+                              ]
+                            )),
+                            ),
+                            Divider(),
+                            Align(
+                              alignment: Alignment.centerLeft,
+                              child: RichText(text: TextSpan(
+                              children: <TextSpan>[
+                                TextSpan(text: 'Latitud de Origen\n', style: TextStyle(
+                                  fontFamily: 'Roboto',
+                                  color: Colors.black54,
+                                  fontSize: 12.0
+                                )),
+                                TextSpan( text: '${listaOrigenes.LATITUD.toString()}', style: TextStyle(
+                                  fontFamily: 'Roboto',
+                                  color: Color(0xff007FFF),
+                                  fontSize: 13.0
+                                ))
+                              ]
+                            )),
+                            ), 
+                            Divider(),
+                            Align(
+                              alignment: Alignment.centerLeft,
+                              child: RichText(text: TextSpan(
+                              children: <TextSpan>[
+                                TextSpan(text: 'Longitud de Origen\n', style: TextStyle(
+                                  fontFamily: 'Roboto',
+                                  color: Colors.black54,
+                                  fontSize: 13.0
+                                )),
+                                TextSpan( text: '${listaOrigenes.LONGITUD.toString()}', style: TextStyle(
+                                  fontFamily: 'Roboto',
+                                  color: Color(0xff007FFF),
+                                  fontSize: 13.0
+                                ))
+                              ]
+                            )),
+                            ),
+                            Divider(),
+                            Align(
+                              alignment: Alignment.centerLeft,
+                              child: RichText(text: TextSpan(
+                              children: <TextSpan>[
+                                TextSpan(text: 'Falso Norte\n', style: TextStyle(
+                                  fontFamily: 'Roboto',
+                                  color: Colors.black54,
+                                  fontSize: 12.0
+                                )),
+                                TextSpan( text: '${listaOrigenes.NORTE.toString()} m', style: TextStyle(
+                                  fontFamily: 'Roboto',
+                                  color: Color(0xff007FFF),
+                                  fontSize: 13.0
+                                ))
+                              ]
+                            )),
+                            ),
+                            Divider(),
+                            Align(
+                              alignment: Alignment.centerLeft,
+                              child: RichText(text: TextSpan(
+                              children: <TextSpan>[
+                                TextSpan(text: 'Falso Este\n ', style: TextStyle(
+                                  fontFamily: 'Roboto',
+                                  color: Colors.black54,
+                                  fontSize: 12.0
+                                )),
+                                TextSpan( text: '${listaOrigenes.ESTE.toString()} m', style: TextStyle(
+                                  fontFamily: 'Roboto',
+                                  color: Color(0xff007FFF),
+                                  fontSize: 13.0
+                                ))
+                              ]
+                            )),
+                            ),
+                            Divider(),
+                            Align(
+                              alignment: Alignment.centerLeft,
+                              child: RichText(text: TextSpan(
+                              children: <TextSpan>[
+                                TextSpan(text: 'Altura del Plano\n ', style: TextStyle(
+                                  fontFamily: 'Roboto',
+                                  color: Colors.black54,
+                                  fontSize: 12.0
+                                )),
+                                TextSpan( text: '${listaOrigenes.PLANO_PROY} m', style: TextStyle(
+                                  fontFamily: 'Roboto',
+                                  color: Color(0xff007FFF),
+                                  fontSize: 13.0
+                                ))
+                              ]
+                            )),
+                            ),  
+                            Divider(),
+                            Align(
+                              alignment: Alignment.center,
+                              child: Center(
+                                child: Column(
+                                  children: <Widget>[
+                                    FlatButton(
+                                      onPressed: (){
+                                        CartesianasCS cartesianasCS = CartesianasCS();
+                                            cartesianasCS.NOMBRE = listaOrigenes.NOMBRE;
+                                            cartesianasCS.ESTE = listaOrigenes.ESTE;
+                                            cartesianasCS.NORTE = listaOrigenes.NORTE;
+                                            cartesianasCS.PLANO_PROY = listaOrigenes.PLANO_PROY;
+                                            cartesianasCS.LATITUD = listaOrigenes.LATITUD;
+                                            cartesianasCS.LONGITUD = listaOrigenes.LONGITUD;
+                                            Navigator.pop(context);
+                                            setState(() {
+                                              origenCartesian = cartesianasCS;
+                                              origenCartesiano = true;
+                                            });
+                                      }, 
+                                      child: Column(
+                                        children: <Widget>[
+                                        Image.asset('assets/images/seleccionar.png', height: 40,),
+                                        Text('Seleccionar',style: TextStyle(color: Colors.blueAccent, fontSize: 14))
+                                        ],
+                                      )
+                                      ),
+                                  ],
+                                ),
+                              ),
+                            )
+                          ],
+                        ),
+                      ),
+                    ),
+                  ));
+              }
+              );
+            } else {
+              return Swiper(
+                layout: SwiperLayout.DEFAULT,
+                pagination: SwiperPagination(
+                builder: SwiperPagination.dots
+              ),
+              itemCount: snapshot.data.length,
+              itemBuilder: (BuildContext context, int index){
+                origenesCartesianos listaOrigenes = snapshot.data[index];
+                return Container(
+                  child: Container(
+                    key: UniqueKey(),
+                    child: Center(
+                      child: Card(
+                        elevation: 14.0,
+                        child: Container(
+                          height: 580,
+                          width: 320,
+                          decoration: BoxDecoration(
+                          image: DecorationImage(image: AssetImage('assets/images/fondo_sistemas.png'),
+                          fit: BoxFit.cover,
+                            ),   
+                            ),
+                          child: Padding(
+                            padding: const EdgeInsets.all(20.0),
+                            child: Column(
+                              children: <Widget>[
+                                Align(
+                                  alignment: Alignment.centerLeft,
+                                  child: RichText(text: TextSpan(
+                                  children: <TextSpan>[
+                                    TextSpan(text: 'Plano Cartesiano', style: TextStyle(
+                                      fontFamily: 'Roboto',
+                                      color: Colors.white,
+                                      fontSize: 14.0
+                                      )),
+                                  ]
+                                )),
+                                ),
+                                Align(
+                                  alignment: Alignment.bottomLeft,
+                                  child: Text(
+                                    '${listaOrigenes.NOMBRE}', style: TextStyle(
+                                      fontFamily: 'Roboto',
+                                      color: Colors.white,
+                                      fontSize: 14.0
+                                    ),
+                                  ),
+                                ),
+                                SizedBox(height: 45.0),
+                                Align(
+                                  alignment: Alignment.centerLeft,
+                                  child: RichText(text: TextSpan(
+                                  children: <TextSpan>[
+                                    TextSpan(text: 'DATUM \n', style: TextStyle(
+                                      fontFamily: 'Roboto',
+                                      color: Colors.black54,
+                                      fontSize: 12.0
+                                    )),
+                                    TextSpan( text: 'Magna Sirgas        ', style: TextStyle(
+                                      fontFamily: 'Roboto',
+                                      color: Color(0xff007FFF),
+                                      fontSize: 13.0
+                                    ))
+                                  ]
+                                )),
+                                ),
+                                Divider(),
+                                Align(
+                                  alignment: Alignment.centerLeft,
+                                  child: RichText(text: TextSpan(
+                                  children: <TextSpan>[
+                                    TextSpan(text: 'Elipsoide\n', style: TextStyle(
+                                      fontFamily: 'Roboto',
+                                      color: Colors.black54,
+                                      fontSize: 12.0
+                                    )),
+                                    TextSpan( text: 'GRS80        ', style: TextStyle(
+                                      fontFamily: 'Roboto',
+                                      color: Color(0xff007FFF),
+                                      fontSize: 13.0
+                                    ))
+                                  ]
+                                )),
+                                ),
+                                Divider(),
+                                Align(
+                                  alignment: Alignment.center,
+                                  child: RichText(text: TextSpan(
+                                  children: <TextSpan>[
+                                    TextSpan(text: '      Sistema de Proyección ', style: TextStyle(
+                                      fontFamily: 'Roboto',
+                                      color: Color(0xff007FFF),
+                                      fontSize: 13.0
+                                    )),
+                                  ]
+                                )),
+                                ),
+                                Divider(),
+                                Align(
+                                  alignment: Alignment.centerLeft,
+                                  child: RichText(text: TextSpan(
+                                  children: <TextSpan>[
+                                    TextSpan(text: 'Proyección\n', style: TextStyle(
+                                      fontFamily: 'Roboto',
+                                      color: Colors.black54,
+                                      fontSize: 12.0
+                                    )),
+                                    TextSpan( text: 'Plano Cartesiano IGAC', style: TextStyle(
+                                      fontFamily: 'Roboto',
+                                      color: Color(0xff007FFF),
+                                      fontSize: 13.0
+                                    ))
+                                  ]
+                                )),
+                                ),
+                                Divider(),
+                                Align(
+                                  alignment: Alignment.centerLeft,
+                                  child: RichText(text: TextSpan(
+                                  children: <TextSpan>[
+                                    TextSpan(text: 'Latitud de Origen\n', style: TextStyle(
+                                      fontFamily: 'Roboto',
+                                      color: Colors.black54,
+                                      fontSize: 12.0
+                                    )),
+                                    TextSpan( text: '${listaOrigenes.LATITUD.toString()}', style: TextStyle(
+                                      fontFamily: 'Roboto',
+                                      color: Color(0xff007FFF),
+                                      fontSize: 13.0
+                                    ))
+                                  ]
+                                )),
+                                ), 
+                                Divider(),
+                                Align(
+                                  alignment: Alignment.centerLeft,
+                                  child: RichText(text: TextSpan(
+                                  children: <TextSpan>[
+                                    TextSpan(text: 'Longitud de Origen\n', style: TextStyle(
+                                      fontFamily: 'Roboto',
+                                      color: Colors.black54,
+                                      fontSize: 12.0
+                                    )),
+                                    TextSpan( text: '${listaOrigenes.LONGITUD.toString()}', style: TextStyle(
+                                      fontFamily: 'Roboto',
+                                      color: Color(0xff007FFF),
+                                      fontSize: 13.0
+                                    ))
+                                  ]
+                                )),
+                                ),
+                                Divider(),
+                                Align(
+                                  alignment: Alignment.centerLeft,
+                                  child: RichText(text: TextSpan(
+                                  children: <TextSpan>[
+                                    TextSpan(text: 'Falso Norte\n', style: TextStyle(
+                                      fontFamily: 'Roboto',
+                                      color: Colors.black54,
+                                      fontSize: 12.0
+                                    )),
+                                    TextSpan( text: '${listaOrigenes.NORTE.toString()} m', style: TextStyle(
+                                      fontFamily: 'Roboto',
+                                      color: Color(0xff007FFF),
+                                      fontSize: 13.0
+                                    ))
+                                  ]
+                                )),
+                                ),
+                                Divider(),
+                                Align(
+                                  alignment: Alignment.centerLeft,
+                                  child: RichText(text: TextSpan(
+                                  children: <TextSpan>[
+                                    TextSpan(text: 'Falso Este\n', style: TextStyle(
+                                      fontFamily: 'Roboto',
+                                      color: Colors.black54,
+                                      fontSize: 12.0
+                                    )),
+                                    TextSpan( text: '${listaOrigenes.ESTE.toString()} m', style: TextStyle(
+                                      fontFamily: 'Roboto',
+                                      color: Color(0xff007FFF),
+                                      fontSize: 13.0
+                                    ))
+                                  ]
+                                )),
+                                ),
+                                Divider(),
+                                Align(
+                                  alignment: Alignment.centerLeft,
+                                  child: RichText(text: TextSpan(
+                                  children: <TextSpan>[
+                                    TextSpan(text: 'Altura del Plano\n', style: TextStyle(
+                                      fontFamily: 'Roboto',
+                                      color: Colors.black54,
+                                      fontSize: 12.0
+                                    )),
+                                    TextSpan( text: '${listaOrigenes.PLANO_PROY} m', style: TextStyle(
+                                      fontFamily: 'Roboto',
+                                      color: Color(0xff007FFF),
+                                      fontSize: 13.0
+                                    ))
+                                  ]
+                                )),
+                                ),  
+                                Divider(),
+                                Align(
+                                  alignment: Alignment.center,
+                                  child: Center(
+                                    child: Column(
+                                      children: <Widget>[
+                                        FlatButton(
+                                          onPressed: (){
+                                            CartesianasCS cartesianasCS = CartesianasCS();
+                                            cartesianasCS.NOMBRE = listaOrigenes.NOMBRE;
+                                            cartesianasCS.ESTE = listaOrigenes.ESTE;
+                                            cartesianasCS.NORTE = listaOrigenes.NORTE;
+                                            cartesianasCS.PLANO_PROY = listaOrigenes.PLANO_PROY;
+                                            cartesianasCS.LATITUD = listaOrigenes.LATITUD;
+                                            cartesianasCS.LONGITUD = listaOrigenes.LONGITUD;
+                                            Navigator.pop(context);
+                                            setState(() {
+                                              origenCartesian = cartesianasCS;
+                                              origenCartesiano = true;
+                                            });
+                                          },child: Column(
+                                          children: <Widget>[
+                                          Image.asset('assets/images/seleccionar.png', height: 40,),
+                                          Text('Seleccionar',style: TextStyle(color: Colors.blueAccent, fontSize: 14))
+                                          ],
+                                        )
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                )
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
+                    )),
+                );
+              }
+              );
+            
+            }
+
+          }else {
+            return Center(
+              child: CircularProgressIndicator(),
+            );
+          }
+        },
+      ),
+      )
+  );
+}
 
 }
