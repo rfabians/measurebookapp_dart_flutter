@@ -16,6 +16,7 @@ import 'package:measurebookapp/modelos/coordenadasPlanasGauss.dart';
 import 'package:measurebookapp/modelos/gaussCS.dart';
 import 'package:measurebookapp/modelos/puntosReferencia.dart';
 import 'package:user_location/user_location.dart';
+import 'package:flare_flutter/flare_actor.dart';
 
 class MapaPuntosReferencia extends StatefulWidget {
   final String nombreProyecto, sistemaCoordenadas, idCoordenadas;
@@ -186,7 +187,9 @@ class _MapaPuntosReferenciaState extends State<MapaPuntosReferencia> {
               return Scaffold(
                 //Inicio
                 body: Center(
-                  child: Text('Aún no tienes puntos Creados'),
+                  child: Container(
+                     child: FlareActor('assets/images/forki.flr', animation: 'forki',),
+                    )
                 )
                 //Final
               );
