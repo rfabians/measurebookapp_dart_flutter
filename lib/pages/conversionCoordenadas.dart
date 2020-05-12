@@ -90,7 +90,7 @@ class _CoversionCoordenadasState extends State<CoversionCoordenadas> {
                                   imagen: 'assets/images/elipsoidal.png'
                                     );
                                 DescripcionSistemCoor geocentrico = DescripcionSistemCoor(
-                                  nombreProyeccion: 'Geocéntricas',
+                                  nombreProyeccion: 'Geocentricas',
                                   imagen: 'assets/images/geocentrica.png',
                                     );
                                 DescripcionSistemCoor planas_Gauss = DescripcionSistemCoor(
@@ -159,7 +159,7 @@ class _CoversionCoordenadasState extends State<CoversionCoordenadas> {
                                   imagen: 'assets/images/elipsoidal.png'
                                     );
                                 DescripcionSistemCoor geocentrico = DescripcionSistemCoor(
-                                  nombreProyeccion: 'Geocéntricas',
+                                  nombreProyeccion: 'Geocentricas',
                                   imagen: 'assets/images/geocentrica.png',
                                     );
                                 DescripcionSistemCoor planas_Gauss = DescripcionSistemCoor(
@@ -248,7 +248,7 @@ class _CoversionCoordenadasState extends State<CoversionCoordenadas> {
                          Text('Conversión Archivo', textAlign: TextAlign.center,style: TextStyle(color: Colors.blueAccent, fontSize: 14)),
                          Padding(
                            padding: const EdgeInsets.all(10.0),
-                           child: Text('Convierte las coordenadas desde un archivo CSV a los sistemas de Coordenadas Planas Cartesianas, Gauss Krüger, Geocéntricas y Elipsoidales que se encuentren en el Datum MAGNA SIRGAS',style: TextStyle(
+                           child: Text('Convierte las coordenadas desde un archivo CSV a los sistemas de Coordenadas Planas Cartesianas, Gauss Krüger, Geocentricas y Elipsoidales que se encuentren en el Datum MAGNA SIRGAS',style: TextStyle(
                              color: Colors.black54,
                              fontSize: 12,
                            ),),
@@ -276,7 +276,7 @@ class _CoversionCoordenadasState extends State<CoversionCoordenadas> {
                                   imagen: 'assets/images/elipsoidal.png'
                                     );
                                 DescripcionSistemCoor geocentrico = DescripcionSistemCoor(
-                                  nombreProyeccion: 'Geocéntricas',
+                                  nombreProyeccion: 'Geocentricas',
                                   imagen: 'assets/images/geocentrica.png',
                                     );
                                 DescripcionSistemCoor planas_Gauss = DescripcionSistemCoor(
@@ -345,7 +345,7 @@ class _CoversionCoordenadasState extends State<CoversionCoordenadas> {
                                   imagen: 'assets/images/elipsoidal.png'
                                     );
                                 DescripcionSistemCoor geocentrico = DescripcionSistemCoor(
-                                  nombreProyeccion: 'Geocéntricas',
+                                  nombreProyeccion: 'Geocentricas',
                                   imagen: 'assets/images/geocentrica.png',
                                     );
                                 DescripcionSistemCoor planas_Gauss = DescripcionSistemCoor(
@@ -455,7 +455,7 @@ class _CoversionCoordenadasState extends State<CoversionCoordenadas> {
                                   imagen: 'assets/images/elipsoidal.png'
                                     );
                                 DescripcionSistemCoor geocentrico = DescripcionSistemCoor(
-                                  nombreProyeccion: 'Geocéntricas',
+                                  nombreProyeccion: 'Geocentricas',
                                   imagen: 'assets/images/geocentrica.png',
                                     );
                                 DescripcionSistemCoor planas_Gauss = DescripcionSistemCoor(

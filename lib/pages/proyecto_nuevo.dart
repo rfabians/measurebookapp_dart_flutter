@@ -50,7 +50,7 @@ class _NuevoProyectoState extends State<NuevoProyecto> {
                                 validator: (String nProyecto) {
                                   
                                   if (nProyecto.isEmpty) {
-                                    return 'Nombre de Proyecto no valido';
+                                    return 'Nombre de Proyecto no válido';
                                   }else {
                                     setState(() {
                                       nombreProyectoMB = nProyecto;
@@ -65,7 +65,7 @@ class _NuevoProyectoState extends State<NuevoProyecto> {
                               ),
                               validator: (String nUbicacion) {
                                 if (nUbicacion.isEmpty) {
-                                  return 'Ubicación del Proyecto no valida';
+                                  return 'Ubicación del Proyecto no válida';
                                 }else {
                                 ubicacionMB = nUbicacion;
                                   return null;
@@ -78,7 +78,7 @@ class _NuevoProyectoState extends State<NuevoProyecto> {
                               ),
                               validator: (String nDescripcion) {
                                 if (nDescripcion.isEmpty) {
-                                  return 'Descripción del Proyecto no valido';
+                                  return 'Descripción del Proyecto no válido';
                                 } else {
                                   decripcionMB = nDescripcion;
                                   return null;
@@ -91,7 +91,7 @@ class _NuevoProyectoState extends State<NuevoProyecto> {
                               ),
                               validator: (String nCliente) {
                                 if (nCliente.isEmpty) {
-                                  return 'Nombre del cliente no valido';
+                                  return 'Nombre del cliente no válido';
                                 } else{
                                   clienteMB = nCliente;
                                 return null;
@@ -104,7 +104,7 @@ class _NuevoProyectoState extends State<NuevoProyecto> {
                               ),
                               validator: (String nEmpresa){
                                 if (nEmpresa.isEmpty) {
-                                  return 'Nombre de la empresa no valida';
+                                  return 'Nombre de la empresa no válido';
                                 } else {
                                   
                                   empresaMB = nEmpresa;
@@ -127,7 +127,7 @@ class _NuevoProyectoState extends State<NuevoProyecto> {
                                         ListTile(
                                           leading: Icon(Icons.add_location, color: Color(0xff007FFF)),
                                           title: Text('Proyección Gauss Krüger'),
-                                          subtitle: Text('Sistema de coordenadas proyectadas Cilindricas, Colombia cuenta con seis Origenes'),
+                                          subtitle: Text('Sistema de coordenadas proyectadas Cilíndricas, Colombia cuenta con seis origenes'),
                                           onTap: ()async {
                                             if (_formKey.currentState.validate()) {
                                               proyeccionMB = 'Gauss Krüger';
