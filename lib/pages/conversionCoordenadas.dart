@@ -13,6 +13,12 @@ import 'package:measurebookapp/pages/descripcionSC.dart';
 }
 
 class _CoversionCoordenadasState extends State<CoversionCoordenadas> {
+  bool check = true;
+  List<DescripcionSistemCoor> listSistemasOrigenPI = List<DescripcionSistemCoor>(4);
+  List<DescripcionSistemCoor> listSistemasDestinoPI = List<DescripcionSistemCoor>(4);
+  List<DescripcionSistemCoor> listSistemasOrigenArc = List<DescripcionSistemCoor>(4);
+  List<DescripcionSistemCoor> listSistemasDestinoArc = List<DescripcionSistemCoor>(4);
+  List<DescripcionSistemCoor> listSistemasDestinoPR = List<DescripcionSistemCoor>(4);
    String tipoConversion, sistemaOrigenPI, sistemadestinoPI,sistemaOrigenArc, sistemadestinoArc, sistemadestinoRef;
    @override
    Widget build(BuildContext context) {
@@ -73,6 +79,9 @@ class _CoversionCoordenadasState extends State<CoversionCoordenadas> {
                                height: 280,
                                width: MediaQuery.of(context).size.width/2-20,
                                child: Swiper(
+                                 onIndexChanged: (int index){
+                                   sistemaOrigenPI = listSistemasOrigenPI[index].nombreProyeccion;
+                                 },
                                  control: SwiperControl(
                                    size: 15
                                  ),
@@ -101,13 +110,12 @@ class _CoversionCoordenadasState extends State<CoversionCoordenadas> {
                                   nombreProyeccion: 'Planas Cartesianas',
                                   imagen: 'assets/images/cartesiana.png'
                                     );
-                                    List<DescripcionSistemCoor> listSistemas = List<DescripcionSistemCoor>(4);
-                                    listSistemas[0] = elipsoidal;
-                                    listSistemas[1] = geocentrico;
-                                    listSistemas[2] = planas_Gauss;
-                                    listSistemas[3] = planas_Cartesianas;
-                                    DescripcionSistemCoor a = listSistemas[index];
-                                      sistemaOrigenPI = a.nombreProyeccion;
+                                      listSistemasOrigenPI[0] = elipsoidal;
+                                      listSistemasOrigenPI[1] = geocentrico;
+                                      listSistemasOrigenPI[2] = planas_Gauss;
+                                      listSistemasOrigenPI[3] = planas_Cartesianas;
+                                    DescripcionSistemCoor a = listSistemasOrigenPI[index];
+                                      
                                 return Container(
                                   width: 150,
                                   height: 210,
@@ -142,6 +150,9 @@ class _CoversionCoordenadasState extends State<CoversionCoordenadas> {
                                height: 280,
                                width: MediaQuery.of(context).size.width/2-20,
                                child: Swiper(
+                                 onIndexChanged: (int index){
+                                   sistemadestinoPI = listSistemasDestinoPI[index].nombreProyeccion;
+                                 },
                                  control: SwiperControl(
                                    size: 15
                                  ),
@@ -170,13 +181,12 @@ class _CoversionCoordenadasState extends State<CoversionCoordenadas> {
                                   nombreProyeccion: 'Planas Cartesianas',
                                   imagen: 'assets/images/cartesiana.png'
                                     );
-                                    List<DescripcionSistemCoor> listSistemas = List<DescripcionSistemCoor>(4);
-                                    listSistemas[0] = elipsoidal;
-                                    listSistemas[1] = geocentrico;
-                                    listSistemas[2] = planas_Gauss;
-                                    listSistemas[3] = planas_Cartesianas;
-                                    DescripcionSistemCoor a = listSistemas[index];
-                                      sistemadestinoPI = a.nombreProyeccion;
+                                    listSistemasDestinoPI[0] = elipsoidal;
+                                    listSistemasDestinoPI[1] = geocentrico;
+                                    listSistemasDestinoPI[2] = planas_Gauss;
+                                    listSistemasDestinoPI[3] = planas_Cartesianas;
+                                    DescripcionSistemCoor a = listSistemasDestinoPI[index];
+                                      
                                 return Container(
                                   width: 150,
                                   height: 200,
@@ -199,8 +209,7 @@ class _CoversionCoordenadasState extends State<CoversionCoordenadas> {
                                       ),),
                                     ),
                                     SizedBox(height: 60.0),
-                                    Image.asset(a.imagen,height: 160)
-                                    
+                                    Image.asset(a.imagen,height: 160),
                                     ],
                                   ),
                                 );
@@ -211,8 +220,8 @@ class _CoversionCoordenadasState extends State<CoversionCoordenadas> {
                          ),
                          FlatButton(
                            onPressed: (){
-                              Navigator.push(context, MaterialPageRoute(
-                              builder: (context) => ConversionPuntoIndividual(
+                              Navigator.push(context, new MaterialPageRoute(
+                              builder: (context) => new ConversionPuntoIndividual(
                               destino: sistemadestinoPI,
                               origen: sistemaOrigenPI,
                               )));
@@ -259,6 +268,9 @@ class _CoversionCoordenadasState extends State<CoversionCoordenadas> {
                                height: 280,
                                width: MediaQuery.of(context).size.width/2-20,
                                child: Swiper(
+                                 onIndexChanged: (int index){
+                                   sistemaOrigenArc = listSistemasOrigenArc[index].nombreProyeccion;
+                                 },
                                  control: SwiperControl(
                                    size: 15
                                  ),
@@ -287,13 +299,11 @@ class _CoversionCoordenadasState extends State<CoversionCoordenadas> {
                                   nombreProyeccion: 'Planas Cartesianas',
                                   imagen: 'assets/images/cartesiana.png'
                                     );
-                                    List<DescripcionSistemCoor> listSistemas = List<DescripcionSistemCoor>(4);
-                                    listSistemas[0] = elipsoidal;
-                                    listSistemas[1] = geocentrico;
-                                    listSistemas[2] = planas_Gauss;
-                                    listSistemas[3] = planas_Cartesianas;
-                                    DescripcionSistemCoor a = listSistemas[index];
-                                      sistemaOrigenArc = a.nombreProyeccion;
+                                    listSistemasOrigenArc[0] = elipsoidal;
+                                    listSistemasOrigenArc[1] = geocentrico;
+                                    listSistemasOrigenArc[2] = planas_Gauss;
+                                    listSistemasOrigenArc[3] = planas_Cartesianas;
+                                    DescripcionSistemCoor a = listSistemasOrigenArc[index];
                                 return Container(
                                   width: 150,
                                   height: 200,
@@ -328,6 +338,9 @@ class _CoversionCoordenadasState extends State<CoversionCoordenadas> {
                                height: 280,
                                width: MediaQuery.of(context).size.width/2-20,
                                child: Swiper(
+                                 onIndexChanged: (int index){
+                                   sistemadestinoArc = listSistemasDestinoArc[index].nombreProyeccion;
+                                 },
                                  control: SwiperControl(
                                    size: 15
                                  ),
@@ -356,13 +369,11 @@ class _CoversionCoordenadasState extends State<CoversionCoordenadas> {
                                   nombreProyeccion: 'Planas Cartesianas',
                                   imagen: 'assets/images/cartesiana.png'
                                     );
-                                    List<DescripcionSistemCoor> listSistemas = List<DescripcionSistemCoor>(4);
-                                    listSistemas[0] = elipsoidal;
-                                    listSistemas[1] = geocentrico;
-                                    listSistemas[2] = planas_Gauss;
-                                    listSistemas[3] = planas_Cartesianas;
-                                    DescripcionSistemCoor a = listSistemas[index];
-                                      sistemadestinoArc = a.nombreProyeccion;
+                                    listSistemasDestinoArc[0] = elipsoidal;
+                                    listSistemasDestinoArc[1] = geocentrico;
+                                    listSistemasDestinoArc[2] = planas_Gauss;
+                                    listSistemasDestinoArc[3] = planas_Cartesianas;
+                                    DescripcionSistemCoor a = listSistemasDestinoArc[index];
                                 return Container(
                                   width: 150,
                                   height: 200,
@@ -438,6 +449,9 @@ class _CoversionCoordenadasState extends State<CoversionCoordenadas> {
                                height: 280,
                                width: MediaQuery.of(context).size.width/2-20,
                                child: Swiper(
+                                 onIndexChanged: (int index){
+                                   sistemadestinoRef = listSistemasDestinoPR[index].nombreProyeccion;
+                                 },
                                  control: SwiperControl(
                                    size: 15
                                  ),
@@ -466,13 +480,11 @@ class _CoversionCoordenadasState extends State<CoversionCoordenadas> {
                                   nombreProyeccion: 'Planas Cartesianas',
                                   imagen: 'assets/images/cartesiana.png'
                                     );
-                                    List<DescripcionSistemCoor> listSistemas = List<DescripcionSistemCoor>(4);
-                                    listSistemas[0] = elipsoidal;
-                                    listSistemas[1] = geocentrico;
-                                    listSistemas[2] = planas_Gauss;
-                                    listSistemas[3] = planas_Cartesianas;
-                                    DescripcionSistemCoor a = listSistemas[index];
-                                      sistemadestinoRef = a.nombreProyeccion;
+                                    listSistemasDestinoPR[0] = elipsoidal;
+                                    listSistemasDestinoPR[1] = geocentrico;
+                                    listSistemasDestinoPR[2] = planas_Gauss;
+                                    listSistemasDestinoPR[3] = planas_Cartesianas;
+                                    DescripcionSistemCoor a = listSistemasDestinoPR[index];
                                 return Container(
                                   width: 150,
                                   height: 200,
