@@ -160,7 +160,7 @@ class _AlturaNiveladasMapState extends State<AlturaNiveladasMap> {
                         Align(alignment: Alignment.centerRight,child: Text('Ondulación Geoidal', style: TextStyle(fontFamily: 'Roboto',color: Colors.black54,fontSize: 12.0),),),
                         Align(alignment: Alignment.centerRight,child: Text('${listaPuntos.ondulacion}', style: TextStyle(fontFamily: 'Roboto',color: Colors.blueAccent,fontSize: 14.0),),),
                         Divider(),
-                        Align(alignment: Alignment.centerLeft,child: Text('Coordenadas Geocentricas', style: TextStyle(fontFamily: 'Roboto',color: Colors.blueAccent,fontSize: 12.0),),),
+                        Align(alignment: Alignment.centerLeft,child: Text('Coordenadas Geocéntricas', style: TextStyle(fontFamily: 'Roboto',color: Colors.blueAccent,fontSize: 12.0),),),
                         Align(alignment: Alignment.centerRight,child: Text('X', style: TextStyle(fontFamily: 'Roboto',color: Colors.black54,fontSize: 12.0),),),
                         Align(alignment: Alignment.centerRight,child: Text('${listaPuntos.x}', style: TextStyle(fontFamily: 'Roboto',color: Colors.blueAccent,fontSize: 14.0),),),
                         Divider(),

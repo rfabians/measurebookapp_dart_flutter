@@ -39,7 +39,7 @@ class _CoversionCoordenadasState extends State<CoversionCoordenadas> {
                       fontSize: 13.0,
                       color: Color(0xff007FFF),
                       )),
-                      TextSpan(text: 'Convierte tus coordenadas entre los sistemas de coordenadas Elipsoidales, Geocentricas, Gauss Krüger o Planas Cartesianas', style: TextStyle(
+                      TextSpan(text: 'Convierte tus coordenadas entre los sistemas de coordenadas Elipsoidales, Geocéntricas, Gauss Krüger o Planas Cartesianas', style: TextStyle(
                       fontFamily: 'Roboto', 
                       fontSize: 13.0,
                       color: Colors.black54,
@@ -68,7 +68,7 @@ class _CoversionCoordenadasState extends State<CoversionCoordenadas> {
                          Text('Conversión Punto Individual', textAlign: TextAlign.center,style: TextStyle(color: Colors.blueAccent, fontSize: 14)),
                          Padding(
                            padding: const EdgeInsets.all(10.0),
-                           child: Text('Convierte las coordenadas de un punto entre los sistemas de Coordenadas Planas Cartesianas, Gauss Krüger, Geocentricas y Elipsoidales que se encuentren en el Datum MAGNA SIRGAS',style: TextStyle(
+                           child: Text('Convierte las coordenadas de un punto entre los sistemas de Coordenadas Planas Cartesianas, Gauss Krüger, Geocéntricas y Elipsoidales que se encuentren en el Datum MAGNA SIRGAS',style: TextStyle(
                              color: Colors.black54,
                              fontSize: 12,
                            ),),
@@ -99,7 +99,7 @@ class _CoversionCoordenadasState extends State<CoversionCoordenadas> {
                                   imagen: 'assets/images/elipsoidal.png'
                                     );
                                 DescripcionSistemCoor geocentrico = DescripcionSistemCoor(
-                                  nombreProyeccion: 'Geocentricas',
+                                  nombreProyeccion: 'Geocéntricas',
                                   imagen: 'assets/images/geocentrica.png',
                                     );
                                 DescripcionSistemCoor planas_Gauss = DescripcionSistemCoor(
@@ -170,7 +170,7 @@ class _CoversionCoordenadasState extends State<CoversionCoordenadas> {
                                   imagen: 'assets/images/elipsoidal.png'
                                     );
                                 DescripcionSistemCoor geocentrico = DescripcionSistemCoor(
-                                  nombreProyeccion: 'Geocentricas',
+                                  nombreProyeccion: 'Geocéntricas',
                                   imagen: 'assets/images/geocentrica.png',
                                     );
                                 DescripcionSistemCoor planas_Gauss = DescripcionSistemCoor(
@@ -257,7 +257,7 @@ class _CoversionCoordenadasState extends State<CoversionCoordenadas> {
                          Text('Conversión Archivo', textAlign: TextAlign.center,style: TextStyle(color: Colors.blueAccent, fontSize: 14)),
                          Padding(
                            padding: const EdgeInsets.all(10.0),
-                           child: Text('Convierte las coordenadas desde un archivo CSV a los sistemas de Coordenadas Planas Cartesianas, Gauss Krüger, Geocentricas y Elipsoidales que se encuentren en el Datum MAGNA SIRGAS',style: TextStyle(
+                           child: Text('Convierte las coordenadas desde un archivo CSV a los sistemas de Coordenadas Planas Cartesianas, Gauss Krüger, Geocéntricas y Elipsoidales que se encuentren en el Datum MAGNA SIRGAS',style: TextStyle(
                              color: Colors.black54,
                              fontSize: 12,
                            ),),
@@ -288,7 +288,7 @@ class _CoversionCoordenadasState extends State<CoversionCoordenadas> {
                                   imagen: 'assets/images/elipsoidal.png'
                                     );
                                 DescripcionSistemCoor geocentrico = DescripcionSistemCoor(
-                                  nombreProyeccion: 'Geocentricas',
+                                  nombreProyeccion: 'Geocéntricas',
                                   imagen: 'assets/images/geocentrica.png',
                                     );
                                 DescripcionSistemCoor planas_Gauss = DescripcionSistemCoor(
@@ -358,7 +358,7 @@ class _CoversionCoordenadasState extends State<CoversionCoordenadas> {
                                   imagen: 'assets/images/elipsoidal.png'
                                     );
                                 DescripcionSistemCoor geocentrico = DescripcionSistemCoor(
-                                  nombreProyeccion: 'Geocentricas',
+                                  nombreProyeccion: 'Geocéntricas',
                                   imagen: 'assets/images/geocentrica.png',
                                     );
                                 DescripcionSistemCoor planas_Gauss = DescripcionSistemCoor(
@@ -440,7 +440,7 @@ class _CoversionCoordenadasState extends State<CoversionCoordenadas> {
                          Text('Conversión Puntos de Referencia', textAlign: TextAlign.center,style: TextStyle(color: Colors.blueAccent, fontSize: 14)),
                          Padding(
                            padding: const EdgeInsets.all(10.0),
-                           child: Text('Convierte las coordenadas de tus puntos de referencia almacenados dentro del proyecto a los sistemas de Coordenadas Planas Cartesianas, Gauss Krüger, Geocentricas y Elipsoidales que se encuentren en el Datum MAGNA SIRGAS',style: TextStyle(
+                           child: Text('Convierte las coordenadas de tus puntos de referencia almacenados dentro del proyecto a los sistemas de Coordenadas Planas Cartesianas, Gauss Krüger, Geocéntricas y Elipsoidales que se encuentren en el Datum MAGNA SIRGAS',style: TextStyle(
                              color: Colors.black54,
                              fontSize: 12,
                            ),),
@@ -469,7 +469,7 @@ class _CoversionCoordenadasState extends State<CoversionCoordenadas> {
                                   imagen: 'assets/images/elipsoidal.png'
                                     );
                                 DescripcionSistemCoor geocentrico = DescripcionSistemCoor(
-                                  nombreProyeccion: 'Geocentricas',
+                                  nombreProyeccion: 'Geocéntricas',
                                   imagen: 'assets/images/geocentrica.png',
                                     );
                                 DescripcionSistemCoor planas_Gauss = DescripcionSistemCoor(
