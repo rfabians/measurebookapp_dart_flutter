@@ -86,7 +86,7 @@ class _ConversionPuntoState extends State<ConversionPunto> {
                 child: Column(
                   children: <Widget>[
                     SizedBox(height: 20.0,),
-                    Text('Coordenadas Elispoidales', style: TextStyle(
+                    Text('Coordenadas Elipsoidales', style: TextStyle(
                       color: Colors.blueAccent,
                       fontSize: 16.0,
                     ),),
@@ -109,7 +109,7 @@ class _ConversionPuntoState extends State<ConversionPunto> {
                           double latitudepuntoII = double.parse(latitude);
                           latitudepunto = latitudepuntoII;
                           return null;
-                        }else {return 'El valor Ingresado esta por fuera del rango  (-90° a 90°)';}
+                        }else {return 'El valor Ingresado está por fuera del rango  (-90° a 90°)';}
                       }
                       },
                     ),
@@ -129,7 +129,7 @@ class _ConversionPuntoState extends State<ConversionPunto> {
                           longitudPuntoII = double.parse(longitud);
                           longitudPunto = longitudPuntoII;
                           return null;
-                        }else {return 'El valor Ingresado esta por fuera del rango  (-180° a 180°)';}
+                        }else {return 'El valor Ingresado está por fuera del rango  (-180° a 180°)';}
                       }
                       },
                     ),
@@ -193,7 +193,7 @@ class _ConversionPuntoState extends State<ConversionPunto> {
                 child: Column(
                   children: <Widget>[
                     SizedBox(height: 20.0,),
-                    Text('Coordenadas Elispoidales', style: TextStyle(
+                    Text('Coordenadas Elipsoidales', style: TextStyle(
                       color: Colors.blueAccent,
                       fontSize: 16.0,
                     ),),
@@ -217,7 +217,7 @@ class _ConversionPuntoState extends State<ConversionPunto> {
                           double latitudepuntoII = double.parse(latitude);
                           latitudepunto = latitudepuntoII;
                           return null;
-                        }else {return 'El valor Ingresado esta por fuera del rango  (-90° a 90°)';}
+                        }else {return 'El valor Ingresado está por fuera del rango  (-90° a 90°)';}
                       }
                       },
                     ),
@@ -237,7 +237,7 @@ class _ConversionPuntoState extends State<ConversionPunto> {
                           longitudPuntoII = double.parse(longitud);
                           longitudPunto = longitudPuntoII;
                           return null;
-                        }else {return 'El valor Ingresado esta por fuera del rango  (-180° a 180°)';}
+                        }else {return 'El valor Ingresado está por fuera del rango  (-180° a 180°)';}
                       }
                       },
                     ),
@@ -292,7 +292,7 @@ class _ConversionPuntoState extends State<ConversionPunto> {
           )),
         );
         }
-    } else if(widget.sistemaOrigen == 'Coordenadas Geocentricas'){
+    } else if(widget.sistemaOrigen == 'Coordenadas Geocéntricas'){
       if (widget.proyeccion == 'Plano Cartesiano') {
         return Scaffold(
           body: SafeArea(child:SingleChildScrollView(
@@ -308,7 +308,7 @@ class _ConversionPuntoState extends State<ConversionPunto> {
                           Center(
                             child: Column(
                               children: <Widget>[
-                              Text('Coordenadas Geocentricas', style: TextStyle(
+                              Text('Coordenadas Geocéntricas', style: TextStyle(
                               color: Colors.blueAccent,
                               fontSize: 16.0,
                               ),),
@@ -318,13 +318,13 @@ class _ConversionPuntoState extends State<ConversionPunto> {
                               TextFormField(
                                 decoration: InputDecoration(
                                 icon: Icon(Icons.add_location),
-                                labelText: 'Coordenadas X Geocentrica',
+                                labelText: 'Coordenada X Geocéntrica',
                                 ),
                                 keyboardType: TextInputType.number,
                                 validator: (String xGeo){
                                   double xGeocentrica = double.tryParse(xGeo);
                                 if (xGeocentrica == null) {
-                                return 'La Coordenada X, esta en un formato no valido';
+                                return 'La Coordenada X, está en un formato no valido';
                                 } else {
                                     setState(() {
                                       xGeocentricaF=xGeocentrica;
@@ -336,13 +336,13 @@ class _ConversionPuntoState extends State<ConversionPunto> {
                               TextFormField(
                                 decoration: InputDecoration(
                                 icon: Icon(Icons.add_location),
-                                labelText: 'Coordenadas Y Geocentrica',
+                                labelText: 'Coordenada Y Geocéntrica',
                                 ),
                                 keyboardType: TextInputType.number,
                                 validator: (String yGeo){
                                   double yGeocentrica = double.tryParse(yGeo);
                                 if (yGeocentrica == null) {
-                                return 'La Coordenada Y, esta en un formato no valido';
+                                return 'La Coordenada Y, está en un formato no valido';
                                 } else {
                                   setState(() {
                                     yGeocentricaF = yGeocentrica;
@@ -354,13 +354,13 @@ class _ConversionPuntoState extends State<ConversionPunto> {
                               TextFormField(
                                 decoration: InputDecoration(
                                 icon: Icon(Icons.add_location),
-                                labelText: 'Coordenadas Z Geocentrica',
+                                labelText: 'Coordenada Z Geocéntrica',
                                 ),
                                 keyboardType: TextInputType.number,
                                 validator: (String zGeo){
                                   double zGeocentrica = double.tryParse(zGeo);
                                 if (zGeocentrica == null) {
-                                return 'La Coordenada Z, esta en un formato no valido';
+                                return 'La Coordenada Z, está en un formato no valido';
                                 } else {
                                   setState(() {
                                     zGeocentricaF=zGeocentrica;
@@ -428,7 +428,7 @@ class _ConversionPuntoState extends State<ConversionPunto> {
                           Center(
                             child: Column(
                               children: <Widget>[
-                              Text('Coordenadas Geocentricas', style: TextStyle(
+                              Text('Coordenadas Geocéntricas', style: TextStyle(
                               color: Colors.blueAccent,
                               fontSize: 16.0,
                               ),),
@@ -438,13 +438,13 @@ class _ConversionPuntoState extends State<ConversionPunto> {
                               TextFormField(
                                 decoration: InputDecoration(
                                 icon: Icon(Icons.add_location),
-                                labelText: 'Coordenadas X Geocentrica',
+                                labelText: 'Coordenada X Geocéntrica',
                                 ),
                                 keyboardType: TextInputType.number,
                                 validator: (String xGeo){
                                   double xGeocentrica = double.tryParse(xGeo);
                                 if (xGeocentrica == null) {
-                                return 'La Coordenada X, esta en un formato no valido';
+                                return 'La Coordenada X, está en un formato no valido';
                                 } else {
                                     setState(() {
                                       xGeocentricaF=xGeocentrica;
@@ -456,13 +456,13 @@ class _ConversionPuntoState extends State<ConversionPunto> {
                               TextFormField(
                                 decoration: InputDecoration(
                                 icon: Icon(Icons.add_location),
-                                labelText: 'Coordenadas Y Geocentrica',
+                                labelText: 'Coordenada Y Geocéntrica',
                                 ),
                                 keyboardType: TextInputType.number,
                                 validator: (String yGeo){
                                   double yGeocentrica = double.tryParse(yGeo);
                                 if (yGeocentrica == null) {
-                                return 'La Coordenada Y, esta en un formato no valido';
+                                return 'La Coordenada Y, está en un formato no valido';
                                 } else {
                                   setState(() {
                                     yGeocentricaF = yGeocentrica;
@@ -474,13 +474,13 @@ class _ConversionPuntoState extends State<ConversionPunto> {
                               TextFormField(
                                 decoration: InputDecoration(
                                 icon: Icon(Icons.add_location),
-                                labelText: 'Coordenadas Z Geocentrica',
+                                labelText: 'Coordenada Z Geocéntrica',
                                 ),
                                 keyboardType: TextInputType.number,
                                 validator: (String zGeo){
                                   double zGeocentrica = double.tryParse(zGeo);
                                 if (zGeocentrica == null) {
-                                return 'La Coordenada Z, esta en un formato no valido';
+                                return 'La Coordenada Z, está en un formato no valido';
                                 } else {
                                   setState(() {
                                     zGeocentricaF=zGeocentrica;
@@ -566,7 +566,7 @@ class _ConversionPuntoState extends State<ConversionPunto> {
                                 validator: (String nGa){
                                   double nGauss = double.tryParse(nGa);
                                 if (nGauss == null) {
-                                return 'La Coordenada Norte, esta en un formato no valido';
+                                return 'La Coordenada Norte, está en un formato no valido';
                                 } else {
                                     setState(() {
                                       norteGauss=nGauss;
@@ -578,13 +578,13 @@ class _ConversionPuntoState extends State<ConversionPunto> {
                               TextFormField(
                                 decoration: InputDecoration(
                                 icon: Icon(Icons.add_location),
-                                labelText: 'Coordenadas Este',
+                                labelText: 'Coordenada Este',
                                 ),
                                 keyboardType: TextInputType.number,
                                 validator: (String eGa){
                                   double eGauss = double.tryParse(eGa);
                                 if (eGauss == null) {
-                                return 'La Coordenada Este, esta en un formato no valido';
+                                return 'La Coordenada Este, está en un formato no valido';
                                 } else {
                                   setState(() {
                                     esteGauss = eGauss;
@@ -602,7 +602,7 @@ class _ConversionPuntoState extends State<ConversionPunto> {
                                 validator: (String aGa){
                                   double aGausss = double.tryParse(aGa);
                                 if (aGausss == null) {
-                                return 'La Altura, esta en un formato no valido';
+                                return 'La Altura, está en un formato no valido';
                                 } else {
                                   setState(() {
                                     alturaGauss=aGausss;
@@ -687,7 +687,7 @@ class _ConversionPuntoState extends State<ConversionPunto> {
                                 validator: (String nGa){
                                   double nGauss = double.tryParse(nGa);
                                 if (nGauss == null) {
-                                return 'La Coordenada Norte, esta en un formato no valido';
+                                return 'La Coordenada Norte, está en un formato no valido';
                                 } else {
                                     setState(() {
                                       norteGauss=nGauss;
@@ -699,13 +699,13 @@ class _ConversionPuntoState extends State<ConversionPunto> {
                               TextFormField(
                                 decoration: InputDecoration(
                                 icon: Icon(Icons.add_location),
-                                labelText: 'Coordenadas Este',
+                                labelText: 'Coordenada Este',
                                 ),
                                 keyboardType: TextInputType.number,
                                 validator: (String eGa){
                                   double eGauss = double.tryParse(eGa);
                                 if (eGauss == null) {
-                                return 'La Coordenada Este, esta en un formato no valido';
+                                return 'La Coordenada Este, está en un formato no valido';
                                 } else {
                                   setState(() {
                                     esteGauss = eGauss;
@@ -723,7 +723,7 @@ class _ConversionPuntoState extends State<ConversionPunto> {
                                 validator: (String aGa){
                                   double aGausss = double.tryParse(aGa);
                                 if (aGausss == null) {
-                                return 'La Altura, esta en un formato no valido';
+                                return 'La Altura, está en un formato no valido';
                                 } else {
                                   setState(() {
                                     alturaGauss=aGausss;
@@ -793,7 +793,7 @@ class _ConversionPuntoState extends State<ConversionPunto> {
                           child: Column(
                             children: <Widget>[
                               SizedBox(height: 20.0,),
-                              Text('Coordenadas Elispoidales', style: TextStyle(
+                              Text('Coordenadas Elipsoidales', style: TextStyle(
                               color: Colors.blueAccent,
                               fontSize: 16.0,
                               ),),
@@ -1122,7 +1122,7 @@ class _ConversionPuntoState extends State<ConversionPunto> {
                           child: Column(
                             children: <Widget>[
                               SizedBox(height: 20.0,),
-                              Text('Coordenadas Elispoidales', style: TextStyle(
+                              Text('Coordenadas Elipsoidales', style: TextStyle(
                               color: Colors.blueAccent,
                               fontSize: 16.0,
                               ),),
@@ -1464,7 +1464,7 @@ class _ConversionPuntoState extends State<ConversionPunto> {
                                 validator: (String nCarte){
                                   double nCartesiana = double.tryParse(nCarte);
                                 if (nCartesiana == null) {
-                                return 'La Coordenada Norte, esta en un formato no valido';
+                                return 'La Coordenada Norte, está en un formato no valido';
                                 } else {
                                     setState(() {
                                       norteCartesianas=nCartesiana;
@@ -1482,7 +1482,7 @@ class _ConversionPuntoState extends State<ConversionPunto> {
                                 validator: (String eCarte){
                                   double eCartesiana = double.tryParse(eCarte);
                                 if (eCartesiana == null) {
-                                return 'La Coordenada Este, esta en un formato no valido';
+                                return 'La Coordenada Este, está en un formato no valido';
                                 } else {
                                   setState(() {
                                     esteCartesianas = eCartesiana;
@@ -1500,7 +1500,7 @@ class _ConversionPuntoState extends State<ConversionPunto> {
                                 validator: (String aCar){
                                   double aCartesiana = double.tryParse(aCar);
                                 if (aCartesiana == null) {
-                                return 'La Altura, esta en un formato no valido';
+                                return 'La Altura, está en un formato no valido';
                                 } else {
                                   setState(() {
                                     alturaCartesianas=aCartesiana;
@@ -1584,7 +1584,7 @@ class _ConversionPuntoState extends State<ConversionPunto> {
                                 validator: (String nCarte){
                                   double nCartesiana = double.tryParse(nCarte);
                                 if (nCartesiana == null) {
-                                return 'La Coordenada Norte, esta en un formato no valido';
+                                return 'La Coordenada Norte, está en un formato no valido';
                                 } else {
                                     setState(() {
                                       norteCartesianas=nCartesiana;
@@ -1596,13 +1596,13 @@ class _ConversionPuntoState extends State<ConversionPunto> {
                               TextFormField(
                                 decoration: InputDecoration(
                                 icon: Icon(Icons.add_location),
-                                labelText: 'Coordenadas Este',
+                                labelText: 'Coordenada Este',
                                 ),
                                 keyboardType: TextInputType.number,
                                 validator: (String eCarte){
                                   double eCartesiana = double.tryParse(eCarte);
                                 if (eCartesiana == null) {
-                                return 'La Coordenada Este, esta en un formato no valido';
+                                return 'La Coordenada Este, está en un formato no valido';
                                 } else {
                                   setState(() {
                                     esteCartesianas = eCartesiana;
@@ -1620,7 +1620,7 @@ class _ConversionPuntoState extends State<ConversionPunto> {
                                 validator: (String aCar){
                                   double aCartesiana = double.tryParse(aCar);
                                 if (aCartesiana == null) {
-                                return 'La Altura, esta en un formato no valido';
+                                return 'La Altura, está en un formato no valido';
                                 } else {
                                   setState(() {
                                     alturaCartesianas=aCartesiana;

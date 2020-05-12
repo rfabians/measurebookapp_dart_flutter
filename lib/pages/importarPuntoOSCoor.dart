@@ -122,7 +122,7 @@ class _ImportarPuntoOSCoorState extends State<ImportarPuntoOSCoor> {
                         imagen: 'assets/images/elipsoidal.png'
                           );
                       DescripcionSistemCoor geocentrico = DescripcionSistemCoor(
-                        nombreProyeccion: 'Coordenadas Geocentricas',
+                        nombreProyeccion: 'Coordenadas Geocéntricas',
                         imagen: 'assets/images/geocentrica.png',
                           );
                       DescripcionSistemCoor planas_Gauss = DescripcionSistemCoor(
@@ -130,7 +130,7 @@ class _ImportarPuntoOSCoorState extends State<ImportarPuntoOSCoor> {
                         imagen: 'assets/images/gauss.png',
                          );
                       DescripcionSistemCoor planas_Cartesianas = DescripcionSistemCoor(
-                        nombreProyeccion: 'Cooordenadas Planas Cartesianas',
+                        nombreProyeccion: 'Coordenadas Planas Cartesianas',
                         imagen: 'assets/images/cartesiana.png'
                           );
                           List<DescripcionSistemCoor> listSistemas = List<DescripcionSistemCoor>(4);
@@ -215,7 +215,7 @@ class _ImportarPuntoOSCoorState extends State<ImportarPuntoOSCoor> {
                                     SizedBox(height: 100.0),
                                     FlatButton(
                                       onPressed: (){
-                                        if(a.nombreProyeccion == 'Cooordenadas Planas Cartesianas') {
+                                        if(a.nombreProyeccion == 'Coordenadas Planas Cartesianas') {
                                           _alertDialogoCartesianas (context);
                                         }else if(a.nombreProyeccion == 'Coordenadas Gauss - Krüger') {
                                           _sistemaGauss(context);
@@ -624,7 +624,7 @@ void _sistemas2Cartesianos (BuildContext context, int fk_Muninipio) {
                                             idProyecto: widget.idProyecto,
                                             idusuario: widget.idusuario,
                                             proyeccion: widget.proyeccion,
-                                            sistemaOrigen: 'Cooordenadas Planas Cartesianas',
+                                            sistemaOrigen: 'Coordenadas Planas Cartesianas',
                                             cartesianasCS: cartesianasCS,
                                             )));
                                       }, 
@@ -873,7 +873,7 @@ void _sistemas2Cartesianos (BuildContext context, int fk_Muninipio) {
                                             idProyecto: widget.idProyecto,
                                             idusuario: widget.idusuario,
                                             proyeccion: widget.proyeccion,
-                                            sistemaOrigen: 'Cooordenadas Planas Cartesianas',
+                                            sistemaOrigen: 'Coordenadas Planas Cartesianas',
                                             cartesianasCS: cartesianasCS,
                                             )));
                                           },child: Icon(Icons.chevron_right, size: 50, color: Color(0xff007FFF)),
