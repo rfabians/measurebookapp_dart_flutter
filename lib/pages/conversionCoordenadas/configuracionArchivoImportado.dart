@@ -40,7 +40,7 @@ class _ConfiguracionArchivoImportadoState extends State<ConfiguracionArchivoImpo
     if(widget.destinoCS == 'Elipsoidales'){
       alertaIgualSystemCoor();
       Navigator.pop(context);
-    } else if(widget.destinoCS == 'Geocéntricas'){
+    } else if(widget.destinoCS == 'Geocentricas'){
       return Scaffold(
        body: SafeArea(
          child: SingleChildScrollView(
@@ -253,7 +253,9 @@ class _ConfiguracionArchivoImportadoState extends State<ConfiguracionArchivoImpo
          ),
     );
     }else if(widget.destinoCS == 'Gauss - Krüger'){
-
+      return Container(
+        child: Center(child: Text('Gauss - Krüger'),),
+      );
     }else if(widget.destinoCS == 'Planas Cartesianas'){
 
     }

@@ -5,7 +5,7 @@ import 'package:measurebookapp/pages/conversionCoordenadas/configuracionArchivoI
 import 'package:measurebookapp/pages/conversionCoordenadas/conversionPuntoIndividual.dart';
 import 'package:measurebookapp/pages/descripcionSC.dart';
 import 'package:csv/csv.dart';
-import 'package:flutter/services.dart' show rootBundle;
+import 'dart:io';
 
 
  class CoversionCoordenadas extends StatefulWidget {
@@ -461,15 +461,18 @@ class _CoversionCoordenadasState extends State<CoversionCoordenadas> {
                                           child: Padding(
                                             padding: const EdgeInsets.all(2.0),
                                             child: FlatButton(onPressed: ()async{
-                                              String pathCsv = await FilePicker.getFilePath(type: FileType.custom, allowedExtensions: ['csv']); 
-                                                String datosCSV = await rootBundle.loadString(pathCsv);
+                                                File archivoCSVElip = await FilePicker.getFile(
+                                                  allowedExtensions: ['csv'],
+                                                  type: FileType.custom
+                                                );
+                                                String datosCSV = await archivoCSVElip.readAsString();
                                                 List<List<dynamic>> listaDatosCSV = CsvToListConverter().convert(datosCSV);
                                                 if (datosCSV != null){
                                                   setState(() {
                                                   csvload = true;
                                                 });
                                                 Navigator.push(context, new MaterialPageRoute(
-                                                builder: (context) => new ConfiguracionArchivoImportado(
+                                                builder: (context) => ConfiguracionArchivoImportado(
                                                 destinoCS: sistemadestinoArc,
                                                 origenCS: sistemaOrigenArc,
                                                 dataCSV: listaDatosCSV,

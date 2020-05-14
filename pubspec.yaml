@@ -22,14 +22,13 @@ dependencies:
   google_sign_in: ^4.0.2
   rive: ^0.0.1
   sqflite: ^1.2.0
-  path_provider: any
+  path_provider: ^1.6.8
   latlong: ^0.6.1
   flutter_map_marker_cluster: ^0.2.7
   json_annotation: ^3.0.1
   flutter_swiper : ^1.1.6
   flutter_map: ^0.8.2
   user_location: ^0.1.2
-  geojson: any
   map_controller: ^0.7.1
   floop: ^3.0.1
   geolocator: ^5.1.5
