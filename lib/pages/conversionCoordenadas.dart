@@ -1,7 +1,11 @@
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
+import 'package:measurebookapp/pages/conversionCoordenadas/configuracionArchivoImportado.dart';
 import 'package:measurebookapp/pages/conversionCoordenadas/conversionPuntoIndividual.dart';
 import 'package:measurebookapp/pages/descripcionSC.dart';
+import 'package:csv/csv.dart';
+import 'package:flutter/services.dart' show rootBundle;
 
 
  class CoversionCoordenadas extends StatefulWidget {
@@ -14,12 +18,18 @@ import 'package:measurebookapp/pages/descripcionSC.dart';
 
 class _CoversionCoordenadasState extends State<CoversionCoordenadas> {
   bool check = true;
+  bool csvload = false;
   List<DescripcionSistemCoor> listSistemasOrigenPI = List<DescripcionSistemCoor>(4);
   List<DescripcionSistemCoor> listSistemasDestinoPI = List<DescripcionSistemCoor>(4);
   List<DescripcionSistemCoor> listSistemasOrigenArc = List<DescripcionSistemCoor>(4);
   List<DescripcionSistemCoor> listSistemasDestinoArc = List<DescripcionSistemCoor>(4);
   List<DescripcionSistemCoor> listSistemasDestinoPR = List<DescripcionSistemCoor>(4);
-   String tipoConversion, sistemaOrigenPI, sistemadestinoPI,sistemaOrigenArc, sistemadestinoArc, sistemadestinoRef;
+   String tipoConversion;
+   String sistemaOrigenPI = 'Elipsoidales';
+   String sistemadestinoPI = 'Elipsoidales';
+   String sistemaOrigenArc = 'Elipsoidales';
+   String sistemadestinoArc = 'Elipsoidales';
+   String sistemadestinoRef = 'Elipsoidales';
    @override
    Widget build(BuildContext context) {
      return Scaffold(
@@ -408,10 +418,88 @@ class _CoversionCoordenadasState extends State<CoversionCoordenadas> {
                          ),
                          FlatButton(
                            onPressed: (){
+                             AlertDialog conversionArchivoCSV = AlertDialog(
+                               shape: RoundedRectangleBorder(
+                                 borderRadius: BorderRadius.circular(10),
+                               ),
+                               content: Container(
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(10.0),
+                              ),
+                              height: 300,
+                              width: 200,
+                              child: Padding(
+                                padding: const EdgeInsets.all(2.0),
+                                child: Column(
+                                  children: <Widget>[
+                                    Text('Conversión de coordendas por Archivo', textAlign: TextAlign.center, style: TextStyle(color: Colors.blueAccent, fontSize: 13)),
+                                    Divider(),
+                                    Align(
+                                      alignment: Alignment.centerLeft,
+                                      child: Text('Sistema de Coordenadas Origen', style: TextStyle(color: Colors.black54, fontSize: 12)),
+                                    ),
+                                    Divider(),
+                                    Align(
+                                      alignment: Alignment.centerLeft,
+                                      child: Text('${sistemaOrigenArc}', style: TextStyle(color: Colors.blueAccent, fontSize: 13)),
+                                    ),
+                                    Divider(),
+                                    Align(
+                                      alignment: Alignment.centerLeft,
+                                      child: Text('Sistema de Coordenadas Destino', style: TextStyle(color: Colors.black54, fontSize: 12)),
+                                    ),
+                                    Divider(),
+                                    Align(
+                                      alignment: Alignment.centerLeft,
+                                      child: Text('${sistemadestinoArc}', style: TextStyle(color: Colors.blueAccent, fontSize: 13)),
+                                    ),
+                                    Container(
+                                      height: 120,
+                                      width: 250,
+                                      child:Container(
+                                        child: Center(
+                                          child: Padding(
+                                            padding: const EdgeInsets.all(2.0),
+                                            child: FlatButton(onPressed: ()async{
+                                              String pathCsv = await FilePicker.getFilePath(type: FileType.custom, allowedExtensions: ['csv']); 
+                                                String datosCSV = await rootBundle.loadString(pathCsv);
+                                                List<List<dynamic>> listaDatosCSV = CsvToListConverter().convert(datosCSV);
+                                                if (datosCSV != null){
+                                                  setState(() {
+                                                  csvload = true;
+                                                });
+                                                Navigator.push(context, new MaterialPageRoute(
+                                                builder: (context) => new ConfiguracionArchivoImportado(
+                                                destinoCS: sistemadestinoArc,
+                                                origenCS: sistemaOrigenArc,
+                                                dataCSV: listaDatosCSV,
+                                                )));
+                                                Navigator.of(context, rootNavigator: true).pop('dialog');
+                                                }
+                                            }, 
+                                            child: Column(
+                                              children: <Widget>[
+                                                Image.asset('assets/images/csv_unload.png', height: 80,),
+                                                Text('Seleccione el archico CSV con coordenadas ${sistemaOrigenArc}',textAlign: TextAlign.center, style: TextStyle(color: Colors.black54, fontSize: 13)),
+                                              ],
+                                            ),
+                                            )
+                                          ),
+                                        ),
+                                      )
+                                    )
+                                  ],
+                                ),
+                              ),
+                            ),
+                             );
+                             showDialog(context: context, barrierDismissible: true, builder: (BuildContext context){
+                              return conversionArchivoCSV;
+                            });
                            }, 
                            child: Column(
                           children: <Widget>[
-                          Image.asset('assets/images/seleccionar.png', height: 40,),
+                          Image.asset('assets/images/seleccionar.png', height: 20,),
                           Text('Seleccionar',style: TextStyle(color: Colors.blueAccent, fontSize: 14))
                           ],
                          ))
@@ -515,7 +603,6 @@ class _CoversionCoordenadasState extends State<CoversionCoordenadas> {
                                 }, 
                                ),
                              ),
-                             
                          FlatButton(
                            onPressed: (){
                               print(
@@ -539,4 +626,9 @@ class _CoversionCoordenadasState extends State<CoversionCoordenadas> {
        ),
      );
    }
+
+   // Cargar CSV  Función
+
+   
 }
+
