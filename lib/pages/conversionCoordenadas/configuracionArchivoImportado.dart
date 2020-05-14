@@ -257,7 +257,9 @@ class _ConfiguracionArchivoImportadoState extends State<ConfiguracionArchivoImpo
         child: Center(child: Text('Gauss - Krüger'),),
       );
     }else if(widget.destinoCS == 'Planas Cartesianas'){
-
+      return Container(
+        child: Center(child: Text('Gauss - Krüger'),),
+      );
     }
   }
   void camposCSV(){
