@@ -161,7 +161,7 @@ class _ImportPuntosRedPasivaIGACState extends State<ImportPuntosRedPasivaIGAC> {
                         Align(alignment: Alignment.centerRight,child: Text('Ondulación Geoidal', style: TextStyle(fontFamily: 'Roboto',color: Colors.black54,fontSize: 12.0),),),
                         Align(alignment: Alignment.centerRight,child: Text('${listaPuntos.Ondulacion}', style: TextStyle(fontFamily: 'Roboto',color: Colors.blueAccent,fontSize: 14.0),),),
                         Divider(),
-                        Align(alignment: Alignment.centerLeft,child: Text('Coordenadas Geocentricas', style: TextStyle(fontFamily: 'Roboto',color: Colors.blueAccent,fontSize: 12.0),),),
+                        Align(alignment: Alignment.centerLeft,child: Text('Coordenadas Geocéntricas', style: TextStyle(fontFamily: 'Roboto',color: Colors.blueAccent,fontSize: 12.0),),),
                         Align(alignment: Alignment.centerRight,child: Text('X', style: TextStyle(fontFamily: 'Roboto',color: Colors.black54,fontSize: 12.0),),),
                         Align(alignment: Alignment.centerRight,child: Text('${listaPuntos.X}', style: TextStyle(fontFamily: 'Roboto',color: Colors.blueAccent,fontSize: 14.0),),),
                         Divider(),

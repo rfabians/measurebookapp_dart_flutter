@@ -72,12 +72,12 @@ class _ObservacionesGNSSState extends State<ObservacionesGNSS> {
                                       Divider(height: 20),
                                       ListTile(
                                         leading: Image.asset('assets/images/puntos.png'),
-                                        title: Text('Vertices Geodesico',style: TextStyle(
+                                        title: Text('Vertice Geodésico',style: TextStyle(
                                         fontFamily: 'Roboto', 
                                         fontSize: 13.0,
                                         color: Color(0xff007FFF),
                                         )),
-                                        subtitle: Text('Descripción de vertices Geodesicos', style: 
+                                        subtitle: Text('Descripción de vertices Geodésicos', style: 
                                         TextStyle(
                                           fontFamily: 'Roboto', 
                                           fontSize: 12.0,

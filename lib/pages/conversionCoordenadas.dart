@@ -109,7 +109,7 @@ class _CoversionCoordenadasState extends State<CoversionCoordenadas> {
                                   imagen: 'assets/images/elipsoidal.png'
                                     );
                                 DescripcionSistemCoor geocentrico = DescripcionSistemCoor(
-                                  nombreProyeccion: 'Geocéntricas',
+                                  nombreProyeccion: 'Geocentricas',
                                   imagen: 'assets/images/geocentrica.png',
                                     );
                                 DescripcionSistemCoor planas_Gauss = DescripcionSistemCoor(
@@ -180,7 +180,7 @@ class _CoversionCoordenadasState extends State<CoversionCoordenadas> {
                                   imagen: 'assets/images/elipsoidal.png'
                                     );
                                 DescripcionSistemCoor geocentrico = DescripcionSistemCoor(
-                                  nombreProyeccion: 'Geocéntricas',
+                                  nombreProyeccion: 'Geocentricas',
                                   imagen: 'assets/images/geocentrica.png',
                                     );
                                 DescripcionSistemCoor planas_Gauss = DescripcionSistemCoor(
@@ -298,7 +298,7 @@ class _CoversionCoordenadasState extends State<CoversionCoordenadas> {
                                   imagen: 'assets/images/elipsoidal.png'
                                     );
                                 DescripcionSistemCoor geocentrico = DescripcionSistemCoor(
-                                  nombreProyeccion: 'Geocéntricas',
+                                  nombreProyeccion: 'Geocentricas',
                                   imagen: 'assets/images/geocentrica.png',
                                     );
                                 DescripcionSistemCoor planas_Gauss = DescripcionSistemCoor(
@@ -368,7 +368,7 @@ class _CoversionCoordenadasState extends State<CoversionCoordenadas> {
                                   imagen: 'assets/images/elipsoidal.png'
                                     );
                                 DescripcionSistemCoor geocentrico = DescripcionSistemCoor(
-                                  nombreProyeccion: 'Geocéntricas',
+                                  nombreProyeccion: 'Geocentricas',
                                   imagen: 'assets/images/geocentrica.png',
                                     );
                                 DescripcionSistemCoor planas_Gauss = DescripcionSistemCoor(
@@ -557,7 +557,7 @@ class _CoversionCoordenadasState extends State<CoversionCoordenadas> {
                                   imagen: 'assets/images/elipsoidal.png'
                                     );
                                 DescripcionSistemCoor geocentrico = DescripcionSistemCoor(
-                                  nombreProyeccion: 'Geocéntricas',
+                                  nombreProyeccion: 'Geocentricas',
                                   imagen: 'assets/images/geocentrica.png',
                                     );
                                 DescripcionSistemCoor planas_Gauss = DescripcionSistemCoor(

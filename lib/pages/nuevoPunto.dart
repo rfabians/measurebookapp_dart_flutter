@@ -196,7 +196,7 @@ class _PuntoNuevoState extends State<PuntoNuevo> {
                  Divider(),
                  ListTile(
                     leading: Icon(Icons.add_photo_alternate, size: 30, color: Colors.blueAccent),
-                    title: Text('Seleccionar Foto de Galeria',style: TextStyle(
+                    title: Text('Seleccionar Foto de Galería',style: TextStyle(
                     fontFamily: 'Roboto', 
                     fontSize: 16.0,
                     color: Colors.black54,
@@ -286,7 +286,7 @@ class _PuntoNuevoState extends State<PuntoNuevo> {
                       ),
                       validator: (String nombrePunto){
                         if (nombrePunto.isEmpty) {
-                          return 'Nombre del Punto Invalido';
+                          return 'Nombre del Punto Inválido';
                         } else {
                           nombrePuntoNuevo = nombrePunto;
                           return null;
@@ -302,7 +302,7 @@ class _PuntoNuevoState extends State<PuntoNuevo> {
                       inputFormatters: [WhitelistingTextInputFormatter(new RegExp(r'^[+]?([0-9]+([.][0-9]*)?|[.][0-9]+)$'))],
                       validator: (String nortePunto){
                         if (nortePunto.isEmpty) {
-                          return 'Coordenadas Norte Invalida';
+                          return 'Coordenada Norte Inválida';
                         } else {
                           nortePuntoNuevo = double.parse(nortePunto);
                           return null;
@@ -318,7 +318,7 @@ class _PuntoNuevoState extends State<PuntoNuevo> {
                         inputFormatters: [WhitelistingTextInputFormatter(new RegExp(r'^[+]?([0-9]+([.][0-9]*)?|[.][0-9]+)$'))],
                         validator: (String estePunto){
                           if (estePunto.isEmpty) {
-                          return 'Coordenadas Este Invalida';
+                          return 'Coordenada Este Inválida';
                         } else {
                           estePuntoNuevo = double.parse(estePunto);
                           return null;
@@ -334,7 +334,7 @@ class _PuntoNuevoState extends State<PuntoNuevo> {
                       inputFormatters: [WhitelistingTextInputFormatter(new RegExp(r'^[+]?([0-9]+([.][0-9]*)?|[.][0-9]+)$'))],
                       validator: (String alturaPunto){
                         if (alturaPunto.isEmpty) {
-                          return 'Altura del Punto invalida';
+                          return 'Altura del Punto inválida';
                         } else {
                           alturaPuntoNuevo = double.parse(alturaPunto);
                           return null;
@@ -386,7 +386,7 @@ class _PuntoNuevoState extends State<PuntoNuevo> {
                             child: wFotoPlaca(),
                           ),
                           Divider(height: 10),
-                          Text('Panoramicas', style: TextStyle(
+                          Text('Panorámicas', style: TextStyle(
                             color: Colors.black54,
                             fontSize: 18.0,
                           ),),
