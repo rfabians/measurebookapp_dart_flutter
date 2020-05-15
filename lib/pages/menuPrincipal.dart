@@ -44,19 +44,20 @@ class _MenuPrincipalMBState extends State<MenuPrincipalMB> {
                   )),
                 ]
               )),
+              SizedBox(height: 30),
               //Gestor de Puntos
               Container(
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(10),
                 ),
                 padding: EdgeInsets.all(10.0),
-                height: 100,
+                height: 400,
                 child: MediaQuery.removePadding(context: context, 
                 removeTop: true,
                 child: ListView(
                   children: <Widget>[
                     ListTile(
-                      leading: Image.asset('assets/images/puntos.png', height: 40,),
+                      leading: Image.asset('assets/images/puntos.png', height: 50,),
                       title: Text('Gestor de Puntos',style: TextStyle(
                       fontFamily: 'Roboto', 
                       fontSize: 13.0,
@@ -78,24 +79,10 @@ class _MenuPrincipalMBState extends State<MenuPrincipalMB> {
                           proyeccionMB: widget.proyeccionMB,
                         )));
                       },
-                    )
-                  ],
-                )
-                ),
-              ),
-              //Conversión de Coordenadas
-              Container(
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                padding: EdgeInsets.all(10.0),
-                height: 100,
-                child: MediaQuery.removePadding(context: context, 
-                removeTop: true,
-                child: ListView(
-                  children: <Widget>[
+                    ),
+                    Divider(),
                     ListTile(
-                      leading: Image.asset('assets/images/conversion.png', height: 40,),
+                      leading: Image.asset('assets/images/conversion.png', height: 50,),
                       title: Text('Conversión de Coordenadas',style: TextStyle(
                       fontFamily: 'Roboto', 
                       fontSize: 13.0,
@@ -117,24 +104,10 @@ class _MenuPrincipalMBState extends State<MenuPrincipalMB> {
                           proyeccionMB: widget.proyeccionMB,
                         )));
                       },
-                    )
-                  ],
-                )
-                ),
-              ),
-              // Observaciones GNSS
-              Container(
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                padding: EdgeInsets.all(10.0),
-                height: 100,
-                child: MediaQuery.removePadding(context: context, 
-                removeTop: true,
-                child: ListView(
-                  children: <Widget>[
+                    ),
+                    Divider(),
                     ListTile(
-                      leading: Image.asset('assets/images/gnss.png', height: 40,),
+                      leading: Image.asset('assets/images/gnss.png', height: 50,),
                       title: Text('Observaciones GNSS',style: TextStyle(
                       fontFamily: 'Roboto', 
                       fontSize: 13.0,
@@ -152,24 +125,10 @@ class _MenuPrincipalMBState extends State<MenuPrincipalMB> {
                         builder: (context) => ObservacionesGNSS(
                         )));
                       },
-                    )
-                  ],
-                )
-                ),
-              ),
-              // Poligonales
-              Container(
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                padding: EdgeInsets.all(10.0),
-                height: 100,
-                child: MediaQuery.removePadding(context: context, 
-                removeTop: true,
-                child: ListView(
-                  children: <Widget>[
-                    ListTile(
-                      leading: Image.asset('assets/images/poligonal_.png', height: 40,),
+                    ),
+                    Divider(),
+                     ListTile(
+                      leading: Image.asset('assets/images/poligonal_.png', height: 50,),
                       title: Text('Poligonales',style: TextStyle(
                       fontFamily: 'Roboto', 
                       fontSize: 13.0,
@@ -182,25 +141,10 @@ class _MenuPrincipalMBState extends State<MenuPrincipalMB> {
                         color: Colors.black54,
                       )),
                       trailing: Icon(Icons.chevron_right, size: 30.0, color: Colors.blueAccent,),
-                    )
-                  ],
-                )
-                )
-              ),
-              //Nivelaciones
-              Container(
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(10),
-                  
-                ),
-                padding: EdgeInsets.all(10.0),
-                height: 100,
-                child: MediaQuery.removePadding(context: context, 
-                removeTop: true,
-                child: ListView(
-                  children: <Widget>[
+                    ),
+                    Divider(),
                     ListTile(
-                      leading: Image.asset('assets/images/nivelacion_.png', height: 40,),
+                      leading: Image.asset('assets/images/nivelacion_.png', height: 50,),
                       title: Text('Nivelaciones',style: TextStyle(
                       fontFamily: 'Roboto', 
                       fontSize: 13.0,

@@ -30,7 +30,7 @@ class _GestosPuntosState extends State<GestosPuntos> {
                      Padding(
                        padding: EdgeInsets.all(10.0),
                        child: Center(
-                         child: Image.asset('assets/images/puntos.png',height: 80.0),),
+                         child: Image.asset('assets/images/puntos.png',height: 50.0),),
                      ),
                        RichText(text: TextSpan(
                         children: <TextSpan> [
@@ -47,17 +47,27 @@ class _GestosPuntosState extends State<GestosPuntos> {
                         ]
                       )),
                       SizedBox(height: 15.0),
-                      
                       Divider(height: 5.0,),
                       Container(
-                        height: MediaQuery.of(context).size.height,
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(20),
+                          boxShadow: [
+                            BoxShadow(
+                              blurRadius: 5.0,
+                              color: Colors.black38,
+                              offset: Offset(0, 5)
+                            )
+                          ]
+                        ),
+                        height: 500,
                         padding: EdgeInsets.all(5.0),
                         child: MediaQuery.removePadding(context: context,
                         removeTop: true,
                         child: ListView(
                         children: <Widget>[
                         ListTile(
-                        leading: Icon(Icons.description, size: 50,color: Colors.blueGrey),
+                        leading: Icon(Icons.description, size: 45,color: Colors.blueGrey),
                         title: Text('Listado de Puntos',style: TextStyle(
                         fontFamily: 'Roboto', 
                         fontSize: 14.0,
@@ -77,7 +87,7 @@ class _GestosPuntosState extends State<GestosPuntos> {
                         ),
                         Divider(),
                         ListTile(
-                        leading: Image.asset('assets/images/nuevo.png', height: 45,),
+                        leading: Image.asset('assets/images/nuevo.png', height: 40,),
                         title: Text('Crear Nuevo Punto',style: TextStyle(
                         fontFamily: 'Roboto', 
                         fontSize: 14.0,
@@ -97,7 +107,7 @@ class _GestosPuntosState extends State<GestosPuntos> {
                         ),
                         Divider(),
                         ListTile(
-                        leading: Image.asset('assets/images/delta.png', height: 45),
+                        leading: Image.asset('assets/images/delta.png', height: 40),
                         title: Text('Importar Puntos de la Red Pasiva del IGAC',style: TextStyle(
                         fontFamily: 'Roboto', 
                         fontSize: 14.0,
@@ -137,7 +147,7 @@ class _GestosPuntosState extends State<GestosPuntos> {
                         ),
                         Divider(),
                         ListTile(
-                        leading: Image.asset('assets/images/measure.png', height: 45,),
+                        leading: Image.asset('assets/images/measure.png', height: 40,),
                         title: Text('Visualizar en el mapa todos los puntos',style: TextStyle(
                         fontFamily: 'Roboto', 
                         fontSize: 14.0,
@@ -167,7 +177,6 @@ class _GestosPuntosState extends State<GestosPuntos> {
                         onTap: (){
                           Navigator.push(context, MaterialPageRoute(
                           builder: (context) => ImportarPuntoOSCoor(
-                              
                               idProyeccion: widget.idProyeccion,
                               idProyecto: widget.nombreProyecto,
                               idusuario: widget.idUser,

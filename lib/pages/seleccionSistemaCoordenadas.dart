@@ -36,8 +36,8 @@ class _SeleccionSistemaCoordendasState extends State<SeleccionSistemaCoordendas>
         decoration: BoxDecoration(
         borderRadius: BorderRadius.all(Radius.circular(10.0)),
         ),
-        height: 700,
-        width: MediaQuery.of(context).size.width,
+        height: 650,
+        width: 350,
         child: Scaffold(
           body:FutureBuilder<List<origenesGauss>>(
             future: gestorMBDatabase.db.getGauss(),
@@ -49,8 +49,8 @@ class _SeleccionSistemaCoordendasState extends State<SeleccionSistemaCoordendas>
                     builder: SwiperPagination.dots
                   ),
                   layout: SwiperLayout.STACK,
-                  itemWidth: MediaQuery.of(context).size.width * 0.8,
-                  itemHeight: 600,
+                  itemHeight: 560,
+                  itemWidth: 320,
                   itemCount: snapshot.data.length,
                   itemBuilder: (BuildContext context, int index){
                     origenesGauss listaOrigenes = snapshot.data[index];
@@ -73,18 +73,30 @@ class _SeleccionSistemaCoordendasState extends State<SeleccionSistemaCoordendas>
                       child: Card(
                         elevation: 14.0,
                         child: Container(
+                          height: 520,
                           decoration: BoxDecoration(
                           image: DecorationImage(image: AssetImage('assets/images/fondo_sistemas.png'),
                           fit: BoxFit.cover,
                            ), 
                            borderRadius: BorderRadius.all(Radius.circular(10.0)
-                           )  
                            ),
+                           boxShadow: [
+                              BoxShadow(
+                              color: Colors.black45,
+                              blurRadius: 5.0, // has the effect of softening the shadow
+                              spreadRadius: 3.0, // has the effect of extending the shadow
+                              offset: Offset(
+                                10.0, // horizontal, move right 10
+                                10.0, // vertical, move down 10
+                              ),
+                            )
+                           ]
+                          ),
                           child: Padding(
-                            padding: const EdgeInsets.all(15.0),
+                            padding: const EdgeInsets.all(10.0),
                             child: Column(
                               children: <Widget>[
-                                SizedBox(height: 10.0),
+                                SizedBox(height: 0.0),
                                 Align(
                                   alignment: Alignment.centerLeft,
                                   child: RichText(text: TextSpan(
@@ -319,7 +331,7 @@ class _SeleccionSistemaCoordendasState extends State<SeleccionSistemaCoordendas>
                                                 borderRadius: BorderRadius.all(Radius.circular(10.0)
                                                 )
                                                 ),
-                                                height: 720,
+                                                height: 650,
                                                 width: 350,
                                                 child: Scaffold(
                                                   body:FutureBuilder<List<origenesCartesianos>>(
@@ -333,8 +345,8 @@ class _SeleccionSistemaCoordendasState extends State<SeleccionSistemaCoordendas>
                                                             builder: SwiperPagination.dots
                                                           ),
                                                           layout: SwiperLayout.STACK,
-                                                          itemWidth: MediaQuery.of(context).size.width * 0.8,
-                                                          itemHeight: MediaQuery.of(context).size.height * 0.75,
+                                                          itemWidth: 320,
+                                                          itemHeight: 550,
                                                           itemCount: snapshot.data.length,
                                                           itemBuilder: (BuildContext context, int index){
                                                             origenesCartesianos listaOrigenes = snapshot.data[index];
@@ -376,10 +388,10 @@ class _SeleccionSistemaCoordendasState extends State<SeleccionSistemaCoordendas>
                                                                     ],
                                                                    ),
                                                                   child: Padding(
-                                                                    padding: const EdgeInsets.all(20.0),
+                                                                    padding: const EdgeInsets.all(10.0),
                                                                     child: Column(
                                                                       children: <Widget>[
-                                                                        SizedBox(height: 15.0),
+                                                                        SizedBox(height: 0.0),
                                                                         Align(
                                                                           alignment: Alignment.centerLeft,
                                                                           child: RichText(text: TextSpan(
@@ -602,6 +614,9 @@ class _SeleccionSistemaCoordendasState extends State<SeleccionSistemaCoordendas>
                                                         } else {
                                                           return Swiper(
                                                           loop: false,
+                                                          itemHeight: 550,
+                                                          itemWidth: 320,
+                                                          layout: SwiperLayout.STACK,
                                                           pagination: SwiperPagination(
                                                             builder: SwiperPagination.dots
                                                           ),
@@ -639,7 +654,7 @@ class _SeleccionSistemaCoordendasState extends State<SeleccionSistemaCoordendas>
                                                                         ],
                                                                        ),
                                                                       child: Padding(
-                                                                        padding: const EdgeInsets.all(20.0),
+                                                                        padding: const EdgeInsets.all(15.0),
                                                                         child: Column(
                                                                           children: <Widget>[
                                                                             Align(
@@ -664,7 +679,7 @@ class _SeleccionSistemaCoordendasState extends State<SeleccionSistemaCoordendas>
                                                                                 ),
                                                                               ),
                                                                             ),
-                                                                            SizedBox(height: 70.0),
+                                                                            SizedBox(height: 45.0),
                                                                             Align(
                                                                               alignment: Alignment.centerLeft,
                                                                               child: RichText(text: TextSpan(
@@ -846,7 +861,7 @@ class _SeleccionSistemaCoordendasState extends State<SeleccionSistemaCoordendas>
                                                                                       }, 
                                                                                       child: Column(
                                                                                         children: <Widget>[
-                                                                                        Image.asset('assets/images/seleccionar.png', height: 40,),
+                                                                                        Image.asset('assets/images/seleccionar.png', height: 38,),
                                                                                         Text('Seleccionar',style: TextStyle(color: Colors.blueAccent, fontSize: 14))
                                                                                         ],
                                                                                       )

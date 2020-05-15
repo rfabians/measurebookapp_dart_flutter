@@ -37,7 +37,7 @@ class _NuevoProyectoState extends State<NuevoProyecto> {
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: <Widget>[
                             SizedBox(height: 15),
-                            Image.asset('assets/images/nuevo.png',height: 80,),
+                            Image.asset('assets/images/nuevo.png',height: 60,),
                             Text('Nuevo Proyecto', style: TextStyle(
                               fontFamily: 'Roboto',
                               color: Color(0xff007FFF),

@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:measurebookapp/clases/database.dart';
 import 'package:measurebookapp/modelos/puntosReferencia.dart';
 import 'package:measurebookapp/pages/gestorPuntos.dart';
+import 'package:flare_flutter/flare_actor.dart';
 
 class ListadoPuntoRef extends StatefulWidget {
   final String idUsuario, nombreProyecto, idProyeccion, proyeccion;
@@ -39,10 +40,14 @@ class _ListadoPuntoRefState extends State<ListadoPuntoRef> {
                   MediaQueryData mediaQueryData = MediaQuery.of(context);
                     if(snapshot.hasData) {
                       if(snapshot.data.length<=0) {
-                        return Container(
-                          child:  Center(
-                              child: Text('Aún no tienes puntos de referencia dentro del proyecto'),
-                            ),
+                        return Center(
+                          child: Container(
+                            height: 550,
+                            width: 320,
+                            child:  Center(
+                                child: FlareActor('assets/images/forki.flr', animation: 'forki',),
+                              ),
+                          ),
                         );
                       }else {
                         return MediaQuery.removePadding(
@@ -165,7 +170,13 @@ class _ListadoPuntoRefState extends State<ListadoPuntoRef> {
       return Scaffold(
         body: SafeArea(
           child: Center(
-            child: Text('Plano Cartesiano'),
+            child: Container(
+              height: 550,
+              width: 320,
+              child:  Center(
+              child: FlareActor('assets/images/forki.flr', animation: 'forki',),
+              ),
+              ),
           ),
         ),
       );

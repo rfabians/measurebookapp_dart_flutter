@@ -111,7 +111,7 @@ class _MyAppState extends State<IniciarSesion> {
                         ]),
                         Container(
                           child: Container(
-                          height: 550,
+                          height: 530,
                           child: Scaffold(
                            body: FutureBuilder<List<proyectos>> (
                              future: gestorMBDatabase.db.getProyectos(),
@@ -137,8 +137,8 @@ class _MyAppState extends State<IniciarSesion> {
                                             proyectos listaProyectos = snapshot.data[index];
                                           return Center(
                                               child: Container(
-                                                width: 300.0,
-                                                height: 480.0,
+                                                width: 280.0,
+                                                height: 450.0,
                                                     decoration: BoxDecoration(
                                                       image: DecorationImage(
                                                         image: AssetImage('assets/images/fondo_sistemas.png'),
@@ -320,7 +320,7 @@ class _MyAppState extends State<IniciarSesion> {
                                             proyectos listaProyectos = snapshot.data[index];
                                           return Center(
                                               child: Container(
-                                                width: 300.0,
+                                                width: 280.0,
                                                 height: 480.0,
                                                     decoration: BoxDecoration(
                                                       image: DecorationImage(
@@ -563,7 +563,7 @@ class _MyAppState extends State<IniciarSesion> {
                     mainAxisAlignment: MainAxisAlignment.start,
                     // Implementación de Interfaz para Login
                     children: <Widget>[
-                      Image.asset('assets/images/logo.png', height: 100,),
+                      Image.asset('assets/images/logo.png', height: 80,),
                       SizedBox(height: 40.0,),
                       RichText(text: TextSpan(
                         children: <TextSpan> [
