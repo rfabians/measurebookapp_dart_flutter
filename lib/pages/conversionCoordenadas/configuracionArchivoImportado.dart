@@ -26,6 +26,7 @@ class _ConfiguracionArchivoImportadoState extends State<ConfiguracionArchivoImpo
   int indexLatitud;
   int indexLongitud;
   int indexAlturaElip;
+  bool validacion = true;
   List<Widget> camposCSVFILE = List<Widget>();
   @override
   @override
@@ -203,12 +204,154 @@ class _ConfiguracionArchivoImportadoState extends State<ConfiguracionArchivoImpo
                       )
                       //Archivo sin Encabezado
                       :Container(
-                        child: Text('Sin encabezado'),
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(20),
+                          boxShadow: [
+                            BoxShadow(
+                              blurRadius: 5,
+                              color: Colors.black54,
+                              offset: Offset(0, 5)
+                            )
+                          ]
+                        ),
+                        child: Column(
+                          children: <Widget>[
+                            Padding(
+                              padding: const EdgeInsets.all(20.0),
+                              child: Text('Seleccione el nombre del Campo que contiene los valores de la Latitud', textAlign: TextAlign.center, style: TextStyle(color: Colors.blueAccent, fontSize: 13),),
+                            ),
+                            Divider(thickness: 5),
+                            Row(
+                              children: <Widget>[
+                                Container(
+                                  width: MediaQuery.of(context).size.width/2-30,
+                                  height: 80,
+                                   child: Center(child: Text('Identificador del Punto: ', style:  TextStyle(color: Colors.black54, fontSize: 13),)),
+                                ),
+                                Container(
+                                  width: MediaQuery.of(context).size.width/2-30,
+                                  height: 80,
+                                  child: CupertinoPicker(
+                                  squeeze: .9,
+                                  looping: false,
+                                  diameterRatio: 20,
+                                  backgroundColor: Colors.white,
+                                  itemExtent: 20, 
+                                  onSelectedItemChanged: (index){
+                                     setState(() {
+                                       indexIDElip = index;
+                                     });
+                                  }, 
+                                  children: camposCSVFILE
+                                  ),
+                                ),
+
+                              ],
+                            ),
+                            Divider(thickness: 5),
+                            Row(
+                              children: <Widget>[
+                                Container(
+                                  width: MediaQuery.of(context).size.width/2-30,
+                                  height: 80,
+                                   child: Center(child: Text('Latitud ', style:  TextStyle(color: Colors.black54, fontSize: 13),)),
+                                ),
+                                Container(
+                                  width: MediaQuery.of(context).size.width/2-30,
+                                  height: 80,
+                                  child: CupertinoPicker(
+                                  squeeze: .9,
+                                  looping: false,
+                                  diameterRatio: 20,
+                                  backgroundColor: Colors.white,
+                                  itemExtent: 20, 
+                                  onSelectedItemChanged: (index){
+                                    setState(() {
+                                       indexLatitud = index;
+                                     });
+                                  }, 
+                                  children: camposCSVFILE
+                                  ),
+                                ),
+                              ],
+                            ),
+                            Divider(thickness: 5),
+                            Row(
+                              children: <Widget>[
+                                Container(
+                                  width: MediaQuery.of(context).size.width/2-30,
+                                  height: 80,
+                                   child: Center(child: Text('Longitud ', style:  TextStyle(color: Colors.black54, fontSize: 13),)),
+                                ),
+                                Container(
+                                  width: MediaQuery.of(context).size.width/2-30,
+                                  height: 80,
+                                  child: CupertinoPicker(
+                                  squeeze: .9,
+                                  looping: false,
+                                  diameterRatio: 20,
+                                  backgroundColor: Colors.white,
+                                  itemExtent: 20, 
+                                  onSelectedItemChanged: (index){
+                                    setState(() {
+                                       indexLongitud = index;
+                                     });
+                                  }, 
+                                  children: camposCSVFILE
+                                  ),
+                                ),
+                              
+                              ],
+                            ),
+                            Divider(thickness: 5),
+                            Row(
+                              children: <Widget>[
+                                Container(
+                                  width: MediaQuery.of(context).size.width/2-30,
+                                  height: 80,
+                                   child: Center(child: Text('Altura: ', style:  TextStyle(color: Colors.black54, fontSize: 13),)),
+                                ),
+                                Container(
+                                  width: MediaQuery.of(context).size.width/2-30,
+                                  height: 80,
+                                  child: CupertinoPicker(
+                                  squeeze: .9,
+                                  looping: false,
+                                  diameterRatio: 20,
+                                  backgroundColor: Colors.white,
+                                  itemExtent: 20, 
+                                  onSelectedItemChanged: (index){
+                                    setState(() {
+                                       indexAlturaElip = index;
+                                     });
+                                  }, 
+                                  children: camposCSVFILE
+                                  ),
+                                ),
+                              
+                              ],
+                            )
+                          ],
+                        ),
                       )
                     ),
                     Center(
                       child: FlatButton(
                         onPressed: ()async{
+                          if(indexIDElip == indexLatitud){
+                            alertaIndexCoor('ID Punto', 'Latitud');
+                          } else if(indexIDElip == indexLongitud){
+                            alertaIndexCoor('ID Punto', 'Longitud');
+                          } else if(indexIDElip == indexAlturaElip){
+                            alertaIndexCoor('ID Punto', 'Altura');
+                          } else if(indexLatitud == indexLongitud){
+                            alertaIndexCoor('Latitud', 'Longitud');
+                          } else if(indexLatitud == indexAlturaElip){
+                            alertaIndexCoor('Latitud', 'Altura');
+                          } else if(indexLongitud == indexAlturaElip){
+                            alertaIndexCoor('Longitud', 'Altura');
+                          } else {
                           List<List<dynamic>> puntosElip2Geocentricas = List<List<dynamic>>(widget.dataCSV.length);
                           List<String> puntos0 = List(4);
                           puntos0[0] = 'ID Punto';
@@ -218,11 +361,13 @@ class _ConfiguracionArchivoImportadoState extends State<ConfiguracionArchivoImpo
                           puntosElip2Geocentricas[0]=puntos0;
                           List<dynamic> datosCSVImport = List();
                           datosCSVImport = widget.dataCSV;
-                          for (var i = 1; i < widget.dataCSV.length; i++) {
+                          if(encabezado == true){
+                            for (var i = 1; i < widget.dataCSV.length; i++) {
                             List<dynamic> puntos = List(4);
                             puntos = datosCSVImport[i];
                             CoordenadasGeocentricas coorGeo = CoordenadasGeocentricas();
                             CoordenadasElipsoidales coorElip = CoordenadasElipsoidales();
+                            try {
                             coorElip.latitud = puntos[indexLatitud];
                             coorElip.longitud = puntos[indexLongitud];
                             coorElip.altitud = puntos[indexAlturaElip];
@@ -233,7 +378,37 @@ class _ConfiguracionArchivoImportadoState extends State<ConfiguracionArchivoImpo
                             puntos[2] = double.parse(coorGeo.y.toString());
                             puntos[3] = double.parse(coorGeo.z.toString());
                             puntosElip2Geocentricas[i] = puntos;
+                            } catch (e) {
+                              i = widget.dataCSV.length;
+                              alertaErrorArchivo();
+                              validacion = false;
+                            }
                           }
+                          }else {
+                            for (var i = 0; i < widget.dataCSV.length; i++) {
+                            List<dynamic> puntos = List(4);
+                            puntos = datosCSVImport[i];
+                            CoordenadasGeocentricas coorGeo = CoordenadasGeocentricas();
+                            CoordenadasElipsoidales coorElip = CoordenadasElipsoidales();
+                            try {
+                            coorElip.latitud = puntos[indexLatitud];
+                            coorElip.longitud = puntos[indexLongitud];
+                            coorElip.altitud = puntos[indexAlturaElip];
+                            ConversionCoordenadasMB conversionCoordenadasMB = ConversionCoordenadasMB();
+                            coorGeo = conversionCoordenadasMB.elipsoidales2Geocentricas(coorElip);
+                            puntos[0] = puntos[indexIDElip];
+                            puntos[1] = double.parse(coorGeo.x.toString());
+                            puntos[2] = double.parse(coorGeo.y.toString());
+                            puntos[3] = double.parse(coorGeo.z.toString());
+                            puntosElip2Geocentricas[i] = puntos;
+                            } catch (e) {
+                              i = widget.dataCSV.length;
+                              alertaErrorArchivo();
+                              validacion = false;
+                            }
+                          }
+                          }
+                          if(validacion == true) {
                           final Directory directorio = await getApplicationDocumentsDirectory();
                           final File csvGuardar = File('${directorio.path}/MeasureBookConversiónGeocentricas.csv');
                           String datosCSV = const ListToCsvConverter().convert(puntosElip2Geocentricas);
@@ -241,11 +416,26 @@ class _ConfiguracionArchivoImportadoState extends State<ConfiguracionArchivoImpo
                           Uint8List arCSv = csvGuardar.readAsBytesSync();
                           //final ByteData archivoCSV = await File('${directorio.path}/MeasureBookConversiónGeocentricas.csv').readAsBytes().then((data) => ByteData.view(data as ByteBuffer));
                           await Share.file('Conversion Archivos MeasureBookAPP', 'MeasureBookConversiónGeocentricas.csv', arCSv, 'file/csv', text: 'Conversión de Coordenadas MeasureBook');
+                          }
+                          }
                         }, 
-                        child: Text('Exportar Coordenadas Convertidas a CSV')
+                        child: Column(
+                            children: [
+                            SizedBox(height: 30),  
+                            Container(
+                            height: 30,
+                            width: 320,
+                            decoration: BoxDecoration(
+                              color: Colors.blueAccent,
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                            child: Center(
+                              child: Text('Exportar Coordenadas Convertidas a CSV', textAlign: TextAlign.center, style: TextStyle(color: Colors.white),)
+                          ),
+                        )]
                         ),
                     )
-                 ],
+                )],
                ),
              ),
            ),
@@ -273,6 +463,23 @@ class _ConfiguracionArchivoImportadoState extends State<ConfiguracionArchivoImpo
     void alertaIgualSystemCoor(){
     Fluttertoast.showToast(
     msg: "El sistema de Partida es igual al de destino ",
+    toastLength: Toast.LENGTH_LONG,
+    gravity: ToastGravity.BOTTOM,
+    timeInSecForIosWeb: 2
+    );
+  }
+
+    void alertaErrorArchivo(){
+    Fluttertoast.showToast(
+    msg: "El formato del archivo no es compatible, por favor valide que el CSV este delimitado por comas y use punto como simbolo decimal ",
+    toastLength: Toast.LENGTH_LONG,
+    gravity: ToastGravity.BOTTOM,
+    timeInSecForIosWeb: 2
+    );
+  }
+  void alertaIndexCoor( String indiceI, indiceII){
+    Fluttertoast.showToast(
+    msg: "El indice ${indiceI} es igual al indice ${indiceII}, por favor verifique el indice seleccionado para cada uno de los campos",
     toastLength: Toast.LENGTH_LONG,
     gravity: ToastGravity.BOTTOM,
     timeInSecForIosWeb: 2

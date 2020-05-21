@@ -51,7 +51,7 @@ class _MenuPrincipalMBState extends State<MenuPrincipalMB> {
                   borderRadius: BorderRadius.circular(10),
                 ),
                 padding: EdgeInsets.all(10.0),
-                height: 400,
+                height: 500,
                 child: MediaQuery.removePadding(context: context, 
                 removeTop: true,
                 child: ListView(
