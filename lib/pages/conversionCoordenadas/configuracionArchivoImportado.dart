@@ -32,13 +32,21 @@ class ConfiguracionArchivoImportado extends StatefulWidget {
 
 class _ConfiguracionArchivoImportadoState extends State<ConfiguracionArchivoImportado> {
   bool encabezado = true;
-  int indexIDElip;
-  int indexLatitud;
+  int indexIDGeocen = 0;
+  int  indexXGeo = 0;
+  int indexYGeo = 0;
+  int  indexZGeo;
+  int indexIDElip = 0;
+  int indexLatitud = 0;
   bool origenGauss = false;
-  int indexLongitud;
-  int indexAlturaElip;
+  int indexLongitud = 0;
+  int indexAlturaElip = 0;
   bool origenCartesiano = false;
   bool validacion = true;
+  bool gausCS = false;
+  bool gaussCS2 = false;
+  bool cartesianCS = false;
+  bool cartesianCS2 = false;
   GaussCS gaussCOrigen = GaussCS();
   CartesianasCS origenCartesian =CartesianasCS();
   List<Widget> camposCSVFILE = List<Widget>();
@@ -55,7 +63,7 @@ class _ConfiguracionArchivoImportadoState extends State<ConfiguracionArchivoImpo
       if(widget.destinoCS == 'Elipsoidales'){
       alertaIgualSystemCoor();
       Navigator.pop(context);
-    } 
+    }  
     //Coordenads Elipsoidales 2 Gecentricas 
     else if(widget.destinoCS == 'Geocentricas'){
       return Scaffold(
@@ -84,142 +92,7 @@ class _ConfiguracionArchivoImportadoState extends State<ConfiguracionArchivoImpo
                     Container(
                       height: 440,
                       width: MediaQuery.of(context).size.width,
-                      child: encabezado
-                      //Archivo con Encabezado
-                      ?Container(
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(20),
-                          boxShadow: [
-                            BoxShadow(
-                              blurRadius: 5,
-                              color: Colors.black54,
-                              offset: Offset(0, 5)
-                            )
-                          ]
-                        ),
-                        child: Column(
-                          children: <Widget>[
-                            Padding(
-                              padding: const EdgeInsets.all(20.0),
-                              child: Text('Seleccione el nombre del Campo que contiene los valores de la Latitud', textAlign: TextAlign.center, style: TextStyle(color: Colors.blueAccent, fontSize: 13),),
-                            ),
-                            Divider(thickness: 5),
-                            Row(
-                              children: <Widget>[
-                                Container(
-                                  width: MediaQuery.of(context).size.width/2-30,
-                                  height: 80,
-                                   child: Center(child: Text('Identificador del Punto: ', style:  TextStyle(color: Colors.black54, fontSize: 13),)),
-                                ),
-                                Container(
-                                  width: MediaQuery.of(context).size.width/2-30,
-                                  height: 80,
-                                  child: CupertinoPicker(
-                                  squeeze: .9,
-                                  looping: false,
-                                  diameterRatio: 20,
-                                  backgroundColor: Colors.white,
-                                  itemExtent: 20, 
-                                  onSelectedItemChanged: (index){
-                                     setState(() {
-                                       indexIDElip = index;
-                                     });
-                                  }, 
-                                  children: camposCSVFILE
-                                  ),
-                                ),
-
-                              ],
-                            ),
-                            Divider(thickness: 5),
-                            Row(
-                              children: <Widget>[
-                                Container(
-                                  width: MediaQuery.of(context).size.width/2-30,
-                                  height: 80,
-                                   child: Center(child: Text('Latitud ', style:  TextStyle(color: Colors.black54, fontSize: 13),)),
-                                ),
-                                Container(
-                                  width: MediaQuery.of(context).size.width/2-30,
-                                  height: 80,
-                                  child: CupertinoPicker(
-                                  squeeze: .9,
-                                  looping: false,
-                                  diameterRatio: 20,
-                                  backgroundColor: Colors.white,
-                                  itemExtent: 20, 
-                                  onSelectedItemChanged: (index){
-                                    setState(() {
-                                       indexLatitud = index;
-                                     });
-                                  }, 
-                                  children: camposCSVFILE
-                                  ),
-                                ),
-                              ],
-                            ),
-                            Divider(thickness: 5),
-                            Row(
-                              children: <Widget>[
-                                Container(
-                                  width: MediaQuery.of(context).size.width/2-30,
-                                  height: 80,
-                                   child: Center(child: Text('Longitud ', style:  TextStyle(color: Colors.black54, fontSize: 13),)),
-                                ),
-                                Container(
-                                  width: MediaQuery.of(context).size.width/2-30,
-                                  height: 80,
-                                  child: CupertinoPicker(
-                                  squeeze: .9,
-                                  looping: false,
-                                  diameterRatio: 20,
-                                  backgroundColor: Colors.white,
-                                  itemExtent: 20, 
-                                  onSelectedItemChanged: (index){
-                                    setState(() {
-                                       indexLongitud = index;
-                                     });
-                                  }, 
-                                  children: camposCSVFILE
-                                  ),
-                                ),
-                              
-                              ],
-                            ),
-                            Divider(thickness: 5),
-                            Row(
-                              children: <Widget>[
-                                Container(
-                                  width: MediaQuery.of(context).size.width/2-30,
-                                  height: 80,
-                                   child: Center(child: Text('Altura: ', style:  TextStyle(color: Colors.black54, fontSize: 13),)),
-                                ),
-                                Container(
-                                  width: MediaQuery.of(context).size.width/2-30,
-                                  height: 80,
-                                  child: CupertinoPicker(
-                                  squeeze: .9,
-                                  looping: false,
-                                  diameterRatio: 20,
-                                  backgroundColor: Colors.white,
-                                  itemExtent: 20, 
-                                  onSelectedItemChanged: (index){
-                                    setState(() {
-                                       indexAlturaElip = index;
-                                     });
-                                  }, 
-                                  children: camposCSVFILE
-                                  ),
-                                ),
-                              
-                              ],
-                            )
-                          ],
-                        ),
-                      )
-                      //Archivo sin Encabezado
-                      :Container(
+                      child: Container(
                         decoration: BoxDecoration(
                           color: Colors.white,
                           borderRadius: BorderRadius.circular(20),
@@ -368,7 +241,7 @@ class _ConfiguracionArchivoImportadoState extends State<ConfiguracionArchivoImpo
                           } else if(indexLongitud == indexAlturaElip){
                             alertaIndexCoor('Longitud', 'Altura');
                           } else {
-                          List<List<dynamic>> puntosElip2Geocentricas = List<List<dynamic>>(widget.dataCSV.length);
+                          List<List<dynamic>> puntosElip2Geocentricas = List<List<dynamic>>(widget.dataCSV.length+1);
                           List<String> puntos0 = List(4);
                           puntos0[0] = 'ID Punto';
                           puntos0[1] = 'X Geocentrica';
@@ -380,7 +253,8 @@ class _ConfiguracionArchivoImportadoState extends State<ConfiguracionArchivoImpo
                           if(encabezado == true){
                             for (var i = 1; i < widget.dataCSV.length; i++) {
                             List<dynamic> puntos = List(4);
-                            puntos = datosCSVImport[i+1];
+                            List<dynamic> puntosGeoce = List(4);
+                            puntos = datosCSVImport[i];
                             CoordenadasGeocentricas coorGeo = CoordenadasGeocentricas();
                             CoordenadasElipsoidales coorElip = CoordenadasElipsoidales();
                             try {
@@ -389,11 +263,11 @@ class _ConfiguracionArchivoImportadoState extends State<ConfiguracionArchivoImpo
                             coorElip.altitud = puntos[indexAlturaElip];
                             ConversionCoordenadasMB conversionCoordenadasMB = ConversionCoordenadasMB();
                             coorGeo = conversionCoordenadasMB.elipsoidales2Geocentricas(coorElip);
-                            puntos[0] = puntos[indexIDElip];
-                            puntos[1] = double.parse(coorGeo.x.toString());
-                            puntos[2] = double.parse(coorGeo.y.toString());
-                            puntos[3] = double.parse(coorGeo.z.toString());
-                            puntosElip2Geocentricas[i] = puntos;
+                            puntosGeoce[0] = puntos[indexIDElip];
+                            puntosGeoce[1] = double.parse(coorGeo.x.toString());
+                            puntosGeoce[2] = double.parse(coorGeo.y.toString());
+                            puntosGeoce[3] = double.parse(coorGeo.z.toString());
+                            puntosElip2Geocentricas[i] = puntosGeoce;
                             } catch (e) {
                               i = widget.dataCSV.length;
                               alertaErrorArchivo();
@@ -416,7 +290,7 @@ class _ConfiguracionArchivoImportadoState extends State<ConfiguracionArchivoImpo
                             puntos[1] = double.parse(coorGeo.x.toString());
                             puntos[2] = double.parse(coorGeo.y.toString());
                             puntos[3] = double.parse(coorGeo.z.toString());
-                            puntosElip2Geocentricas[i] = puntos;
+                            puntosElip2Geocentricas[i+1] = puntos;
                             } catch (e) {
                               i = widget.dataCSV.length;
                               alertaErrorArchivo();
@@ -1085,6 +959,437 @@ class _ConfiguracionArchivoImportadoState extends State<ConfiguracionArchivoImpo
          ),
     );
     }
+  } else if(widget.origenCS == 'Geocentricas'){
+    if(widget.origenCS == 'Geocentricas'){
+      if(widget.destinoCS == 'Geocentricas'){
+      alertaIgualSystemCoor();
+      Navigator.pop(context);
+      }else if(widget.destinoCS == 'Gauss - Krüger'){
+        gausCS = true;
+      } else if(widget.destinoCS == 'Planas Cartesianas'){
+        cartesianCS = true;
+      }
+    }
+    return Scaffold(
+       body: SafeArea(
+         child: SingleChildScrollView(
+           child: Center(
+             child: Padding(
+               padding: const EdgeInsets.all(15.0),
+               child: Column(
+                 children: <Widget>[
+                   Image.asset('assets/images/csv_load.png', height: 80),
+                   SizedBox(height: 10),
+                   Text('Conversión de archivo CSV con coordenadas ${widget.origenCS} a ${widget.destinoCS}', textAlign: TextAlign.center, style: TextStyle(color: Colors.blueAccent, fontSize: 13),),
+                   Divider(),
+                   Text('Archivo con encabezado',style: TextStyle(color: Colors.black54),),
+                   CupertinoSwitch(
+                     activeColor: Colors.blueAccent,
+                     value: encabezado, 
+                     onChanged: (bool switchEncabezado) {
+                       setState(() {
+                         encabezado = switchEncabezado;
+                       });
+                     }
+                     ),
+                    Divider(),
+                    Container(
+                      height: 440,
+                      width: MediaQuery.of(context).size.width,
+                      child: Container(
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(20),
+                          boxShadow: [
+                            BoxShadow(
+                              blurRadius: 5,
+                              color: Colors.black54,
+                              offset: Offset(0, 5)
+                            )
+                          ]
+                        ),
+                        child: Column(
+                          children: <Widget>[
+                            Padding(
+                              padding: const EdgeInsets.all(20.0),
+                              child: Text('Relacione el nombre del campo con la columna del CSV correspondiente', textAlign: TextAlign.center, style: TextStyle(color: Colors.blueAccent, fontSize: 13),),
+                            ),
+                            Divider(thickness: 5),
+                            Row(
+                              children: <Widget>[
+                                Container(
+                                  width: MediaQuery.of(context).size.width/2-30,
+                                  height: 80,
+                                   child: Center(child: Text('Identificador del Punto: ', style:  TextStyle(color: Colors.black54, fontSize: 13),)),
+                                ),
+                                Container(
+                                  width: MediaQuery.of(context).size.width/2-30,
+                                  height: 80,
+                                  child: CupertinoPicker(
+                                  squeeze: .9,
+                                  looping: false,
+                                  diameterRatio: 20,
+                                  backgroundColor: Colors.white,
+                                  itemExtent: 20, 
+                                  onSelectedItemChanged: (index){
+                                     setState(() {
+                                       indexIDGeocen = index;
+                                     });
+                                  }, 
+                                  children: camposCSVFILE
+                                  ),
+                                ),
+
+                              ],
+                            ),
+                            Divider(thickness: 5),
+                            Row(
+                              children: <Widget>[
+                                Container(
+                                  width: MediaQuery.of(context).size.width/2-30,
+                                  height: 80,
+                                   child: Center(child: Text('Coordenada X ', style:  TextStyle(color: Colors.black54, fontSize: 13),)),
+                                ),
+                                Container(
+                                  width: MediaQuery.of(context).size.width/2-30,
+                                  height: 80,
+                                  child: CupertinoPicker(
+                                  squeeze: .9,
+                                  looping: false,
+                                  diameterRatio: 20,
+                                  backgroundColor: Colors.white,
+                                  itemExtent: 20, 
+                                  onSelectedItemChanged: (index){
+                                    setState(() {
+                                       indexXGeo = index;
+                                     });
+                                  }, 
+                                  children: camposCSVFILE
+                                  ),
+                                ),
+                              ],
+                            ),
+                            Divider(thickness: 5),
+                            Row(
+                              children: <Widget>[
+                                Container(
+                                  width: MediaQuery.of(context).size.width/2-30,
+                                  height: 80,
+                                   child: Center(child: Text('Coordenada Y ', style:  TextStyle(color: Colors.black54, fontSize: 13),)),
+                                ),
+                                Container(
+                                  width: MediaQuery.of(context).size.width/2-30,
+                                  height: 80,
+                                  child: CupertinoPicker(
+                                  squeeze: .9,
+                                  looping: false,
+                                  diameterRatio: 20,
+                                  backgroundColor: Colors.white,
+                                  itemExtent: 20, 
+                                  onSelectedItemChanged: (index){
+                                    setState(() {
+                                       indexYGeo = index;
+                                     });
+                                  }, 
+                                  children: camposCSVFILE
+                                  ),
+                                ),
+                              
+                              ],
+                            ),
+                            Divider(thickness: 5),
+                            Row(
+                              children: <Widget>[
+                                Container(
+                                  width: MediaQuery.of(context).size.width/2-30,
+                                  height: 80,
+                                   child: Center(child: Text('Coordenadas Z: ', style:  TextStyle(color: Colors.black54, fontSize: 13),)),
+                                ),
+                                Container(
+                                  width: MediaQuery.of(context).size.width/2-30,
+                                  height: 80,
+                                  child: CupertinoPicker(
+                                  squeeze: .9,
+                                  looping: false,
+                                  diameterRatio: 20,
+                                  backgroundColor: Colors.white,
+                                  itemExtent: 20, 
+                                  onSelectedItemChanged: (index){
+                                    setState(() {
+                                       indexZGeo = index;
+                                     });
+                                  }, 
+                                  children: camposCSVFILE
+                                  ),
+                                ),
+                              
+                              ],
+                            )
+                          ],
+                        ),
+                      )
+                    ),
+                    Container(
+                      child: gausCS
+                      ?Container(
+                      child: origenGauss
+                          ?Container(
+                            child: ListTile(
+                              leading: Icon(Icons.add_location, color: Colors.blueAccent, size: 50,),
+                              title: Text('Origen de Cordenadas Destino',style: TextStyle(
+                              fontFamily: 'Roboto', 
+                              fontSize: 13.0,
+                              color: Color(0xff007FFF),
+                              )),
+                              subtitle: Text('${gaussCOrigen.NOMBRE}', style: 
+                              TextStyle(
+                                fontFamily: 'Roboto', 
+                                fontSize: 16.0,
+                                color: Colors.black54,
+                              )),
+                              onTap: (){
+                                _sistemaGauss2(context);
+                              },
+                            )
+                          )
+                          :Container(
+                            child: ListTile(
+                              leading: Icon(Icons.add_location, color: Colors.blueAccent, size: 50,),
+                              title: Text('Seleccionar Origen de Coordenadas del Punto',style: TextStyle(
+                              fontFamily: 'Roboto', 
+                              fontSize: 13.0,
+                              color: Color(0xff007FFF),
+                              )),
+                              subtitle: Text('Selecciona el origen en el que se encuentra el punto ', style: 
+                              TextStyle(
+                                fontFamily: 'Roboto', 
+                                fontSize: 12.0,
+                                color: Colors.black54,
+                              )),
+                              trailing: Icon(Icons.chevron_right, size: 30.0, color: Colors.blueAccent,),
+                              onTap: (){
+                                _sistemaGauss2(context);
+                              },
+                            )
+                          )
+                        )
+                      :Container(
+                      ),
+                    ),
+                    Container(
+                      child: cartesianCS
+                      ?Container(
+
+                      )
+                      :Container(
+
+                      ),
+                    ),
+                    Center(
+                      child: FlatButton(
+                        onPressed: ()async{
+                            if(indexIDGeocen == indexXGeo){
+                            alertaIndexCoor('ID Punto', 'Coordenada X');
+                          } else if(indexIDGeocen == indexYGeo){
+                            alertaIndexCoor('ID Punto', 'Coordenada Y');
+                          } else if(indexIDGeocen == indexZGeo){
+                            alertaIndexCoor('ID Punto', 'Coordenada Z');
+                          } else if(indexXGeo == indexYGeo){
+                            alertaIndexCoor('Coordenada X', 'Coordenada Y');
+                          } else if(indexXGeo == indexZGeo){
+                            alertaIndexCoor('Coordenada X', 'Coordenada Z');
+                          } else if(indexYGeo == indexZGeo){
+                            alertaIndexCoor('Coordenada Y', 'Coordenada Z');
+                          } else {
+
+                            // Geocentricas a Elipsoidales
+                            if (widget.destinoCS == 'Elipsoidales'){
+                          List<List<dynamic>> geocentricas2Elipsoidales = List<List<dynamic>>(widget.dataCSV.length+1);
+                          List<String> puntos0 = List(4);
+                          puntos0[0] = 'ID Punto';
+                          puntos0[1] = 'Latitud';
+                          puntos0[2] = 'Longitud';
+                          puntos0[3] = 'Altura';
+                          geocentricas2Elipsoidales[0]=puntos0;
+                          List<dynamic> datosCSVImport = List();
+                          datosCSVImport = widget.dataCSV;
+                          if(encabezado == true){
+                            for (var i = 1; i < widget.dataCSV.length; i++) {
+                            List<dynamic> puntos = List(4);
+                            puntos = datosCSVImport[i];
+                            CoordenadasGeocentricas coordenadasGeocentricas = CoordenadasGeocentricas();
+                            CoordenadasElipsoidales coorElip = CoordenadasElipsoidales();
+                            try {
+                            coordenadasGeocentricas.x = puntos[indexXGeo];
+                            coordenadasGeocentricas.y = puntos[indexYGeo];
+                            coordenadasGeocentricas.z= puntos[indexZGeo];
+                            ConversionCoordenadasMB conversionCoordenadasMB = ConversionCoordenadasMB();
+                            coorElip = conversionCoordenadasMB.geocentricas2Elipsoidales(coordenadasGeocentricas);
+                            puntos[0] = puntos[indexIDGeocen];
+                            puntos[1] = double.parse(coorElip.latitud.toString());
+                            puntos[2] = double.parse(coorElip.longitud.toString());
+                            puntos[3] = double.parse(coorElip.altitud.toString());
+                            geocentricas2Elipsoidales[i] = puntos;
+                            } catch (e) {
+                              alertaErrorArchivo();
+                              validacion = false;
+                            }
+                          }
+                          }else {
+                            for (var i = 0; i < widget.dataCSV.length; i++) {
+                            List<dynamic> puntos = List(4);
+                            puntos = datosCSVImport[i];
+                            CoordenadasGeocentricas coordenadasGeocentricas = CoordenadasGeocentricas();
+                            CoordenadasElipsoidales coorElip = CoordenadasElipsoidales();
+                            try {
+                            coordenadasGeocentricas.x = puntos[indexXGeo];
+                            coordenadasGeocentricas.y = puntos[indexYGeo];
+                            coordenadasGeocentricas.z= puntos[indexZGeo];
+                            ConversionCoordenadasMB conversionCoordenadasMB = ConversionCoordenadasMB();
+                            coorElip = conversionCoordenadasMB.geocentricas2Elipsoidales(coordenadasGeocentricas);
+                            puntos[0] = puntos[indexIDGeocen];
+                            puntos[1] = double.parse(coorElip.latitud.toString());
+                            puntos[2] = double.parse(coorElip.longitud.toString());
+                            puntos[3] = double.parse(coorElip.altitud.toString());
+                            geocentricas2Elipsoidales[i+1] = puntos;
+                            } catch (e) {
+                              print(e);
+                              alertaErrorArchivo();
+                              validacion = false;
+                            }
+                          }
+                          }
+                          if(validacion == true) {
+                          final Directory directorio = await getApplicationDocumentsDirectory();
+                          final File csvGuardar = File('${directorio.path}/MeasureBookConversiónElipsoidales.csv');
+                          String datosCSV = const ListToCsvConverter().convert(geocentricas2Elipsoidales);
+                          await csvGuardar.writeAsString(datosCSV);
+                          Uint8List arCSv = csvGuardar.readAsBytesSync();
+                          await Share.file('Conversion Archivos MeasureBookAPP', 'MeasureBookConversiónElipsoidales.csv', arCSv, 'file/csv', text: 'Conversión de Coordenadas MeasureBook');
+                          }
+                          //Geocentricas to Geocentricas
+                            } else if(widget.destinoCS == 'Geocentricas'){
+                            } 
+                            // Geocentricas Planas Cartesiano
+                            else if(widget.destinoCS == 'Gauss - Krüger'){
+                              if(origenGauss == true){
+                              List<List<dynamic>> geocentricas2Gauss = List<List<dynamic>>(widget.dataCSV.length+1);
+                              List<String> puntos0 = List(4);
+                              puntos0[0] = 'ID Punto';
+                              puntos0[1] = 'Norte';
+                              puntos0[2] = 'Este';
+                              puntos0[3] = 'Altura';
+                              geocentricas2Gauss[0]=puntos0;
+                              List<dynamic> datosCSVImport = List();
+                              datosCSVImport = widget.dataCSV;
+                              if(encabezado == true){
+                                for (var i = 1; i < widget.dataCSV.length; i++) {
+                                List<dynamic> puntos = List(4);
+                                puntos = datosCSVImport[i];
+                                CoordenadasGeocentricas coordenadasGeocentricas = CoordenadasGeocentricas();
+                                 CoordenadasGauss coordenadasGauss = CoordenadasGauss();
+                                 CoordenadasElipsoidales coorElip = CoordenadasElipsoidales();
+                                try {
+                                coordenadasGeocentricas.x = puntos[indexXGeo];
+                                coordenadasGeocentricas.y = puntos[indexYGeo];
+                                coordenadasGeocentricas.z= puntos[indexZGeo];
+                                ConversionCoordenadasMB conversionCoordenadasMB = ConversionCoordenadasMB();
+                                coorElip = conversionCoordenadasMB.geocentricas2Elipsoidales(coordenadasGeocentricas);
+                                coordenadasGauss = conversionCoordenadasMB.elipsoidales2Gauss(coorElip, gaussCOrigen);
+                                puntos[0] = puntos[indexIDGeocen];
+                                puntos[1] = double.parse(coordenadasGauss.norte.toString());
+                                puntos[2] = double.parse(coordenadasGauss.este.toString());
+                                puntos[3] = double.parse(coordenadasGauss.altura.toString());
+                                geocentricas2Gauss[i] = puntos;
+                                } catch (e) {
+                                  alertaErrorArchivo();
+                                  validacion = false;
+                                }
+                              }
+                              }else {
+                                for (var i = 0; i < widget.dataCSV.length; i++) {
+                                List<dynamic> puntos = List(4);
+                                puntos = datosCSVImport[i];
+                                CoordenadasGeocentricas coordenadasGeocentricas = CoordenadasGeocentricas();
+                                CoordenadasGauss coordenadasGauss = CoordenadasGauss();
+                                CoordenadasElipsoidales coorElip = CoordenadasElipsoidales();
+                                try {
+                                coordenadasGeocentricas.x = puntos[indexXGeo];
+                                coordenadasGeocentricas.y = puntos[indexYGeo];
+                                coordenadasGeocentricas.z= puntos[indexZGeo];
+                                ConversionCoordenadasMB conversionCoordenadasMB = ConversionCoordenadasMB();
+                                coorElip = conversionCoordenadasMB.geocentricas2Elipsoidales(coordenadasGeocentricas);
+                                coordenadasGauss = conversionCoordenadasMB.elipsoidales2Gauss(coorElip, gaussCOrigen);
+                                puntos[0] = puntos[indexIDGeocen];
+                                puntos[1] = double.parse(coordenadasGauss.norte.toString());
+                                puntos[2] = double.parse(coordenadasGauss.este.toString());
+                                puntos[3] = double.parse(coordenadasGauss.altura.toString());
+                                geocentricas2Gauss[i+1] = puntos;
+                                } catch (e) {
+                                  print(e);
+                                  alertaErrorArchivo();
+                                  validacion = false;
+                                }
+                              }
+                              }
+                              if(validacion == true) {
+                              final Directory directorio = await getApplicationDocumentsDirectory();
+                              final File csvGuardar = File('${directorio.path}/MeasureBookConversiónElipsoidales.csv');
+                              String datosCSV = const ListToCsvConverter().convert(geocentricas2Gauss);
+                              await csvGuardar.writeAsString(datosCSV);
+                              Uint8List arCSv = csvGuardar.readAsBytesSync();
+                              await Share.file('Conversion Archivos MeasureBookAPP', 'MeasureBookConversiónElipsoidales.csv', arCSv, 'file/csv', text: 'Conversión de Coordenadas MeasureBook');
+                              }else{
+                                alertanoGaussOrigen();
+                              }
+                              }
+                              
+                            }else if(widget.destinoCS == 'Planas Cartesianas'){
+
+                            }
+                          }
+                        }, 
+                        child: Column(
+                            children: [
+                            SizedBox(height: 30),  
+                            Container(
+                            height: 30,
+                            width: 320,
+                            decoration: BoxDecoration(
+                              color: Colors.blueAccent,
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                            child: Center(
+                              child: Text('Exportar Coordenadas Convertidas a CSV', textAlign: TextAlign.center, style: TextStyle(color: Colors.white),)
+                          ),
+                        )]
+                        ),
+                    )
+                )],
+               ),
+             ),
+           ),
+         )
+         ),
+    );
+  }else if(widget.origenCS == 'Gauss - Krüger'){
+    if(widget.origenCS == 'Gauss - Krüger'){
+      if(widget.destinoCS == 'Gauss - Krüger'){
+        gaussCS2 = true;
+      }else if(widget.destinoCS == 'Planas Cartesianas'){
+        cartesianCS = true;
+      }
+    }
+
+  }else if(widget.origenCS =='Planas Cartesianas'){
+    if(widget.destinoCS == 'Planas Cartesianas'){
+      if(widget.destinoCS == 'Planas Cartesianas'){
+        cartesianCS2 = true;
+      }else if(widget.destinoCS == 'Gauss - Krüger'){
+        gausCS = true;
+      }
+    }
+
   }
     }
     
@@ -1105,7 +1410,7 @@ class _ConfiguracionArchivoImportadoState extends State<ConfiguracionArchivoImpo
     );
   }
 
-    void alertaErrorArchivo(){
+  void alertaErrorArchivo(){
     Fluttertoast.showToast(
     msg: "El formato del archivo no es compatible, por favor valide que el CSV este delimitado por comas y use punto como simbolo decimal ",
     toastLength: Toast.LENGTH_LONG,
