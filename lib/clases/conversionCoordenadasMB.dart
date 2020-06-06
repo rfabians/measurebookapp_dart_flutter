@@ -4,6 +4,7 @@ import 'package:measurebookapp/modelos/cartesianasCS.dart';
 import 'package:measurebookapp/modelos/coordenadasCartesianas.dart';
 import 'package:measurebookapp/modelos/coordenadasElipsoidales.dart';
 import 'package:measurebookapp/modelos/coordenadasGeocenticas.dart';
+import 'package:measurebookapp/modelos/coordenadasON.dart';
 import 'package:measurebookapp/modelos/coordenadasPlanasGauss.dart';
 import 'package:measurebookapp/modelos/gaussCS.dart';
 class ConversionCoordenadasMB {
@@ -236,4 +237,131 @@ CoordenadasElipsoidales cartesianas2Elipoidales(CoordenadasCartesianas _coordena
   _coordenadasElipsoidales.altitud = _alturaPunto;
   return _coordenadasElipsoidales;    
 }
+//Conversión de Elipsoidales a TM Origen Nacional
+CoordenadasON elipsoidales2GaussNuevo(CoordenadasElipsoidales _coordenadasElipsoidales) {
+  double _latitudPunto = _coordenadasElipsoidales.latitud;
+  double _longitudPunto = _coordenadasElipsoidales.longitud;
+  double _alturaPunto = _coordenadasElipsoidales.altitud;
+  // Factor de Escala
+  double k = 0.9992;
+  // Constantes Elipsoide
+  double _a = 6378137.000;
+  double _b = 6356752.31414;
+  double _e1 = 0.00669438002290;
+  double _e2 = 0.00673949677548;
+  double _latitudOrigen = 4;
+  double _longitudOrigen = -73;
+  double _laRad = grados2Radianes(_latitudPunto);
+  double _loRad = grados2Radianes(_longitudPunto);
+  double _laORad = grados2Radianes(_latitudOrigen);
+  double _loORad = grados2Radianes(_longitudOrigen);
+  double _l = _loRad - _loORad;
+  double _t = m.tan(_laRad);
+  double _eta2 = _e2 * m.pow(m.cos(_laRad), 2);
+  double _n = (_a - _b) / (_a + _b);
+  double _sinLaRad = m.sin(_laRad);
+  double _n1 = 1 - _e1 * m.pow(_sinLaRad, 2);
+  double _N = _a / m.sqrt(_n1);
+  double _A = (_a + _b) / 2 * (1 + m.pow(_n, 2) / 4 + m.pow(_n, 4) / 64);
+  double _B = -(3 * _n / 2) + 9 * m.pow(_n, 3) / 16 - 3 * m.pow(_n, 5) / 32;
+  double _C = 15 * m.pow(_n, 2) / 16 - 15 * m.pow(_n, 4) / 32;
+  double _D = -(35 * m.pow(_n, 3) / 48) + 105 * m.pow(_n, 5) / 256;
+  double _E = 315 * m.pow(_n, 4) / 512;
+  double _arcoMP = _A * (_laRad + _B * m.sin(2 * _laRad) + _C * m.sin(4 * _laRad) + _D * m.sin(6 * _laRad) + _E * m.sin(8 * _laRad));
+  double _arcoMO = _A * (_laORad + _B * m.sin(2 * _laORad) + _C * m.sin(4 * _laORad) + _D * m.sin(6 * _laORad) + _E * m.sin(8 * _laORad));
+  double _Darcos = _arcoMP - _arcoMO;
+  double _N1 = _t * _N / 2 * m.pow(_l, 2) * m.pow(m.cos(_laRad), 2);
+  double _N2 = _t * _N / 24 * m.pow(m.cos(_laRad), 4) * (5 - m.pow(_t, 2) + 9 * _eta2 + 4 * m.pow(_eta2, 2)) * m.pow(_l, 4);
+  double _N3 = _t * _N / 720 * m.pow(m.cos(_laRad), 6) * (61 - 58 * m.pow(_t, 2) + m.pow(_t, 4) + 270 * _eta2 - 330 * _eta2 * m.pow(_t, 2)) * m.pow(_l, 6);
+  double _N4 = _t * _N / 40320 * m.pow(m.cos(_laRad), 8) * (1385 - 3111 * m.pow(_t, 2) + 543 * m.pow(_t, 4) - m.pow(_t, 6)) * m.pow(_l, 8);
+  double _norte = 2000000 + (_Darcos + _N1 + _N2 + _N3 + _N4)*k;
+  double _E1 = _N * _l * m.cos(_laRad);
+  double _E2 = _N / 6 * m.pow(m.cos(_laRad), 3) * (1 - m.pow(_t, 2) + _eta2) * m.pow(_l, 3);
+  double _E3 = _N / 120 * m.pow(m.cos(_laRad), 5) * (5 - 18 * m.pow(_t, 2) + m.pow(_t, 4) + 14 * _eta2 - 58 * m.pow(_t, 2) * _eta2) * m.pow(_l, 5);
+  double _E4 = _N / 5040 * m.pow(m.cos(_laRad), 7) * (61 - 479 * m.pow(_t, 2) + 179 * m.pow(_t, 4) - m.pow(_t, 6)) * m.pow(_l, 7);
+  double _east = 5000000 + (_E1 + _E2 + _E3 + _E4)*k;
+  print(_norte);
+  print(_east);
+  print(2560);
+  CoordenadasON coordenadasOn = CoordenadasON();
+  coordenadasOn.norte = _norte;
+  coordenadasOn.este = _east;
+  coordenadasOn.altura = _alturaPunto;
+  return coordenadasOn;
+  }
+
+  //Conversión de Coordenadas Magna Origen Nacional a Elipsoidales
+
+  CoordenadasElipsoidales origenNacional2Elipsoidales(CoordenadasON coordenadasOn){
+    double norte = coordenadasOn.norte;
+    double este = coordenadasOn.este;
+    double altura = coordenadasOn.altura;
+    double latitudOrigen = 4;
+    double longitudOrigen = -73;
+    double falsoNorte = 2000000;
+    double falsoEste = 5000000;
+    double k = 0.9992;
+    double a = 6378137.000;
+    double b = 6356752.31414;
+    double f = 1-b/a;
+    double e2 = 2*f-m.pow(f, 2);
+    double Np = norte - falsoNorte;
+    // Función Punto Guia
+    double puntoGuia(double latitud){
+      double A0 = 1-(e2/4)-((3*m.pow(e2, 2))/64)-((5*m.pow(e2, 3))/256);
+      double A2 = (3/8)*(e2+((m.pow(e2, 2))/4)+((15*m.pow(e2, 3))/128));
+      double A4 = (15/256)*(m.pow(e2, 2)+((3*m.pow(e2, 3))/4));
+      double A6 = (35*m.pow(e2, 3)/3072);
+      double lat = grados2Radianes(latitud);
+      double M = a*(A0*lat -A2*m.sin(2*lat)+A4*m.sin(4*lat)-A6*m.sin(6*lat));
+      return M;
+    }
+    //punto medio de la tierra
+    double latR = grados2Radianes(latitudOrigen);
+    double lgnR = grados2Radianes(longitudOrigen);
+    double p = (a*(1-e2))/(m.pow((1-e2*m.pow(m.sin(latR),2)), 3/2));
+    double v = (a)/(m.pow((1-e2*m.pow(m.sin(latR),2)), 1/2));
+    double w = v/p;
+    double t = m.tan(latR);
+    double Ep = este - falsoEste;
+    double mp = puntoGuia(latitudOrigen)+(Np/k);
+    //
+    double n = (a-b)/(a+b);
+    //
+    double G = a*(1-n)*(1-m.pow(n, 2))*(1+(9*m.pow(n, 2)/(4))+(225*m.pow(n, 4)/(64)));
+    double O = mp/G;
+    double latp = O +(3*n/2-(27*m.pow(n, 3))/32)*m.sin(2*O)+(21*m.pow(n, 2)/16-55*m.pow(n, 4)/32)*m.sin(4*O)+
+                    (151*m.pow(n, 3)/96)*m.sin(6*O)+(1097*m.pow(n, 4)/512)*m.sin(8*O);
+    double pp = (a*(1-e2))/(m.pow((1-e2*m.pow(m.sin(latp),2)), 3/2));
+    double vp = (a)/(m.pow((1-e2*m.pow(m.sin(latp),2)), 1/2));
+    double wp = vp/pp;
+    double tp = m.tan(latp);
+    double x = Ep/(k*vp);
+    double T1 = (tp*Ep*x)/(k*pp*2);
+    double T2 = ((tp*Ep*m.pow(x, 3))/(k*pp*24))*(-4*m.pow(w, 2)+9*w*(1-m.pow(tp, 2))+12*m.pow(tp, 2));
+    double T3 = ((tp*Ep*m.pow(x, 5))/(k*pp*720))*(8*m.pow(w, 4)*(11-24*m.pow(tp, 2))-12*m.pow(w, 3)*(21-71*m.pow(tp, 2))
+                +15*m.pow(wp, 2)*(15-98*m.pow(tp, 2)+15*m.pow(tp, 4))+180*w*(5-m.pow(tp, 2)-3*m.pow(tp, 4))+360*m.pow(t, 4));
+    double T4 = ((tp*Ep*m.pow(x, 7))/(k*pp*40320))*(1385+3633*m.pow(tp, 2)+4095*m.pow(tp, 4)+1575*m.pow(tp, 6));
+    double latS = latp -T1+T2-T3+T4;
+    double latGrados = radianes2Grados(latS);
+   
+
+    // Conversión Longitud
+    double t1 = (x)/(m.cos(latp));
+    double t2 = ((m.pow(x, 3))/(6*m.cos(latp)))*(w+2*m.pow(tp, 2));
+    double t3 = ((m.pow(x, 5))/(120*m.cos(latp)))*(-4*m.pow(w, 3)*(1-6*m.pow(tp, 2))+m.pow(w, 2)*(9-68*m.pow(tp, 2))+72*w*m.pow(tp, 2)+24*m.pow(tp, 4));
+    double t4 = ((m.pow(x, 7))/(5040*m.cos(latp)))*(61+662*m.pow(tp, 2)+1320*m.pow(t, 4)+720*m.pow(t, 6));
+    double lgnS = lgnR +t1-t2+t3-t4;
+    double lgnGrados = radianes2Grados(lgnS);
+    
+    CoordenadasElipsoidales coordenadasElipsoidales = CoordenadasElipsoidales();
+    coordenadasElipsoidales.latitud = latGrados;
+    coordenadasElipsoidales.longitud = lgnGrados;
+    coordenadasElipsoidales.altitud = altura;
+
+    return coordenadasElipsoidales;
+  }
+
+
+
 }
