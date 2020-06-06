@@ -35,6 +35,10 @@ class _ConfiguracionArchivoImportadoState extends State<ConfiguracionArchivoImpo
   int indexIDGeocen = 0;
   int  indexXGeo = 0;
   int indexYGeo = 0;
+  int indexIDCartesian = 0;
+  int indexNorteCartesian = 0;
+  int indexEsteCartesian = 0;
+  int indexAltCartesian = 0;
   int indexIDGauss = 0;
   int indexEsteGauss  = 0;
   int indexNorteGauss  = 0;
@@ -2918,11 +2922,1032 @@ class _ConfiguracionArchivoImportadoState extends State<ConfiguracionArchivoImpo
     }
 
   }else if(widget.origenCS =='Planas Cartesianas'){
-    if(widget.destinoCS == 'Planas Cartesianas'){
+    if(widget.origenCS == 'Planas Cartesianas'){
       if(widget.destinoCS == 'Planas Cartesianas'){
-        cartesianCS2 = true;
+        alertaIgualSystemCoor();
       }else if(widget.destinoCS == 'Gauss - Krüger'){
-        gausCS = true;
+        cartesianCS2 = true;
+        gaussCS2 = true;
+        return Scaffold(
+       body: SafeArea(
+         child: SingleChildScrollView(
+           child: Center(
+             child: Padding(
+               padding: const EdgeInsets.all(15.0),
+               child: Column(
+                 children: <Widget>[
+                   Image.asset('assets/images/csv_load.png', height: 80),
+                   SizedBox(height: 10),
+                   Text('Conversión de archivo CSV con coordenadas ${widget.origenCS} a ${widget.destinoCS}', textAlign: TextAlign.center, style: TextStyle(color: Colors.blueAccent, fontSize: 13),),
+                   Divider(),
+                   Text('Archivo con encabezado',style: TextStyle(color: Colors.black54),),
+                   CupertinoSwitch(
+                     activeColor: Colors.blueAccent,
+                     value: encabezado, 
+                     onChanged: (bool switchEncabezado) {
+                       setState(() {
+                         encabezado = switchEncabezado;
+                       });
+                     }
+                     ),
+                    Divider(),
+                    Container(
+                      height: 440,
+                      width: MediaQuery.of(context).size.width,
+                      child: Container(
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(20),
+                          boxShadow: [
+                            BoxShadow(
+                              blurRadius: 5,
+                              color: Colors.black54,
+                              offset: Offset(0, 5)
+                            )
+                          ]
+                        ),
+                        child: Column(
+                          children: <Widget>[
+                            Padding(
+                              padding: const EdgeInsets.all(20.0),
+                              child: Text('Relacione el nombre del campo con la columna del CSV correspondiente', textAlign: TextAlign.center, style: TextStyle(color: Colors.blueAccent, fontSize: 13),),
+                            ),
+                            Divider(thickness: 5),
+                            Row(
+                              children: <Widget>[
+                                Container(
+                                  width: MediaQuery.of(context).size.width/2-30,
+                                  height: 80,
+                                   child: Center(child: Text('Identificador del Punto: ', style:  TextStyle(color: Colors.black54, fontSize: 13),)),
+                                ),
+                                Container(
+                                  width: MediaQuery.of(context).size.width/2-30,
+                                  height: 80,
+                                  child: CupertinoPicker(
+                                  squeeze: .9,
+                                  looping: false,
+                                  diameterRatio: 20,
+                                  backgroundColor: Colors.white,
+                                  itemExtent: 20, 
+                                  onSelectedItemChanged: (index){
+                                     setState(() {
+                                       indexIDCartesian = index;
+                                     });
+                                  }, 
+                                  children: camposCSVFILE
+                                  ),
+                                ),
+
+                              ],
+                            ),
+                            Divider(thickness: 5),
+                            Row(
+                              children: <Widget>[
+                                Container(
+                                  width: MediaQuery.of(context).size.width/2-30,
+                                  height: 80,
+                                   child: Center(child: Text('Este ', style:  TextStyle(color: Colors.black54, fontSize: 13),)),
+                                ),
+                                Container(
+                                  width: MediaQuery.of(context).size.width/2-30,
+                                  height: 80,
+                                  child: CupertinoPicker(
+                                  squeeze: .9,
+                                  looping: false,
+                                  diameterRatio: 20,
+                                  backgroundColor: Colors.white,
+                                  itemExtent: 20, 
+                                  onSelectedItemChanged: (index){
+                                    setState(() {
+                                       indexEsteCartesian = index;
+                                     });
+                                  }, 
+                                  children: camposCSVFILE
+                                  ),
+                                ),
+                              ],
+                            ),
+                            Divider(thickness: 5),
+                            Row(
+                              children: <Widget>[
+                                Container(
+                                  width: MediaQuery.of(context).size.width/2-30,
+                                  height: 80,
+                                   child: Center(child: Text('Norte ', style:  TextStyle(color: Colors.black54, fontSize: 13),)),
+                                ),
+                                Container(
+                                  width: MediaQuery.of(context).size.width/2-30,
+                                  height: 80,
+                                  child: CupertinoPicker(
+                                  squeeze: .9,
+                                  looping: false,
+                                  diameterRatio: 20,
+                                  backgroundColor: Colors.white,
+                                  itemExtent: 20, 
+                                  onSelectedItemChanged: (index){
+                                    setState(() {
+                                       indexNorteCartesian = index;
+                                     });
+                                  }, 
+                                  children: camposCSVFILE
+                                  ),
+                                ),
+                              
+                              ],
+                            ),
+                            Divider(thickness: 5),
+                            Row(
+                              children: <Widget>[
+                                Container(
+                                  width: MediaQuery.of(context).size.width/2-30,
+                                  height: 80,
+                                   child: Center(child: Text('Altura ', style:  TextStyle(color: Colors.black54, fontSize: 13),)),
+                                ),
+                                Container(
+                                  width: MediaQuery.of(context).size.width/2-30,
+                                  height: 80,
+                                  child: CupertinoPicker(
+                                  squeeze: .9,
+                                  looping: false,
+                                  diameterRatio: 20,
+                                  backgroundColor: Colors.white,
+                                  itemExtent: 20, 
+                                  onSelectedItemChanged: (index){
+                                    setState(() {
+                                       indexAltCartesian = index;
+                                     });
+                                  }, 
+                                  children: camposCSVFILE
+                                  ),
+                                ),
+                              
+                              ],
+                            )
+                          ],
+                        ),
+                      )
+                    ),
+                    Container(
+                      child: cartesianCS2
+                      ?Container(
+                      child: origenCartesiano
+                          ?Container(
+                            child: ListTile(
+                              leading: Icon(Icons.add_location, color: Colors.blueAccent, size: 50,),
+                              title: Text('Origen de Cordenadas de Destino (Cartesianas)',style: TextStyle(
+                              fontFamily: 'Roboto', 
+                              fontSize: 13.0,
+                              color: Color(0xff007FFF),
+                              )),
+                              subtitle: Text('${origenCartesian.NOMBRE}', style: 
+                              TextStyle(
+                                fontFamily: 'Roboto', 
+                                fontSize: 16.0,
+                                color: Colors.black54,
+                              )),
+                              onTap: (){
+                                _alertDialogoCartesianas2(context);
+                              },
+                            )
+                          )
+                          :Container(
+                            child: ListTile(
+                              leading: Icon(Icons.add_location, color: Colors.blueAccent, size: 50,),
+                              title: Text('Origen de Cordenadas de Origen (Cartesianas)',style: TextStyle(
+                              fontFamily: 'Roboto', 
+                              fontSize: 13.0,
+                              color: Color(0xff007FFF),
+                              )),
+                              subtitle: Text('Selecciona el origen en el que se encuentra el punto ', style: 
+                              TextStyle(
+                                fontFamily: 'Roboto', 
+                                fontSize: 12.0,
+                                color: Colors.black54,
+                              )),
+                              trailing: Icon(Icons.chevron_right, size: 30.0, color: Colors.blueAccent,),
+                              onTap: (){
+                                _alertDialogoCartesianas2(context);
+                              },
+                            )
+                          )
+                        )
+                      :Container(
+                      ),
+                    ),
+                    Container(
+                      child: gaussCS2
+                      ?Container(
+                      child: origenGauss
+                          ?Container(
+                            child: ListTile(
+                              leading: Icon(Icons.add_location, color: Colors.blueAccent, size: 50,),
+                              title: Text('Origen de Cordenadas de Destino (Gauss)',style: TextStyle(
+                              fontFamily: 'Roboto', 
+                              fontSize: 13.0,
+                              color: Color(0xff007FFF),
+                              )),
+                              subtitle: Text('${gaussCOrigen.NOMBRE}', style: 
+                              TextStyle(
+                                fontFamily: 'Roboto', 
+                                fontSize: 16.0,
+                                color: Colors.black54,
+                              )),
+                              onTap: (){
+                                _sistemaGauss2(context);
+                              },
+                            )
+                          )
+                          :Container(
+                            child: ListTile(
+                              leading: Icon(Icons.add_location, color: Colors.blueAccent, size: 50,),
+                              title: Text('Origen de Cordenadas de Partida (Gauss)',style: TextStyle(
+                              fontFamily: 'Roboto', 
+                              fontSize: 13.0,
+                              color: Color(0xff007FFF),
+                              )),
+                              subtitle: Text('Selecciona el origen en el que se encuentra el punto ', style: 
+                              TextStyle(
+                                fontFamily: 'Roboto', 
+                                fontSize: 12.0,
+                                color: Colors.black54,
+                              )),
+                              trailing: Icon(Icons.chevron_right, size: 30.0, color: Colors.blueAccent,),
+                              onTap: (){
+                                _sistemaGauss2(context);
+                              },
+                            )
+                          )
+                        )
+                      :Container(
+                        
+                      ),
+                    ),
+                    Center(
+                      child: FlatButton(
+                        onPressed: ()async{
+                            if(indexIDCartesian == indexNorteCartesian){
+                            alertaIndexCoor('ID Punto', 'Norte');
+                          } else if(indexIDCartesian == indexEsteCartesian){
+                            alertaIndexCoor('ID Punto', 'Este');
+                          } else if(indexIDCartesian == indexAltCartesian){
+                            alertaIndexCoor('ID Punto', 'Altura');
+                          } else if(indexEsteCartesian == indexNorteCartesian){
+                            alertaIndexCoor('Este', 'Norte');
+                          } else if(indexEsteCartesian == indexAltCartesian){
+                            alertaIndexCoor('Este', 'Altura');
+                          } else if(indexNorteCartesian == indexAltCartesian){
+                            alertaIndexCoor('Norte', 'Altura');
+                          } else {
+                          if(widget.destinoCS == 'Gauss - Krüger'){
+                              if(origenCartesiano == true){
+                                if(origenGauss == true){
+                              List<List<dynamic>> cartesianas2gauss = List<List<dynamic>>(widget.dataCSV.length+1);
+                              List<String> puntos0 = List(4);
+                              puntos0[0] = 'ID Punto';
+                              puntos0[1] = 'Norte';
+                              puntos0[2] = 'Este';
+                              puntos0[3] = 'Altura';
+                              cartesianas2gauss[0]=puntos0;
+                              List<dynamic> datosCSVImport = List();
+                              datosCSVImport = widget.dataCSV;
+                              if(encabezado == true){
+                                for (var i = 1; i < widget.dataCSV.length; i++) {
+                                List<dynamic> puntos = List(4);
+                                puntos = datosCSVImport[i];
+                                 CoordenadasCartesianas coordenadasCartesianas = CoordenadasCartesianas();
+                                 CoordenadasGauss coordenadasGauss = CoordenadasGauss();
+                                 CoordenadasElipsoidales coorElip = CoordenadasElipsoidales();
+                                try {
+                                coordenadasCartesianas.este = puntos[indexEsteCartesian];
+                                coordenadasCartesianas.norte = puntos[indexNorteCartesian];
+                                coordenadasCartesianas.altura= puntos[indexAltCartesian];
+                                ConversionCoordenadasMB conversionCoordenadasMB = ConversionCoordenadasMB();
+                                coorElip = conversionCoordenadasMB.cartesianas2Elipoidales(coordenadasCartesianas, origenCartesian);
+                                coordenadasGauss = conversionCoordenadasMB.elipsoidales2Gauss(coorElip, gaussCOrigen);
+                                puntos[0] = puntos[indexIDCartesian];
+                                puntos[1] = double.parse(coordenadasGauss.norte.toString());
+                                puntos[2] = double.parse(coordenadasGauss.este.toString());
+                                puntos[3] = double.parse(coordenadasGauss.altura.toString());
+                                cartesianas2gauss[i] = puntos;
+                                } catch (e) {
+                                  alertaErrorArchivo();
+                                  validacion = false;
+                                }
+                              }
+                              }else {
+                                for (var i = 0; i < widget.dataCSV.length; i++) {
+                                List<dynamic> puntos = List(4);
+                                puntos = datosCSVImport[i];
+                                CoordenadasCartesianas coordenadasCartesianas = CoordenadasCartesianas();
+                                CoordenadasGauss coordenadasGauss = CoordenadasGauss();
+                                CoordenadasElipsoidales coorElip = CoordenadasElipsoidales();
+                                try {
+                                coordenadasCartesianas.este = puntos[indexEsteCartesian];
+                                coordenadasCartesianas.norte = puntos[indexNorteCartesian];
+                                coordenadasCartesianas.altura= puntos[indexAltCartesian];
+                                ConversionCoordenadasMB conversionCoordenadasMB = ConversionCoordenadasMB();
+                                coorElip = conversionCoordenadasMB.cartesianas2Elipoidales(coordenadasCartesianas, origenCartesian);
+                                coordenadasGauss = conversionCoordenadasMB.elipsoidales2Gauss(coorElip, gaussCOrigen);
+                                puntos[0] = puntos[indexIDCartesian];
+                                puntos[1] = double.parse(coordenadasGauss.norte.toString());
+                                puntos[2] = double.parse(coordenadasGauss.este.toString());
+                                puntos[3] = double.parse(coordenadasGauss.altura.toString());
+                                cartesianas2gauss[i+1] = puntos;
+                                } catch (e) {
+                                  print(e);
+                                  alertaErrorArchivo();
+                                  validacion = false;
+                                }
+                              }
+                              }
+                              if(validacion == true) {
+                              final Directory directorio = await getApplicationDocumentsDirectory();
+                              final File csvGuardar = File('${directorio.path}/MeasureBookConversiónElipsoidales.csv');
+                              String datosCSV = const ListToCsvConverter().convert(cartesianas2gauss);
+                              await csvGuardar.writeAsString(datosCSV);
+                              Uint8List arCSv = csvGuardar.readAsBytesSync();
+                              await Share.file('Conversion Archivos MeasureBookAPP', 'Gauss.csv', arCSv, 'file/csv', text: 'Conversión de Coordenadas MeasureBook');
+                              }else{
+                                alertanoGaussOrigen();
+                              }
+                              }else {
+                                alertanoGaussOrigen();
+                              }
+                              }else {
+                                alertanoGaussCartesian();
+                              }                              
+                            }
+                          }
+                        }, 
+                        child: Column(
+                            children: [
+                            SizedBox(height: 30),  
+                            Container(
+                            height: 30,
+                            width: 320,
+                            decoration: BoxDecoration(
+                              color: Colors.blueAccent,
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                            child: Center(
+                              child: Text('Exportar Coordenadas Convertidas a CSV', textAlign: TextAlign.center, style: TextStyle(color: Colors.white),)
+                          ),
+                        )]
+                        ),
+                    )
+                )],
+               ),
+             ),
+           ),
+         )
+         ),
+    );
+      }else if(widget.destinoCS == 'Elipsoidales'){
+        cartesianCS2 = true;
+        return Scaffold(
+       body: SafeArea(
+         child: SingleChildScrollView(
+           child: Center(
+             child: Padding(
+               padding: const EdgeInsets.all(15.0),
+               child: Column(
+                 children: <Widget>[
+                   Image.asset('assets/images/csv_load.png', height: 80),
+                   SizedBox(height: 10),
+                   Text('Conversión de archivo CSV con coordenadas ${widget.origenCS} a ${widget.destinoCS}', textAlign: TextAlign.center, style: TextStyle(color: Colors.blueAccent, fontSize: 13),),
+                   Divider(),
+                   Text('Archivo con encabezado',style: TextStyle(color: Colors.black54),),
+                   CupertinoSwitch(
+                     activeColor: Colors.blueAccent,
+                     value: encabezado, 
+                     onChanged: (bool switchEncabezado) {
+                       setState(() {
+                         encabezado = switchEncabezado;
+                       });
+                     }
+                     ),
+                    Divider(),
+                    Container(
+                      height: 440,
+                      width: MediaQuery.of(context).size.width,
+                      child: Container(
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(20),
+                          boxShadow: [
+                            BoxShadow(
+                              blurRadius: 5,
+                              color: Colors.black54,
+                              offset: Offset(0, 5)
+                            )
+                          ]
+                        ),
+                        child: Column(
+                          children: <Widget>[
+                            Padding(
+                              padding: const EdgeInsets.all(20.0),
+                              child: Text('Relacione el nombre del campo con la columna del CSV correspondiente', textAlign: TextAlign.center, style: TextStyle(color: Colors.blueAccent, fontSize: 13),),
+                            ),
+                            Divider(thickness: 5),
+                            Row(
+                              children: <Widget>[
+                                Container(
+                                  width: MediaQuery.of(context).size.width/2-30,
+                                  height: 80,
+                                   child: Center(child: Text('Identificador del Punto: ', style:  TextStyle(color: Colors.black54, fontSize: 13),)),
+                                ),
+                                Container(
+                                  width: MediaQuery.of(context).size.width/2-30,
+                                  height: 80,
+                                  child: CupertinoPicker(
+                                  squeeze: .9,
+                                  looping: false,
+                                  diameterRatio: 20,
+                                  backgroundColor: Colors.white,
+                                  itemExtent: 20, 
+                                  onSelectedItemChanged: (index){
+                                     setState(() {
+                                       indexIDCartesian = index;
+                                     });
+                                  }, 
+                                  children: camposCSVFILE
+                                  ),
+                                ),
+
+                              ],
+                            ),
+                            Divider(thickness: 5),
+                            Row(
+                              children: <Widget>[
+                                Container(
+                                  width: MediaQuery.of(context).size.width/2-30,
+                                  height: 80,
+                                   child: Center(child: Text('Este ', style:  TextStyle(color: Colors.black54, fontSize: 13),)),
+                                ),
+                                Container(
+                                  width: MediaQuery.of(context).size.width/2-30,
+                                  height: 80,
+                                  child: CupertinoPicker(
+                                  squeeze: .9,
+                                  looping: false,
+                                  diameterRatio: 20,
+                                  backgroundColor: Colors.white,
+                                  itemExtent: 20, 
+                                  onSelectedItemChanged: (index){
+                                    setState(() {
+                                       indexEsteCartesian = index;
+                                     });
+                                  }, 
+                                  children: camposCSVFILE
+                                  ),
+                                ),
+                              ],
+                            ),
+                            Divider(thickness: 5),
+                            Row(
+                              children: <Widget>[
+                                Container(
+                                  width: MediaQuery.of(context).size.width/2-30,
+                                  height: 80,
+                                   child: Center(child: Text('Norte ', style:  TextStyle(color: Colors.black54, fontSize: 13),)),
+                                ),
+                                Container(
+                                  width: MediaQuery.of(context).size.width/2-30,
+                                  height: 80,
+                                  child: CupertinoPicker(
+                                  squeeze: .9,
+                                  looping: false,
+                                  diameterRatio: 20,
+                                  backgroundColor: Colors.white,
+                                  itemExtent: 20, 
+                                  onSelectedItemChanged: (index){
+                                    setState(() {
+                                       indexNorteCartesian = index;
+                                     });
+                                  }, 
+                                  children: camposCSVFILE
+                                  ),
+                                ),
+                              
+                              ],
+                            ),
+                            Divider(thickness: 5),
+                            Row(
+                              children: <Widget>[
+                                Container(
+                                  width: MediaQuery.of(context).size.width/2-30,
+                                  height: 80,
+                                   child: Center(child: Text('Altura ', style:  TextStyle(color: Colors.black54, fontSize: 13),)),
+                                ),
+                                Container(
+                                  width: MediaQuery.of(context).size.width/2-30,
+                                  height: 80,
+                                  child: CupertinoPicker(
+                                  squeeze: .9,
+                                  looping: false,
+                                  diameterRatio: 20,
+                                  backgroundColor: Colors.white,
+                                  itemExtent: 20, 
+                                  onSelectedItemChanged: (index){
+                                    setState(() {
+                                       indexAltCartesian = index;
+                                     });
+                                  }, 
+                                  children: camposCSVFILE
+                                  ),
+                                ),
+                              
+                              ],
+                            )
+                          ],
+                        ),
+                      )
+                    ),
+                    Container(
+                      child: cartesianCS2
+                      ?Container(
+                      child: origenCartesiano
+                          ?Container(
+                            child: ListTile(
+                              leading: Icon(Icons.add_location, color: Colors.blueAccent, size: 50,),
+                              title: Text('Origen de Cordenadas de Destino (Cartesianas)',style: TextStyle(
+                              fontFamily: 'Roboto', 
+                              fontSize: 13.0,
+                              color: Color(0xff007FFF),
+                              )),
+                              subtitle: Text('${origenCartesian.NOMBRE}', style: 
+                              TextStyle(
+                                fontFamily: 'Roboto', 
+                                fontSize: 16.0,
+                                color: Colors.black54,
+                              )),
+                              onTap: (){
+                                _alertDialogoCartesianas2(context);
+                              },
+                            )
+                          )
+                          :Container(
+                            child: ListTile(
+                              leading: Icon(Icons.add_location, color: Colors.blueAccent, size: 50,),
+                              title: Text('Origen de Cordenadas de Origen (Cartesianas)',style: TextStyle(
+                              fontFamily: 'Roboto', 
+                              fontSize: 13.0,
+                              color: Color(0xff007FFF),
+                              )),
+                              subtitle: Text('Selecciona el origen en el que se encuentra el punto ', style: 
+                              TextStyle(
+                                fontFamily: 'Roboto', 
+                                fontSize: 12.0,
+                                color: Colors.black54,
+                              )),
+                              trailing: Icon(Icons.chevron_right, size: 30.0, color: Colors.blueAccent,),
+                              onTap: (){
+                                _alertDialogoCartesianas2(context);
+                              },
+                            )
+                          )
+                        )
+                      :Container(
+                      ),
+                    ),
+                    Center(
+                      child: FlatButton(
+                        onPressed: ()async{
+                            if(indexIDCartesian == indexNorteCartesian){
+                            alertaIndexCoor('ID Punto', 'Norte');
+                          } else if(indexIDCartesian == indexEsteCartesian){
+                            alertaIndexCoor('ID Punto', 'Este');
+                          } else if(indexIDCartesian == indexAltCartesian){
+                            alertaIndexCoor('ID Punto', 'Altura');
+                          } else if(indexEsteCartesian == indexNorteCartesian){
+                            alertaIndexCoor('Este', 'Norte');
+                          } else if(indexEsteCartesian == indexAltCartesian){
+                            alertaIndexCoor('Este', 'Altura');
+                          } else if(indexNorteCartesian == indexAltCartesian){
+                            alertaIndexCoor('Norte', 'Altura');
+                          } else {
+                          if(widget.destinoCS == 'Elipsoidales'){
+                              if(origenCartesiano == true){
+                              List<List<dynamic>> cartesianas2Elipsoidales = List<List<dynamic>>(widget.dataCSV.length+1);
+                              List<String> puntos0 = List(4);
+                              puntos0[0] = 'ID Punto';
+                              puntos0[1] = 'Latitud';
+                              puntos0[2] = 'Longitud';
+                              puntos0[3] = 'Altura';
+                              cartesianas2Elipsoidales[0]=puntos0;
+                              List<dynamic> datosCSVImport = List();
+                              datosCSVImport = widget.dataCSV;
+                              if(encabezado == true){
+                                for (var i = 1; i < widget.dataCSV.length; i++) {
+                                List<dynamic> puntos = List(4);
+                                puntos = datosCSVImport[i];
+                                 CoordenadasCartesianas coordenadasCartesianas = CoordenadasCartesianas();
+                                 CoordenadasElipsoidales coorElip = CoordenadasElipsoidales();
+                                try {
+                                coordenadasCartesianas.este = puntos[indexEsteCartesian];
+                                coordenadasCartesianas.norte = puntos[indexNorteCartesian];
+                                coordenadasCartesianas.altura= puntos[indexAltCartesian];
+                                ConversionCoordenadasMB conversionCoordenadasMB = ConversionCoordenadasMB();
+                                coorElip = conversionCoordenadasMB.cartesianas2Elipoidales(coordenadasCartesianas, origenCartesian);
+                                puntos[0] = puntos[indexIDCartesian];
+                                puntos[1] = double.parse(coorElip.latitud.toString());
+                                puntos[2] = double.parse(coorElip.longitud.toString());
+                                puntos[3] = double.parse(coorElip.altitud.toString());
+                                cartesianas2Elipsoidales[i] = puntos;
+                                } catch (e) {
+                                  alertaErrorArchivo();
+                                  validacion = false;
+                                }
+                              }
+                              }else {
+                                for (var i = 0; i < widget.dataCSV.length; i++) {
+                                List<dynamic> puntos = List(4);
+                                puntos = datosCSVImport[i];
+                                CoordenadasCartesianas coordenadasCartesianas = CoordenadasCartesianas();
+                                CoordenadasElipsoidales coorElip = CoordenadasElipsoidales();
+                                try {
+                                coordenadasCartesianas.este = puntos[indexEsteCartesian];
+                                coordenadasCartesianas.norte = puntos[indexNorteCartesian];
+                                coordenadasCartesianas.altura= puntos[indexAltCartesian];
+                                ConversionCoordenadasMB conversionCoordenadasMB = ConversionCoordenadasMB();
+                                coorElip = conversionCoordenadasMB.cartesianas2Elipoidales(coordenadasCartesianas, origenCartesian);
+                                puntos[0] = puntos[indexIDCartesian];
+                                puntos[1] = double.parse(coorElip.latitud.toString());
+                                puntos[2] = double.parse(coorElip.longitud.toString());
+                                puntos[3] = double.parse(coorElip.altitud.toString());
+                                cartesianas2Elipsoidales[i+1] = puntos;
+                                } catch (e) {
+                                  print(e);
+                                  alertaErrorArchivo();
+                                  validacion = false;
+                                }
+                              }
+                              }
+                              if(validacion == true) {
+                              final Directory directorio = await getApplicationDocumentsDirectory();
+                              final File csvGuardar = File('${directorio.path}/MeasureBookConversiónElipsoidales.csv');
+                              String datosCSV = const ListToCsvConverter().convert(cartesianas2Elipsoidales);
+                              await csvGuardar.writeAsString(datosCSV);
+                              Uint8List arCSv = csvGuardar.readAsBytesSync();
+                              await Share.file('Conversion Archivos MeasureBookAPP', 'Elipsoidales.csv', arCSv, 'file/csv', text: 'Conversión de Coordenadas MeasureBook');
+                              }else{
+                                alertanoGaussOrigen();
+                              }
+                              }else{
+                                alertanoGaussCartesian();
+                              }                              
+                            }
+                          }
+                        }, 
+                        child: Column(
+                            children: [
+                            SizedBox(height: 30),  
+                            Container(
+                            height: 30,
+                            width: 320,
+                            decoration: BoxDecoration(
+                              color: Colors.blueAccent,
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                            child: Center(
+                              child: Text('Exportar Coordenadas Convertidas a CSV', textAlign: TextAlign.center, style: TextStyle(color: Colors.white),)
+                          ),
+                        )]
+                        ),
+                    )
+                )],
+               ),
+             ),
+           ),
+         )
+         ),
+    );
+      
+      }else if(widget.destinoCS == 'Geocentricas'){
+        cartesianCS2 = true;
+        return Scaffold(
+       body: SafeArea(
+         child: SingleChildScrollView(
+           child: Center(
+             child: Padding(
+               padding: const EdgeInsets.all(15.0),
+               child: Column(
+                 children: <Widget>[
+                   Image.asset('assets/images/csv_load.png', height: 80),
+                   SizedBox(height: 10),
+                   Text('Conversión de archivo CSV con coordenadas ${widget.origenCS} a ${widget.destinoCS}', textAlign: TextAlign.center, style: TextStyle(color: Colors.blueAccent, fontSize: 13),),
+                   Divider(),
+                   Text('Archivo con encabezado',style: TextStyle(color: Colors.black54),),
+                   CupertinoSwitch(
+                     activeColor: Colors.blueAccent,
+                     value: encabezado, 
+                     onChanged: (bool switchEncabezado) {
+                       setState(() {
+                         encabezado = switchEncabezado;
+                       });
+                     }
+                     ),
+                    Divider(),
+                    Container(
+                      height: 440,
+                      width: MediaQuery.of(context).size.width,
+                      child: Container(
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(20),
+                          boxShadow: [
+                            BoxShadow(
+                              blurRadius: 5,
+                              color: Colors.black54,
+                              offset: Offset(0, 5)
+                            )
+                          ]
+                        ),
+                        child: Column(
+                          children: <Widget>[
+                            Padding(
+                              padding: const EdgeInsets.all(20.0),
+                              child: Text('Relacione el nombre del campo con la columna del CSV correspondiente', textAlign: TextAlign.center, style: TextStyle(color: Colors.blueAccent, fontSize: 13),),
+                            ),
+                            Divider(thickness: 5),
+                            Row(
+                              children: <Widget>[
+                                Container(
+                                  width: MediaQuery.of(context).size.width/2-30,
+                                  height: 80,
+                                   child: Center(child: Text('Identificador del Punto: ', style:  TextStyle(color: Colors.black54, fontSize: 13),)),
+                                ),
+                                Container(
+                                  width: MediaQuery.of(context).size.width/2-30,
+                                  height: 80,
+                                  child: CupertinoPicker(
+                                  squeeze: .9,
+                                  looping: false,
+                                  diameterRatio: 20,
+                                  backgroundColor: Colors.white,
+                                  itemExtent: 20, 
+                                  onSelectedItemChanged: (index){
+                                     setState(() {
+                                       indexIDCartesian = index;
+                                     });
+                                  }, 
+                                  children: camposCSVFILE
+                                  ),
+                                ),
+
+                              ],
+                            ),
+                            Divider(thickness: 5),
+                            Row(
+                              children: <Widget>[
+                                Container(
+                                  width: MediaQuery.of(context).size.width/2-30,
+                                  height: 80,
+                                   child: Center(child: Text('Este ', style:  TextStyle(color: Colors.black54, fontSize: 13),)),
+                                ),
+                                Container(
+                                  width: MediaQuery.of(context).size.width/2-30,
+                                  height: 80,
+                                  child: CupertinoPicker(
+                                  squeeze: .9,
+                                  looping: false,
+                                  diameterRatio: 20,
+                                  backgroundColor: Colors.white,
+                                  itemExtent: 20, 
+                                  onSelectedItemChanged: (index){
+                                    setState(() {
+                                       indexEsteCartesian = index;
+                                     });
+                                  }, 
+                                  children: camposCSVFILE
+                                  ),
+                                ),
+                              ],
+                            ),
+                            Divider(thickness: 5),
+                            Row(
+                              children: <Widget>[
+                                Container(
+                                  width: MediaQuery.of(context).size.width/2-30,
+                                  height: 80,
+                                   child: Center(child: Text('Norte ', style:  TextStyle(color: Colors.black54, fontSize: 13),)),
+                                ),
+                                Container(
+                                  width: MediaQuery.of(context).size.width/2-30,
+                                  height: 80,
+                                  child: CupertinoPicker(
+                                  squeeze: .9,
+                                  looping: false,
+                                  diameterRatio: 20,
+                                  backgroundColor: Colors.white,
+                                  itemExtent: 20, 
+                                  onSelectedItemChanged: (index){
+                                    setState(() {
+                                       indexNorteCartesian = index;
+                                     });
+                                  }, 
+                                  children: camposCSVFILE
+                                  ),
+                                ),
+                              
+                              ],
+                            ),
+                            Divider(thickness: 5),
+                            Row(
+                              children: <Widget>[
+                                Container(
+                                  width: MediaQuery.of(context).size.width/2-30,
+                                  height: 80,
+                                   child: Center(child: Text('Altura ', style:  TextStyle(color: Colors.black54, fontSize: 13),)),
+                                ),
+                                Container(
+                                  width: MediaQuery.of(context).size.width/2-30,
+                                  height: 80,
+                                  child: CupertinoPicker(
+                                  squeeze: .9,
+                                  looping: false,
+                                  diameterRatio: 20,
+                                  backgroundColor: Colors.white,
+                                  itemExtent: 20, 
+                                  onSelectedItemChanged: (index){
+                                    setState(() {
+                                       indexAltCartesian = index;
+                                     });
+                                  }, 
+                                  children: camposCSVFILE
+                                  ),
+                                ),
+                              
+                              ],
+                            )
+                          ],
+                        ),
+                      )
+                    ),
+                    Container(
+                      child: cartesianCS2
+                      ?Container(
+                      child: origenCartesiano
+                          ?Container(
+                            child: ListTile(
+                              leading: Icon(Icons.add_location, color: Colors.blueAccent, size: 50,),
+                              title: Text('Origen de Cordenadas de Destino (Cartesianas)',style: TextStyle(
+                              fontFamily: 'Roboto', 
+                              fontSize: 13.0,
+                              color: Color(0xff007FFF),
+                              )),
+                              subtitle: Text('${origenCartesian.NOMBRE}', style: 
+                              TextStyle(
+                                fontFamily: 'Roboto', 
+                                fontSize: 16.0,
+                                color: Colors.black54,
+                              )),
+                              onTap: (){
+                                _alertDialogoCartesianas2(context);
+                              },
+                            )
+                          )
+                          :Container(
+                            child: ListTile(
+                              leading: Icon(Icons.add_location, color: Colors.blueAccent, size: 50,),
+                              title: Text('Origen de Cordenadas de Origen (Cartesianas)',style: TextStyle(
+                              fontFamily: 'Roboto', 
+                              fontSize: 13.0,
+                              color: Color(0xff007FFF),
+                              )),
+                              subtitle: Text('Selecciona el origen en el que se encuentra el punto ', style: 
+                              TextStyle(
+                                fontFamily: 'Roboto', 
+                                fontSize: 12.0,
+                                color: Colors.black54,
+                              )),
+                              trailing: Icon(Icons.chevron_right, size: 30.0, color: Colors.blueAccent,),
+                              onTap: (){
+                                _alertDialogoCartesianas2(context);
+                              },
+                            )
+                          )
+                        )
+                      :Container(
+                      ),
+                    ),
+                    Center(
+                      child: FlatButton(
+                        onPressed: ()async{
+                            if(indexIDCartesian == indexNorteCartesian){
+                            alertaIndexCoor('ID Punto', 'Norte');
+                          } else if(indexIDCartesian == indexEsteCartesian){
+                            alertaIndexCoor('ID Punto', 'Este');
+                          } else if(indexIDCartesian == indexAltCartesian){
+                            alertaIndexCoor('ID Punto', 'Altura');
+                          } else if(indexEsteCartesian == indexNorteCartesian){
+                            alertaIndexCoor('Este', 'Norte');
+                          } else if(indexEsteCartesian == indexAltCartesian){
+                            alertaIndexCoor('Este', 'Altura');
+                          } else if(indexNorteCartesian == indexAltCartesian){
+                            alertaIndexCoor('Norte', 'Altura');
+                          } else {
+                          if(widget.destinoCS == 'Geocentricas'){
+                              if(origenCartesiano == true){
+                              List<List<dynamic>> cartesianas2Geocentricas = List<List<dynamic>>(widget.dataCSV.length+1);
+                              List<String> puntos0 = List(4);
+                              puntos0[0] = 'ID Punto';
+                              puntos0[1] = 'Coordenada X';
+                              puntos0[2] = 'Coordenada Y';
+                              puntos0[3] = 'Coordenada Z';
+                              cartesianas2Geocentricas[0]=puntos0;
+                              List<dynamic> datosCSVImport = List();
+                              datosCSVImport = widget.dataCSV;
+                              if(encabezado == true){
+                                for (var i = 1; i < widget.dataCSV.length; i++) {
+                                List<dynamic> puntos = List(4);
+                                puntos = datosCSVImport[i];
+                                 CoordenadasCartesianas coordenadasCartesianas = CoordenadasCartesianas();
+                                 CoordenadasGeocentricas coordenadasGeocentricas = CoordenadasGeocentricas();
+                                 CoordenadasElipsoidales coorElip = CoordenadasElipsoidales();
+                                try {
+                                coordenadasCartesianas.este = puntos[indexEsteCartesian];
+                                coordenadasCartesianas.norte = puntos[indexNorteCartesian];
+                                coordenadasCartesianas.altura= puntos[indexAltCartesian];
+                                ConversionCoordenadasMB conversionCoordenadasMB = ConversionCoordenadasMB();
+                                coorElip = conversionCoordenadasMB.cartesianas2Elipoidales(coordenadasCartesianas, origenCartesian);
+                                coordenadasGeocentricas = conversionCoordenadasMB.elipsoidales2Geocentricas(coorElip);
+                                puntos[0] = puntos[indexIDCartesian];
+                                puntos[1] = double.parse(coordenadasGeocentricas.x.toString());
+                                puntos[2] = double.parse(coordenadasGeocentricas.y.toString());
+                                puntos[3] = double.parse(coordenadasGeocentricas.z.toString());
+                                cartesianas2Geocentricas[i] = puntos;
+                                } catch (e) {
+                                  alertaErrorArchivo();
+                                  validacion = false;
+                                }
+                              }
+                              }else {
+                                for (var i = 0; i < widget.dataCSV.length; i++) {
+                                List<dynamic> puntos = List(4);
+                                puntos = datosCSVImport[i];
+                                CoordenadasCartesianas coordenadasCartesianas = CoordenadasCartesianas();
+                                CoordenadasGeocentricas coordenadasGeocentricas = CoordenadasGeocentricas();
+                                CoordenadasElipsoidales coorElip = CoordenadasElipsoidales();
+                                try {
+                                coordenadasCartesianas.este = puntos[indexEsteCartesian];
+                                coordenadasCartesianas.norte = puntos[indexNorteCartesian];
+                                coordenadasCartesianas.altura= puntos[indexAltCartesian];
+                                ConversionCoordenadasMB conversionCoordenadasMB = ConversionCoordenadasMB();
+                                coorElip = conversionCoordenadasMB.cartesianas2Elipoidales(coordenadasCartesianas, origenCartesian);
+                                coordenadasGeocentricas = conversionCoordenadasMB.elipsoidales2Geocentricas(coorElip);
+                                puntos[0] = puntos[indexIDCartesian];
+                                puntos[1] = double.parse(coordenadasGeocentricas.x.toString());
+                                puntos[2] = double.parse(coordenadasGeocentricas.y.toString());
+                                puntos[3] = double.parse(coordenadasGeocentricas.z.toString());
+                                cartesianas2Geocentricas[i+1] = puntos;
+                                } catch (e) {
+                                  print(e);
+                                  alertaErrorArchivo();
+                                  validacion = false;
+                                }
+                              }
+                              }
+                              if(validacion == true) {
+                              final Directory directorio = await getApplicationDocumentsDirectory();
+                              final File csvGuardar = File('${directorio.path}/MeasureBookConversiónElipsoidales.csv');
+                              String datosCSV = const ListToCsvConverter().convert(cartesianas2Geocentricas);
+                              await csvGuardar.writeAsString(datosCSV);
+                              Uint8List arCSv = csvGuardar.readAsBytesSync();
+                              await Share.file('Conversion Archivos MeasureBookAPP', 'Geocentricas.csv', arCSv, 'file/csv', text: 'Conversión de Coordenadas MeasureBook');
+                              }else{
+                                alertanoGaussOrigen();
+                              }
+                              }else{
+                                alertanoGaussCartesian();
+                              }                              
+                            }
+                          }
+                        }, 
+                        child: Column(
+                            children: [
+                            SizedBox(height: 30),  
+                            Container(
+                            height: 30,
+                            width: 320,
+                            decoration: BoxDecoration(
+                              color: Colors.blueAccent,
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                            child: Center(
+                              child: Text('Exportar Coordenadas Convertidas a CSV', textAlign: TextAlign.center, style: TextStyle(color: Colors.white),)
+                          ),
+                        )]
+                        ),
+                    )
+                )],
+               ),
+             ),
+           ),
+         )
+         ),
+    );
+      
       }
     }
 
@@ -2938,6 +3963,7 @@ class _ConfiguracionArchivoImportadoState extends State<ConfiguracionArchivoImpo
   }
   // Mensaje cuando se tiene el mismo sistema de Coordenadas
     void alertaIgualSystemCoor(){
+    Navigator.pop(context);
     Fluttertoast.showToast(
     msg: "El sistema de Partida es igual al de destino ",
     toastLength: Toast.LENGTH_LONG,
