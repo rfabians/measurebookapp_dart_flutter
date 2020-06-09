@@ -9,6 +9,7 @@ import 'package:measurebookapp/modelos/cPlanasGenerico.dart';
 import 'package:measurebookapp/modelos/cartesianasCS.dart';
 import 'package:measurebookapp/modelos/coordenadasCartesianas.dart';
 import 'package:measurebookapp/modelos/coordenadasElipsoidales.dart';
+import 'package:measurebookapp/modelos/coordenadasON.dart';
 import 'package:measurebookapp/modelos/coordenadasPlanasGauss.dart';
 import 'package:measurebookapp/modelos/gaussCS.dart';
 import 'package:measurebookapp/pages/puntoIgacImportado.dart';
@@ -42,7 +43,7 @@ class _ImportPuntosRedPasivaIGACState extends State<ImportPuntosRedPasivaIGAC> {
     cPlanasGenerico.altura = alturaPunto;
     return cPlanasGenerico;
     
-  }else {
+  }else if(widget.proyeccion== 'Plano Cartesiano'){
     CartesianasCS cartesianasCS = await gestorMBDatabase.db.getOrigenCartesianoData(widget.idProyeccion);
     CoordenadasElipsoidales coordenadasElipsoidales = CoordenadasElipsoidales();
     coordenadasElipsoidales.latitud = latitud;
@@ -53,6 +54,19 @@ class _ImportPuntosRedPasivaIGACState extends State<ImportPuntosRedPasivaIGAC> {
     CPlanasGenerico cPlanasGenerico = CPlanasGenerico();
     cPlanasGenerico.norte = coordenadasCartesianas.norte;
     cPlanasGenerico.este = coordenadasCartesianas.este;
+    cPlanasGenerico.altura = alturaPunto;
+    return cPlanasGenerico;
+  }else if(widget.proyeccion== 'Transversal de Mercator'){
+    CoordenadasElipsoidales coordenadasElipsoidales = CoordenadasElipsoidales();
+    coordenadasElipsoidales.latitud = latitud;
+    coordenadasElipsoidales.longitud = longitud;
+    coordenadasElipsoidales.altitud = alturaPunto;
+    ConversionCoordenadasMB conversionCoordenadasMB = ConversionCoordenadasMB();
+    CoordenadasON coordenadasON = CoordenadasON();
+    coordenadasON = conversionCoordenadasMB.elipsoidales2GaussNuevo(coordenadasElipsoidales);
+    CPlanasGenerico cPlanasGenerico = CPlanasGenerico();
+    cPlanasGenerico.norte = coordenadasON.norte;
+    cPlanasGenerico.este = coordenadasON.este;
     cPlanasGenerico.altura = alturaPunto;
     return cPlanasGenerico;
   }

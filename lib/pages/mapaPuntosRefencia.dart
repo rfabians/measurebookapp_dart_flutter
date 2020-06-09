@@ -12,6 +12,7 @@ import 'package:measurebookapp/modelos/cPlanasGenerico.dart';
 import 'package:measurebookapp/modelos/cartesianasCS.dart';
 import 'package:measurebookapp/modelos/coordenadasCartesianas.dart';
 import 'package:measurebookapp/modelos/coordenadasElipsoidales.dart';
+import 'package:measurebookapp/modelos/coordenadasON.dart';
 import 'package:measurebookapp/modelos/coordenadasPlanasGauss.dart';
 import 'package:measurebookapp/modelos/gaussCS.dart';
 import 'package:measurebookapp/modelos/puntosReferencia.dart';
@@ -51,7 +52,7 @@ class _MapaPuntosReferenciaState extends State<MapaPuntosReferencia> {
     }
     return listaRef;
     
-  }else {
+  }else if(widget.sistemaCoordenadas == 'Plano Cartesiano'){
     CartesianasCS cartesianasCS = await gestorMBDatabase.db.getOrigenCartesianoData(widget.idCoordenadas);
     List<puntosReferencia> listaRef = await gestorMBDatabase.db.getPuntosReferenciaData(widget.nombreProyecto);
     int cont = listaRef.length;
@@ -59,6 +60,18 @@ class _MapaPuntosReferenciaState extends State<MapaPuntosReferencia> {
     for (var i = 0; i < cont; i++) {
     List<CoordenadasElipsoidales> listCoorElip = List<CoordenadasElipsoidales>(cont);
     listCoorElip[i] = conversionCoordenadasMB.cartesianas2Elipoidales(CoordenadasCartesianas(norte: listaRef[i].Norte, este: listaRef[i].Este, altura: listaRef[i].Altura), cartesianasCS);
+    listaRef[i].latitud = listCoorElip[i].latitud;
+    listaRef[i].longitud = listCoorElip[i].longitud;
+    listaRef[i].Altura = listCoorElip[i].altitud;
+    }
+    return listaRef;
+  }else if(widget.sistemaCoordenadas == 'Transversal de Mercator'){
+    List<puntosReferencia> listaRef = await gestorMBDatabase.db.getPuntosReferenciaData(widget.nombreProyecto);
+    int cont = listaRef.length;
+    ConversionCoordenadasMB conversionCoordenadasMB = ConversionCoordenadasMB();
+    for (var i = 0; i < cont; i++) {
+    List<CoordenadasElipsoidales> listCoorElip = List<CoordenadasElipsoidales>(cont);
+    listCoorElip[i] = conversionCoordenadasMB.origenNacional2Elipsoidales(CoordenadasON(norte: listaRef[i].Norte, este: listaRef[i].Este, altura: listaRef[i].Altura));
     listaRef[i].latitud = listCoorElip[i].latitud;
     listaRef[i].longitud = listCoorElip[i].longitud;
     listaRef[i].Altura = listCoorElip[i].altitud;
