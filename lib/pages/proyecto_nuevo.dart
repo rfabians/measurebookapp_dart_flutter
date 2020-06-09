@@ -3,6 +3,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:measurebookapp/clases/database.dart';
 import 'package:measurebookapp/modelos/departamentos.dart';
 import 'package:measurebookapp/modelos/municipios.dart';
+import 'package:measurebookapp/pages/menuPrincipal.dart';
 import 'package:measurebookapp/pages/seleccionSistemaCoordenadas.dart';
 
 class NuevoProyecto extends StatefulWidget {
@@ -118,14 +119,14 @@ class _NuevoProyectoState extends State<NuevoProyecto> {
                               color: Color(0xff007FFF),
                               fontSize: 16,)),
                             Container(
-                              height: 180,
+                              height: 250,
                               child:MediaQuery.removePadding(removeTop: true,
                               context: context,
                                child: ListView(
                                 children: <Widget>[
                                         SizedBox(height: 20,),
                                         ListTile(
-                                          leading: Icon(Icons.add_location, color: Color(0xff007FFF)),
+                                          leading: Icon(Icons.add_location, color: Colors.black54),
                                           title: Text('Proyección Gauss Krüger'),
                                           subtitle: Text('Sistema de coordenadas proyectadas Cilíndricas, Colombia cuenta con seis origenes'),
                                           onTap: ()async {
@@ -156,10 +157,8 @@ class _NuevoProyectoState extends State<NuevoProyecto> {
                                         ),
                                         SizedBox(height: 10,),
                                         ListTile(
-                                          leading: Icon(Icons.add_location, color: Color(0xff007FFF)),
-                                          title: Text('Proyección Plana Cartesiana',style: TextStyle(
-                                            color: Color(0xff007FFF)
-                                          ),),
+                                          leading: Icon(Icons.add_location, color: Colors.black54),
+                                          title: Text('Proyección Plana Cartesiana'),
                                           subtitle: Text('Sistema de proyección cartesiano, usado para grandes escalas, razón por la cual existen tantos origenes como municipios'),
                                           onTap: ()async {
                                             
@@ -169,6 +168,40 @@ class _NuevoProyectoState extends State<NuevoProyecto> {
                                                 mostrarAlertaNombreProyecto();
                                               } else {
                                                 _alertDialogoCartesianas(context);
+                                              }
+                                            }else {
+                                            
+                                            }
+                                            }                                          
+                                          
+                                        ),
+                                        SizedBox(height: 10,),
+                                        ListTile(
+                                          leading: Icon(Icons.add_location, color: Color(0xff007FFF)),
+                                          title: Text('Origen Nacional',style: TextStyle(
+                                            color: Color(0xff007FFF)
+                                          ),),
+                                          subtitle: Text('Sistema de proyección Transversal de Mercator implementado mediante resolución 471 del 2020 IGAC, cubre en su totalidad el territorio Nacional'),
+                                          onTap: ()async {
+                                            
+                                            if(_formKey.currentState.validate()) {
+                                              bool validarNombre = await gestorMBDatabase.db.validarNombreProyecto(nombreProyectoMB);
+                                              if(validarNombre == true) {
+                                                mostrarAlertaNombreProyecto();
+                                              } else {
+                                                gestorMBDatabase.db.InserDataSQL('INSERT INTO PROYECTOS (ID_USUARIO, Nombre_Proyecto, Tipo_Proyeccion, ID_Proyeccion, Ubicacion, Empresa, Cliente, Descripcion) VALUES ("${widget.idUsuario}", "${nombreProyectoMB}", "Transversal de Mercator", "Origen Nacional", "${ubicacionMB}", "${empresaMB}", "${clienteMB}",  "${decripcionMB}")');
+                                                Navigator.push(context, MaterialPageRoute(
+                                                builder: (context) => MenuPrincipalMB(
+                                                clienteMB: clienteMB,
+                                                decripcionMB: decripcionMB,
+                                                empresaMB: empresaMB,
+                                                id_proyeccion: 'Origen Nacional',
+                                                id_usuario: widget.idUsuario,
+                                                nombreProyectoMB: nombreProyectoMB,
+                                                proyeccionMB: 'Transversal de Mercator',
+                                                ubicacionMB: ubicacionMB,
+                                                ),
+                                                ));
                                               }
                                             }else {
                                             

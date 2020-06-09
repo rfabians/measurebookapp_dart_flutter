@@ -6,6 +6,7 @@ import 'package:measurebookapp/modelos/cPlanasGenerico.dart';
 import 'package:measurebookapp/modelos/cartesianasCS.dart';
 import 'package:measurebookapp/modelos/coordenadasCartesianas.dart';
 import 'package:measurebookapp/modelos/coordenadasElipsoidales.dart';
+import 'package:measurebookapp/modelos/coordenadasON.dart';
 import 'package:measurebookapp/modelos/coordenadasPlanasGauss.dart';
 import 'package:measurebookapp/modelos/departamentos.dart';
 import 'package:measurebookapp/modelos/gaussCS.dart';
@@ -45,7 +46,7 @@ class _ImportarPuntoOSCoorState extends State<ImportarPuntoOSCoor> {
     cPlanasGenerico.altura = alturaPunto;
     return cPlanasGenerico;
     
-  }else {
+  }else if(widget.proyeccion == 'Plano Cartesiano'){
     CartesianasCS cartesianasCS = await gestorMBDatabase.db.getOrigenCartesianoData(widget.idProyeccion);
     CoordenadasElipsoidales coordenadasElipsoidales = CoordenadasElipsoidales();
     coordenadasElipsoidales.latitud = latitud;
@@ -56,6 +57,18 @@ class _ImportarPuntoOSCoorState extends State<ImportarPuntoOSCoor> {
     CPlanasGenerico cPlanasGenerico = CPlanasGenerico();
     cPlanasGenerico.norte = coordenadasCartesianas.norte;
     cPlanasGenerico.este = coordenadasCartesianas.este;
+    cPlanasGenerico.altura = alturaPunto;
+    return cPlanasGenerico;
+  } else if(widget.proyeccion == 'Transversal de Mercator'){
+    CoordenadasElipsoidales coordenadasElipsoidales = CoordenadasElipsoidales();
+    coordenadasElipsoidales.latitud = latitud;
+    coordenadasElipsoidales.longitud = longitud;
+    coordenadasElipsoidales.altitud = alturaPunto;
+    ConversionCoordenadasMB conversionCoordenadasMB = ConversionCoordenadasMB();
+    CoordenadasON coordenadasON = conversionCoordenadasMB.elipsoidales2GaussNuevo(coordenadasElipsoidales);
+    CPlanasGenerico cPlanasGenerico = CPlanasGenerico();
+    cPlanasGenerico.norte = coordenadasON.norte;
+    cPlanasGenerico.este = coordenadasON.este;
     cPlanasGenerico.altura = alturaPunto;
     return cPlanasGenerico;
   }
@@ -131,6 +144,10 @@ class _ImportarPuntoOSCoorState extends State<ImportarPuntoOSCoor> {
                          );
                       DescripcionSistemCoor planas_Cartesianas = DescripcionSistemCoor(
                         nombreProyeccion: 'Coordenadas Planas Cartesianas',
+                        imagen: 'assets/images/cartesiana.png'
+                          );
+                          DescripcionSistemCoor tm = DescripcionSistemCoor(
+                        nombreProyeccion: 'MAGNA Origen Nacional',
                         imagen: 'assets/images/cartesiana.png'
                           );
                           List<DescripcionSistemCoor> listSistemas = List<DescripcionSistemCoor>(4);
