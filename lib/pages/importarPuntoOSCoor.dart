@@ -24,7 +24,7 @@ class ImportarPuntoOSCoor extends StatefulWidget {
 
   @override
   _ImportarPuntoOSCoorState createState() => _ImportarPuntoOSCoorState();
-  List<DescripcionSistemCoor> sistemasCoordenadas = List<DescripcionSistemCoor>(4);
+  List<DescripcionSistemCoor> sistemasCoordenadas = List<DescripcionSistemCoor>(5);
 
 
 }
@@ -80,7 +80,8 @@ class _ImportarPuntoOSCoorState extends State<ImportarPuntoOSCoor> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    if(widget.proyeccion == 'Transversal de Mercator'){
+      return Scaffold(
        body: SafeArea(
          child: Center(
            child: Column(
@@ -148,13 +149,14 @@ class _ImportarPuntoOSCoorState extends State<ImportarPuntoOSCoor> {
                           );
                           DescripcionSistemCoor tm = DescripcionSistemCoor(
                         nombreProyeccion: 'MAGNA Origen Nacional',
-                        imagen: 'assets/images/cartesiana.png'
+                        imagen: 'assets/images/nacional.png'
                           );
-                          List<DescripcionSistemCoor> listSistemas = List<DescripcionSistemCoor>(4);
+                          List<DescripcionSistemCoor> listSistemas = List<DescripcionSistemCoor>(5);
                           listSistemas[0] = elipsoidal;
                           listSistemas[1] = geocentrico;
                           listSistemas[2] = planas_Gauss;
                           listSistemas[3] = planas_Cartesianas;
+                          listSistemas[4] = tm;
 
                           DescripcionSistemCoor a = listSistemas[index];
 
@@ -263,7 +265,195 @@ class _ImportarPuntoOSCoorState extends State<ImportarPuntoOSCoor> {
          )
          ),
     );
-  }
+  
+    }else {
+      return Scaffold(
+       body: SafeArea(
+         child: Center(
+           child: Column(
+             children: <Widget>[
+               Padding(
+                 padding: const EdgeInsets.all(10.0),
+                 child: Image.asset('assets/images/conversion.png', height: 80.0),
+               ),
+               Padding(
+                 padding: const EdgeInsets.all(10.0),
+                 child: RichText(text: TextSpan(
+                    children: <TextSpan> [
+                    TextSpan(text: 'Seleccione el sistema de Coordenadas del punto a Importar', style: TextStyle(
+                    fontFamily: 'Roboto', 
+                    fontSize: 14.0,
+                    color: Color(0xff007FFF),
+                   )),
+                  ]
+              )),
+               ),
+               Divider(height: 30.0),
+              Container(
+                height: 550,
+                width: 350,
+                decoration: BoxDecoration(
+                gradient: LinearGradient(
+                  begin: Alignment.topCenter,
+                  end: Alignment.bottomCenter,
+                  stops: [0.5,0.9,1],
+                  colors: [Colors.white, Colors.white70, Colors.white38]
+                  ),
+                borderRadius: BorderRadius.circular(20.0),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black45,
+                    blurRadius: 10.0,
+                    offset: Offset(10.0, 10.0)
+                  )
+                ]
+                ),
+                child: Swiper(
+                  pagination: SwiperPagination(
+                    builder: SwiperPagination.dots
+                  ),
+                  itemCount: 5,
+                  layout: SwiperLayout.DEFAULT,
+                  itemHeight: 300.0,
+                  itemWidth: 450.0,
+                  itemBuilder: (BuildContext context, int index) {
+                    DescripcionSistemCoor elipsoidal = DescripcionSistemCoor(
+                        nombreProyeccion: 'Coordenadas Elipsoidales',
+                        imagen: 'assets/images/elipsoidal.png'
+                          );
+                      DescripcionSistemCoor geocentrico = DescripcionSistemCoor(
+                        nombreProyeccion: 'Coordenadas Geocéntricas',
+                        imagen: 'assets/images/geocentrica.png',
+                          );
+                      DescripcionSistemCoor planas_Gauss = DescripcionSistemCoor(
+                        nombreProyeccion: 'Coordenadas Gauss - Krüger',
+                        imagen: 'assets/images/gauss.png',
+                         );
+                      DescripcionSistemCoor planas_Cartesianas = DescripcionSistemCoor(
+                        nombreProyeccion: 'Coordenadas Planas Cartesianas',
+                        imagen: 'assets/images/cartesiana.png'
+                          );
+                          DescripcionSistemCoor tm = DescripcionSistemCoor(
+                        nombreProyeccion: 'MAGNA Origen Nacional',
+                        imagen: 'assets/images/nacional.png'
+                          );
+                          List<DescripcionSistemCoor> listSistemas = List<DescripcionSistemCoor>(5);
+                          listSistemas[0] = elipsoidal;
+                          listSistemas[1] = geocentrico;
+                          listSistemas[2] = planas_Gauss;
+                          listSistemas[3] = planas_Cartesianas;
+                          listSistemas[4] = tm;
+
+                          DescripcionSistemCoor a = listSistemas[index];
+
+                          if (a.nombreProyeccion == 'Coordenadas Elipsoidales') {
+                              return Center(
+                                child: Container(
+                                width: 300.0,
+                                height: 480.0,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(10.0),
+                                ),
+                                child: Column(
+                                  children: <Widget>[
+                                    Center(
+                                      child: Text(a.nombreProyeccion, style: TextStyle(
+                                        fontSize: 16.0,
+                                        color: Colors.blueAccent,
+                                        
+                                      ),),
+                                    ),
+                                    SizedBox(height: 60.0),
+                                    Image.asset(a.imagen,height: 160),
+                                    SizedBox(height: 50.0),
+                                    ListTile(
+                                      title: Text('Sistema Decimal', style: TextStyle(color: Colors.blueAccent),),
+                                      trailing: Icon(Icons.chevron_right, color: Colors.blueAccent, size: 30.0,),
+                                      onTap: (){
+                                        Navigator.push(context, MaterialPageRoute(
+                                        builder: (context) => ConversionPunto(
+                                          idProyeccion: widget.idProyeccion,
+                                          idProyecto: widget.idProyecto,
+                                          idusuario: widget.idusuario,
+                                          proyeccion: widget.proyeccion,
+                                          sistemaOrigen: a.nombreProyeccion,
+                                        )));
+                                      },
+                                    ),
+                                    ListTile(
+                                        title:  Text('Sistema Sexadecimal', style: TextStyle(color: Colors.blueAccent),),
+                                        trailing: Icon(Icons.chevron_right, color: Colors.blueAccent, size: 30,),
+                                        onTap: (){
+                                          Navigator.push(context, MaterialPageRoute(
+                                          builder: (context) => ConversionPunto(
+                                          idProyeccion: widget.idProyeccion,
+                                          idProyecto: widget.idProyecto,
+                                          idusuario: widget.idusuario,
+                                          proyeccion: widget.proyeccion,
+                                          sistemaOrigen: 'Hexa',
+                                          )));
+                                        },
+                                      )
+                                  ],
+                                ),
+                              )
+                            );
+                          } else {
+                              return Center(
+                                child: Container(
+                                width: 300.0,
+                                height: 480.0,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(10.0),
+                                ),
+                                child: Column(
+                                  children: <Widget>[
+                                    Center(
+                                      child: Text(a.nombreProyeccion, style: TextStyle(
+                                        fontSize: 16.0,
+                                        color: Colors.blueAccent,
+                                        
+                                      ),),
+                                    ),
+                                    SizedBox(height: 60.0),
+                                    Image.asset(a.imagen,height: 160),
+                                    SizedBox(height: 100.0),
+                                    FlatButton(
+                                      onPressed: (){
+                                        if(a.nombreProyeccion == 'Coordenadas Planas Cartesianas') {
+                                          _alertDialogoCartesianas (context);
+                                        }else if(a.nombreProyeccion == 'Coordenadas Gauss - Krüger') {
+                                          _sistemaGauss(context);
+                                        } else {
+                                          Navigator.push(context, MaterialPageRoute(
+                                          builder: (context) => ConversionPunto(
+                                          idProyeccion: widget.idProyeccion,
+                                          idProyecto: widget.idProyecto,
+                                          idusuario: widget.idusuario,
+                                          proyeccion: widget.proyeccion,
+                                          sistemaOrigen: a.nombreProyeccion,
+                                        )));
+                                        }
+                                        
+                                      }, 
+                                      child: Icon(Icons.arrow_forward_ios, size: 30.0,color: Colors.blueAccent)
+                                      )
+                                  ],
+                                ),
+                              )
+                            );
+                          }
+                  },
+                  ),
+              )
+             ],
+           ),
+         )
+         ),
+    );
+  
+    }
+    }
 void _alertDialogoCartesianas(BuildContext context) {
   showDialog(
     context: context,
