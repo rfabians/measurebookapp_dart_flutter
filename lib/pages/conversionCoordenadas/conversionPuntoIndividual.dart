@@ -9,6 +9,7 @@ import 'package:measurebookapp/modelos/cartesianasCS.dart';
 import 'package:measurebookapp/modelos/coordenadasCartesianas.dart';
 import 'package:measurebookapp/modelos/coordenadasElipsoidales.dart';
 import 'package:measurebookapp/modelos/coordenadasGeocenticas.dart';
+import 'package:measurebookapp/modelos/coordenadasON.dart';
 import 'package:measurebookapp/modelos/coordenadasPlanasGauss.dart';
 import 'package:measurebookapp/modelos/departamentos.dart';
 import 'package:measurebookapp/modelos/gaussCS.dart';
@@ -39,6 +40,7 @@ class _ConversionPuntoIndividualState extends State<ConversionPuntoIndividual> {
   double gradosLongitudF, minutosLongitudF, segundosLongitudF;
   double altura;
   double xGeocentricaF, yGeocentricaF, zGeocentricaF;
+  double norteOn, esteOn, alturaOn;
   double norteCartesianas, esteCartesianas, alturaCartesianas;
   double norteGauss, esteGauss, alturaGauss;
   GaussCS gaussCOrigen = GaussCS();
@@ -480,6 +482,78 @@ class _ConversionPuntoIndividualState extends State<ConversionPuntoIndividual> {
                                       }
                                       else if(widget.destino == 'Elipsoidales'){
                                         alertaIgualSystemCoor();
+                                      }else if(widget.destino == 'Magna Origen Nacional'){
+                                      ConversionCoordenadasMB conversionCoordenadasMB = ConversionCoordenadasMB();
+                                      CoordenadasON coordenadasON = CoordenadasON();
+                                      coordenadasON = conversionCoordenadasMB.elipsoidales2GaussNuevo(coordenadasElipsoidales);
+                                      AlertDialog elipsoidales2On = AlertDialog(
+                                                  shape: RoundedRectangleBorder(
+                                                    borderRadius: BorderRadius.circular(20)
+                                                  ),
+                                                  content: Container(
+                                                    height: 220,
+                                                    width: 200,
+                                                    child: Center(
+                                                      child: Column(
+                                                        children: <Widget>[
+                                                          Text('Magna Origen Nacional', style: TextStyle(color: Colors.blueAccent, fontSize: 13)),
+                                                          Divider(),
+                                                          Align(
+                                                            alignment: Alignment.centerRight,
+                                                            child: Text('Norte', style: TextStyle(color: Colors.black54, fontSize: 12),),
+                                                          ),
+                                                          SizedBox(height: 3),
+                                                          Align(
+                                                            alignment: Alignment.centerRight,
+                                                            child: Text(roundDouble(coordenadasON.norte,3).toString(), style: TextStyle(color: Colors.blueAccent, fontSize: 12),),
+                                                          ),
+                                                          Divider(),
+                                                          Align(
+                                                            alignment: Alignment.centerRight,
+                                                            child: Text('Este', style: TextStyle(color: Colors.black54, fontSize: 12),),
+                                                          ),
+                                                          SizedBox(height: 3),
+                                                          Align(
+                                                            alignment: Alignment.centerRight,
+                                                            child: Text(roundDouble(coordenadasON.este,3).toString(), style: TextStyle(color: Colors.blueAccent, fontSize: 12),),
+                                                          ),
+                                                          Divider(),
+                                                          Align(
+                                                            alignment: Alignment.centerRight,
+                                                            child: Text('Altura', style: TextStyle(color: Colors.black54, fontSize: 12),),
+                                                          ),
+                                                          SizedBox(height: 3),
+                                                          Align(
+                                                            alignment: Alignment.centerRight,
+                                                            child: Text(roundDouble(coordenadasON.altura,3).toString(), style: TextStyle(color: Colors.blueAccent, fontSize: 12),),
+                                                          ),
+                                                          Divider(height: 10),
+                                                          FlatButton(
+                                                            onPressed: (){
+                                                              Share.share('Conversión de Coordenadas MeasureBookAPP \n\n'+
+                                                              'Sistema de Rerencia de Origen: \n'+
+                                                              'Coordenadas ${widget.origen} \n'+
+                                                              'Latitud: ${coordenadasElipsoidales.latitud}\n'+
+                                                              'Latitud: ${coordenadasElipsoidales.longitud}\n'+
+                                                              'Latitud: ${coordenadasElipsoidales.altitud}\n\n'+
+                                                              'Sistema de Rerencia de Destino: \n'+
+                                                              'Magna Origen Nacional\n'
+                                                              'Norte: ${roundDouble(coordenadasON.norte,3)}\n'+
+                                                              'Este: ${roundDouble(coordenadasON.este,3)}\n'+
+                                                              'Altura: ${roundDouble(coordenadasON.altura,3)}\n'
+                                                              );
+                                                            }, 
+                                                            child: Icon(Icons.share, color: Colors.black54, size: 30)
+                                                            ),
+                                                          Text('Compartir', style: TextStyle(color: Colors.blueAccent, fontSize: 13),)
+                                                        ],
+                                                      ),
+                                                    ),
+                                                  )
+                                                );
+                                              showDialog(context: context, barrierDismissible: true, builder: (BuildContext context){
+                                            return elipsoidales2On;
+                                          });
                                       }
                                       }
                                       },
@@ -643,24 +717,95 @@ class _ConversionPuntoIndividualState extends State<ConversionPuntoIndividual> {
                                                   _sistemaGauss(context, coorElipdec);
                                                   }else if (widget.destino == 'Planas Cartesianas'){
                                                     _alertDialogoCartesianas (context, coorElipdec);
-                                                  }
-                                                  
-                                                    }
-                                                    })
-                                                  ],
-                                                )
-                                                ),
-                                              )
-                                              )
-                                                ],
+                                                  }else if(widget.destino == 'Magna Origen Nacional'){
+                                                  ConversionCoordenadasMB conversionCoordenadasMB = ConversionCoordenadasMB();
+                                                  CoordenadasON coordenadasON = CoordenadasON();
+                                                  coordenadasON = conversionCoordenadasMB.elipsoidales2GaussNuevo(coorElipdec);
+                                                  AlertDialog elipsoidales2On = AlertDialog(
+                                                  shape: RoundedRectangleBorder(
+                                                    borderRadius: BorderRadius.circular(20)
                                                   ),
-                                                    ),
+                                                  content: Container(
+                                                    height: 220,
+                                                    width: 200,
+                                                    child: Center(
+                                                      child: Column(
+                                                        children: <Widget>[
+                                                          Text('Magna Origen Nacional', style: TextStyle(color: Colors.blueAccent, fontSize: 13)),
+                                                          Divider(),
+                                                          Align(
+                                                            alignment: Alignment.centerRight,
+                                                            child: Text('Norte', style: TextStyle(color: Colors.black54, fontSize: 12),),
+                                                          ),
+                                                          SizedBox(height: 3),
+                                                          Align(
+                                                            alignment: Alignment.centerRight,
+                                                            child: Text(roundDouble(coordenadasON.norte,3).toString(), style: TextStyle(color: Colors.blueAccent, fontSize: 12),),
+                                                          ),
+                                                          Divider(),
+                                                          Align(
+                                                            alignment: Alignment.centerRight,
+                                                            child: Text('Este', style: TextStyle(color: Colors.black54, fontSize: 12),),
+                                                          ),
+                                                          SizedBox(height: 3),
+                                                          Align(
+                                                            alignment: Alignment.centerRight,
+                                                            child: Text(roundDouble(coordenadasON.este,3).toString(), style: TextStyle(color: Colors.blueAccent, fontSize: 12),),
+                                                          ),
+                                                          Divider(),
+                                                          Align(
+                                                            alignment: Alignment.centerRight,
+                                                            child: Text('Altura', style: TextStyle(color: Colors.black54, fontSize: 12),),
+                                                          ),
+                                                          SizedBox(height: 3),
+                                                          Align(
+                                                            alignment: Alignment.centerRight,
+                                                            child: Text(roundDouble(coordenadasON.altura,3).toString(), style: TextStyle(color: Colors.blueAccent, fontSize: 12),),
+                                                          ),
+                                                          Divider(height: 10),
+                                                          FlatButton(
+                                                            onPressed: (){
+                                                              Share.share('Conversión de Coordenadas MeasureBookAPP \n\n'+
+                                                              'Sistema de Rerencia de Origen: \n'+
+                                                              'Coordenadas ${widget.origen} \n'+
+                                                              'Latitud: ${coorElipdec.latitud}\n'+
+                                                              'Latitud: ${coorElipdec.longitud}\n'+
+                                                              'Latitud: ${coorElipdec.altitud}\n\n'+
+                                                              'Sistema de Rerencia de Destino: \n'+
+                                                              'Magna Origen Nacional\n'
+                                                              'Norte: ${roundDouble(coordenadasON.norte,3)}\n'+
+                                                              'Este: ${roundDouble(coordenadasON.este,3)}\n'+
+                                                              'Altura: ${roundDouble(coordenadasON.altura,3)}\n'
+                                                              );
+                                                            }, 
+                                                            child: Icon(Icons.share, color: Colors.black54, size: 30)
+                                                            ),
+                                                          Text('Compartir', style: TextStyle(color: Colors.blueAccent, fontSize: 13),)
+                                                        ],
+                                                      ),
                                                     ),
                                                   )
-                                                )
-                                              )
-                                            ),
-                                          );
+                                                );
+                                              showDialog(context: context, barrierDismissible: true, builder: (BuildContext context){
+                                            return elipsoidales2On;
+                                          });
+                                      }           
+                                    }
+                                    })
+                                  ],
+                                )
+                                ),
+                              )
+                              )
+                                ],
+                                  ),
+                                    ),
+                                    ),
+                                  )
+                                )
+                              )
+                            ),
+                          );
   // Sistema de Coordenadas de Origen Geocentricas
   }else if (widget.origen == 'Geocentricas') {
     return Scaffold(
@@ -838,6 +983,77 @@ class _ConversionPuntoIndividualState extends State<ConversionPuntoIndividual> {
                         _alertDialogoCartesianas (context, coordenadasElipsoidales);
                       }else if(widget.destino == 'Geocentricas'){
                         alertaIgualSystemCoor();
+                      }else if (widget.destino == 'Magna Origen Nacional'){
+                        CoordenadasON coordenadasON = CoordenadasON();
+                        coordenadasON = conversionCoordenadasMB.elipsoidales2GaussNuevo(coordenadasElipsoidales);
+                        AlertDialog geocentricas2ON = AlertDialog(
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(20)
+                        ),
+                        content: Container(
+                          height: 220,
+                          width: 200,
+                          child: Center(
+                            child: Column(
+                              children: <Widget>[
+                                Text('Magna Origen Nacional', style: TextStyle(color: Colors.blueAccent, fontSize: 13)),
+                                Divider(),
+                                Align(
+                                  alignment: Alignment.centerRight,
+                                  child: Text('Norte', style: TextStyle(color: Colors.black54, fontSize: 12),),
+                                ),
+                                SizedBox(height: 3),
+                                Align(
+                                  alignment: Alignment.centerRight,
+                                  child: Text(roundDouble(coordenadasON.norte, 3).toString(), style: TextStyle(color: Colors.blueAccent, fontSize: 12),),
+                                ),
+                                Divider(),
+                                Align(
+                                  alignment: Alignment.centerRight,
+                                  child: Text('Este', style: TextStyle(color: Colors.black54, fontSize: 12),),
+                                ),
+                                SizedBox(height: 3),
+                                Align(
+                                  alignment: Alignment.centerRight,
+                                  child: Text(roundDouble(coordenadasON.este, 3).toString(), style: TextStyle(color: Colors.blueAccent, fontSize: 12),),
+                                ),
+                                Divider(),
+                                Align(
+                                  alignment: Alignment.centerRight,
+                                  child: Text('Altura', style: TextStyle(color: Colors.black54, fontSize: 12),),
+                                ),
+                                SizedBox(height: 3),
+                                Align(
+                                  alignment: Alignment.centerRight,
+                                  child: Text(roundDouble(coordenadasON.altura, 3).toString(), style: TextStyle(color: Colors.blueAccent, fontSize: 12),),
+                                ),
+                                Divider(height: 10),
+                                FlatButton(
+                                  onPressed: (){
+                                    Share.share('Conversión de Coordenadas MeasureBookAPP \n\n'+
+                                    'Sistema de Rerencia de Origen: \n'+
+                                    'Coordenadas ${widget.origen} \n'+
+                                    'Geocentrica X: ${roundDouble(coordenadasGeocentricas.x,3)}\n'+
+                                    'Geocentrica Y: ${roundDouble(coordenadasGeocentricas.y,3)}\n'+
+                                    'Geocentrica Z: ${roundDouble(coordenadasGeocentricas.z,3)}\n\n'+
+                                    'Sistema de Rerencia de Destino: \n'+
+                                    'Magna Origen Nacional \n'
+                                    'Norte: ${roundDouble(coordenadasON.norte, 3)}\n'+
+                                    'Este: ${roundDouble(coordenadasON.este, 3)}\n'+
+                                    'Altura: ${roundDouble(coordenadasON.altura, 3)}\n'
+                                    );
+                                  }, 
+                                  child: Icon(Icons.share, color: Colors.black54, size: 30)
+                                  ),
+                                Text('Compartir', style: TextStyle(color: Colors.blueAccent, fontSize: 13),)
+                              ],
+                            ),
+                          ),
+                        )
+                      );
+                    showDialog(context: context, barrierDismissible: true, builder: (BuildContext context){
+                  return geocentricas2ON;
+                  });
                       }
                       }
                       },
@@ -1135,6 +1351,77 @@ class _ConversionPuntoIndividualState extends State<ConversionPuntoIndividual> {
                       showDialog(context: context, barrierDismissible: true, builder: (BuildContext context){
                     return gaussGeocen;
                   });
+                      }else if(widget.destino == 'Magna Origen Nacional'){
+                        CoordenadasON coordenadasON = CoordenadasON();
+                        coordenadasON = conversionCoordenadasMB.elipsoidales2GaussNuevo(coordenadasElipsoidales);
+                        AlertDialog gauss2ON = AlertDialog(
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(20)
+                          ),
+                          content: Container(
+                            height: 250,
+                            width: 200,
+                            child: Center(
+                              child: Column(
+                                children: <Widget>[
+                                  Text('Magna Origen Nacioanl', style: TextStyle(color: Colors.blueAccent, fontSize: 13)),
+                                  Divider(),
+                                  Align(
+                                    alignment: Alignment.centerRight,
+                                    child: Text('Norte: ', style: TextStyle(color: Colors.black54, fontSize: 12),),
+                                  ),
+                                  SizedBox(height: 3),
+                                  Align(
+                                    alignment: Alignment.centerRight,
+                                    child: Text(roundDouble(coordenadasON.norte,3).toString(), style: TextStyle(color: Colors.blueAccent, fontSize: 12),),
+                                  ),
+                                  Divider(),
+                                  Align(
+                                    alignment: Alignment.centerRight,
+                                    child: Text('Este: ', style: TextStyle(color: Colors.black54, fontSize: 12),),
+                                  ),
+                                  SizedBox(height: 3),
+                                  Align(
+                                    alignment: Alignment.centerRight,
+                                    child: Text(roundDouble(coordenadasON.este,3).toString(), style: TextStyle(color: Colors.blueAccent, fontSize: 12),),
+                                  ),
+                                  Divider(),
+                                  Align(
+                                    alignment: Alignment.centerRight,
+                                    child: Text('Altura: ', style: TextStyle(color: Colors.black54, fontSize: 12),),
+                                  ),
+                                  SizedBox(height: 3),
+                                  Align(
+                                    alignment: Alignment.centerRight,
+                                    child: Text(roundDouble(coordenadasON.altura,3).toString(), style: TextStyle(color: Colors.blueAccent, fontSize: 12),),
+                                  ),
+                                  Divider(height: 10),
+                                  FlatButton(
+                                    onPressed: (){
+                                      Share.share('Conversión de Coordenadas MeasureBookAPP \n\n'+
+                                      'Sistema de Rerencia de Origen: \n'+
+                                      'Coordenadas Gauss - Krüger Origen ${gaussCOrigen.NOMBRE} \n'+
+                                      'Norte: ${roundDouble(coordenadasGaussForm.norte,3)}\n'+
+                                      'Este: ${roundDouble(coordenadasGaussForm.este,3)}\n'+
+                                      'Altura: ${roundDouble(coordenadasGaussForm.altura,3)}\n\n'+
+                                      'Sistema de Rerencia de Destino: \n'+
+                                      'Magna Origen Nacional\n'
+                                      'Norte: ${roundDouble(coordenadasON.norte,3)}\n'+
+                                      'Este: ${roundDouble(coordenadasON.este,3)}\n'+
+                                      'Altura: ${roundDouble(coordenadasON.altura,3)}\n'
+                                      );
+                                    }, 
+                                    child: Icon(Icons.share, color: Colors.black54, size: 30)
+                                    ),
+                                  Text('Compartir', style: TextStyle(color: Colors.blueAccent, fontSize: 13),)
+                                ],
+                              ),
+                            ),
+                          )
+                        );
+                      showDialog(context: context, barrierDismissible: true, builder: (BuildContext context){
+                    return gauss2ON;
+                  });
                       }
                       }
                       }
@@ -1340,9 +1627,9 @@ class _ConversionPuntoIndividualState extends State<ConversionPuntoIndividual> {
                                     Share.share('Conversión de Coordenadas MeasureBookAPP \n\n'+
                                     'Sistema de Rerencia de Origen: \n'+
                                     'Coordenadas Planas Cartesianas Origen ${origenCartesian.NOMBRE} \n'+
-                                    'Norte: ${roundDouble(coordenadasGaussForm.norte,3)}\n'+
-                                    'Este: ${roundDouble(coordenadasGaussForm.este,3)}\n'+
-                                    'Altura: ${roundDouble(coordenadasGaussForm.altura,3)}\n\n'+
+                                    'Norte: ${roundDouble(coordenadasCartesianasForm.norte,3)}\n'+
+                                    'Este: ${roundDouble(coordenadasCartesianasForm.este,3)}\n'+
+                                    'Altura: ${roundDouble(coordenadasCartesianasForm.altura,3)}\n\n'+
                                     'Sistema de Rerencia de Destino: \n'+
                                     'Coordenadas ${widget.destino} \n'
                                     'Latitud: ${roundDouble(coordenadasElipsoidales.latitud, 8)}\n'+
@@ -1415,9 +1702,9 @@ class _ConversionPuntoIndividualState extends State<ConversionPuntoIndividual> {
                                           Share.share('Conversión de Coordenadas MeasureBookAPP \n\n'+
                                           'Sistema de Referencia de Origen: \n'+
                                           'Coordenadas Planas Cartesianas Origen ${origenCartesian.NOMBRE} \n'+
-                                          'Norte: ${roundDouble(coordenadasGaussForm.norte,3)}\n'+
-                                          'Este: ${roundDouble(coordenadasGaussForm.este,3)}\n'+
-                                          'Altura: ${roundDouble(coordenadasGaussForm.altura,3)}\n\n'+
+                                          'Norte: ${roundDouble(coordenadasCartesianasForm.norte,3)}\n'+
+                                          'Este: ${roundDouble(coordenadasCartesianasForm.este,3)}\n'+
+                                          'Altura: ${roundDouble(coordenadasCartesianasForm.altura,3)}\n\n'+
                                           'Sistema de Rerencia de Destino: \n'+
                                           'Coordenadas Geocentricas\n'
                                           'Geocentrica X: ${roundDouble(coordenadasGeocentricas.x,3)}\n'+
@@ -1436,6 +1723,77 @@ class _ConversionPuntoIndividualState extends State<ConversionPuntoIndividual> {
                           showDialog(context: context, barrierDismissible: true, builder: (BuildContext context){
                         return cartesian2Geocen;
                       });
+                      }else if(widget.destino == 'Magna Origen Nacional'){
+                        CoordenadasON coordenadasON = CoordenadasON();
+                            coordenadasON = conversionCoordenadasMB.elipsoidales2GaussNuevo(coordenadasElipsoidales);
+                            AlertDialog cartesian2ON = AlertDialog(
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(20)
+                              ),
+                              content: Container(
+                                height: 250,
+                                width: 200,
+                                child: Center(
+                                  child: Column(
+                                    children: <Widget>[
+                                      Text('Magna Origen Nacional', style: TextStyle(color: Colors.blueAccent, fontSize: 13)),
+                                      Divider(),
+                                      Align(
+                                        alignment: Alignment.centerRight,
+                                        child: Text('Norte', style: TextStyle(color: Colors.black54, fontSize: 12),),
+                                      ),
+                                      SizedBox(height: 3),
+                                      Align(
+                                        alignment: Alignment.centerRight,
+                                        child: Text(roundDouble(coordenadasON.norte,3).toString(), style: TextStyle(color: Colors.blueAccent, fontSize: 12),),
+                                      ),
+                                      Divider(),
+                                      Align(
+                                        alignment: Alignment.centerRight,
+                                        child: Text('Este', style: TextStyle(color: Colors.black54, fontSize: 12),),
+                                      ),
+                                      SizedBox(height: 3),
+                                      Align(
+                                        alignment: Alignment.centerRight,
+                                        child: Text(roundDouble(coordenadasON.este,3).toString(), style: TextStyle(color: Colors.blueAccent, fontSize: 12),),
+                                      ),
+                                      Divider(),
+                                      Align(
+                                        alignment: Alignment.centerRight,
+                                        child: Text('Altura', style: TextStyle(color: Colors.black54, fontSize: 12),),
+                                      ),
+                                      SizedBox(height: 3),
+                                      Align(
+                                        alignment: Alignment.centerRight,
+                                        child: Text(roundDouble(coordenadasON.altura,3).toString(), style: TextStyle(color: Colors.blueAccent, fontSize: 12),),
+                                      ),
+                                      Divider(height: 10),
+                                      FlatButton(
+                                        onPressed: (){
+                                          Share.share('Conversión de Coordenadas MeasureBookAPP \n\n'+
+                                          'Sistema de Referencia de Origen: \n'+
+                                          'Coordenadas Planas Cartesianas Origen ${origenCartesian.NOMBRE} \n'+
+                                          'Norte: ${roundDouble(coordenadasCartesianasForm.norte,3)}\n'+
+                                          'Este: ${roundDouble(coordenadasCartesianasForm.este,3)}\n'+
+                                          'Altura: ${roundDouble(coordenadasCartesianasForm.altura,3)}\n\n'+
+                                          'Sistema de Rerencia de Destino: \n'+
+                                          'Magna Origen Nacional\n'
+                                          'Norte: ${roundDouble(coordenadasON.norte,3)}\n'+
+                                          'Este: ${roundDouble(coordenadasON.este,3)}\n'+
+                                          'Altura: ${roundDouble(coordenadasON.altura,3)}\n'
+                                          );
+                                        }, 
+                                        child: Icon(Icons.share, color: Colors.black54, size: 30)
+                                        ),
+                                      Text('Compartir', style: TextStyle(color: Colors.blueAccent, fontSize: 13),)
+                                    ],
+                                  ),
+                                ),
+                              )
+                            );
+                          showDialog(context: context, barrierDismissible: true, builder: (BuildContext context){
+                        return cartesian2ON;
+                      });
                       }
                       }
                       }else {
@@ -1448,6 +1806,266 @@ class _ConversionPuntoIndividualState extends State<ConversionPuntoIndividual> {
                 ),
               ),
             )
+          ),
+        ),
+      ),
+    );
+  }else if(widget.origen == 'Magna Origen Nacional'){
+    return Scaffold(
+      body: SafeArea(
+        child: SingleChildScrollView(
+          child: Center(
+            child: Padding(
+              padding: const EdgeInsets.all(12.0),
+              child: Form(
+                key: _formKeyGeocentricas,
+                  child: Column(
+                  children: <Widget>[
+                    SizedBox(height: 0),
+                    Image.asset('assets/images/conversion.png',height: 80.0),
+                    SizedBox(height: 10),
+                    RichText(text: TextSpan(
+                      children: <TextSpan> [
+                        TextSpan(text: 'Conversion de coordenadas ', style: TextStyle(
+                        fontFamily: 'Roboto', 
+                        fontSize: 13.0,
+                        color: Colors.black54,
+                        )),
+                        TextSpan(text: '${widget.origen} a ${widget.destino}', style: TextStyle(
+                        fontFamily: 'Roboto', 
+                        fontSize: 13.0,
+                        color: Colors.blueAccent,
+                        )),
+                      ]
+                    )),
+                    SizedBox(height: 5.0),
+                    Image.asset('assets/images/nacional.png', height: 220,),
+                    TextFormField(
+                    decoration: InputDecoration(
+                    icon: Icon(Icons.add_location),
+                    labelText: 'Norte',
+                    ),
+                    keyboardType: TextInputType.number,
+                    validator: (String nOn){
+                      double nOrN = double.tryParse(nOn);
+                    if (nOrN == null) {
+                    return 'La Coordenada Norte, esta en un formato no valido';
+                    } else {
+                        setState(() {
+                          norteOn=nOrN;
+                      });
+                      return null;
+                    }
+                    },
+                  ),
+                  TextFormField(
+                    decoration: InputDecoration(
+                    icon: Icon(Icons.add_location),
+                    labelText: 'Este',
+                    ),
+                    keyboardType: TextInputType.number,
+                    validator: (String eOrn){
+                      double eOrNac = double.tryParse(eOrn);
+                    if (eOrn == null) {
+                    return 'La Coordenada Este, esta en un formato no valido';
+                    } else {
+                      setState(() {
+                        esteOn = eOrNac;
+                      });
+                    return null;
+                    }
+                    },
+                  ),
+                  
+                  TextFormField(
+                    decoration: InputDecoration(
+                    icon: Icon(Icons.add_location),
+                    labelText: 'Altura',
+                    ),
+                    keyboardType: TextInputType.number,
+                    validator: (String aOn){
+                      double altON = double.tryParse(aOn);
+                    if (altON == null) {
+                    return 'La Altura, esta en un formato no valido';
+                    } else {
+                      setState(() {
+                        alturaOn=altON;
+                      });
+                      return null;
+                    }
+                    },
+                  ),
+                  SizedBox(height: 20,),
+                  FlatButton(
+                    color: Colors.black54,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(20.0)
+                    ),
+                    onPressed: (){
+                      if(_formKeyGeocentricas.currentState.validate()){
+                      CoordenadasON coordenadasOn = CoordenadasON();
+                      coordenadasOn.norte = norteOn;
+                      coordenadasOn.este = esteOn;
+                      coordenadasOn.altura = alturaOn;
+                      ConversionCoordenadasMB conversionCoordenadasMB = ConversionCoordenadasMB();
+                      CoordenadasElipsoidales coordenadasElipsoidales = CoordenadasElipsoidales();
+                      coordenadasElipsoidales = conversionCoordenadasMB.origenNacional2Elipsoidales(coordenadasOn);
+                      if (widget.destino == 'Elipsoidales'){
+                       AlertDialog orNacional2Elipsodiales = AlertDialog(
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(20)
+                        ),
+                        content: Container(
+                          height: 220,
+                          width: 200,
+                          child: Center(
+                            child: Column(
+                              children: <Widget>[
+                                Text('Coordenadas Elipsoidales', style: TextStyle(color: Colors.blueAccent, fontSize: 13)),
+                                Divider(),
+                                Align(
+                                  alignment: Alignment.centerRight,
+                                  child: Text('Latitud', style: TextStyle(color: Colors.black54, fontSize: 12),),
+                                ),
+                                SizedBox(height: 3),
+                                Align(
+                                  alignment: Alignment.centerRight,
+                                  child: Text(roundDouble(coordenadasElipsoidales.latitud, 8).toString(), style: TextStyle(color: Colors.blueAccent, fontSize: 12),),
+                                ),
+                                Divider(),
+                                Align(
+                                  alignment: Alignment.centerRight,
+                                  child: Text('Longitud', style: TextStyle(color: Colors.black54, fontSize: 12),),
+                                ),
+                                SizedBox(height: 3),
+                                Align(
+                                  alignment: Alignment.centerRight,
+                                  child: Text(roundDouble(coordenadasElipsoidales.longitud, 8).toString(), style: TextStyle(color: Colors.blueAccent, fontSize: 12),),
+                                ),
+                                Divider(),
+                                Align(
+                                  alignment: Alignment.centerRight,
+                                  child: Text('Altura', style: TextStyle(color: Colors.black54, fontSize: 12),),
+                                ),
+                                SizedBox(height: 3),
+                                Align(
+                                  alignment: Alignment.centerRight,
+                                  child: Text(roundDouble(coordenadasElipsoidales.altitud, 3).toString(), style: TextStyle(color: Colors.blueAccent, fontSize: 12),),
+                                ),
+                                Divider(height: 10),
+                                FlatButton(
+                                  onPressed: (){
+                                    Share.share('Conversión de Coordenadas MeasureBookAPP \n\n'+
+                                    'Sistema de Rerencia de Origen: \n'+
+                                    'Magna Origen Nacioanl \n'+
+                                    'Norte: ${roundDouble(coordenadasOn.norte,3)}\n'+
+                                    'Este: ${roundDouble(coordenadasOn.este,3)}\n'+
+                                    'Altura: ${roundDouble(coordenadasOn.altura,3)}\n\n'+
+                                    'Sistema de Rerencia de Destino: \n'+
+                                    'Coordenadas ${widget.destino} \n'
+                                    'Latitud: ${roundDouble(coordenadasElipsoidales.latitud, 8)}\n'+
+                                    'Longitud: ${roundDouble(coordenadasElipsoidales.longitud, 8)}\n'+
+                                    'Altura: ${roundDouble(coordenadasElipsoidales.altitud, 3)}\n'
+                                    );
+                                  }, 
+                                  child: Icon(Icons.share, color: Colors.black54, size: 30)
+                                  ),
+                                Text('Compartir', style: TextStyle(color: Colors.blueAccent, fontSize: 13),)
+                              ],
+                            ),
+                          ),
+                        )
+                      );
+                    showDialog(context: context, barrierDismissible: true, builder: (BuildContext context){
+                  return orNacional2Elipsodiales;
+                  });
+     
+                      }else if (widget.destino == 'Gauss - Krüger'){
+                        _sistemaGauss(context, coordenadasElipsoidales);
+                      } else if (widget.destino == 'Planas Cartesianas') {
+                        _alertDialogoCartesianas (context, coordenadasElipsoidales);
+                      }else if(widget.destino == 'Magna Origen Nacional'){
+                        alertaIgualSystemCoor();
+                      }else if (widget.destino == 'Geocentricas'){
+                        CoordenadasGeocentricas coordenadasGeocentricas = CoordenadasGeocentricas();
+                        coordenadasGeocentricas = conversionCoordenadasMB.elipsoidales2Geocentricas(coordenadasElipsoidales);
+                        AlertDialog on2Geocentricas = AlertDialog(
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(20)
+                        ),
+                        content: Container(
+                          height: 220,
+                          width: 200,
+                          child: Center(
+                            child: Column(
+                              children: <Widget>[
+                                Text('Coordenadas Geocentricas (WGS 80)', style: TextStyle(color: Colors.blueAccent, fontSize: 13)),
+                                Divider(),
+                                Align(
+                                  alignment: Alignment.centerRight,
+                                  child: Text('Coordenadas X: ', style: TextStyle(color: Colors.black54, fontSize: 12),),
+                                ),
+                                SizedBox(height: 3),
+                                Align(
+                                  alignment: Alignment.centerRight,
+                                  child: Text(roundDouble(coordenadasGeocentricas.x, 3).toString(), style: TextStyle(color: Colors.blueAccent, fontSize: 12),),
+                                ),
+                                Divider(),
+                                Align(
+                                  alignment: Alignment.centerRight,
+                                  child: Text('Coordenadas Y:', style: TextStyle(color: Colors.black54, fontSize: 12),),
+                                ),
+                                SizedBox(height: 3),
+                                Align(
+                                  alignment: Alignment.centerRight,
+                                  child: Text(roundDouble(coordenadasGeocentricas.y, 3).toString(), style: TextStyle(color: Colors.blueAccent, fontSize: 12),),
+                                ),
+                                Divider(),
+                                Align(
+                                  alignment: Alignment.centerRight,
+                                  child: Text('Coordenada Z: ', style: TextStyle(color: Colors.black54, fontSize: 12),),
+                                ),
+                                SizedBox(height: 3),
+                                Align(
+                                  alignment: Alignment.centerRight,
+                                  child: Text(roundDouble(coordenadasGeocentricas.z, 3).toString(), style: TextStyle(color: Colors.blueAccent, fontSize: 12),),
+                                ),
+                                Divider(height: 10),
+                                FlatButton(
+                                  onPressed: (){
+                                    Share.share('Conversión de Coordenadas MeasureBookAPP \n\n'+
+                                    'Sistema de Rerencia de Origen: \n'+
+                                    'Magna Origen Nacional \n'+
+                                    'Norte: ${roundDouble(coordenadasOn.norte,3)}\n'+
+                                    'Este: ${roundDouble(coordenadasOn.este,3)}\n'+
+                                    'Altura: ${roundDouble(coordenadasOn.altura,3)}\n\n'+
+                                    'Sistema de Rerencia de Destino: \n'+
+                                    'Coordenadas Geocentricas \n'
+                                    'Norte: ${roundDouble(coordenadasGeocentricas.x, 3)}\n'+
+                                    'Este: ${roundDouble(coordenadasGeocentricas.y, 3)}\n'+
+                                    'Altura: ${roundDouble(coordenadasGeocentricas.z, 3)}\n'
+                                    );
+                                  }, 
+                                  child: Icon(Icons.share, color: Colors.black54, size: 30)
+                                  ),
+                                Text('Compartir', style: TextStyle(color: Colors.blueAccent, fontSize: 13),)
+                              ],
+                            ),
+                          ),
+                        )
+                      );
+                    showDialog(context: context, barrierDismissible: true, builder: (BuildContext context){
+                  return on2Geocentricas;
+                  });
+                      }
+                      }
+                      },
+                   child: Text('Convertir a ${widget.destino}', style: TextStyle(fontSize: 14.0, color: Colors.white)),
+                   ),
+                  ],
+                ),
+              ),
+            ),
           ),
         ),
       ),
@@ -2470,6 +3088,20 @@ void _sistemas2Cartesianos (BuildContext context, int fk_Muninipio, CoordenadasE
                 'Este: ${roundDouble(coordenadasGauss.este,3)}\n'+
                 'Altura: ${roundDouble(coordenadasGauss.altura,3)}\n'
                 );
+                }else if(widget.origen == 'Magna Origen Nacional'){
+                
+                 Share.share('Conversión de Coordenadas MeasureBookAPP \n\n'+
+                'Sistema de Referencia de Origen: \n'+
+                'Magna Origen Nacional\n'+
+                'Norte: ${norteOn}\n'+
+                'Este: ${esteOn}\n'+
+                'Altura: ${alturaOn}\n\n'+
+                'Sistema de Rerencia de Destino: \n'+
+                'Coordenadas Gauss Krüger Origen ${gaussCS.NOMBRE}\n'+
+                'Norte: ${roundDouble(coordenadasGauss.norte,3)}\n'+
+                'Este: ${roundDouble(coordenadasGauss.este,3)}\n'+
+                'Altura: ${roundDouble(coordenadasGauss.altura,3)}\n'
+                );
                 }
                 
               }, 
@@ -2567,6 +3199,19 @@ void _sistemas2Cartesianos (BuildContext context, int fk_Muninipio, CoordenadasE
                 'Norte: ${coordenadasGaussForm.norte}\n'+
                 'Este: ${coordenadasGaussForm.este}\n'+
                 'Altura: ${coordenadasGaussForm.altura}\n\n'+
+                'Sistema de Referencia de Destino: \n'+
+                'Coordenadas Planas Cartesianas Origen ${cartesianasCS.NOMBRE}\n'
+                'Norte: ${roundDouble(coordenadasCartesianas.norte,3)}\n'+
+                'Este: ${roundDouble(coordenadasCartesianas.este,3)}\n'+
+                'Altura: ${roundDouble(coordenadasCartesianas.altura,3)}\n'
+                );
+                }else if(widget.origen == 'Magna Origen Nacional'){
+                Share.share('Conversión de Coordenadas MeasureBookAPP \n\n'+
+                'Sistema de Referencia de Origen: \n'+
+                'Magna Origen Nacional \n'+
+                'Norte: ${norteOn}\n'+
+                'Este: ${esteOn}\n'+
+                'Altura: ${alturaOn}\n\n'+
                 'Sistema de Referencia de Destino: \n'+
                 'Coordenadas Planas Cartesianas Origen ${cartesianasCS.NOMBRE}\n'
                 'Norte: ${roundDouble(coordenadasCartesianas.norte,3)}\n'+
