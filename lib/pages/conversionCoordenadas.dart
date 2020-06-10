@@ -1,5 +1,4 @@
 import 'dart:typed_data';
-
 import 'package:esys_flutter_share/esys_flutter_share.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
@@ -38,11 +37,11 @@ import 'package:path_provider/path_provider.dart';
 class _CoversionCoordenadasState extends State<CoversionCoordenadas> {
   bool check = true;
   bool csvload = false;
-  List<DescripcionSistemCoor> listSistemasOrigenPI = List<DescripcionSistemCoor>(4);
-  List<DescripcionSistemCoor> listSistemasDestinoPI = List<DescripcionSistemCoor>(4);
-  List<DescripcionSistemCoor> listSistemasOrigenArc = List<DescripcionSistemCoor>(4);
-  List<DescripcionSistemCoor> listSistemasDestinoArc = List<DescripcionSistemCoor>(4);
-  List<DescripcionSistemCoor> listSistemasDestinoPR = List<DescripcionSistemCoor>(4);
+  List<DescripcionSistemCoor> listSistemasOrigenPI = List<DescripcionSistemCoor>(5);
+  List<DescripcionSistemCoor> listSistemasDestinoPI = List<DescripcionSistemCoor>(5);
+  List<DescripcionSistemCoor> listSistemasOrigenArc = List<DescripcionSistemCoor>(5);
+  List<DescripcionSistemCoor> listSistemasDestinoArc = List<DescripcionSistemCoor>(5);
+  List<DescripcionSistemCoor> listSistemasDestinoPR = List<DescripcionSistemCoor>(5);
    String tipoConversion;
    String sistemaOrigenPI = 'Elipsoidales';
    String sistemadestinoPI = 'Elipsoidales';
@@ -122,7 +121,7 @@ class _CoversionCoordenadasState extends State<CoversionCoordenadas> {
                                  pagination: SwiperPagination(
                                    builder: SwiperPagination.dots
                                  ),
-                                 itemCount: 4,
+                                 itemCount: 5,
                                  loop: false,
                                  layout: SwiperLayout.DEFAULT,
                                 itemHeight: 200,
@@ -144,10 +143,15 @@ class _CoversionCoordenadasState extends State<CoversionCoordenadas> {
                                   nombreProyeccion: 'Planas Cartesianas',
                                   imagen: 'assets/images/cartesiana.png'
                                     );
+                                DescripcionSistemCoor tm = DescripcionSistemCoor(
+                                  nombreProyeccion: 'Magna Origen Nacional',
+                                  imagen: 'assets/images/nacional.png'
+                                    );
                                       listSistemasOrigenPI[0] = elipsoidal;
                                       listSistemasOrigenPI[1] = geocentrico;
                                       listSistemasOrigenPI[2] = planas_Gauss;
                                       listSistemasOrigenPI[3] = planas_Cartesianas;
+                                      listSistemasOrigenPI[4] = tm;
                                     DescripcionSistemCoor a = listSistemasOrigenPI[index];
                                       
                                 return Container(
@@ -191,7 +195,7 @@ class _CoversionCoordenadasState extends State<CoversionCoordenadas> {
                                    size: 15
                                  ),
                                  loop: false,
-                                 itemCount: 4,
+                                 itemCount: 5,
                                  pagination: SwiperPagination(
                                    builder: SwiperPagination.dots
                                  ),
@@ -215,10 +219,15 @@ class _CoversionCoordenadasState extends State<CoversionCoordenadas> {
                                   nombreProyeccion: 'Planas Cartesianas',
                                   imagen: 'assets/images/cartesiana.png'
                                     );
-                                    listSistemasDestinoPI[0] = elipsoidal;
-                                    listSistemasDestinoPI[1] = geocentrico;
-                                    listSistemasDestinoPI[2] = planas_Gauss;
-                                    listSistemasDestinoPI[3] = planas_Cartesianas;
+                                DescripcionSistemCoor tm = DescripcionSistemCoor(
+                                  nombreProyeccion: 'Magna Origen Nacional',
+                                  imagen: 'assets/images/nacional.png'
+                                    );
+                                      listSistemasDestinoPI[0] = elipsoidal;
+                                      listSistemasDestinoPI[1] = geocentrico;
+                                      listSistemasDestinoPI[2] = planas_Gauss;
+                                      listSistemasDestinoPI[3] = planas_Cartesianas;
+                                      listSistemasDestinoPI[4] = tm;
                                     DescripcionSistemCoor a = listSistemasDestinoPI[index];
                                       
                                 return Container(
@@ -311,7 +320,7 @@ class _CoversionCoordenadasState extends State<CoversionCoordenadas> {
                                  pagination: SwiperPagination(
                                    builder: SwiperPagination.dots
                                  ),
-                                 itemCount: 4,
+                                 itemCount: 5,
                                  loop: false,
                                  layout: SwiperLayout.DEFAULT,
                                 itemHeight: 200,
@@ -333,10 +342,15 @@ class _CoversionCoordenadasState extends State<CoversionCoordenadas> {
                                   nombreProyeccion: 'Planas Cartesianas',
                                   imagen: 'assets/images/cartesiana.png'
                                     );
-                                    listSistemasOrigenArc[0] = elipsoidal;
-                                    listSistemasOrigenArc[1] = geocentrico;
-                                    listSistemasOrigenArc[2] = planas_Gauss;
-                                    listSistemasOrigenArc[3] = planas_Cartesianas;
+                                DescripcionSistemCoor tm = DescripcionSistemCoor(
+                                  nombreProyeccion: 'Magna Origen Nacional',
+                                  imagen: 'assets/images/nacional.png'
+                                    );
+                                      listSistemasOrigenArc[0] = elipsoidal;
+                                      listSistemasOrigenArc[1] = geocentrico;
+                                      listSistemasOrigenArc[2] = planas_Gauss;
+                                      listSistemasOrigenArc[3] = planas_Cartesianas;
+                                      listSistemasOrigenArc[4] = tm;
                                     DescripcionSistemCoor a = listSistemasOrigenArc[index];
                                 return Container(
                                   width: 150,
@@ -379,7 +393,7 @@ class _CoversionCoordenadasState extends State<CoversionCoordenadas> {
                                    size: 15
                                  ),
                                  loop: false,
-                                 itemCount: 4,
+                                 itemCount: 5,
                                  pagination: SwiperPagination(
                                    builder: SwiperPagination.dots
                                  ),
@@ -403,10 +417,15 @@ class _CoversionCoordenadasState extends State<CoversionCoordenadas> {
                                   nombreProyeccion: 'Planas Cartesianas',
                                   imagen: 'assets/images/cartesiana.png'
                                     );
-                                    listSistemasDestinoArc[0] = elipsoidal;
-                                    listSistemasDestinoArc[1] = geocentrico;
-                                    listSistemasDestinoArc[2] = planas_Gauss;
-                                    listSistemasDestinoArc[3] = planas_Cartesianas;
+                                DescripcionSistemCoor tm = DescripcionSistemCoor(
+                                  nombreProyeccion: 'Magna Origen Nacional',
+                                  imagen: 'assets/images/nacional.png'
+                                    );
+                                      listSistemasDestinoArc[0] = elipsoidal;
+                                      listSistemasDestinoArc[1] = geocentrico;
+                                      listSistemasDestinoArc[2] = planas_Gauss;
+                                      listSistemasDestinoArc[3] = planas_Cartesianas;
+                                      listSistemasDestinoArc[4] = tm;
                                     DescripcionSistemCoor a = listSistemasDestinoArc[index];
                                 return Container(
                                   width: 150,
@@ -572,7 +591,7 @@ class _CoversionCoordenadasState extends State<CoversionCoordenadas> {
                                  pagination: SwiperPagination(
                                    builder: SwiperPagination.dots
                                  ),
-                                 itemCount: 4,
+                                 itemCount: 5,
                                  loop: false,
                                  layout: SwiperLayout.DEFAULT,
                                 itemHeight: 200,
@@ -594,10 +613,15 @@ class _CoversionCoordenadasState extends State<CoversionCoordenadas> {
                                   nombreProyeccion: 'Planas Cartesianas',
                                   imagen: 'assets/images/cartesiana.png'
                                     );
+                                DescripcionSistemCoor tm = DescripcionSistemCoor(
+                                  nombreProyeccion: 'Magna Origen Nacional',
+                                  imagen: 'assets/images/nacional.png'
+                                    );
                                     listSistemasDestinoPR[0] = elipsoidal;
                                     listSistemasDestinoPR[1] = geocentrico;
                                     listSistemasDestinoPR[2] = planas_Gauss;
                                     listSistemasDestinoPR[3] = planas_Cartesianas;
+                                    listSistemasDestinoPR[4] = tm;
                                     DescripcionSistemCoor a = listSistemasDestinoPR[index];
                                 return Container(
                                   width: 150,
