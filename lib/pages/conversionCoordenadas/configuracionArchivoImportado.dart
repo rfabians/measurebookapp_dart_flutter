@@ -2404,7 +2404,7 @@ class _ConfiguracionArchivoImportadoState extends State<ConfiguracionArchivoImpo
                           String datosCSV = const ListToCsvConverter().convert(geocentricas2ON);
                           await csvGuardar.writeAsString(datosCSV);
                           Uint8List arCSv = csvGuardar.readAsBytesSync();
-                          await Share.file('Conversion Archivos MeasureBookAPP', 'MagnaOrigenNacioanl.csv', arCSv, 'file/csv', text: 'Conversión de Coordenadas MeasureBook');
+                          await Share.file('Conversion Archivos MeasureBookAPP', 'MagnaOrigenNacional.csv', arCSv, 'file/csv', text: 'Conversión de Coordenadas MeasureBook');
                           }
                             } 
                         }, 
