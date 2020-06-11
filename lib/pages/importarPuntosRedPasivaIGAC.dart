@@ -97,7 +97,6 @@ class _ImportPuntosRedPasivaIGACState extends State<ImportPuntosRedPasivaIGAC> {
             if (snapshot.hasData){
             if(snapshot.data.length > 0) {
               for (var i = 0; i < snapshot.data.length; i++) {
-                
                 redPIGACPuntos listaPuntos = snapshot.data[i];
                 markersClauster.add(
                   Marker(
@@ -142,7 +141,7 @@ class _ImportPuntosRedPasivaIGACState extends State<ImportPuntosRedPasivaIGAC> {
                                 ondulacion: roundDouble(listaPuntos.Ondulacion, 3), 
                                 sistemaCoordenadas: widget.proyeccion,
                               )));
-                             Navigator.of(context, rootNavigator: true).pop();
+                      
                             },
                             trailing: Icon(Icons.chevron_right, color: Colors.blueAccent,),
                             leading: Image.asset('assets/images/import.png', height: 100,),

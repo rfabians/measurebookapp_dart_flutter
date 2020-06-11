@@ -203,8 +203,6 @@ class _NuevoProyectoState extends State<NuevoProyecto> {
                                                 ),
                                                 ));
                                               }
-                                            }else {
-                                            
                                             }
                                             }                                          
                                           

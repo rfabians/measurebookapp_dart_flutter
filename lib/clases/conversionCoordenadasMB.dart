@@ -280,9 +280,6 @@ CoordenadasON elipsoidales2GaussNuevo(CoordenadasElipsoidales _coordenadasElipso
   double _E3 = _N / 120 * m.pow(m.cos(_laRad), 5) * (5 - 18 * m.pow(_t, 2) + m.pow(_t, 4) + 14 * _eta2 - 58 * m.pow(_t, 2) * _eta2) * m.pow(_l, 5);
   double _E4 = _N / 5040 * m.pow(m.cos(_laRad), 7) * (61 - 479 * m.pow(_t, 2) + 179 * m.pow(_t, 4) - m.pow(_t, 6)) * m.pow(_l, 7);
   double _east = 5000000 + (_E1 + _E2 + _E3 + _E4)*k;
-  print(_norte);
-  print(_east);
-  print(2560);
   CoordenadasON coordenadasOn = CoordenadasON();
   coordenadasOn.norte = _norte;
   coordenadasOn.este = _east;

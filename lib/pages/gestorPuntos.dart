@@ -120,7 +120,7 @@ class _GestosPuntosState extends State<GestosPuntos> {
                         builder: (context) => ImportPuntosRedPasivaIGAC(
                           idProyeccion: widget.idProyeccion,
                           idProyecto: widget.nombreProyecto,
-                          idusuario: widget.idProyeccion,
+                          idusuario: widget.idUser,
                           proyeccion: widget.proyeccionMB,
                         )));
                         },
@@ -140,7 +140,7 @@ class _GestosPuntosState extends State<GestosPuntos> {
                         builder: (context) => AlturaNiveladasMap(
                           idProyeccion: widget.idProyeccion,
                           idProyecto: widget.nombreProyecto,
-                          idusuario: widget.idProyeccion,
+                          idusuario: widget.idUser,
                           proyeccion: widget.proyeccionMB,
                         )));
                         },
