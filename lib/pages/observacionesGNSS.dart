@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:measurebookapp/pages/observacionesGNSS/observacionGNSSVertice.dart';
+import 'package:measurebookapp/pages/observacionesGNSS/tiemposRastreo.dart';
 
 
 class ObservacionesGNSS extends StatefulWidget {
@@ -40,7 +41,7 @@ class _ObservacionesGNSSState extends State<ObservacionesGNSS> {
                     SizedBox(height: 10),
                     Divider(height: 5.0),
                     Container(
-                      height: MediaQuery.of(context).size.height*0.68,
+                      height: MediaQuery.of(context).size.height*0.62,
                       child: SingleChildScrollView(
                       child: Text('Hola Mundo')
                       ),
@@ -72,7 +73,6 @@ class _ObservacionesGNSSState extends State<ObservacionesGNSS> {
                           ),),
                           color: Color(0xff007FFF),
                           onPressed: (){
-                            
                         }),
                       ],
                     ),

@@ -1,5 +1,7 @@
 import 'package:datetime_picker_formfield/datetime_picker_formfield.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_custom_clippers/flutter_custom_clippers.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:intl/intl.dart';
 import 'dart:math' as m;
@@ -10,191 +12,141 @@ import 'dart:math' as m;
 class ObservacionGNSSVertice extends StatefulWidget {
   ObservacionGNSSVertice({Key key}) : super(key: key);
   
-
   @override
   _ObservacionGNSSVerticeState createState() => _ObservacionGNSSVerticeState();
 }
 
 class _ObservacionGNSSVerticeState extends State<ObservacionGNSSVertice> {
-  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-  DateTime fecha;
-  bool validarFecha = false;
-  final formatoFecha = DateFormat("yyyy-MM-dd");
-  String latitud = 'LAtitud';
-  String longitud = 'Longitud';
-  String altitud = 'Altitud';
+
+
+
+
   @override
   Widget build(BuildContext context) {
+    List<Widget> redREf = [
+      Center(child: Text('Magna Eco', style: TextStyle(fontSize: 12, color: Colors.blueAccent), textAlign: TextAlign.center)),
+      Center(child: Text('GeoRED', style: TextStyle(fontSize: 12, color: Colors.blueAccent),textAlign: TextAlign.center)),
+      Center(child: Text('Magna Eco & GeoRED', style: TextStyle(fontSize: 12, color: Colors.blueAccent),textAlign: TextAlign.center))
+    ];
+    List<Widget> normaREF = [
+      Center(child: Text('IGAC', style: TextStyle(fontSize: 12, color: Colors.blueAccent), textAlign: TextAlign.center)),
+      Center(child: Text('IDU', style: TextStyle(fontSize: 12, color: Colors.blueAccent),textAlign: TextAlign.center)),
+      Center(child: Text('EAB', style: TextStyle(fontSize: 12, color: Colors.blueAccent),textAlign: TextAlign.center)),
+      Center(child: Text('CAR', style: TextStyle(fontSize: 12, color: Colors.blueAccent),textAlign: TextAlign.center)),
+    ];
     return Scaffold(
        body: SafeArea(
-         child: SingleChildScrollView(
-           child: Form(
-             key: _formKey,
-             child: Padding(
-               padding: const EdgeInsets.all(10.0),
-               child: Column(
-                 children: <Widget>[
-                   SizedBox(height: 15),
-                   Image.asset('assets/images/gnss.png',height: 60,),
-                   Divider(),
-                   Text('Nueva Obsevación', style: TextStyle(
-                   fontFamily: 'Roboto',
-                   color: Colors.black54,
-                   fontSize: 14,)),
-                   Text('Datos Básicos', style: TextStyle(
-                   fontFamily: 'Roboto',
-                   color: Color(0xff007FFF),
-                   fontSize: 14,)),
-                   Divider(),
-                   TextFormField(
-                   decoration: InputDecoration(
-                   icon: Icon(Icons.location_searching),
-                   labelText: 'Nombre del Punto'
-                   ),
-                   validator: (String nPunto) {
-                   
-                   }
-                   ),
-                   Row(
-
+           child: SingleChildScrollView(
+             child: Container(
+               child: Padding(
+                 padding: const EdgeInsets.all(10.0),
+                 child: Center(
+                   child: Column(
                      children: <Widget>[
-                       Icon(Icons.date_range),
-                       Padding(
-                         padding: const EdgeInsets.only(left: 15),
-                         child: Container(
-                            width: MediaQuery.of(context).size.width-65,
-                            child: DateTimeField(
-                              format: formatoFecha,
-                              initialValue: DateTime.now(),
-                              autovalidate: false,
-                              onShowPicker: (context, currentValue) async{
-                              final time = await showDatePicker(
-                              context: context, 
-                              initialDate: DateTime.now(), 
-                              firstDate: DateTime(2000),
-                              lastDate: DateTime(2050),
-                            );
-                            //Revisar aqui validador de Fecha
-                      }
-                   ),
-                         ),
-                       )
-                     ],
-                   ),
-                   TextFormField(
-                   decoration: InputDecoration(
-                   icon: Icon(Icons.map),
-                   labelText: 'Departamento'
-                   ),
-                   validator: (String nDepartamento) {
-                   }
-                   ),
-                   TextFormField(
-                   decoration: InputDecoration(
-                   icon: Icon(Icons.location_city),
-                   labelText: 'Municipio'
-                   ),
-                   validator: (String nMunicipio) {
-                   }
-                   ),
-                   TextFormField(
-                   decoration: InputDecoration(
-                   icon: Icon(Icons.add_location),
-                   labelText: 'Vereda/Barrio'
-                   ),
-                   validator: (String nBarrio) {
-                   }
-                   ),
-                   TextFormField(
-                   decoration: InputDecoration(
-                   icon: Icon(Icons.add_location),
-                   labelText: 'Sitio'
-                   ),
-                   validator: (String nSitio) {
-                   }
-                   ),
-                   Divider(),
-                   Text('Coordenadas Navegadas', style: TextStyle(
-                        fontFamily: 'Roboto',
+                       Image.asset('assets/images/gnss.png', height: 70),
+                       Divider(),
+                       RichText(text: TextSpan(
+                        children: <TextSpan> [
+                        TextSpan(text: 'Documenta tus', style: TextStyle(
+                        fontFamily: 'Roboto', 
+                        fontSize: 12.0,
                         color: Color(0xff007FFF),
-                        fontSize: 14,)),
-                   Divider(),
-                   TextFormField(
-                   decoration: InputDecoration(
-                   icon: Icon(Icons.add_location),
-                   labelText: latitud
-                   ),
-                   validator: (String nLatitud) {
-                   }
-                   ),
-                   TextFormField(
-                   decoration: InputDecoration(
-                   icon: Icon(Icons.add_location),
-                   labelText: longitud
-                   ),
-                   validator: (String nLongitud) {
-                   }
-                   ),
-                   TextFormField(
-                   decoration: InputDecoration(
-                  
-                   icon: Icon(Icons.add_location),
-                   labelText: altitud,
-                   ),
-                   validator: (String nAltitud) {
-                   }
-                   ),
-                   Divider(),
-                   Row(
-                     mainAxisAlignment: MainAxisAlignment.center,
-                     children: <Widget>[
-                       FlatButton(onPressed: ()async{
-                         Position posicionActual = await Geolocator().getLastKnownPosition(desiredAccuracy: LocationAccuracy.high);
-                         setState(() {
-                           latitud = grados2Sexadecimal(posicionActual.latitude);
-                           longitud = grados2Sexadecimal(posicionActual.longitude);
-                           altitud = roundDouble(posicionActual.altitude, 1).toString();
-                         });
-                       }, 
-                       child: Icon(Icons.location_searching, color: Colors.blueAccent, size: 40,)
-                       ),
-                       FlatButton(onPressed: null, 
-                       child: Icon(Icons.navigate_next, color: Colors.blueAccent, size: 60,)
-                       ),
+                        )),
+                        TextSpan(text: ' observaciones GNSS ', style: TextStyle(
+                        fontFamily: 'Roboto', 
+                        fontSize: 12.0,
+                        color: Colors.black54,
+                          )),
+                        ]
+                      )),
+                      Divider(height: 40,),
+                      Text('Determina el Tiempo de rastreo de tus observaciones', style: TextStyle(color: Colors.blueAccent, fontSize: 13, fontFamily: 'Roboto')),
+                      Divider(height: 20),
+                      Row(
+                        children: <Widget>[
+                          Container(
+                            decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.circular(10),
+                              boxShadow: [BoxShadow(
+                                blurRadius: 2,
+                                offset: Offset(-5, 5),
+                                color: Colors.black12
+                              )]
+                            ),
+                            height: 120,
+                            width: (MediaQuery.of(context).size.width-20)/2,
+                            child: Center(
+                              child: Column(
+                                children: <Widget>[
+                                  SizedBox(height: 5),
+                                  Text('Red de referencia', style: TextStyle(color: Colors.black54,fontSize: 12),textAlign: TextAlign.center),
+                                  SizedBox(height: 20),
+                                  Container(height: 50, child: CupertinoPicker(itemExtent: 20, onSelectedItemChanged: (index){}, children: redREf, squeeze: 1.0,)),
+                                ],
+                              ),
+                            ),
+                          ),
+                          Container(
+                            decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.circular(10),
+                              boxShadow: [BoxShadow(
+                                blurRadius: 2,
+                                offset: Offset(5, 5),
+                                color: Colors.black12
+                              )]
+                            ),
+                            height: 120,
+                            width: (MediaQuery.of(context).size.width-20)/2,
+                            child: Center(
+                              child: Column(
+                                children: <Widget>[
+                                  SizedBox(height: 5),
+                                  Text('Norma de Referencia', style: TextStyle(color: Colors.black54,fontSize: 12),textAlign: TextAlign.center),
+                                  SizedBox(height: 20),
+                                  Container(height: 50, child: CupertinoPicker(itemExtent: 20, onSelectedItemChanged: (index){}, children: normaREF, squeeze: 1.0,)),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                      SizedBox(height: 10),
+                      FlatButton(
+                          shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(20.0)),
+                          child: Text('Cálcular tiempos de rastreo', style: TextStyle(
+                            fontFamily: 'Roboto',
+                            fontSize: 12.0,
+                            color: Colors.white,
+                          ),),
+                          color: Color(0xff007FFF),
+                          onPressed: (){
+                        }),
+                        Divider(height: 50),
+                        Text('Genera las hojas de Campo de tus Observaciones GNSS', style: TextStyle(color: Colors.blueAccent, fontSize: 13, fontFamily: 'Roboto')),
+                        SizedBox(height: 50),
+                        ListTile(
+                          title: Text('Crear Hoja de Descripción  de vertice GNSS', style: TextStyle(fontSize: 12, color: Colors.blueAccent)),
+                          subtitle: Text('Crea y exporta en PDF la descipción de un vertice geodesico, usando el formato del IGAC', style: TextStyle(fontSize: 12, color: Colors.black54)),
+                          leading: Icon(Icons.assignment, size: 50, color: Colors.blueAccent,),
+                          trailing: Icon(Icons.navigate_next, color: Colors.black54, size: 40),
+                        ),
+                        Divider(height: 40),
+                        ListTile(
+                          title: Text('Crear Hoja de Descripción  de vertice GNSS', style: TextStyle(fontSize: 12, color: Colors.blueAccent)),
+                          subtitle: Text('Crea y exporta en PDF la descipción de un vertice geodesico, usando el formato del IGAC', style: TextStyle(fontSize: 12, color: Colors.black54)),
+                          leading: Icon(Icons.assignment, size: 50, color: Colors.blueAccent,),
+                          trailing: Icon(Icons.navigate_next, color: Colors.black54, size: 40),
+                        ),
                      ],
-                   )
-                 ],
+                   ),
+                 ),
                ),
-             ),
-           ),
-         )
-         ),
-    );
-  }
-  double roundDouble(double value, int places){ 
-   double mod = m.pow(10.0, places); 
-   return ((value * mod).round().toDouble() / mod); 
-}
-  String grados2Sexadecimal(double grados){
-    String hexadecimal;
-    if (grados>=0){
-      double seg;
-      int grad, min;
-      grad = grados.toInt();
-      min = ((grados-grad)*60).toInt();
-      seg = roundDouble((grados-grad-min/60)*3600, 4);
-      hexadecimal = '${grad}°${min}"${seg}"';
-      return hexadecimal;
-    }else {
-      double seg;
-      int grad, min;
-      grados = grados*-1;
-      grad = grados.toInt();
-      min = ((grados-grad)*60).toInt();
-      seg = roundDouble((grados-grad-min/60)*3600, 4);
-      hexadecimal = '-${grad}°${min}"${seg}"';
-      return hexadecimal;
+             )
+           )
+          )
+        );
     }
 
-  }
 }

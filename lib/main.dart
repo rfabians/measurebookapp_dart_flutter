@@ -111,7 +111,7 @@ class _MyAppState extends State<IniciarSesion> {
                         ]),
                         Container(
                           child: Container(
-                          height: 530,
+                          height: 460,
                           child: Scaffold(
                            body: FutureBuilder<List<proyectos>> (
                              future: gestorMBDatabase.db.getProyectos(),
@@ -120,6 +120,7 @@ class _MyAppState extends State<IniciarSesion> {
                                   if(snapshot.data.length == 0){
                                     return Center(
                                       child: Container(
+                                        height: 450,
                                         child: FlareActor('assets/images/sin_proyectos.flr', animation: 'Search location',),
                                       ),
                                     );
@@ -138,7 +139,7 @@ class _MyAppState extends State<IniciarSesion> {
                                           return Center(
                                               child: Container(
                                                 width: 280.0,
-                                                height: 450.0,
+                                                height: 430.0,
                                                     decoration: BoxDecoration(
                                                       image: DecorationImage(
                                                         image: AssetImage('assets/images/fondo_sistemas.png'),
@@ -159,7 +160,7 @@ class _MyAppState extends State<IniciarSesion> {
                                                   ),
                                               child: SingleChildScrollView(
                                                 child: Padding(
-                                                  padding: const EdgeInsets.all(20.0),
+                                                  padding: const EdgeInsets.all(5.0),
                                                   child: Column(
                                                      children: <Widget>[
                                                        Text('${listaProyectos.Nombre_Proyecto}', style: TextStyle(
@@ -321,7 +322,7 @@ class _MyAppState extends State<IniciarSesion> {
                                           return Center(
                                               child: Container(
                                                 width: 280.0,
-                                                height: 480.0,
+                                                height: 420.0,
                                                     decoration: BoxDecoration(
                                                       image: DecorationImage(
                                                         image: AssetImage('assets/images/fondo_sistemas.png'),
@@ -342,7 +343,7 @@ class _MyAppState extends State<IniciarSesion> {
                                                   ),
                                               child: SingleChildScrollView(
                                                 child: Padding(
-                                                  padding: const EdgeInsets.all(15.0),
+                                                  padding: const EdgeInsets.all(5.0),
                                                   child: Column(
                                                      children: <Widget>[
                                                        Text('${listaProyectos.Nombre_Proyecto}', style: TextStyle(
@@ -463,7 +464,7 @@ class _MyAppState extends State<IniciarSesion> {
                                                         ]
                                                         )),
                                                         ),
-                                                        Divider(height: 50,),
+                                                        Divider(height: 20,),
                                                         FlatButton(onPressed: (){
                                                           Navigator.push(context, MaterialPageRoute(
                                                             builder: (context) => MenuPrincipalMB(
