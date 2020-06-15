@@ -95,11 +95,11 @@ class _TiemposRastreoGNSSState extends State<TiemposRastreoGNSS> {
             future: gestorMBDatabase.db.getMagnaECO(),
             builder: (BuildContext context, AsyncSnapshot snapshot) {
               if (snapshot.hasData){
-                List<MagnaEco> listaEst = List<MagnaEco>(snapshot.data.length);
+                List<MagnaEco> listaEst = List<MagnaEco>();
               if(snapshot.data.length > 0) {
-                for (var i = 0; i < snapshot.data.length-1; i++) {
+                for (var i = 0; i < snapshot.data.length; i++) {
                   MagnaEco listaPuntos = snapshot.data[i];
-                  listaEst[i]=(listaPuntos);
+                  listaEst.add(listaPuntos);
                   markersClauster.add(
                     Marker(
                         anchorPos: AnchorPos.align(AnchorAlign.center),
@@ -274,12 +274,24 @@ class _TiemposRastreoGNSSState extends State<TiemposRastreoGNSS> {
                           child: Text('Calcular tiempos de Rastreo', style: TextStyle(fontSize: 12, color: Colors.white),),
                         ))
                         ),
-                        Container(
-                          height: 150,
-                          child: SingleChildScrollView(
-                            child: Column(
-                              children: listaEstaciones,
-                            )
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Container(
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(10),
+                              boxShadow: [
+                                BoxShadow(
+                                  blurRadius: 2,
+                                  color: Colors.black26
+                                )
+                              ]
+                            ),
+                            height: 150,
+                            child: SingleChildScrollView(
+                              child: Column(
+                                children: listaEstaciones,
+                              )
+                            ),
                           ),
                         )
                       ],
@@ -307,6 +319,7 @@ class _TiemposRastreoGNSSState extends State<TiemposRastreoGNSS> {
  
 List<TiemposRastreoM> tiempoRastreo(LatLng puntoCalculo, List<MagnaEco> estaciones){
   List<TiemposRastreoM> listaTiemposRastreo = List<TiemposRastreoM>();
+  listaTiemposRastreo.clear();
   Geodesy geodesy = Geodesy();
   for (var i = 0; i < estaciones.length-1; i++) {
     LatLng estacion = LatLng(estaciones[i].latitud, estaciones[i].longitud);
@@ -326,8 +339,9 @@ List<Widget> lista =List<Widget>();
   for (var i = 0; i < 9; i++) {
     lista.add(
       ListTile(
-        leading: Icon(Icons.location_on, size: 50, color: Colors.blueAccent),
-        title: Text(listaTiemposRastreo[i].nombre),
+        leading: Icon(Icons.my_location, size: 30, color: Colors.blueAccent),
+        title: Text(listaTiemposRastreo[i].nombre, style: TextStyle(color: Colors.blueAccent, fontSize: 12)),
+        subtitle: Text('Tiempos de Rastreo: ${listaTiemposRastreo[i].tiempoRastreo}'),
       )
     );
   } setState(() {
