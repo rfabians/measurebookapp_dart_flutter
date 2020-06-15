@@ -140,6 +140,8 @@ class _ObservacionGNSSVerticeState extends State<ObservacionGNSSVertice> {
                           onPressed: (){
                             Navigator.push(context, MaterialPageRoute(
                             builder: (context) => TiemposRastreoGNSS(
+                              norma: indeNorma,
+                              estaciones: indicered,
                             )));
                         }),
                         Divider(height: 50),

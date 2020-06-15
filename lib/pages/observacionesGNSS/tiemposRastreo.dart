@@ -1,17 +1,22 @@
 import 'dart:async';
-
+import 'dart:collection';
+import 'package:geodesy/geodesy.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:flutter_map_marker_cluster/flutter_map_marker_cluster.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:latlong/latlong.dart';
 import 'package:measurebookapp/clases/database.dart';
+import 'package:measurebookapp/clases/funcionesGenericas.dart';
 import 'package:measurebookapp/modelos/MagnaECO.dart';
 import 'package:measurebookapp/modelos/RedPasivaIGACPuntos.dart';
+import 'package:measurebookapp/modelos/tiemposRastreoM.dart';
 import 'package:user_location/user_location.dart';
 
 class TiemposRastreoGNSS extends StatefulWidget {
-  TiemposRastreoGNSS({Key key}) : super(key: key);
+  int estaciones, norma;
+  TiemposRastreoGNSS({Key key, this.estaciones, this.norma}) : super(key: key);
 
   @override
   _TiemposRastreoGNSSState createState() => _TiemposRastreoGNSSState();
@@ -25,11 +30,29 @@ class _TiemposRastreoGNSSState extends State<TiemposRastreoGNSS> {
   double latitud = 4.5970903;
   double longitud = -74.0656485;
   Timer _timer;
+  String norma = 'IGAC';
   List<Marker> puntoMarcadorTiempo;
+  List<Widget> listaEstaciones=List<Widget>();
   @override
   void initState() { 
     super.initState();
-    
+      if(widget.norma == 0){
+        setState(() {
+          norma = 'IGAC';
+        });
+      }else if(widget.norma == 1){
+      setState(() {
+        norma = 'IDU';
+      });
+      }else if(widget.norma == 2){
+        setState(() {
+        norma = 'EAB';
+      });
+      }else if(widget.norma == 3){
+        setState(() {
+        norma = 'CAR';
+      });
+      }
     _timer = Timer.periodic(Duration(milliseconds: 100), (_) {
       puntoMarcadorTiempo = [
       Marker(
@@ -44,6 +67,7 @@ class _TiemposRastreoGNSSState extends State<TiemposRastreoGNSS> {
  
   @override
   Widget build(BuildContext context) {
+    
 
     userLocationOptions = UserLocationOptions(
       context: context, 
@@ -71,9 +95,11 @@ class _TiemposRastreoGNSSState extends State<TiemposRastreoGNSS> {
             future: gestorMBDatabase.db.getMagnaECO(),
             builder: (BuildContext context, AsyncSnapshot snapshot) {
               if (snapshot.hasData){
+                List<MagnaEco> listaEst = List<MagnaEco>(snapshot.data.length);
               if(snapshot.data.length > 0) {
-                for (var i = 0; i < snapshot.data.length; i++) {
+                for (var i = 0; i < snapshot.data.length-1; i++) {
                   MagnaEco listaPuntos = snapshot.data[i];
+                  listaEst[i]=(listaPuntos);
                   markersClauster.add(
                     Marker(
                         anchorPos: AnchorPos.align(AnchorAlign.center),
@@ -210,7 +236,52 @@ class _TiemposRastreoGNSSState extends State<TiemposRastreoGNSS> {
                             )
                           )
                         ],
-                      )
+                      ),
+                      Divider(),
+                      Center(
+                        child: Text('Coordenadas Punto de Cálculo', style: TextStyle(fontSize: 12, color: Colors.blueAccent, fontFamily: 'Reboto')),
+                      ),
+                      Divider(),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          Text('Latitud:   ', style: TextStyle(color: Colors.black54, fontSize: 12)),
+                          Container(
+                            decoration: BoxDecoration(borderRadius: BorderRadius.circular(8), color: Colors.blueAccent),
+                            child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Text(FuncionesGenericas.mb.decimal2Hexadecimal(latitud), style: TextStyle(fontSize: 12, color: Colors.white),),
+                          )),
+                          SizedBox(width: 30),
+                          Text('Longitud:   ', style: TextStyle(color: Colors.black54, fontSize: 12)),
+                          Container(
+                            decoration: BoxDecoration(borderRadius: BorderRadius.circular(8), color: Colors.blueAccent),
+                            child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Text(FuncionesGenericas.mb.decimal2Hexadecimal(longitud), style: TextStyle(fontSize: 12, color: Colors.white),),
+                          ))
+                        ],
+                      ),
+                      Divider(height: 10),
+                      FlatButton(
+                        onPressed: (){
+                          tiempoRastreo(LatLng(latitud, longitud),listaEst);
+                        }, 
+                        child: Container(
+                          decoration: BoxDecoration(borderRadius: BorderRadius.circular(8), color: Colors.blueAccent),
+                          child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Text('Calcular tiempos de Rastreo', style: TextStyle(fontSize: 12, color: Colors.white),),
+                        ))
+                        ),
+                        Container(
+                          height: 150,
+                          child: SingleChildScrollView(
+                            child: Column(
+                              children: listaEstaciones,
+                            )
+                          ),
+                        )
                       ],
                   ),
                 ),
@@ -233,6 +304,36 @@ class _TiemposRastreoGNSSState extends State<TiemposRastreoGNSS> {
       ),
     );
  }
+ 
+List<TiemposRastreoM> tiempoRastreo(LatLng puntoCalculo, List<MagnaEco> estaciones){
+  List<TiemposRastreoM> listaTiemposRastreo = List<TiemposRastreoM>();
+  Geodesy geodesy = Geodesy();
+  for (var i = 0; i < estaciones.length-1; i++) {
+    LatLng estacion = LatLng(estaciones[i].latitud, estaciones[i].longitud);
+    listaTiemposRastreo.add(
+      TiemposRastreoM(
+        latitud: latitud,
+        longitud: longitud,
+        nombre: estaciones[i].nombre,
+        distancia: geodesy.distanceBetweenTwoGeoPoints(puntoCalculo, estacion),
+        entidadRespondable: norma,
+        tiempoRastreo: FuncionesGenericas.mb.tiempoRastreo(geodesy.distanceBetweenTwoGeoPoints(puntoCalculo, estacion), 'IGAC'),
+      )
+    );
+  }
+listaTiemposRastreo.sort((a,b)=> a.distancia.compareTo(b.distancia));
+List<Widget> lista =List<Widget>();
+  for (var i = 0; i < 9; i++) {
+    lista.add(
+      ListTile(
+        leading: Icon(Icons.location_on, size: 50, color: Colors.blueAccent),
+        title: Text(listaTiemposRastreo[i].nombre),
+      )
+    );
+  } setState(() {
+    listaEstaciones = lista;
+  });
+}
 
  actualizarPuntos(){
    setState(() {
