@@ -1,0 +1,2573 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Descripción de un punto</title>
+<style id="applicationStylesheet" type="text/css">
+	.mediaViewInfo {
+		--web-view-name: Web 1920 – 1;
+		--web-view-id: Web_1920__1;
+		--web-enable-deep-linking: true;
+	}
+	:root {
+		--web-view-ids: Web_1920__1;
+	}
+	* {
+		margin: 0;
+		padding: 0;
+		box-sizing: border-box;
+		border: none;
+	}
+	#Web_1920__1 {
+		position: absolute;
+		width: 1920px;
+		height: 1400px;
+		background-color: rgba(255,255,255,1);
+		overflow: hidden;
+		--web-view-name: Web 1920 – 1;
+		--web-view-id: Web_1920__1;
+		--web-enable-deep-linking: true;
+	}
+	#logo {
+		position: absolute;
+		width: 215px;
+		height: 76px;
+		left: 78px;
+		top: 38px;
+		overflow: visible;
+	}
+	#DESCRIPCIN_DE_PUNTO_GEODSICO {
+		left: 679px;
+		top: 38px;
+		position: absolute;
+		overflow: visible;
+		width: 525px;
+		height: 23px;
+		text-align: center;
+		font-family: Arial;
+		font-style: normal;
+		font-weight: bold;
+		font-size: 20px;
+		color: rgba(0,0,0,1);
+		text-transform: uppercase;
+	}
+	#fecha {
+		left: 1700px;
+		top: 27px;
+		position: absolute;
+		overflow: visible;
+		width: 51px;
+		white-space: nowrap;
+		text-align: center;
+		font-family: Arial;
+		font-style: normal;
+		font-weight: bold;
+		font-size: 18px;
+		color: rgba(0,0,0,1);
+		text-transform: uppercase;
+	}
+	#AO-MES-DA {
+		left: 1682px;
+		top: 66px;
+		position: absolute;
+		overflow: visible;
+		width: 87px;
+		white-space: nowrap;
+		text-align: center;
+		font-family: Arial;
+		font-style: normal;
+		font-weight: normal;
+		font-size: 18px;
+		color: rgba(0,0,0,1);
+		text-transform: uppercase;
+	}
+	#ID2020-05-25 {
+		left: 1623px;
+		top: 104px;
+		position: absolute;
+		overflow: visible;
+		width: 208px;
+		height: 21px;
+		text-align: center;
+		font-family: Arial;
+		font-style: normal;
+		font-weight: normal;
+		font-size: 18px;
+		color: rgba(0,0,0,1);
+		text-transform: uppercase;
+	}
+	#Nomenclatura {
+		left: 381px;
+		top: 89px;
+		position: absolute;
+		overflow: visible;
+		width: 209px;
+		white-space: nowrap;
+		text-align: left;
+		font-family: Arial;
+		font-style: normal;
+		font-weight: bold;
+		font-size: 18px;
+		color: rgba(0,0,0,1);
+		text-transform: uppercase;
+	}
+	#Nomenclatura_m {
+		left: 598px;
+		top: 89px;
+		position: absolute;
+		overflow: visible;
+		width: 461px;
+		height: 25px;
+		text-align: center;
+		font-family: Arial;
+		font-style: normal;
+		font-weight: normal;
+		font-size: 18px;
+		color: rgba(0,0,0,1);
+		text-transform: uppercase;
+	}
+	#Nomenclatura_n {
+		left: 1101px;
+		top: 89px;
+		position: absolute;
+		overflow: visible;
+		width: 147px;
+		white-space: nowrap;
+		text-align: left;
+		font-family: Arial;
+		font-style: normal;
+		font-weight: bold;
+		font-size: 18px;
+		color: rgba(0,0,0,1);
+		text-transform: uppercase;
+	}
+	#Nomenclatura_o {
+		left: 1258px;
+		top: 89px;
+		position: absolute;
+		overflow: visible;
+		width: 282px;
+		height: 26px;
+		text-align: center;
+		font-family: Arial;
+		font-style: normal;
+		font-weight: normal;
+		font-size: 18px;
+		color: rgba(0,0,0,1);
+		text-transform: uppercase;
+	}
+	#Nomenclatura_p {
+		left: 22px;
+		top: 155px;
+		position: absolute;
+		overflow: visible;
+		width: 105px;
+		white-space: nowrap;
+		text-align: left;
+		font-family: Arial;
+		font-style: normal;
+		font-weight: bold;
+		font-size: 18px;
+		color: rgba(0,0,0,1);
+		text-transform: uppercase;
+	}
+	#Nomenclatura_q {
+		left: 491px;
+		top: 155px;
+		position: absolute;
+		overflow: visible;
+		width: 75px;
+		white-space: nowrap;
+		text-align: left;
+		font-family: Arial;
+		font-style: normal;
+		font-weight: bold;
+		font-size: 18px;
+		color: rgba(0,0,0,1);
+		text-transform: uppercase;
+	}
+	#Nomenclatura_r {
+		left: 965px;
+		top: 155px;
+		position: absolute;
+		overflow: visible;
+		width: 103px;
+		white-space: nowrap;
+		text-align: left;
+		font-family: Arial;
+		font-style: normal;
+		font-weight: bold;
+		font-size: 18px;
+		color: rgba(0,0,0,1);
+		text-transform: uppercase;
+	}
+	#Nomenclatura_s {
+		left: 1445px;
+		top: 155px;
+		position: absolute;
+		overflow: visible;
+		width: 38px;
+		white-space: nowrap;
+		text-align: left;
+		font-family: Arial;
+		font-style: normal;
+		font-weight: bold;
+		font-size: 18px;
+		color: rgba(0,0,0,1);
+		text-transform: uppercase;
+	}
+	#Nomenclatura_t {
+		left: 22px;
+		top: 187px;
+		position: absolute;
+		overflow: visible;
+		width: 450px;
+		height: 21px;
+		text-align: center;
+		font-family: Arial;
+		font-style: normal;
+		font-weight: normal;
+		font-size: 18px;
+		color: rgba(0,0,0,1);
+		text-transform: uppercase;
+	}
+	#Nomenclatura_u {
+		left: 495px;
+		top: 181px;
+		position: absolute;
+		overflow: visible;
+		width: 445px;
+		height: 27px;
+		text-align: center;
+		font-family: Arial;
+		font-style: normal;
+		font-weight: normal;
+		font-size: 18px;
+		color: rgba(0,0,0,1);
+		text-transform: uppercase;
+	}
+	#Nomenclatura_v {
+		left: 978px;
+		top: 187px;
+		position: absolute;
+		overflow: visible;
+		width: 430px;
+		height: 21px;
+		text-align: center;
+		font-family: Arial;
+		font-style: normal;
+		font-weight: normal;
+		font-size: 18px;
+		color: rgba(0,0,0,1);
+		text-transform: uppercase;
+	}
+	#Nomenclatura_w {
+		left: 1445px;
+		top: 181px;
+		position: absolute;
+		overflow: visible;
+		width: 439px;
+		height: 27px;
+		text-align: center;
+		font-family: Arial;
+		font-style: normal;
+		font-weight: normal;
+		font-size: 18px;
+		color: rgba(0,0,0,1);
+		text-transform: uppercase;
+	}
+	#Nomenclatura_x {
+		left: 176px;
+		top: 246px;
+		position: absolute;
+		overflow: visible;
+		width: 299px;
+		white-space: nowrap;
+		text-align: center;
+		font-family: Arial;
+		font-style: normal;
+		font-weight: bold;
+		font-size: 18px;
+		color: rgba(0,0,0,1);
+		text-transform: uppercase;
+	}
+	#Nomenclatura_y {
+		left: 94px;
+		top: 283px;
+		position: absolute;
+		overflow: visible;
+		width: 45px;
+		white-space: nowrap;
+		text-align: center;
+		font-family: Arial;
+		font-style: normal;
+		font-weight: bold;
+		font-size: 16px;
+		color: rgba(0,0,0,1);
+		text-transform: uppercase;
+	}
+	#Nomenclatura_z {
+		left: 297px;
+		top: 283px;
+		position: absolute;
+		overflow: visible;
+		width: 57px;
+		white-space: nowrap;
+		text-align: center;
+		font-family: Arial;
+		font-style: normal;
+		font-weight: bold;
+		font-size: 16px;
+		color: rgba(0,0,0,1);
+		text-transform: uppercase;
+	}
+	#Nomenclatura_ {
+		left: 516px;
+		top: 283px;
+		position: absolute;
+		overflow: visible;
+		width: 39px;
+		white-space: nowrap;
+		text-align: center;
+		font-family: Arial;
+		font-style: normal;
+		font-weight: bold;
+		font-size: 16px;
+		color: rgba(0,0,0,1);
+		text-transform: uppercase;
+	}
+	#Nomenclatura_ba {
+		left: 34px;
+		top: 314px;
+		position: absolute;
+		overflow: visible;
+		width: 161px;
+		height: 22px;
+		text-align: center;
+		font-family: Arial;
+		font-style: normal;
+		font-weight: normal;
+		font-size: 16px;
+		color: rgba(0,0,0,1);
+		text-transform: uppercase;
+	}
+	#Nomenclatura_bb {
+		left: 246px;
+		top: 314px;
+		position: absolute;
+		overflow: visible;
+		width: 150px;
+		height: 22px;
+		text-align: center;
+		font-family: Arial;
+		font-style: normal;
+		font-weight: normal;
+		font-size: 16px;
+		color: rgba(0,0,0,1);
+		text-transform: uppercase;
+	}
+	#Nomenclatura_bc {
+		left: 443px;
+		top: 314px;
+		position: absolute;
+		overflow: visible;
+		width: 176px;
+		height: 18px;
+		text-align: center;
+		font-family: Arial;
+		font-style: normal;
+		font-weight: normal;
+		font-size: 16px;
+		color: rgba(0,0,0,1);
+		text-transform: uppercase;
+	}
+	#Rectngulo_12 {
+		fill: transparent;
+		stroke: rgba(0,0,0,1);
+		stroke-width: 1px;
+		stroke-linejoin: miter;
+		stroke-linecap: butt;
+		stroke-miterlimit: 4;
+		shape-rendering: auto;
+	}
+	.Rectngulo_12 {
+		position: absolute;
+		overflow: visible;
+		width: 629px;
+		height: 159px;
+		left: 11px;
+		top: 348px;
+	}
+	#Nomenclatura_bd {
+		left: 266px;
+		top: 363px;
+		position: absolute;
+		overflow: visible;
+		width: 121px;
+		white-space: nowrap;
+		text-align: center;
+		font-family: Arial;
+		font-style: normal;
+		font-weight: bold;
+		font-size: 16px;
+		color: rgba(0,0,0,1);
+		text-transform: uppercase;
+	}
+	#Nomenclatura_be {
+		left: 70px;
+		top: 398px;
+		position: absolute;
+		overflow: visible;
+		width: 39px;
+		white-space: nowrap;
+		text-align: center;
+		font-family: Arial;
+		font-style: normal;
+		font-weight: bold;
+		font-size: 16px;
+		color: rgba(0,0,0,1);
+		text-transform: uppercase;
+	}
+	#Nomenclatura_bf {
+		left: 34px;
+		top: 420px;
+		position: absolute;
+		overflow: visible;
+		width: 111px;
+		height: 19px;
+		text-align: center;
+		font-family: Arial;
+		font-style: normal;
+		font-weight: normal;
+		font-size: 16px;
+		color: rgba(0,0,0,1);
+		text-transform: uppercase;
+	}
+	#Nomenclatura_bg {
+		left: 223px;
+		top: 397px;
+		position: absolute;
+		overflow: visible;
+		width: 37px;
+		height: 21px;
+		text-align: center;
+		font-family: Arial;
+		font-style: normal;
+		font-weight: bold;
+		font-size: 16px;
+		color: rgba(0,0,0,1);
+		text-transform: uppercase;
+	}
+	#Nomenclatura_bh {
+		left: 185px;
+		top: 421px;
+		position: absolute;
+		overflow: visible;
+		width: 113px;
+		height: 18px;
+		text-align: center;
+		font-family: Arial;
+		font-style: normal;
+		font-weight: normal;
+		font-size: 16px;
+		color: rgba(0,0,0,1);
+		text-transform: uppercase;
+	}
+	#Nomenclatura_bi {
+		left: 379px;
+		top: 397px;
+		position: absolute;
+		overflow: visible;
+		width: 186px;
+		height: 21px;
+		text-align: center;
+		font-family: Arial;
+		font-style: normal;
+		font-weight: bold;
+		font-size: 16px;
+		color: rgba(0,0,0,1);
+		text-transform: uppercase;
+	}
+	#Nomenclatura_bj {
+		left: 344px;
+		top: 419px;
+		position: absolute;
+		overflow: visible;
+		width: 278px;
+		height: 20px;
+		text-align: center;
+		font-family: Arial;
+		font-style: normal;
+		font-weight: normal;
+		font-size: 16px;
+		color: rgba(0,0,0,1);
+		text-transform: uppercase;
+	}
+	#Nomenclatura_bk {
+		left: 16px;
+		top: 455px;
+		position: absolute;
+		overflow: visible;
+		width: 147px;
+		height: 18px;
+		text-align: center;
+		font-family: Arial;
+		font-style: normal;
+		font-weight: bold;
+		font-size: 16px;
+		color: rgba(0,0,0,1);
+		text-transform: uppercase;
+	}
+	#Nomenclatura_bl {
+		left: 34px;
+		top: 477px;
+		position: absolute;
+		overflow: visible;
+		width: 111px;
+		height: 18px;
+		text-align: center;
+		font-family: Arial;
+		font-style: normal;
+		font-weight: normal;
+		font-size: 16px;
+		color: rgba(0,0,0,1);
+		text-transform: uppercase;
+	}
+	#Nomenclatura_bm {
+		left: 209px;
+		top: 456px;
+		position: absolute;
+		overflow: visible;
+		width: 65px;
+		white-space: nowrap;
+		text-align: center;
+		font-family: Arial;
+		font-style: normal;
+		font-weight: bold;
+		font-size: 16px;
+		color: rgba(0,0,0,1);
+		text-transform: uppercase;
+	}
+	#Nomenclatura_bn {
+		left: 194px;
+		top: 478px;
+		position: absolute;
+		overflow: visible;
+		width: 104px;
+		height: 18px;
+		text-align: center;
+		font-family: Arial;
+		font-style: normal;
+		font-weight: normal;
+		font-size: 16px;
+		color: rgba(0,0,0,1);
+		text-transform: uppercase;
+	}
+	#Nomenclatura_bo {
+		left: 365px;
+		top: 456px;
+		position: absolute;
+		overflow: visible;
+		width: 61px;
+		white-space: nowrap;
+		text-align: center;
+		font-family: Arial;
+		font-style: normal;
+		font-weight: bold;
+		font-size: 16px;
+		color: rgba(0,0,0,1);
+		text-transform: uppercase;
+	}
+	#Nomenclatura_bp {
+		left: 353px;
+		top: 478px;
+		position: absolute;
+		overflow: visible;
+		width: 94px;
+		height: 18px;
+		text-align: center;
+		font-family: Arial;
+		font-style: normal;
+		font-weight: normal;
+		font-size: 16px;
+		color: rgba(0,0,0,1);
+		text-transform: uppercase;
+	}
+	#Nomenclatura_bq {
+		left: 512px;
+		top: 456px;
+		position: absolute;
+		overflow: visible;
+		width: 87px;
+		white-space: nowrap;
+		text-align: center;
+		font-family: Arial;
+		font-style: normal;
+		font-weight: bold;
+		font-size: 16px;
+		color: rgba(0,0,0,1);
+		text-transform: uppercase;
+	}
+	#Nomenclatura_br {
+		left: 491px;
+		top: 478px;
+		position: absolute;
+		overflow: visible;
+		width: 131px;
+		height: 18px;
+		text-align: center;
+		font-family: Arial;
+		font-style: normal;
+		font-weight: normal;
+		font-size: 16px;
+		color: rgba(0,0,0,1);
+		text-transform: uppercase;
+	}
+	#Rectngulo_22 {
+		fill: transparent;
+		stroke: rgba(0,0,0,1);
+		stroke-width: 1px;
+		stroke-linejoin: miter;
+		stroke-linecap: butt;
+		stroke-miterlimit: 4;
+		shape-rendering: auto;
+	}
+	.Rectngulo_22 {
+		position: absolute;
+		overflow: visible;
+		width: 319px;
+		height: 39px;
+		left: 321px;
+		top: 511px;
+	}
+	#Nomenclatura_bs {
+		left: 89px;
+		top: 521px;
+		position: absolute;
+		overflow: visible;
+		width: 153px;
+		white-space: nowrap;
+		text-align: center;
+		font-family: Arial;
+		font-style: normal;
+		font-weight: bold;
+		font-size: 16px;
+		color: rgba(0,0,0,1);
+		text-transform: uppercase;
+	}
+	#Nomenclatura_bt {
+		left: 446px;
+		top: 521px;
+		position: absolute;
+		overflow: visible;
+		width: 67px;
+		white-space: nowrap;
+		text-align: center;
+		font-family: Arial;
+		font-style: normal;
+		font-weight: bold;
+		font-size: 16px;
+		color: rgba(0,0,0,1);
+		text-transform: uppercase;
+	}
+	#Rectngulo_25 {
+		fill: transparent;
+		stroke: rgba(0,0,0,1);
+		stroke-width: 1px;
+		stroke-linejoin: miter;
+		stroke-linecap: butt;
+		stroke-miterlimit: 4;
+		shape-rendering: auto;
+	}
+	.Rectngulo_25 {
+		position: absolute;
+		overflow: visible;
+		width: 319px;
+		height: 419px;
+		left: 321px;
+		top: 550px;
+	}
+	#Rectngulo_26 {
+		fill: transparent;
+		stroke: rgba(0,0,0,1);
+		stroke-width: 1px;
+		stroke-linejoin: miter;
+		stroke-linecap: butt;
+		stroke-miterlimit: 4;
+		shape-rendering: auto;
+	}
+	.Rectngulo_26 {
+		position: absolute;
+		overflow: visible;
+		width: 629px;
+		height: 260px;
+		left: 11px;
+		top: 973px;
+	}
+	#Nomenclatura_bu {
+		left: 90px;
+		top: 981px;
+		position: absolute;
+		overflow: visible;
+		width: 393px;
+		white-space: nowrap;
+		text-align: center;
+		font-family: Arial;
+		font-style: normal;
+		font-weight: bold;
+		font-size: 18px;
+		color: rgba(0,0,0,1);
+		text-transform: uppercase;
+	}
+	#Nomenclatura_bv {
+		left: 16px;
+		top: 1025px;
+		position: absolute;
+		overflow: visible;
+		width: 19px;
+		white-space: nowrap;
+		text-align: center;
+		font-family: Arial;
+		font-style: normal;
+		font-weight: bold;
+		font-size: 18px;
+		color: rgba(0,0,0,1);
+		text-transform: uppercase;
+	}
+	#Nomenclatura_bw {
+		left: 178px;
+		top: 1025px;
+		position: absolute;
+		overflow: visible;
+		width: 47px;
+		white-space: nowrap;
+		text-align: center;
+		font-family: Arial;
+		font-style: normal;
+		font-weight: bold;
+		font-size: 18px;
+		color: rgba(0,0,0,1);
+		text-transform: uppercase;
+	}
+	#Nomenclatura_bx {
+		left: 422px;
+		top: 1025px;
+		position: absolute;
+		overflow: visible;
+		width: 51px;
+		white-space: nowrap;
+		text-align: center;
+		font-family: Arial;
+		font-style: normal;
+		font-weight: bold;
+		font-size: 18px;
+		color: rgba(0,0,0,1);
+		text-transform: uppercase;
+	}
+	#Nomenclatura_by {
+		left: 522px;
+		top: 1025px;
+		position: absolute;
+		overflow: visible;
+		width: 93px;
+		white-space: nowrap;
+		text-align: center;
+		font-family: Arial;
+		font-style: normal;
+		font-weight: bold;
+		font-size: 18px;
+		color: rgba(0,0,0,1);
+		text-transform: uppercase;
+	}
+	#Rectngulo_52 {
+		fill: transparent;
+		stroke: rgba(0,0,0,1);
+		stroke-width: 1px;
+		stroke-linejoin: miter;
+		stroke-linecap: butt;
+		stroke-miterlimit: 4;
+		shape-rendering: auto;
+	}
+	.Rectngulo_52 {
+		position: absolute;
+		overflow: visible;
+		width: 629px;
+		height: 152px;
+		left: 11px;
+		top: 1237px;
+	}
+	#Nomenclatura_bz {
+		left: 22px;
+		top: 1248px;
+		position: absolute;
+		overflow: visible;
+		width: 83px;
+		white-space: nowrap;
+		text-align: center;
+		font-family: Arial;
+		font-style: normal;
+		font-weight: bold;
+		font-size: 18px;
+		color: rgba(0,0,0,1);
+		text-transform: uppercase;
+	}
+	#Nomenclatura_b {
+		left: 117px;
+		top: 1259px;
+		position: absolute;
+		overflow: visible;
+		width: 506px;
+		height: 21px;
+		text-align: center;
+		font-family: Arial;
+		font-style: normal;
+		font-weight: normal;
+		font-size: 18px;
+		color: rgba(0,0,0,1);
+		text-transform: uppercase;
+	}
+	#Nomenclatura_ca {
+		left: 22px;
+		top: 1292px;
+		position: absolute;
+		overflow: visible;
+		width: 131px;
+		white-space: nowrap;
+		text-align: center;
+		font-family: Arial;
+		font-style: normal;
+		font-weight: bold;
+		font-size: 18px;
+		color: rgba(0,0,0,1);
+		text-transform: uppercase;
+	}
+	#Nomenclatura_cb {
+		left: 666px;
+		top: 1325px;
+		position: absolute;
+		overflow: visible;
+		width: 1225px;
+		height: 65px;
+		text-align: left;
+		font-family: Arial;
+		font-style: normal;
+		font-weight: normal;
+		font-size: 16px;
+		color: rgba(0,0,0,1);
+		text-transform: uppercase;
+	}
+	#Rectngulo_54 {
+		fill: transparent;
+		stroke: rgba(0,0,0,1);
+		stroke-width: 1px;
+		stroke-linejoin: miter;
+		stroke-linecap: butt;
+		stroke-miterlimit: 4;
+		shape-rendering: auto;
+	}
+	.Rectngulo_54 {
+		position: absolute;
+		overflow: visible;
+		width: 625px;
+		height: 485px;
+		left: 647px;
+		top: 277px;
+	}
+	#Rectngulo_55 {
+		fill: transparent;
+		stroke: rgba(0,0,0,1);
+		stroke-width: 1px;
+		stroke-linejoin: miter;
+		stroke-linecap: butt;
+		stroke-miterlimit: 4;
+		shape-rendering: auto;
+	}
+	.Rectngulo_55 {
+		position: absolute;
+		overflow: visible;
+		width: 1254px;
+		height: 105px;
+		left: 647px;
+		top: 1284px;
+	}
+	#Nomenclatura_cc {
+		left: 666px;
+		top: 1296px;
+		position: absolute;
+		overflow: visible;
+		width: 197px;
+		white-space: nowrap;
+		text-align: center;
+		font-family: Arial;
+		font-style: normal;
+		font-weight: bold;
+		font-size: 18px;
+		color: rgba(0,0,0,1);
+		text-transform: uppercase;
+	}
+	#Rectngulo_56 {
+		fill: transparent;
+		stroke: rgba(0,0,0,1);
+		stroke-width: 1px;
+		stroke-linejoin: miter;
+		stroke-linecap: butt;
+		stroke-miterlimit: 4;
+		shape-rendering: auto;
+	}
+	.Rectngulo_56 {
+		position: absolute;
+		overflow: visible;
+		width: 625px;
+		height: 477px;
+		left: 647px;
+		top: 803px;
+	}
+	#Rectngulo_57 {
+		fill: transparent;
+		stroke: rgba(0,0,0,1);
+		stroke-width: 1px;
+		stroke-linejoin: miter;
+		stroke-linecap: butt;
+		stroke-miterlimit: 4;
+		shape-rendering: auto;
+	}
+	.Rectngulo_57 {
+		position: absolute;
+		overflow: visible;
+		width: 629px;
+		height: 485px;
+		left: 1272px;
+		top: 277px;
+	}
+	#Rectngulo_58 {
+		fill: transparent;
+		stroke: rgba(0,0,0,1);
+		stroke-width: 1px;
+		stroke-linejoin: miter;
+		stroke-linecap: butt;
+		stroke-miterlimit: 4;
+		shape-rendering: auto;
+	}
+	.Rectngulo_58 {
+		position: absolute;
+		overflow: visible;
+		width: 629px;
+		height: 477px;
+		left: 1272px;
+		top: 803px;
+	}
+	#Rectngulo_59 {
+		fill: transparent;
+		stroke: rgba(0,0,0,1);
+		stroke-width: 1px;
+		stroke-linejoin: miter;
+		stroke-linecap: butt;
+		stroke-miterlimit: 4;
+		shape-rendering: auto;
+	}
+	.Rectngulo_59 {
+		position: absolute;
+		overflow: visible;
+		width: 625px;
+		height: 40px;
+		left: 647px;
+		top: 237px;
+	}
+	#Nomenclatura_cd {
+		left: 809px;
+		top: 247px;
+		position: absolute;
+		overflow: visible;
+		width: 299px;
+		white-space: nowrap;
+		text-align: center;
+		font-family: Arial;
+		font-style: normal;
+		font-weight: bold;
+		font-size: 18px;
+		color: rgba(0,0,0,1);
+	}
+	#Rectngulo_60 {
+		fill: transparent;
+		stroke: rgba(0,0,0,1);
+		stroke-width: 1px;
+		stroke-linejoin: miter;
+		stroke-linecap: butt;
+		stroke-miterlimit: 4;
+		shape-rendering: auto;
+	}
+	.Rectngulo_60 {
+		position: absolute;
+		overflow: visible;
+		width: 629px;
+		height: 40px;
+		left: 1272px;
+		top: 237px;
+	}
+	#Nomenclatura_ce {
+		left: 1436px;
+		top: 247px;
+		position: absolute;
+		overflow: visible;
+		width: 299px;
+		white-space: nowrap;
+		text-align: center;
+		font-family: Arial;
+		font-style: normal;
+		font-weight: bold;
+		font-size: 18px;
+		color: rgba(0,0,0,1);
+	}
+	#Rectngulo_61 {
+		fill: transparent;
+		stroke: rgba(0,0,0,1);
+		stroke-width: 1px;
+		stroke-linejoin: miter;
+		stroke-linecap: butt;
+		stroke-miterlimit: 4;
+		shape-rendering: auto;
+	}
+	.Rectngulo_61 {
+		position: absolute;
+		overflow: visible;
+		width: 625px;
+		height: 41px;
+		left: 647px;
+		top: 762px;
+	}
+	#Nomenclatura_cf {
+		left: 810px;
+		top: 772px;
+		position: absolute;
+		overflow: visible;
+		width: 299px;
+		white-space: nowrap;
+		text-align: center;
+		font-family: Arial;
+		font-style: normal;
+		font-weight: bold;
+		font-size: 18px;
+		color: rgba(0,0,0,1);
+	}
+	#Rectngulo_62 {
+		fill: transparent;
+		stroke: rgba(0,0,0,1);
+		stroke-width: 1px;
+		stroke-linejoin: miter;
+		stroke-linecap: butt;
+		stroke-miterlimit: 4;
+		shape-rendering: auto;
+	}
+	.Rectngulo_62 {
+		position: absolute;
+		overflow: visible;
+		width: 629px;
+		height: 41px;
+		left: 1272px;
+		top: 762px;
+	}
+	#Nomenclatura_cg {
+		left: 1438px;
+		top: 773px;
+		position: absolute;
+		overflow: visible;
+		width: 299px;
+		white-space: nowrap;
+		text-align: center;
+		font-family: Arial;
+		font-style: normal;
+		font-weight: bold;
+		font-size: 18px;
+		color: rgba(0,0,0,1);
+	}
+	#Rectngulo_63 {
+		fill: transparent;
+		stroke: rgba(0,0,0,1);
+		stroke-width: 1px;
+		stroke-linejoin: miter;
+		stroke-linecap: round;
+		stroke-miterlimit: 4;
+		shape-rendering: auto;
+	}
+	.Rectngulo_63 {
+		position: absolute;
+		overflow: visible;
+		width: 1891px;
+		height: 119px;
+		left: 10px;
+		top: 16px;
+	}
+	#Lnea_1 {
+		fill: transparent;
+		stroke: rgba(0,0,0,1);
+		stroke-width: 1px;
+		stroke-linejoin: miter;
+		stroke-linecap: butt;
+		stroke-miterlimit: 4;
+		shape-rendering: auto;
+	}
+	.Lnea_1 {
+		overflow: visible;
+		position: absolute;
+		width: 1px;
+		height: 76px;
+		left: 482.5px;
+		top: 147.5px;
+		transform: matrix(1,0,0,1,0,0);
+	}
+	#Lnea_2 {
+		fill: transparent;
+		stroke: rgba(0,0,0,1);
+		stroke-width: 1px;
+		stroke-linejoin: miter;
+		stroke-linecap: butt;
+		stroke-miterlimit: 4;
+		shape-rendering: auto;
+	}
+	.Lnea_2 {
+		overflow: visible;
+		position: absolute;
+		width: 1px;
+		height: 76px;
+		left: 953.5px;
+		top: 147.5px;
+		transform: matrix(1,0,0,1,0,0);
+	}
+	#Lnea_3 {
+		fill: transparent;
+		stroke: rgba(0,0,0,1);
+		stroke-width: 1px;
+		stroke-linejoin: miter;
+		stroke-linecap: butt;
+		stroke-miterlimit: 4;
+		shape-rendering: auto;
+	}
+	.Lnea_3 {
+		overflow: visible;
+		position: absolute;
+		width: 1px;
+		height: 76px;
+		left: 1427.5px;
+		top: 147.5px;
+		transform: matrix(1,0,0,1,0,0);
+	}
+	#Rectngulo_65 {
+		fill: transparent;
+		stroke: rgba(0,0,0,1);
+		stroke-width: 1px;
+		stroke-linejoin: miter;
+		stroke-linecap: butt;
+		stroke-miterlimit: 4;
+		shape-rendering: auto;
+	}
+	.Rectngulo_65 {
+		position: absolute;
+		overflow: visible;
+		width: 1891px;
+		height: 77px;
+		left: 10px;
+		top: 147px;
+	}
+	#Lnea_4 {
+		fill: transparent;
+		stroke: rgba(0,0,0,1);
+		stroke-width: 1px;
+		stroke-linejoin: miter;
+		stroke-linecap: butt;
+		stroke-miterlimit: 4;
+		shape-rendering: auto;
+	}
+	.Lnea_4 {
+		overflow: visible;
+		position: absolute;
+		width: 629px;
+		height: 1px;
+		left: 10.5px;
+		top: 275.5px;
+		transform: matrix(1,0,0,1,0,0);
+	}
+	#Lnea_5 {
+		fill: transparent;
+		stroke: rgba(0,0,0,1);
+		stroke-width: 1px;
+		stroke-linejoin: miter;
+		stroke-linecap: butt;
+		stroke-miterlimit: 4;
+		shape-rendering: auto;
+	}
+	.Lnea_5 {
+		overflow: visible;
+		position: absolute;
+		width: 1px;
+		height: 68px;
+		left: 220.5px;
+		top: 275.5px;
+		transform: matrix(1,0,0,1,0,0);
+	}
+	#Lnea_6 {
+		fill: transparent;
+		stroke: rgba(0,0,0,1);
+		stroke-width: 1px;
+		stroke-linejoin: miter;
+		stroke-linecap: butt;
+		stroke-miterlimit: 4;
+		shape-rendering: auto;
+	}
+	.Lnea_6 {
+		overflow: visible;
+		position: absolute;
+		width: 1px;
+		height: 68px;
+		left: 430.5px;
+		top: 275.5px;
+		transform: matrix(1,0,0,1,0,0);
+	}
+	#Lnea_7 {
+		fill: transparent;
+		stroke: rgba(112,112,112,1);
+		stroke-width: 1px;
+		stroke-linejoin: miter;
+		stroke-linecap: butt;
+		stroke-miterlimit: 4;
+		shape-rendering: auto;
+	}
+	.Lnea_7 {
+		overflow: visible;
+		position: absolute;
+		width: 54px;
+		height: 1px;
+		left: 326.5px;
+		top: 343.5px;
+		transform: matrix(1,0,0,1,0,0);
+	}
+	#Rectngulo_66 {
+		fill: transparent;
+		stroke: rgba(0,0,0,1);
+		stroke-width: 1px;
+		stroke-linejoin: miter;
+		stroke-linecap: butt;
+		stroke-miterlimit: 4;
+		shape-rendering: auto;
+	}
+	.Rectngulo_66 {
+		position: absolute;
+		overflow: visible;
+		width: 630px;
+		height: 107px;
+		left: 10px;
+		top: 237px;
+	}
+	#Lnea_8 {
+		fill: transparent;
+		stroke: rgba(0,0,0,1);
+		stroke-width: 1px;
+		stroke-linejoin: miter;
+		stroke-linecap: butt;
+		stroke-miterlimit: 4;
+		shape-rendering: auto;
+	}
+	.Lnea_8 {
+		overflow: visible;
+		position: absolute;
+		width: 628.002px;
+		height: 2px;
+		left: 11.5px;
+		top: 447.5px;
+		transform: matrix(1,0,0,1,0,0);
+	}
+	#Lnea_9 {
+		fill: transparent;
+		stroke: rgba(0,0,0,1);
+		stroke-width: 1px;
+		stroke-linejoin: miter;
+		stroke-linecap: butt;
+		stroke-miterlimit: 4;
+		shape-rendering: auto;
+	}
+	.Lnea_9 {
+		overflow: visible;
+		position: absolute;
+		width: 2px;
+		height: 117.009px;
+		left: 166.5px;
+		top: 389.5px;
+		transform: matrix(1,0,0,1,0,0);
+	}
+	#Lnea_10 {
+		fill: transparent;
+		stroke: rgba(0,0,0,1);
+		stroke-width: 1px;
+		stroke-linejoin: miter;
+		stroke-linecap: butt;
+		stroke-miterlimit: 4;
+		shape-rendering: auto;
+	}
+	.Lnea_10 {
+		overflow: visible;
+		position: absolute;
+		width: 1px;
+		height: 117px;
+		left: 320.5px;
+		top: 389.5px;
+		transform: matrix(1,0,0,1,0,0);
+	}
+	#Lnea_11 {
+		fill: transparent;
+		stroke: rgba(0,0,0,1);
+		stroke-width: 1px;
+		stroke-linejoin: miter;
+		stroke-linecap: butt;
+		stroke-miterlimit: 4;
+		shape-rendering: auto;
+	}
+	.Lnea_11 {
+		overflow: visible;
+		position: absolute;
+		width: 1px;
+		height: 58px;
+		left: 470.5px;
+		top: 448.5px;
+		transform: matrix(1,0,0,1,0,0);
+	}
+	#Lnea_12 {
+		fill: transparent;
+		stroke: rgba(0,0,0,1);
+		stroke-width: 1px;
+		stroke-linejoin: miter;
+		stroke-linecap: butt;
+		stroke-miterlimit: 4;
+		shape-rendering: auto;
+	}
+	.Lnea_12 {
+		overflow: visible;
+		position: absolute;
+		width: 628px;
+		height: 1px;
+		left: 11.5px;
+		top: 389.5px;
+		transform: matrix(1,0,0,1,0,0);
+	}
+	#Rectngulo_67 {
+		fill: transparent;
+		stroke: rgba(0,0,0,1);
+		stroke-width: 1px;
+		stroke-linejoin: round;
+		stroke-linecap: butt;
+		stroke-miterlimit: 4;
+		shape-rendering: auto;
+	}
+	.Rectngulo_67 {
+		position: absolute;
+		overflow: visible;
+		width: 310px;
+		height: 419px;
+		left: 11px;
+		top: 550px;
+	}
+	#Lnea_14 {
+		fill: transparent;
+		stroke: rgba(0,0,0,1);
+		stroke-width: 1px;
+		stroke-linejoin: miter;
+		stroke-linecap: butt;
+		stroke-miterlimit: 4;
+		shape-rendering: auto;
+	}
+	.Lnea_14 {
+		overflow: visible;
+		position: absolute;
+		width: 1px;
+		height: 222px;
+		left: 39.5px;
+		top: 1009.5px;
+		transform: matrix(1,0,0,1,0,0);
+	}
+	#Lnea_15 {
+		fill: transparent;
+		stroke: rgba(0,0,0,1);
+		stroke-width: 1px;
+		stroke-linejoin: miter;
+		stroke-linecap: butt;
+		stroke-miterlimit: 4;
+		shape-rendering: auto;
+	}
+	.Lnea_15 {
+		overflow: visible;
+		position: absolute;
+		width: 1px;
+		height: 224px;
+		left: 383.5px;
+		top: 1007.5px;
+		transform: matrix(1,0,0,1,0,0);
+	}
+	#Lnea_16 {
+		fill: transparent;
+		stroke: rgba(0,0,0,1);
+		stroke-width: 1px;
+		stroke-linejoin: miter;
+		stroke-linecap: butt;
+		stroke-miterlimit: 4;
+		shape-rendering: auto;
+	}
+	.Lnea_16 {
+		overflow: visible;
+		position: absolute;
+		width: 1px;
+		height: 225px;
+		left: 517.5px;
+		top: 1007.5px;
+		transform: matrix(1,0,0,1,0,0);
+	}
+	#Lnea_17 {
+		fill: transparent;
+		stroke: rgba(0,0,0,1);
+		stroke-width: 1px;
+		stroke-linejoin: miter;
+		stroke-linecap: butt;
+		stroke-miterlimit: 4;
+		shape-rendering: auto;
+	}
+	.Lnea_17 {
+		overflow: visible;
+		position: absolute;
+		width: 628px;
+		height: 1px;
+		left: 11.5px;
+		top: 1085.5px;
+		transform: matrix(1,0,0,1,0,0);
+	}
+	#Lnea_22 {
+		fill: transparent;
+		stroke: rgba(0,0,0,1);
+		stroke-width: 1px;
+		stroke-linejoin: miter;
+		stroke-linecap: butt;
+		stroke-miterlimit: 4;
+		shape-rendering: auto;
+	}
+	.Lnea_22 {
+		overflow: visible;
+		position: absolute;
+		width: 628px;
+		height: 1px;
+		left: 11.5px;
+		top: 1049.5px;
+		transform: matrix(1,0,0,1,0,0);
+	}
+	#Lnea_24 {
+		fill: transparent;
+		stroke: rgba(0,0,0,1);
+		stroke-width: 1px;
+		stroke-linejoin: miter;
+		stroke-linecap: butt;
+		stroke-miterlimit: 4;
+		shape-rendering: auto;
+	}
+	.Lnea_24 {
+		overflow: visible;
+		position: absolute;
+		width: 628.005px;
+		height: 4px;
+		left: 11.5px;
+		top: 1006.5px;
+		transform: matrix(1,0,0,1,0,0);
+	}
+	#Trazado_1 {
+		fill: rgba(0,0,0,0);
+		stroke: rgba(0,0,0,1);
+		stroke-width: 1px;
+		stroke-linejoin: miter;
+		stroke-linecap: butt;
+		stroke-miterlimit: 4;
+		shape-rendering: auto;
+	}
+	.Trazado_1 {
+		overflow: visible;
+		position: absolute;
+		width: 628px;
+		height: 1px;
+		left: 11.5px;
+		top: 1123.5px;
+		transform: matrix(1,0,0,1,0,0);
+	}
+	#Trazado_2 {
+		fill: rgba(0,0,0,0);
+		stroke: rgba(0,0,0,1);
+		stroke-width: 1px;
+		stroke-linejoin: miter;
+		stroke-linecap: butt;
+		stroke-miterlimit: 4;
+		shape-rendering: auto;
+	}
+	.Trazado_2 {
+		overflow: visible;
+		position: absolute;
+		width: 628px;
+		height: 1px;
+		left: 11.5px;
+		top: 1159.5px;
+		transform: matrix(1,0,0,1,0,0);
+	}
+	#Trazado_3 {
+		fill: rgba(0,0,0,0);
+		stroke: rgba(0,0,0,1);
+		stroke-width: 1px;
+		stroke-linejoin: miter;
+		stroke-linecap: butt;
+		stroke-miterlimit: 4;
+		shape-rendering: auto;
+	}
+	.Trazado_3 {
+		overflow: visible;
+		position: absolute;
+		width: 628px;
+		height: 1px;
+		left: 11.5px;
+		top: 1195.5px;
+		transform: matrix(1,0,0,1,0,0);
+	}
+	#Lnea_25 {
+		fill: transparent;
+		stroke: rgba(0,0,0,1);
+		stroke-width: 1px;
+		stroke-linejoin: miter;
+		stroke-linecap: butt;
+		stroke-miterlimit: 4;
+		shape-rendering: auto;
+	}
+	.Lnea_25 {
+		overflow: visible;
+		position: absolute;
+		width: 630px;
+		height: 1px;
+		left: 10.5px;
+		top: 1283.5px;
+		transform: matrix(1,0,0,1,0,0);
+	}
+	#Lnea_26 {
+		fill: transparent;
+		stroke: rgba(0,0,0,1);
+		stroke-width: 1px;
+		stroke-linejoin: miter;
+		stroke-linecap: butt;
+		stroke-miterlimit: 4;
+		shape-rendering: auto;
+	}
+	.Lnea_26 {
+		overflow: visible;
+		position: absolute;
+		width: 1px;
+		height: 119px;
+		left: 1552.5px;
+		top: 16.5px;
+		transform: matrix(1,0,0,1,0,0);
+	}
+	#Lnea_27 {
+		fill: transparent;
+		stroke: rgba(0,0,0,1);
+		stroke-width: 1px;
+		stroke-linejoin: miter;
+		stroke-linecap: butt;
+		stroke-miterlimit: 4;
+		shape-rendering: auto;
+	}
+	.Lnea_27 {
+		overflow: visible;
+		position: absolute;
+		width: 348px;
+		height: 1px;
+		left: 1552.5px;
+		top: 54.5px;
+		transform: matrix(1,0,0,1,0,0);
+	}
+	#Lnea_28 {
+		fill: transparent;
+		stroke: rgba(0,0,0,1);
+		stroke-width: 1px;
+		stroke-linejoin: miter;
+		stroke-linecap: butt;
+		stroke-miterlimit: 4;
+		shape-rendering: auto;
+	}
+	.Lnea_28 {
+		overflow: visible;
+		position: absolute;
+		width: 348px;
+		height: 1px;
+		left: 1552.5px;
+		top: 94.5px;
+		transform: matrix(1,0,0,1,0,0);
+	}
+	#Lnea_29 {
+		fill: transparent;
+		stroke: rgba(0,0,0,1);
+		stroke-width: 1px;
+		stroke-linejoin: miter;
+		stroke-linecap: butt;
+		stroke-miterlimit: 4;
+		shape-rendering: auto;
+	}
+	.Lnea_29 {
+		overflow: visible;
+		position: absolute;
+		width: 1px;
+		height: 119px;
+		left: 358.5px;
+		top: 16.5px;
+		transform: matrix(1,0,0,1,0,0);
+	}
+	#Rectngulo_68 {
+		fill: transparent;
+		stroke: rgba(0,0,0,1);
+		stroke-width: 1px;
+		stroke-linejoin: miter;
+		stroke-linecap: butt;
+		stroke-miterlimit: 4;
+		shape-rendering: auto;
+	}
+	.Rectngulo_68 {
+		position: absolute;
+		overflow: visible;
+		width: 310px;
+		height: 39px;
+		left: 11px;
+		top: 511px;
+	}
+	#ID1 {
+		left: 17px;
+		top: 1055px;
+		position: absolute;
+		overflow: visible;
+		width: 18px;
+		height: 23px;
+		text-align: center;
+		font-family: Arial;
+		font-style: normal;
+		font-weight: normal;
+		font-size: 21px;
+		color: rgba(0,0,0,1);
+	}
+	#ID1_c {
+		left: 17px;
+		top: 1093px;
+		position: absolute;
+		overflow: visible;
+		width: 18px;
+		height: 23px;
+		text-align: center;
+		font-family: Arial;
+		font-style: normal;
+		font-weight: normal;
+		font-size: 21px;
+		color: rgba(0,0,0,1);
+	}
+	#ID1_da {
+		left: 17px;
+		top: 1131px;
+		position: absolute;
+		overflow: visible;
+		width: 18px;
+		height: 23px;
+		text-align: center;
+		font-family: Arial;
+		font-style: normal;
+		font-weight: normal;
+		font-size: 21px;
+		color: rgba(0,0,0,1);
+	}
+	#ID1_db {
+		left: 17px;
+		top: 1167px;
+		position: absolute;
+		overflow: visible;
+		width: 18px;
+		height: 23px;
+		text-align: center;
+		font-family: Arial;
+		font-style: normal;
+		font-weight: normal;
+		font-size: 21px;
+		color: rgba(0,0,0,1);
+	}
+	#ID1_dc {
+		left: 17px;
+		top: 1200px;
+		position: absolute;
+		overflow: visible;
+		width: 18px;
+		height: 23px;
+		text-align: center;
+		font-family: Arial;
+		font-style: normal;
+		font-weight: normal;
+		font-size: 21px;
+		color: rgba(0,0,0,1);
+	}
+	#SE_NOS_ATRAVEZ_TODO_ {
+		left: 58px;
+		top: 1057px;
+		position: absolute;
+		overflow: visible;
+		width: 304px;
+		height: 23px;
+		text-align: center;
+		font-family: Arial;
+		font-style: normal;
+		font-weight: normal;
+		font-size: 21px;
+		color: rgba(0,0,0,1);
+		text-transform: uppercase;
+	}
+	#SE_NOS_ATRAVEZ_TODO__de {
+		left: 58px;
+		top: 1093px;
+		position: absolute;
+		overflow: visible;
+		width: 304px;
+		height: 23px;
+		text-align: center;
+		font-family: Arial;
+		font-style: normal;
+		font-weight: normal;
+		font-size: 21px;
+		color: rgba(0,0,0,1);
+		text-transform: uppercase;
+	}
+	#SE_NOS_ATRAVEZ_TODO__df {
+		left: 58px;
+		top: 1129px;
+		position: absolute;
+		overflow: visible;
+		width: 304px;
+		height: 23px;
+		text-align: center;
+		font-family: Arial;
+		font-style: normal;
+		font-weight: normal;
+		font-size: 21px;
+		color: rgba(0,0,0,1);
+		text-transform: uppercase;
+	}
+	#SE_NOS_ATRAVEZ_TODO__dg {
+		left: 58px;
+		top: 1166px;
+		position: absolute;
+		overflow: visible;
+		width: 304px;
+		height: 23px;
+		text-align: center;
+		font-family: Arial;
+		font-style: normal;
+		font-weight: normal;
+		font-size: 21px;
+		color: rgba(0,0,0,1);
+		text-transform: uppercase;
+	}
+	#SE_NOS_ATRAVEZ_TODO__dh {
+		left: 58px;
+		top: 1200px;
+		position: absolute;
+		overflow: visible;
+		width: 304px;
+		height: 23px;
+		text-align: center;
+		font-family: Arial;
+		font-style: normal;
+		font-weight: normal;
+		font-size: 21px;
+		color: rgba(0,0,0,1);
+		text-transform: uppercase;
+	}
+	#Nomenclatura_di {
+		left: 394px;
+		top: 1061px;
+		position: absolute;
+		overflow: visible;
+		width: 117px;
+		height: 22px;
+		text-align: center;
+		font-family: Arial;
+		font-style: normal;
+		font-weight: normal;
+		font-size: 16px;
+		color: rgba(0,0,0,1);
+		text-transform: uppercase;
+	}
+	#Nomenclatura_dj {
+		left: 394px;
+		top: 1095px;
+		position: absolute;
+		overflow: visible;
+		width: 117px;
+		height: 22px;
+		text-align: center;
+		font-family: Arial;
+		font-style: normal;
+		font-weight: normal;
+		font-size: 16px;
+		color: rgba(0,0,0,1);
+		text-transform: uppercase;
+	}
+	#Nomenclatura_dk {
+		left: 394px;
+		top: 1132px;
+		position: absolute;
+		overflow: visible;
+		width: 117px;
+		height: 22px;
+		text-align: center;
+		font-family: Arial;
+		font-style: normal;
+		font-weight: normal;
+		font-size: 16px;
+		color: rgba(0,0,0,1);
+		text-transform: uppercase;
+	}
+	#Nomenclatura_dl {
+		left: 394px;
+		top: 1167px;
+		position: absolute;
+		overflow: visible;
+		width: 117px;
+		height: 22px;
+		text-align: center;
+		font-family: Arial;
+		font-style: normal;
+		font-weight: normal;
+		font-size: 16px;
+		color: rgba(0,0,0,1);
+		text-transform: uppercase;
+	}
+	#Nomenclatura_dm {
+		left: 394px;
+		top: 1205px;
+		position: absolute;
+		overflow: visible;
+		width: 117px;
+		height: 22px;
+		text-align: center;
+		font-family: Arial;
+		font-style: normal;
+		font-weight: normal;
+		font-size: 16px;
+		color: rgba(0,0,0,1);
+		text-transform: uppercase;
+	}
+	#Nomenclatura_dn {
+		left: 531px;
+		top: 1061px;
+		position: absolute;
+		overflow: visible;
+		width: 95px;
+		height: 22px;
+		text-align: center;
+		font-family: Arial;
+		font-style: normal;
+		font-weight: normal;
+		font-size: 16px;
+		color: rgba(0,0,0,1);
+		text-transform: uppercase;
+	}
+	#Nomenclatura_do {
+		left: 528px;
+		top: 1095px;
+		position: absolute;
+		overflow: visible;
+		width: 95px;
+		height: 22px;
+		text-align: center;
+		font-family: Arial;
+		font-style: normal;
+		font-weight: normal;
+		font-size: 16px;
+		color: rgba(0,0,0,1);
+		text-transform: uppercase;
+	}
+	#Nomenclatura_dp {
+		left: 528px;
+		top: 1132px;
+		position: absolute;
+		overflow: visible;
+		width: 95px;
+		height: 22px;
+		text-align: center;
+		font-family: Arial;
+		font-style: normal;
+		font-weight: normal;
+		font-size: 16px;
+		color: rgba(0,0,0,1);
+		text-transform: uppercase;
+	}
+	#Nomenclatura_dq {
+		left: 528px;
+		top: 1167px;
+		position: absolute;
+		overflow: visible;
+		width: 95px;
+		height: 22px;
+		text-align: center;
+		font-family: Arial;
+		font-style: normal;
+		font-weight: normal;
+		font-size: 16px;
+		color: rgba(0,0,0,1);
+		text-transform: uppercase;
+	}
+	#Nomenclatura_dr {
+		left: 528px;
+		top: 1205px;
+		position: absolute;
+		overflow: visible;
+		width: 95px;
+		height: 22px;
+		text-align: center;
+		font-family: Arial;
+		font-style: normal;
+		font-weight: normal;
+		font-size: 16px;
+		color: rgba(0,0,0,1);
+		text-transform: uppercase;
+	}
+	#PUES_RESULTA_QUE_RAFITA_ERA_UN {
+		left: 25px;
+		top: 1319px;
+		position: absolute;
+		overflow: visible;
+		width: 590px;
+		height: 60px;
+		text-align: left;
+		font-family: Arial;
+		font-style: normal;
+		font-weight: normal;
+		font-size: 16px;
+		color: rgba(0,0,0,1);
+	}
+	#img3 {
+		position: absolute;
+		width: 615px;
+		height: 455px;
+		left: 652px;
+		top: 291px;
+		overflow: visible;
+	}
+	#img5 {
+		position: absolute;
+		width: 615px;
+		height: 455px;
+		left: 652px;
+		top: 809px;
+		overflow: visible;
+	}
+	#img6 {
+		position: absolute;
+		width: 615px;
+		height: 455px;
+		left: 1278px;
+		top: 809px;
+		overflow: visible;
+	}
+	#img4 {
+		position: absolute;
+		width: 615px;
+		height: 455px;
+		left: 1278px;
+		top: 290px;
+		overflow: visible;
+	}
+	#img1 {
+		position: absolute;
+		width: 296px;
+		height: 324px;
+		left: 17px;
+		top: 598px;
+		overflow: visible;
+	}
+	#img2 {
+		position: absolute;
+		width: 296px;
+		height: 324px;
+		left: 333px;
+		top: 598px;
+		overflow: visible;
+	}
+</style>
+</head>
+<body>
+<div id="Web_1920__1">
+	<img id="logo" src="logo.png">
+	<div id="DESCRIPCIN_DE_PUNTO_GEODSICO">
+		<span>DESCRIPCIÓN DE PUNTO GEODÉSICO</span>
+	</div>
+	<div id="fecha">
+		<span>fecha</span>
+	</div>
+	<div id="AO-MES-DA">
+		<span style="text-transform:uppercase;">A</span><span style="text-transform:lowercase;">ÑO-</span><span style="text-transform:uppercase;">M</span><span style="text-transform:lowercase;">ES-</span><span style="text-transform:uppercase;">D</span><span style="text-transform:lowercase;">ÍA</span>
+	</div>
+	<div id="ID2020-05-25">
+		<script>
+			//Variable fecha 1 puede tener 10 caracteres
+			var fecha_1 = "2020-04-25";
+			document.write(fecha_1);
+		</script>
+	</div>
+	<div id="Nomenclatura">
+		<span style="text-transform:uppercase;">n</span><span style="text-transform:lowercase;">omenclatura</span><span style="text-transform:uppercase;"> e</span><span style="text-transform:lowercase;">standarizada</span><span style="text-transform:uppercase;">:</span>
+	</div>
+	<div id="Nomenclatura_m">
+		<script>
+			//Variable Nomenclatura Placa Estandarizada puede tener 35 caracteres
+			var nomenclatura_est = "12345678910111213141516453534534543"
+			document.write(nomenclatura_est);
+		</script>
+	</div>
+	<div id="Nomenclatura_n">
+		<span style="text-transform:uppercase;">n</span><span style="text-transform:lowercase;">omenclatura</span><span style="text-transform:uppercase;"> p</span><span style="text-transform:lowercase;">laca</span><span style="text-transform:uppercase;">:</span>
+	</div>
+	<div id="Nomenclatura_o">
+		<script>
+			//Varibale Nomenclatura Placa puede tener 20 caracteres
+			var nomenclatura_pla = "12345678910111213141"
+			document.write(nomenclatura_pla);
+		</script>
+	</div>
+	<div id="Nomenclatura_p">
+		<span style="text-transform:uppercase;">D</span><span style="text-transform:lowercase;">epartamento:</span>
+	</div>
+	<div id="Nomenclatura_q">
+		<span style="text-transform:uppercase;">M</span><span style="text-transform:lowercase;">unicipio</span><span style="text-transform:uppercase;">:</span>
+	</div>
+	<div id="Nomenclatura_r">
+		<span style="text-transform:uppercase;">B</span><span style="text-transform:lowercase;">arrio</span><span style="text-transform:uppercase;">/v</span><span style="text-transform:lowercase;">ereda:</span>
+	</div>
+	<div id="Nomenclatura_s">
+		<span style="text-transform:uppercase;">s</span><span style="text-transform:lowercase;">itio:</span>
+	</div>
+	<div id="Nomenclatura_t">
+		<script>
+			//Var departamento puede tener 36 caracteres
+			var departamento = "Son las galaxias y otras dimensiones"
+			document.write(departamento);
+		</script>
+	</div>
+	<div id="Nomenclatura_u">
+		<script>
+			//Var municipio puede tener 43 caracteres
+			var municipio = "cundinamarca meta y san vicente del chucuri"
+			document.write(municipio);
+		</script>
+	</div>
+	<div id="Nomenclatura_v">
+		<script>
+			//Variable barrio o vereda ba_ve puede tener 40 caracteres
+			var ba_ve = "Barrio o vereda es far far far farr away"
+			document.write(ba_ve);
+		</script>
+	</div>
+	<div id="Nomenclatura_w">
+		<script>
+			//Variable sitio puede tener 50 caracteres
+			var sitio = "LAS AVENTURAS DE RICK Y MORTI POR LAS GALAXIAS .i."
+			document.write(sitio);
+		</script>
+	</div>
+	<div id="Nomenclatura_x">
+		<span style="text-transform:uppercase;">c</span><span style="text-transform:lowercase;">oordenadas</span><span style="text-transform:uppercase;"> n</span><span style="text-transform:lowercase;">avegadas</span><span style="text-transform:uppercase;"> magna-sirgas</span>
+	</div>
+	<div id="Nomenclatura_y">
+		<span style="text-transform:uppercase;">L</span><span style="text-transform:lowercase;">atitud</span>
+	</div>
+	<div id="Nomenclatura_z">
+		<span style="text-transform:uppercase;">L</span><span style="text-transform:lowercase;">ongitud</span>
+	</div>
+	<div id="Nomenclatura_">
+		<span style="text-transform:uppercase;">A</span><span style="text-transform:lowercase;">ltura</span>
+	</div>
+	<div id="Nomenclatura_ba">
+		<script>
+			//Variable latitud puede tener 15 caracteres
+			var latitud = "4°35'58.4586"
+			document.write(latitud);
+		</script>
+	</div>
+	<div id="Nomenclatura_bb">
+		<script>
+			//Variable longitud puede tener 15 caracteres
+			var longitud = "-74°35'58.4586"
+			document.write(longitud);
+		</script>
+	</div>
+	<div id="Nomenclatura_bc">
+		<script>
+			//Variable altura puede tener 8 caracteres
+			var altura = "2345.1234"
+			document.write(altura);
+		</script>
+	</div>
+	<svg class="Rectngulo_12">
+		<rect id="Rectngulo_12" rx="10" ry="10" x="0" y="0" width="629" height="159">
+		</rect>
+	</svg>
+	<div id="Nomenclatura_bd">
+		<span>monumentación</span>
+	</div>
+	<div id="Nomenclatura_be">
+		<span style="text-transform:uppercase;">F</span><span style="text-transform:lowercase;">echa</span>
+	</div>
+	<div id="Nomenclatura_bf">
+		<script>
+			//Variable fecha 2 puede tener 10 caracteres
+			var fecha_2 = "2020-04-25"
+			document.write(fecha_2);
+		</script>
+	</div>
+	<div id="Nomenclatura_bg">
+		<span style="text-transform:uppercase;">t</span><span style="text-transform:lowercase;">ipo</span>
+	</div>
+	<div id="Nomenclatura_bh">
+		<script>
+			//Variable tipo puede tener 10 caracteres
+			var tipo = "pilastraaa"
+			document.write(tipo);
+		</script>
+	</div>
+	<div id="Nomenclatura_bi">
+		<span style="text-transform:uppercase;">m</span><span>onumentado por</span>
+	</div>
+	<div id="Nomenclatura_bj">
+		<script>
+			//Variable monumentado puede tener 28 caracteres
+			var monumentado = "Rafael Fabian Sanchez Osorio"
+			document.write(monumentado);
+		</script>
+	</div>
+	<div id="Nomenclatura_bk">
+		<span style="text-transform:uppercase;">E</span><span style="text-transform:lowercase;">stado del punto:</span>
+	</div>
+	<div id="Nomenclatura_bl">
+		<script>
+			//Variable estado puede tener 10 caracteres
+			var estado = "Excelentee"
+			document.write(estado);
+		</script>
+	</div>
+	<div id="Nomenclatura_bm">
+		<span style="text-transform:uppercase;">a</span><span style="text-transform:lowercase;">ncho (m)</span>
+	</div>
+	<div id="Nomenclatura_bn">
+		<script>
+			//Variable ancho puede tener 8 caracteres
+			var ancho ="17.2345"
+			document.write(ancho);
+		</script>
+	</div>
+	<div id="Nomenclatura_bo">
+		<span style="text-transform:uppercase;">l</span><span style="text-transform:lowercase;">argo (m)</span>
+	</div>
+	<div id="Nomenclatura_bp">
+		<script>
+			//Variable largo puede tener 8 caracteres
+			var largo ="17.2345"
+			document.write(largo);
+		</script>
+	</div>
+	<div id="Nomenclatura_bq">
+		<span style="text-transform:uppercase;">s</span><span style="text-transform:lowercase;">obresale (M)</span>
+	</div>
+	<div id="Nomenclatura_br">
+		<script>
+			//Variable sobresale puede tener 8 caracteres
+			var sobresale ="17.2345"
+			document.write(sobresale);
+		</script>
+	</div>
+	<svg class="Rectngulo_22">
+		<rect id="Rectngulo_22" rx="10" ry="10" x="0" y="0" width="319" height="39">
+		</rect>
+	</svg>
+	<div id="Nomenclatura_bs">
+		<span style="text-transform:uppercase;">d</span><span style="text-transform:lowercase;">iagrama de obstaculos</span>
+	</div>
+	<div id="Nomenclatura_bt">
+		<span style="text-transform:uppercase;">f</span><span style="text-transform:lowercase;">oto placa</span>
+	</div>
+	<svg class="Rectngulo_25">
+		<rect id="Rectngulo_25" rx="10" ry="10" x="0" y="0" width="319" height="419">
+		</rect>
+	</svg>
+	<svg class="Rectngulo_26">
+		<rect id="Rectngulo_26" rx="10" ry="10" x="0" y="0" width="629" height="260">
+		</rect>
+	</svg>
+	<div id="Nomenclatura_bu">
+		<span>referencias medidas de los objetos al punto</span>
+	</div>
+	<div id="Nomenclatura_bv">
+		<span>n°</span>
+	</div>
+	<div id="Nomenclatura_bw">
+		<span style="text-transform:uppercase;">o</span><span style="text-transform:lowercase;">bjeto</span>
+	</div>
+	<div id="Nomenclatura_bx">
+		<span style="text-transform:uppercase;">a</span><span style="text-transform:lowercase;">zimut</span>
+	</div>
+	<div id="Nomenclatura_by">
+		<span style="text-transform:uppercase;">d</span><span style="text-transform:lowercase;">istancia (M)</span>
+	</div>
+	<svg class="Rectngulo_52">
+		<rect id="Rectngulo_52" rx="10" ry="10" x="0" y="0" width="629" height="152">
+		</rect>
+	</svg>
+	<div id="Nomenclatura_bz">
+		<span>describió</span>
+	</div>
+	<div id="Nomenclatura_b">
+		<script>
+			//Variable describio puede tener 43 caracteres
+			var describio = "Rafael Fabian Sanchez Osorio Y RICK SANCHEZ"
+			document.write(describio);
+		</script>
+	</div>
+	<div id="Nomenclatura_ca">
+		<span>observaciones</span>
+	</div>
+	<div id="Nomenclatura_cb">
+		<script>
+			//Var descripcion puede 200 caracteres
+			var descripcion = "horizonte despejado, apto para observación gnss aksdjhaksdjhaksdhasjdaksdjhakjdshaasdaskdjalsdjalsdjalskdjl askdjals kjdasdasda jks dljalskdjalskdjalskdjalksdjalksdjlaksdjasdkjshdakjdhsasd aksjdhaqui"
+			document.write(descripcion);
+		</script>
+	</div>
+	<svg class="Rectngulo_54">
+		<rect id="Rectngulo_54" rx="10" ry="10" x="0" y="0" width="625" height="485">
+		</rect>
+	</svg>
+	<svg class="Rectngulo_55">
+		<rect id="Rectngulo_55" rx="10" ry="10" x="0" y="0" width="1254" height="105">
+		</rect>
+	</svg>
+	<div id="Nomenclatura_cc">
+		<span>descripción detallada</span>
+	</div>
+	<svg class="Rectngulo_56">
+		<rect id="Rectngulo_56" rx="10" ry="10" x="0" y="0" width="625" height="477">
+		</rect>
+	</svg>
+	<svg class="Rectngulo_57">
+		<rect id="Rectngulo_57" rx="10" ry="10" x="0" y="0" width="629" height="485">
+		</rect>
+	</svg>
+	<svg class="Rectngulo_58">
+		<rect id="Rectngulo_58" rx="10" ry="10" x="0" y="0" width="629" height="477">
+		</rect>
+	</svg>
+	<svg class="Rectngulo_59">
+		<rect id="Rectngulo_59" rx="10" ry="10" x="0" y="0" width="625" height="40">
+		</rect>
+	</svg>
+	<div id="Nomenclatura_cd">
+		<span> Croquis General </span>
+	</div>
+	<svg class="Rectngulo_60">
+		<rect id="Rectngulo_60" rx="10" ry="10" x="0" y="0" width="629" height="40">
+		</rect>
+	</svg>
+	<div id="Nomenclatura_ce">
+		<span> Acceso General </span>	
+	</div>
+	<svg class="Rectngulo_61">
+		<rect id="Rectngulo_61" rx="10" ry="10" x="0" y="0" width="625" height="41">
+		</rect>
+	</svg>
+	<div id="Nomenclatura_cf">
+		<span> Croquis Detallado </span>	
+	</div>
+	<svg class="Rectngulo_62">
+		<rect id="Rectngulo_62" rx="10" ry="10" x="0" y="0" width="629" height="41">
+		</rect>
+	</svg>
+	<div id="Nomenclatura_cg">
+		<span> Perfil </span>		
+	</div>
+	<svg class="Rectngulo_63">
+		<rect id="Rectngulo_63" rx="10" ry="10" x="0" y="0" width="1891" height="119">
+		</rect>
+	</svg>
+	<svg class="Lnea_1" viewBox="0 0 1 76">
+		<path id="Lnea_1" d="M 0 0 L 0 76">
+		</path>
+	</svg>
+	<svg class="Lnea_2" viewBox="0 0 1 76">
+		<path id="Lnea_2" d="M 0 0 L 0 76">
+		</path>
+	</svg>
+	<svg class="Lnea_3" viewBox="0 0 1 76">
+		<path id="Lnea_3" d="M 0 0 L 0 76">
+		</path>
+	</svg>
+	<svg class="Rectngulo_65">
+		<rect id="Rectngulo_65" rx="10" ry="10" x="0" y="0" width="1891" height="77">
+		</rect>
+	</svg>
+	<svg class="Lnea_4" viewBox="0 0 629 1">
+		<path id="Lnea_4" d="M 0 0 L 629 0">
+		</path>
+	</svg>
+	<svg class="Lnea_5" viewBox="0 0 1 68">
+		<path id="Lnea_5" d="M 0 0 L 0 68">
+		</path>
+	</svg>
+	<svg class="Lnea_6" viewBox="0 0 1 68">
+		<path id="Lnea_6" d="M 0 0 L 0 68">
+		</path>
+	</svg>
+	<svg class="Lnea_7" viewBox="0 0 54 1">
+		<path id="Lnea_7" d="M 0 0 L 54 0">
+		</path>
+	</svg>
+	<svg class="Rectngulo_66">
+		<rect id="Rectngulo_66" rx="10" ry="10" x="0" y="0" width="630" height="107">
+		</rect>
+	</svg>
+	<svg class="Lnea_8" viewBox="0 0 628 1">
+		<path id="Lnea_8" d="M 0 0 L 628 1">
+		</path>
+	</svg>
+	<svg class="Lnea_9" viewBox="0 0 1 117">
+		<path id="Lnea_9" d="M 0 0 L 1 117">
+		</path>
+	</svg>
+	<svg class="Lnea_10" viewBox="0 0 1 117">
+		<path id="Lnea_10" d="M 0 0 L 0 117">
+		</path>
+	</svg>
+	<svg class="Lnea_11" viewBox="0 0 1 58">
+		<path id="Lnea_11" d="M 0 0 L 0 58">
+		</path>
+	</svg>
+	<svg class="Lnea_12" viewBox="0 0 628 1">
+		<path id="Lnea_12" d="M 0 0 L 628 0">
+		</path>
+	</svg>
+	<svg class="Rectngulo_67">
+		<rect id="Rectngulo_67" rx="10" ry="10" x="0" y="0" width="310" height="419">
+		</rect>
+	</svg>
+	<svg class="Lnea_14" viewBox="0 0 1 222">
+		<path id="Lnea_14" d="M 0 0 L 0 222">
+		</path>
+	</svg>
+	<svg class="Lnea_15" viewBox="0 0 1 224">
+		<path id="Lnea_15" d="M 0 0 L 0 224">
+		</path>
+	</svg>
+	<svg class="Lnea_16" viewBox="0 0 1 225">
+		<path id="Lnea_16" d="M 0 0 L 0 225">
+		</path>
+	</svg>
+	<svg class="Lnea_17" viewBox="0 0 628 1">
+		<path id="Lnea_17" d="M 0 0 L 628 0">
+		</path>
+	</svg>
+	<svg class="Lnea_22" viewBox="0 0 628 1">
+		<path id="Lnea_22" d="M 0 0 L 628 0">
+		</path>
+	</svg>
+	<svg class="Lnea_24" viewBox="0 0 628 3">
+		<path id="Lnea_24" d="M 628 0 L 0 3">
+		</path>
+	</svg>
+	<svg class="Trazado_1" viewBox="0 0 628 1">
+		<path id="Trazado_1" d="M 0 0 L 628 0">
+		</path>
+	</svg>
+	<svg class="Trazado_2" viewBox="0 0 628 1">
+		<path id="Trazado_2" d="M 0 0 L 628 0">
+		</path>
+	</svg>
+	<svg class="Trazado_3" viewBox="0 0 628 1">
+		<path id="Trazado_3" d="M 0 0 L 628 0">
+		</path>
+	</svg>
+	<svg class="Lnea_25" viewBox="0 0 630 1">
+		<path id="Lnea_25" d="M 0 0 L 630 0">
+		</path>
+	</svg>
+	<svg class="Lnea_26" viewBox="0 0 1 119">
+		<path id="Lnea_26" d="M 0 119 L 0 0">
+		</path>
+	</svg>
+	<svg class="Lnea_27" viewBox="0 0 348 1">
+		<path id="Lnea_27" d="M 0 0 L 348 0">
+		</path>
+	</svg>
+	<svg class="Lnea_28" viewBox="0 0 348 1">
+		<path id="Lnea_28" d="M 0 0 L 348 0">
+		</path>
+	</svg>
+	<svg class="Lnea_29" viewBox="0 0 1 119">
+		<path id="Lnea_29" d="M 0 119 L 0 0">
+		</path>
+	</svg>
+	<svg class="Rectngulo_68">
+		<rect id="Rectngulo_68" rx="10" ry="10" x="0" y="0" width="310" height="39">
+		</rect>
+	</svg>
+	<div id="ID1">
+		<script>
+			//Variable numeración n1 tiene 1 caracter
+			var n1 = "1"
+			document.write(n1);
+		</script>
+	</div>
+	<div id="ID1_c">
+		<script>
+			//Variable numeración n2 tiene 1 caracter
+			var n2 = "2"
+			document.write(n2);
+		</script>
+	</div>
+	<div id="ID1_da">
+		<script>
+			//Variable numeración n3 tiene 1 caracter
+			var n3 = "3"
+			document.write(n3);
+		</script>
+	</div>
+	<div id="ID1_db">
+		<script>
+			//Variable numeración n4 tiene 1 caracter
+			var n4 = "4"
+			document.write(n4);
+		</script>
+	</div>
+	<div id="ID1_dc">
+		<script>
+			//Variable numeración n5 tiene 1 caracter
+			var n5 = "5"
+			document.write(n5);
+		</script>
+	</div>
+	<div id="SE_NOS_ATRAVEZ_TODO_">
+		<script>
+			//Var objeto1 puede tener 22 caracteres
+			var obj_1 = "el zapatoo de rick .-."
+			document.write(obj_1);
+		</script>
+	</div>
+	<div id="SE_NOS_ATRAVEZ_TODO__de">
+		<script>
+			//Var objeto2 puede tener 22 caracteres
+			var obj_2 = "el zapatoo de rick .-."
+			document.write(obj_2);
+		</script>
+	</div>
+	<div id="SE_NOS_ATRAVEZ_TODO__df">
+		<script>
+			//Var objeto3 puede tener 22 caracteres
+			var obj_3 = "el zapatoo de rick .-."
+			document.write(obj_3);
+		</script>
+	</div>
+	<div id="SE_NOS_ATRAVEZ_TODO__dg">
+		<script>
+			//Var objeto4 puede tener 22 caracteres
+			var obj_4 = "el zapatoo de rick .-."
+			document.write(obj_4);
+		</script>
+	</div>
+	<div id="SE_NOS_ATRAVEZ_TODO__dh">
+		<script>
+			//Var objeto5 puede tener 22 caracteres
+			var obj_5 = "el zapatoo de rick .-."
+			document.write(obj_5);
+		</script>
+	</div>
+	<div id="Nomenclatura_di">
+		<script>
+			//Var Azimut 1 puede tener 16 caracteres
+			var az_1 = "234°32'45.1234"
+			document.write(az_1);
+		</script>
+	</div>
+	<div id="Nomenclatura_dj">
+		<script>
+			//Var Azimut 2 puede tener 16 caracteres
+			var az_2 = "234°32'45.1234"
+			document.write(az_2);
+		</script>
+	</div>
+	<div id="Nomenclatura_dk">
+		<script>
+			//Var Azimut 3 puede tener 16 caracteres
+			var az_3 = "234°32'45.1234"
+			document.write(az_3);
+		</script>
+	</div>
+	<div id="Nomenclatura_dl">
+		<script>
+			//Var Azimut 4 puede tener 16 caracteres
+			var az_4 = "234°32'45.1234"
+			document.write(az_4);
+		</script>
+	</div>
+	<div id="Nomenclatura_dm">
+		<script>
+			//Var Azimut 5 puede tener 16 caracteres
+			var az_5 = "234°32'45.1234"
+			document.write(az_5);
+		</script>
+	</div>
+	<div id="Nomenclatura_dn">
+		<script>
+			//Var distancia 1 puede tener 7 caracteres
+			var dist_1 = "999.1234"
+			document.write(dist_1);
+		</script>
+	</div>
+	<div id="Nomenclatura_do">
+		<script>
+			//Var distancia 2 puede tener 7 caracteres
+			var dist_2 = "999.1234"
+			document.write(dist_2);
+		</script>
+	</div>
+	<div id="Nomenclatura_dp">
+		<script>
+			//Var distancia 3 puede tener 7 caracteres
+			var dist_3 = "999.1234"
+			document.write(dist_3);
+		</script>
+	</div>
+	<div id="Nomenclatura_dq">
+		<script>
+			//Var distancia 4 puede tener 7 caracteres
+			var dist_4 = "999.1234"
+			document.write(dist_4);
+		</script>
+	</div>
+	<div id="Nomenclatura_dr">
+		<script>
+			//Var distancia 5 puede tener 7 caracteres
+			var dist_5 = "999.1234"
+			document.write(dist_5);
+		</script>
+	</div>
+	<div id="PUES_RESULTA_QUE_RAFITA_ERA_UN">
+		<script>
+			//Var observaciones puede tener 170 caracteres
+			var observaciones = "PUES RESULTA QUE RAFITA ERA UN FÍSICO Y ENTONCES PODRÍA VIAJAR POR TODAS LAS GALAXIAS Y LAS DIMENSIONES. EN ESTA DIMENSIÓN ESTÁ CON LA CHIQUITA, Y NO HAY CACHORROS..."
+			document.write(observaciones);
+		</script>
+	</div>
+	<img id="img1" src="img1.png">
+	<img id="img2" src="img2.png">
+	<img id="img3" src="img3.png">
+	<img id="img4" src="img4.png">
+	<img id="img5" src="img5.png">
+	<img id="img6" src="img6.png">
+</div>
+</body>
+</html>
