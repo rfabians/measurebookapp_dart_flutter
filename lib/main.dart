@@ -351,7 +351,7 @@ class _MyAppState extends State<IniciarSesion> {
                                                         color: Colors.white,
                                                         fontSize: 16.0
                                                        ),),
-                                                       SizedBox(height: 30.0),
+                                                       SizedBox(height: 10.0),
                                                        Text('Datos del Proyecto', style: TextStyle(
                                                           fontFamily: 'Roboto',
                                                           color: Colors.blueAccent,

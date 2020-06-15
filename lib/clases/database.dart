@@ -4,6 +4,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:flutter_map_marker_cluster/flutter_map_marker_cluster.dart';
 import 'package:latlong/latlong.dart';
+import 'package:measurebookapp/modelos/GeoRED.dart';
+import 'package:measurebookapp/modelos/MagnaECO.dart';
 import 'package:measurebookapp/modelos/RedPasivaIGACPuntos.dart';
 import 'package:measurebookapp/modelos/altNiveladas.dart';
 import 'package:measurebookapp/modelos/cartesianasCS.dart';
@@ -171,6 +173,21 @@ class gestorMBDatabase {
     }else {
       return false;
     }
+  }
+    Future<List<MagnaEco>> getMagnaECO() async{
+    WidgetsFlutterBinding.ensureInitialized();
+    Database db = await mbBasedeDatos();
+    var response = await db.rawQuery('SELECT * FROM MAGNAECO');
+    List<MagnaEco>  listaMagnaECO = response.map((c)=> MagnaEco.fromMap(c)).toList();    
+    return listaMagnaECO;
+  }
+
+  Future<List<GeoRED>> getGeoRED() async{
+    WidgetsFlutterBinding.ensureInitialized();
+    Database db = await mbBasedeDatos();
+    var response = await db.rawQuery('SELECT * FROM GEORED');
+    List<GeoRED>  listaGeoRED = response.map((c)=> GeoRED.fromMap(c)).toList();    
+    return listaGeoRED;
   }
 }
 

@@ -4,7 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_custom_clippers/flutter_custom_clippers.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:intl/intl.dart';
+import 'package:location/location.dart';
 import 'dart:math' as m;
+
+import 'package:measurebookapp/pages/observacionesGNSS/tiemposRastreo.dart';
 
 
 
@@ -19,10 +22,13 @@ class ObservacionGNSSVertice extends StatefulWidget {
 class _ObservacionGNSSVerticeState extends State<ObservacionGNSSVertice> {
 
 
-
-
+  double latitudCentroMap = 0;
+  double longitudCentroMap = 0;
+  int indeNorma = 0;
+  int indicered = 0;
+  
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context) { 
     List<Widget> redREf = [
       Center(child: Text('Magna Eco', style: TextStyle(fontSize: 12, color: Colors.blueAccent), textAlign: TextAlign.center)),
       Center(child: Text('GeoRED', style: TextStyle(fontSize: 12, color: Colors.blueAccent),textAlign: TextAlign.center)),
@@ -82,7 +88,12 @@ class _ObservacionGNSSVerticeState extends State<ObservacionGNSSVertice> {
                                   SizedBox(height: 5),
                                   Text('Red de referencia', style: TextStyle(color: Colors.black54,fontSize: 12),textAlign: TextAlign.center),
                                   SizedBox(height: 20),
-                                  Container(height: 50, child: CupertinoPicker(itemExtent: 20, onSelectedItemChanged: (index){}, children: redREf, squeeze: 1.0,)),
+                                  Container(height: 50, child: CupertinoPicker(itemExtent: 20, onSelectedItemChanged: (index){
+                                    setState(() {
+                                      indicered = index;
+                                      print(indicered);
+                                    });
+                                  }, children: redREf, squeeze: 1.0,)),
                                 ],
                               ),
                             ),
@@ -105,7 +116,12 @@ class _ObservacionGNSSVerticeState extends State<ObservacionGNSSVertice> {
                                   SizedBox(height: 5),
                                   Text('Norma de Referencia', style: TextStyle(color: Colors.black54,fontSize: 12),textAlign: TextAlign.center),
                                   SizedBox(height: 20),
-                                  Container(height: 50, child: CupertinoPicker(itemExtent: 20, onSelectedItemChanged: (index){}, children: normaREF, squeeze: 1.0,)),
+                                  Container(height: 50, child: CupertinoPicker(itemExtent: 20, onSelectedItemChanged: (index){
+                                    setState(() {
+                                      indeNorma = index;
+                                      print(indeNorma);
+                                    });
+                                  }, children: normaREF, squeeze: 1.0,)),
                                 ],
                               ),
                             ),
@@ -122,6 +138,9 @@ class _ObservacionGNSSVerticeState extends State<ObservacionGNSSVertice> {
                           ),),
                           color: Color(0xff007FFF),
                           onPressed: (){
+                            Navigator.push(context, MaterialPageRoute(
+                            builder: (context) => TiemposRastreoGNSS(
+                            )));
                         }),
                         Divider(height: 50),
                         Text('Genera las hojas de Campo de tus Observaciones GNSS', style: TextStyle(color: Colors.blueAccent, fontSize: 13, fontFamily: 'Roboto')),
