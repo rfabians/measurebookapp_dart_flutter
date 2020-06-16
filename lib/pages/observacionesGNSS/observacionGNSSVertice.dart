@@ -37,7 +37,7 @@ class _ObservacionGNSSVerticeState extends State<ObservacionGNSSVertice> {
     List<Widget> normaREF = [
       Center(child: Text('IGAC', style: TextStyle(fontSize: 12, color: Colors.blueAccent), textAlign: TextAlign.center)),
       Center(child: Text('IDU', style: TextStyle(fontSize: 12, color: Colors.blueAccent),textAlign: TextAlign.center)),
-      Center(child: Text('EAB', style: TextStyle(fontSize: 12, color: Colors.blueAccent),textAlign: TextAlign.center)),
+      Center(child: Text('EAB NS-030', style: TextStyle(fontSize: 12, color: Colors.blueAccent),textAlign: TextAlign.center)),
       Center(child: Text('CAR', style: TextStyle(fontSize: 12, color: Colors.blueAccent),textAlign: TextAlign.center)),
     ];
     return Scaffold(

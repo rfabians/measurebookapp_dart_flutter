@@ -13,6 +13,7 @@ import 'package:measurebookapp/modelos/MagnaECO.dart';
 import 'package:measurebookapp/modelos/RedPasivaIGACPuntos.dart';
 import 'package:measurebookapp/modelos/tiemposRastreoM.dart';
 import 'package:user_location/user_location.dart';
+import 'package:share/share.dart';
 
 class TiemposRastreoGNSS extends StatefulWidget {
   int estaciones, norma;
@@ -31,6 +32,7 @@ class _TiemposRastreoGNSSState extends State<TiemposRastreoGNSS> {
   double longitud = -74.0656485;
   Timer _timer;
   String norma = 'IGAC';
+  String estacionesRef = 'Red Magna ECO';
   List<Marker> puntoMarcadorTiempo;
   List<Widget> listaEstaciones=List<Widget>();
   @override
@@ -46,12 +48,26 @@ class _TiemposRastreoGNSSState extends State<TiemposRastreoGNSS> {
       });
       }else if(widget.norma == 2){
         setState(() {
-        norma = 'EAB';
+        norma = 'EAB NS-030';
       });
       }else if(widget.norma == 3){
         setState(() {
         norma = 'CAR';
       });
+      }
+
+      if(widget.estaciones ==0){
+        setState(() {
+          estacionesRef = 'Red Magna ECO';
+        });
+      }else if(widget.estaciones == 1){
+        setState(() {
+          estacionesRef = 'GeoRED';
+        });
+      }else if(widget.estaciones == 2){
+        setState(() {
+          estacionesRef = 'Red Magna Eco & GeoRED';
+        });
       }
     _timer = Timer.periodic(Duration(milliseconds: 100), (_) {
       puntoMarcadorTiempo = [
@@ -88,9 +104,11 @@ class _TiemposRastreoGNSSState extends State<TiemposRastreoGNSS> {
     ];
     
 
-    return Scaffold(
+    return Scaffold( 
       body: SafeArea(
         child: Container(
+          height: MediaQuery.of(context).size.height,
+          width: MediaQuery.of(context).size.width,
           child: FutureBuilder(
             future: gestorMBDatabase.db.getMagnaECO(),
             builder: (BuildContext context, AsyncSnapshot snapshot) {
@@ -150,7 +168,7 @@ class _TiemposRastreoGNSSState extends State<TiemposRastreoGNSS> {
                       Stack(
                         children: <Widget>[
                               Container(
-                                  height: 500,
+                                  height: MediaQuery.of(context).size.height*.5,
                                   width: MediaQuery.of(context).size.width,
                                   child: FlutterMap(
                                   options: MapOptions(
@@ -198,12 +216,12 @@ class _TiemposRastreoGNSSState extends State<TiemposRastreoGNSS> {
                           Positioned(
                             left: (MediaQuery.of(context).size.width/2),
                             child: Container(
-                            height: 500,
+                            height: MediaQuery.of(context).size.height*0.5,
                             width: 2,
                             color: Colors.black54,
                           )),
                           Positioned(
-                            top: 250,
+                            top: MediaQuery.of(context).size.height*0.25,
                             child: Container(
                             height: 2,
                             width: MediaQuery.of(context).size.width,
@@ -211,7 +229,7 @@ class _TiemposRastreoGNSSState extends State<TiemposRastreoGNSS> {
                           )),
                           Positioned(
                             left: (MediaQuery.of(context).size.width/2)-25,
-                            top: 225,
+                            top: (MediaQuery.of(context).size.height*0.25)-25,
                             child: Icon(Icons.location_searching, size: 50)),
                           Positioned(
                             bottom: 10,
@@ -239,7 +257,7 @@ class _TiemposRastreoGNSSState extends State<TiemposRastreoGNSS> {
                       ),
                       Divider(),
                       Center(
-                        child: Text('Coordenadas Punto de Cálculo', style: TextStyle(fontSize: 12, color: Colors.blueAccent, fontFamily: 'Reboto')),
+                        child: Text('Coordenadas Punto de referencia', style: TextStyle(fontSize: 12, color: Colors.blueAccent, fontFamily: 'Reboto')),
                       ),
                       Divider(),
                       Row(
@@ -278,6 +296,7 @@ class _TiemposRastreoGNSSState extends State<TiemposRastreoGNSS> {
                           padding: const EdgeInsets.all(8.0),
                           child: Container(
                             decoration: BoxDecoration(
+                              color: Colors.white,
                               borderRadius: BorderRadius.circular(10),
                               boxShadow: [
                                 BoxShadow(
@@ -286,14 +305,14 @@ class _TiemposRastreoGNSSState extends State<TiemposRastreoGNSS> {
                                 )
                               ]
                             ),
-                            height: 150,
+                            height: 170,
                             child: SingleChildScrollView(
                               child: Column(
                                 children: listaEstaciones,
                               )
                             ),
                           ),
-                        )
+                        ),
                       ],
                   ),
                 ),
@@ -339,9 +358,28 @@ List<Widget> lista =List<Widget>();
   for (var i = 0; i < 9; i++) {
     lista.add(
       ListTile(
+        dense: true,
         leading: Icon(Icons.my_location, size: 30, color: Colors.blueAccent),
         title: Text(listaTiemposRastreo[i].nombre, style: TextStyle(color: Colors.blueAccent, fontSize: 12)),
         subtitle: Text('Tiempos de Rastreo: ${listaTiemposRastreo[i].tiempoRastreo}'),
+        trailing: Icon(Icons.share),
+        onTap: (){
+          
+          Share.share('Calculo de Tiempos de Rastreo MeasureBookAPP \n\n'+
+                'Red de Referencia: ${estacionesRef} \n'+
+                'Coordenadas Punto de Cálculo \n'+
+                'Latitud: ${FuncionesGenericas.mb.decimal2Hexadecimal(latitud)}\n'+
+                'Longitud: ${FuncionesGenericas.mb.decimal2Hexadecimal(longitud)}\n\n'+
+                'Estación de Referencia: ${listaTiemposRastreo[i].nombre}\n'+
+                'Distancia (Km): ${FuncionesGenericas.mb.redondearDouble(listaTiemposRastreo[i].distancia/1000, 3)}\n'+
+                'Norma de Referencia: ${norma}\n'+
+                'Tiempos de Rastreo: ${listaTiemposRastreo[i].tiempoRastreo}\n');
+        },
+      )
+    );
+    lista.add(
+      Divider(
+        height: 3,
       )
     );
   } setState(() {

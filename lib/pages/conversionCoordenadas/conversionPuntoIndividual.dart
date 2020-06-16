@@ -16,7 +16,6 @@ import 'package:measurebookapp/modelos/gaussCS.dart';
 import 'package:measurebookapp/modelos/municipios.dart';
 import 'package:measurebookapp/modelos/origenesCartesianos.dart';
 import 'package:measurebookapp/modelos/origenesGauss.dart';
-import 'package:measurebookapp/pages/conversionPunto.dart';
 import 'dart:math' as m;
 
 import 'package:share/share.dart';
