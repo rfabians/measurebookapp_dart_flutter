@@ -32,13 +32,11 @@ class _ObservacionGNSSVerticeState extends State<ObservacionGNSSVertice> {
     List<Widget> redREf = [
       Center(child: Text('Magna Eco', style: TextStyle(fontSize: 12, color: Colors.blueAccent), textAlign: TextAlign.center)),
       Center(child: Text('GeoRED', style: TextStyle(fontSize: 12, color: Colors.blueAccent),textAlign: TextAlign.center)),
-      Center(child: Text('Magna Eco & GeoRED', style: TextStyle(fontSize: 12, color: Colors.blueAccent),textAlign: TextAlign.center))
     ];
     List<Widget> normaREF = [
-      Center(child: Text('IGAC', style: TextStyle(fontSize: 12, color: Colors.blueAccent), textAlign: TextAlign.center)),
-      Center(child: Text('IDU', style: TextStyle(fontSize: 12, color: Colors.blueAccent),textAlign: TextAlign.center)),
+      Center(child: Text('IGAC RES 643 30/05/2018', style: TextStyle(fontSize: 12, color: Colors.blueAccent), textAlign: TextAlign.center)),
+      Center(child: Text('IDU Elab. Estudios Top.', style: TextStyle(fontSize: 12, color: Colors.blueAccent),textAlign: TextAlign.center)),
       Center(child: Text('EAB NS-030', style: TextStyle(fontSize: 12, color: Colors.blueAccent),textAlign: TextAlign.center)),
-      Center(child: Text('CAR', style: TextStyle(fontSize: 12, color: Colors.blueAccent),textAlign: TextAlign.center)),
     ];
     return Scaffold(
        body: SafeArea(

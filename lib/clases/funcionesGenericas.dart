@@ -29,15 +29,24 @@ String decimal2Hexadecimal(double decimal){
  }
 
  String tiempoRastreo (double distancia, String norma){
-   if (norma == 'IGAC'){
-     double tiempo = (distancia/1000)*5;
+   if (norma == 'IGAC RES 643 30/05/2018'){
+     double tiempo = 25+5*(distancia/1000);
      int hora = (tiempo/60).toInt();
      int minutos = (tiempo-hora*60).toInt();
      String tiempoRastreo = '${hora} Horas ${minutos} minutos';
      return tiempoRastreo;
-   }else {
-     String mensaje = 'Norma Invalidad';
-     return mensaje;
+   }else if(norma == 'IDU Elab. Estudios Top.'){
+     double tiempo = 25+5*(distancia/1000);
+     int hora = (tiempo/60).toInt();
+     int minutos = (tiempo-hora*60).toInt();
+     String tiempoRastreo = '${hora} Horas ${minutos} minutos';
+     return tiempoRastreo;
+   }else if(norma == 'EAB NS-030'){
+     double tiempo = 20+5*(distancia/1000);
+     int hora = (tiempo/60).toInt();
+     int minutos = (tiempo-hora*60).toInt();
+     String tiempoRastreo = '${hora} Horas ${minutos} minutos';
+     return tiempoRastreo;
    }
  }
 }
