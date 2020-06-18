@@ -1,12 +1,10 @@
-import 'package:datetime_picker_formfield/datetime_picker_formfield.dart';
+import 'dart:io';
+import 'dart:typed_data';
+import 'package:esys_flutter_share/esys_flutter_share.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_custom_clippers/flutter_custom_clippers.dart';
-import 'package:geolocator/geolocator.dart';
-import 'package:intl/intl.dart';
-import 'package:location/location.dart';
-import 'dart:math' as m;
-
+import 'package:measurebookapp/clases/formatos.dart';
+import 'package:measurebookapp/pages/observacionesGNSS/descripcionVertice.dart';
 import 'package:measurebookapp/pages/observacionesGNSS/tiemposRastreo.dart';
 
 
@@ -150,6 +148,15 @@ class _ObservacionGNSSVerticeState extends State<ObservacionGNSSVertice> {
                           subtitle: Text('Crea y exporta en PDF la descipción de un vertice geodesico, usando el formato del IGAC', style: TextStyle(fontSize: 12, color: Colors.black54)),
                           leading: Icon(Icons.assignment, size: 50, color: Colors.blueAccent,),
                           trailing: Icon(Icons.navigate_next, color: Colors.black54, size: 40),
+                          onTap: () async{
+                            Navigator.push(
+                              context, 
+                               MaterialPageRoute(
+                                 builder: (context) => DescripcionVertice(
+                                   
+                               )
+                            ));
+                          },
                         ),
                         Divider(height: 40),
                         ListTile(
@@ -157,6 +164,13 @@ class _ObservacionGNSSVerticeState extends State<ObservacionGNSSVertice> {
                           subtitle: Text('Crea y exporta en PDF la descipción de un vertice geodesico, usando el formato del IGAC', style: TextStyle(fontSize: 12, color: Colors.black54)),
                           leading: Icon(Icons.assignment, size: 50, color: Colors.blueAccent,),
                           trailing: Icon(Icons.navigate_next, color: Colors.black54, size: 40),
+                          onTap: ()async{
+                            Formatos formatosMB = Formatos();
+                            String rutaPDF = await formatosMB.descripcionPunto();
+                            File pdfDescripcion = File(rutaPDF);
+                            Uint8List pdfDescipcionU8L = pdfDescripcion.readAsBytesSync();
+                            await Share.file('Descripción del Vértice', 'Descripción.pdf', pdfDescipcionU8L, 'file/pdf', text: 'Descripción de Vertices MeasureBook');
+                          },
                         ),
                      ],
                    ),

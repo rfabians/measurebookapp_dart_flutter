@@ -1,4 +1,8 @@
 import 'dart:math' as m;
+
+import 'package:flutter/material.dart';
+import 'package:measurebookapp/clases/database.dart';
+import 'package:measurebookapp/modelos/departamentos.dart';
 class FuncionesGenericas {
 
 
@@ -49,4 +53,5 @@ String decimal2Hexadecimal(double decimal){
      return tiempoRastreo;
    }
  }
+
 }
