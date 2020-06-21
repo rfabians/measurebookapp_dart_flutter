@@ -43,6 +43,7 @@ dependencies:
   location: ^3.0.0
   flutter_html_to_pdf: ^0.5.2
   dropdownfield: ^1.0.3
+  camera: ^0.5.8+2
 
 
   # The following adds the Cupertino Icons font to your application.
