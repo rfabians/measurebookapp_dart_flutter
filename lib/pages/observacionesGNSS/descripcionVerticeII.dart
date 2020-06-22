@@ -65,21 +65,7 @@ class _DescripcionVerticeIIState extends State<DescripcionVerticeII> {
                            ),
                          ),
                          onTap: (){
-                           AlertDialog mostarCamara = AlertDialog(
-                             content: Container(
-                               child: Scaffold(
-                                 body: FutureBuilder<void>(
-                                   future: _initCamFuture,
-                                   builder: (context, snapshot) {
-                                     return AspectRatio(aspectRatio: _controller.value.aspectRatio, child: CameraPreview(_controller),)
-                                   }
-                                 ),
-                               )
-                             ),
-                           );
-                           showDialog(context: context, barrierDismissible: true, builder: (BuildContext context){
-                            return mostarCamara;
-                            });
+                           obtenerDatosDiagrama(context);
                          },
                        ),
                     Divider()
@@ -92,5 +78,65 @@ class _DescripcionVerticeIIState extends State<DescripcionVerticeII> {
          ),
     );
   }
-
+  void obtenerDatosDiagrama(BuildContext context){
+    showDialog(
+      context: context,
+      builder: (context) => Scaffold(
+        floatingActionButton: FlatButton(
+          onPressed: null, 
+          child: Icon(Icons.check_circle_outline , size: 40, color: Colors.blueAccent,)
+          ),
+      body: FutureBuilder<void>(
+        future: _initCamFuture,
+        builder: (context, snapshot) {
+          return SizedBox.expand(
+            child:Column(
+            children: <Widget>[
+              Row(
+                children: <Widget>[
+                  Container(
+                    decoration: BoxDecoration(borderRadius: BorderRadius.circular(20)),
+                    width: MediaQuery.of(context).size.width,
+                    child: Column(
+                      children: <Widget>[
+                          SizedBox(height: 5),
+                          Icon(Icons.assignment_turned_in, size: 50,color: Colors.black54),
+                          Divider(),
+                          Text('Generador de Diagramas de Obstaculos'),
+                          Divider(),
+                          Stack(
+                            children: <Widget>[
+                            SizedBox(height: 20),
+                            Center(
+                            child: Container(
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(50)
+                              ),
+                              width: 300,
+                              child: ClipRRect(
+                                borderRadius: BorderRadius.circular(20),
+                                child: AspectRatio(
+                                  aspectRatio: _controller.value.aspectRatio, 
+                                  child: CameraPreview(_controller)),
+                              )
+                                )),
+                            Positioned(
+                              left: (MediaQuery.of(context).size.width/2)-25,
+                              top: (MediaQuery.of(context).size.height*0.25)-25,
+                              child: Icon(Icons.add_circle_outline, size: 50, color: Colors.black54,)),
+                        ],
+                      ),
+                      ],
+                    )
+                  )
+                ],
+              )
+              
+            ],
+          )
+          );
+        }
+      ),
+    ));
+  }
 }
