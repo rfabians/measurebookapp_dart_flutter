@@ -42,6 +42,10 @@ class _DescripcionVerticeIIState extends State<DescripcionVerticeII> {
     _initApp();
   }
 
+  // VAriables pocisión Texto Diagrama de Obstaculos
+  double escalador = 1.5;
+  double centrox = 185.0;
+  double centroy = 135.0;
 //Normalización Vecrtor del Acelerometro
   int anguloVertical(double dx, dy, dz) {
     double longitudVector = m.sqrt(dx * dx + dy * dy + dz * dz);
@@ -114,11 +118,16 @@ class _DescripcionVerticeIIState extends State<DescripcionVerticeII> {
             child: Center(
               child: Column(
                 children: <Widget>[
-                  Icon(Icons.assignment, size: 60, color: Colors.black54),
-                  Divider(),
-                  Text('Diagrama de Obstaculos',
-                      style: TextStyle(color: Colors.blueAccent, fontSize: 12)),
-                  Divider(),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      Icon(Icons.assignment, size: 40, color: Colors.black54),
+                      SizedBox(width: 20),
+                      Text('Diagrama de Obstaculos',
+                          style: TextStyle(
+                              color: Colors.blueAccent, fontSize: 12)),
+                    ],
+                  ),
                   Container(
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(20)),
@@ -220,9 +229,100 @@ class _DescripcionVerticeIIState extends State<DescripcionVerticeII> {
                         ],
                       )),
                   Divider(),
-                  Text('${_degrees}'),
-                  Divider(),
-                  Text('${anguloVertical(dX, dY, dZ)}'),
+                  Container(
+                    color: Colors.white,
+                    padding: EdgeInsets.symmetric(horizontal: 20, vertical: 0),
+                    child: Container(
+                        width: 400,
+                        height: 280,
+                        color: Colors.white,
+                        child: Stack(
+                          children: [
+                            Container(
+                                height: 400,
+                                width: 300,
+                                child:
+                                    CustomPaint(painter: FaceOutlinePainter())),
+                            Positioned(
+                              top: centroy + escalador * 10 * m.cos(m.pi / 6),
+                              left: centrox + escalador * 10 * m.sin(m.pi / 6),
+                              child: Text('70°',
+                                  style: TextStyle(
+                                      fontSize: 10, color: Colors.blueAccent)),
+                            ),
+                            Positioned(
+                              top: centroy + escalador * 20 * m.cos(m.pi / 6),
+                              left: centrox + escalador * 20 * m.sin(m.pi / 6),
+                              child: Text('60°',
+                                  style: TextStyle(
+                                      fontSize: 10, color: Colors.blueAccent)),
+                            ),
+                            Positioned(
+                              top: centroy + escalador * 30 * m.cos(m.pi / 6),
+                              left: centrox + escalador * 30 * m.sin(m.pi / 6),
+                              child: Text('50°',
+                                  style: TextStyle(
+                                      fontSize: 10, color: Colors.blueAccent)),
+                            ),
+                            Positioned(
+                              top: centroy + escalador * 40 * m.cos(m.pi / 6),
+                              left: centrox + escalador * 40 * m.sin(m.pi / 6),
+                              child: Text('40°',
+                                  style: TextStyle(
+                                      fontSize: 10, color: Colors.blueAccent)),
+                            ),
+                            Positioned(
+                              top: centroy + escalador * 50 * m.cos(m.pi / 6),
+                              left: centrox + escalador * 50 * m.sin(m.pi / 6),
+                              child: Text('30°',
+                                  style: TextStyle(
+                                      fontSize: 10, color: Colors.blueAccent)),
+                            ),
+                            Positioned(
+                              top: centroy + escalador * 60 * m.cos(m.pi / 6),
+                              left: centrox + escalador * 60 * m.sin(m.pi / 6),
+                              child: Text('20°',
+                                  style: TextStyle(
+                                      fontSize: 10, color: Colors.blueAccent)),
+                            ),
+                            Positioned(
+                              top: centroy + escalador * 70 * m.cos(m.pi / 6),
+                              left: centrox + escalador * 70 * m.sin(m.pi / 6),
+                              child: Text('10°',
+                                  style: TextStyle(
+                                      fontSize: 10, color: Colors.blueAccent)),
+                            ),
+                            Positioned(
+                              top: centroy - 5,
+                              left: centrox - escalador * 80 - 30,
+                              child: Text('270°',
+                                  style: TextStyle(
+                                      fontSize: 12, color: Colors.blueAccent)),
+                            ),
+                            Positioned(
+                              top: centroy - 5,
+                              left: centrox + escalador * 80,
+                              child: Text('90°',
+                                  style: TextStyle(
+                                      fontSize: 12, color: Colors.blueAccent)),
+                            ),
+                            Positioned(
+                              top: centroy - 15 - escalador * 80,
+                              left: centrox - 13,
+                              child: Text('360°',
+                                  style: TextStyle(
+                                      fontSize: 12, color: Colors.blueAccent)),
+                            ),
+                            Positioned(
+                              top: centroy + escalador * 80,
+                              left: centrox - 13,
+                              child: Text('180°',
+                                  style: TextStyle(
+                                      fontSize: 12, color: Colors.blueAccent)),
+                            )
+                          ],
+                        )),
+                  ),
                 ],
               ),
             ),
@@ -231,4 +331,82 @@ class _DescripcionVerticeIIState extends State<DescripcionVerticeII> {
       )),
     );
   }
+}
+
+class FaceOutlinePainter extends CustomPainter {
+  @override
+  void paint(Canvas canvas, Size size) {
+    // Define a paint object
+    final paint = Paint()
+      ..style = PaintingStyle.stroke
+      ..strokeWidth = 1.0
+      ..color = Colors.black54;
+    double escalador = 1.5;
+    double centrox = 180.0;
+    double centroy = 135.0;
+    canvas.drawCircle(Offset(centrox, centroy), 10.0 * escalador, paint);
+    canvas.drawCircle(Offset(centrox, centroy), 20.0 * escalador, paint);
+    canvas.drawCircle(Offset(centrox, centroy), 30.0 * escalador, paint);
+    canvas.drawCircle(Offset(centrox, centroy), 40.0 * escalador, paint);
+    canvas.drawCircle(Offset(centrox, centroy), 50.0 * escalador, paint);
+    canvas.drawCircle(Offset(centrox, centroy), 60.0 * escalador, paint);
+    canvas.drawCircle(Offset(centrox, centroy), 70.0 * escalador, paint);
+    canvas.drawCircle(Offset(centrox, centroy), 80.0 * escalador, paint);
+    canvas.drawLine(Offset(60.0, centroy), Offset(centrox, centroy),
+        paint); //Linea lateral izquierdo a centro
+    canvas.drawLine(
+        Offset(centrox, centroy),
+        Offset(centrox + escalador * 80, centroy),
+        paint); //Linea centro a Arriba
+    canvas.drawLine(Offset(centrox, centroy - 80 * escalador),
+        Offset(centrox, centroy), paint);
+    // linea arriba a centro
+    canvas.drawLine(
+        Offset(centrox, centroy),
+        Offset(centrox, centroy + 80 * escalador),
+        paint); //linea centro a abajo
+    canvas.drawLine(
+        Offset(centrox, centroy),
+        Offset(centrox + 80 * escalador * m.cos(m.pi / 6),
+            centroy + 80 * escalador * m.sin(m.pi / 6)),
+        paint);
+    canvas.drawLine(
+        Offset(centrox, centroy),
+        Offset(centrox + 80 * escalador * m.cos(2 * m.pi / 6),
+            centroy + 80 * escalador * m.sin(2 * m.pi / 6)),
+        paint);
+    canvas.drawLine(
+        Offset(centrox, centroy),
+        Offset(centrox + 80 * escalador * m.cos(4 * m.pi / 6),
+            centroy + 80 * escalador * m.sin(4 * m.pi / 6)),
+        paint);
+    canvas.drawLine(
+        Offset(centrox, centroy),
+        Offset(centrox + 80 * escalador * m.cos(5 * m.pi / 6),
+            centroy + 80 * escalador * m.sin(5 * m.pi / 6)),
+        paint);
+    canvas.drawLine(
+        Offset(centrox, centroy),
+        Offset(centrox + 80 * escalador * m.cos(-m.pi / 6),
+            centroy + 80 * escalador * m.sin(-m.pi / 6)),
+        paint);
+    canvas.drawLine(
+        Offset(centrox, centroy),
+        Offset(centrox + 80 * escalador * m.cos(-2 * m.pi / 6),
+            centroy + 80 * escalador * m.sin(-2 * m.pi / 6)),
+        paint);
+    canvas.drawLine(
+        Offset(centrox, centroy),
+        Offset(centrox + 80 * escalador * m.cos(-4 * m.pi / 6),
+            centroy + 80 * escalador * m.sin(-4 * m.pi / 6)),
+        paint);
+    canvas.drawLine(
+        Offset(centrox, centroy),
+        Offset(centrox + 80 * escalador * m.cos(-5 * m.pi / 6),
+            centroy + 80 * escalador * m.sin(-5 * m.pi / 6)),
+        paint);
+  }
+
+  @override
+  bool shouldRepaint(FaceOutlinePainter oldDelegate) => false;
 }
