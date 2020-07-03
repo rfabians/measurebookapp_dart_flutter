@@ -16,7 +16,7 @@ class DescripcionVerticeII extends StatefulWidget {
 class _DescripcionVerticeIIState extends State<DescripcionVerticeII> {
   //Brujula
   bool _compassEnabled = false;
-  double _degrees = 0.0;
+  int _degrees = 0;
   StreamSubscription _compassSubscription;
   //Camara
   CameraController _controller;
@@ -43,12 +43,12 @@ class _DescripcionVerticeIIState extends State<DescripcionVerticeII> {
   }
 
 //Normalización Vecrtor del Acelerometro
-  double anguloVertical(double dx, dy, dz) {
+  int anguloVertical(double dx, dy, dz) {
     double longitudVector = m.sqrt(dx * dx + dy * dy + dz * dz);
     double x = dx / longitudVector;
     double y = dy / longitudVector;
     double z = dz / longitudVector;
-    double anguloVertical = m.acos(y) * 180 / m.pi;
+    int anguloVertical = (m.acos(y) * 180 / m.pi).toInt();
     if (z >= 0) {
       anguloVertical = anguloVertical * -1;
     }
@@ -74,7 +74,7 @@ class _DescripcionVerticeIIState extends State<DescripcionVerticeII> {
         .compassUpdates(interval: Duration(milliseconds: 200))
         .listen((value) {
       setState(() {
-        _degrees = value;
+        _degrees = value.toInt();
       });
     });
   }
@@ -194,13 +194,13 @@ class _DescripcionVerticeIIState extends State<DescripcionVerticeII> {
                                             color: Colors.black, fontSize: 12),
                                       ),
                                       Text(
-                                        'Azimut: ${roundDouble(_degrees, 1)}',
+                                        'Azimut: ${_degrees}',
                                         style: TextStyle(
                                             color: Colors.blueAccent,
                                             fontSize: 12),
                                       ),
                                       Text(
-                                        'Angulo Vertical: ${roundDouble(_degrees, 1)}',
+                                        'Angulo Vertical: ${anguloVertical(dX, dY, dZ)}',
                                         style: TextStyle(
                                             color: Colors.black54,
                                             fontSize: 12),
@@ -220,7 +220,7 @@ class _DescripcionVerticeIIState extends State<DescripcionVerticeII> {
                         ],
                       )),
                   Divider(),
-                  Text('${roundDouble(_degrees, 1)}'),
+                  Text('${_degrees}'),
                   Divider(),
                   Text('${anguloVertical(dX, dY, dZ)}'),
                 ],
