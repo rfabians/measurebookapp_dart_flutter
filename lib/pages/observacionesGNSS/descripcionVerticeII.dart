@@ -32,7 +32,7 @@ class _DescripcionVerticeIIState extends State<DescripcionVerticeII> {
     _checkCompassAvailability();
     _startCompass();
     super.initState();
-    gyroscopeEvents.listen((event) {
+    accelerometerEvents.listen((event) {
       setState(() {
         dX = event.x;
         dY = event.y;
@@ -40,6 +40,19 @@ class _DescripcionVerticeIIState extends State<DescripcionVerticeII> {
       });
     });
     _initApp();
+  }
+
+//Normalización Vecrtor del Acelerometro
+  double anguloVertical(double dx, dy, dz) {
+    double longitudVector = m.sqrt(dx * dx + dy * dy + dz * dz);
+    double x = dx / longitudVector;
+    double y = dy / longitudVector;
+    double z = dz / longitudVector;
+    double anguloVertical = m.acos(y) * 180 / m.pi;
+    if (z >= 0) {
+      anguloVertical = anguloVertical * -1;
+    }
+    return anguloVertical;
   }
 
   void _checkCompassAvailability() async {
@@ -207,7 +220,9 @@ class _DescripcionVerticeIIState extends State<DescripcionVerticeII> {
                         ],
                       )),
                   Divider(),
-                  Text('${roundDouble(_degrees, 1)}')
+                  Text('${roundDouble(_degrees, 1)}'),
+                  Divider(),
+                  Text('${anguloVertical(dX, dY, dZ)}'),
                 ],
               ),
             ),
