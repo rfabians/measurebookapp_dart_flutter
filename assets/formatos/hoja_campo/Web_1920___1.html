@@ -1,19 +1,63 @@
-import 'dart:io';
-
-import 'package:flutter/cupertino.dart';
-import 'package:flutter_html_to_pdf/flutter_html_to_pdf.dart';
-import 'package:path_provider/path_provider.dart';
-
-class Formatos {
-  Future<String> descripcionPunto() async {
-    String descripcionHTML = '''
-        <!DOCTYPE html>
+<!DOCTYPE html>
 <html>
 <head>
 <meta charset="utf-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Web 1920 – 1</title>
+<title>Hoja de Campo</title>
+<script>
+	var codigo = "TIENE 44 VARIABLES 1234567891234567891234567"
+	var proyecto = "PROYECTO CURRICULAR DE ING TOPOGRÁFICA SOCIO JAJAJA"
+	var fecha = "2020-04-25"
+	var punto = "GPS ÑAÑAI 2 RICK SANCHEZ RICK SANCHEZ RICK SANCHEZ RICK SANCHEZ"
+	var tipo_lev_e = "X"
+	var tipo_lev_c = "X"
+	var tipo_lev_re = "X"
+	var tipo_pun_b = "X"
+	var tipo_pun_m = "X"
+	var marca_rec = "TOPCON"
+	var modelo_rec = "GRS555"
+	var serial_rec = "123456"
+	var marca_ant = "TOPCON"
+	var modelo_ant = "GRS122"
+	var serial_ant = "123456"
+	var operador = "RAFAEL FABIAN SANCHEZ OSORIO"
+	var tripode_i = "1.234"
+	var tripode_f = "1.234"
+	var baston_i = "1.234"
+	var baston_f = "1.234"
+	var pilastra_i = "1.234"
+	var pilastra_f = "1.234"
+	var otro_i = "1.234"
+	var otro_f = "1.234"
+	var tm_inclinada = "X"
+	var tm_vertical = "X"
+	var tm_vert_ghm = "X"
+	var latitud_gi = "4"
+	var latitud_mi = "25"
+	var latitud_si = "30.66"
+	var latitud_nsi = "X"
+	var latitud_gf = "4"
+	var latitud_mf = "25"
+	var latitud_sf = "30.66"
+	var latitud_nsf = "X"
+	var longitud_gi = "-74"
+	var longitud_mi = "34"
+	var longitud_si = "12.44"
+	var longitud_gf = "-74"
+	var longitud_mf = "34"
+	var longitud_sf = "12.44"
+	var altura_i = "2567.123"
+	var altura_f = "2567.123"
+	var observaciones = "Examinar las características geográficas de la ciudad de Sttutgarte e identificar el sistema de coordenadas que le corresponde. coordenadas que le corresponde coordenadas que le corresponde coorden."
+	var hora = "12:20 AM"
+	var n_epocas = "12365612"
+	var gdop = "5.123"
+	var memoria = "150%"
+	var bateria_a = "82%"
+	var bateria_b = "70%"
+	var bateria_ex = "20%"
+</script>
 <style id="applicationStylesheet" type="text/css">
 	.mediaViewInfo {
 		--web-view-name: Web 1920 – 1;
@@ -7023,6 +7067,7 @@ var Application = function() {
 		var viewIds = self.getViewIds();
 		
 		for (var i=0;i<viewIds.length;i++) {
+			var viewId = viewIds[i].replace(/[\#?\.?](.*)/, "$" + "1");
 			var view = self.getElement(viewId);
 			var postName = "_Class";
 
@@ -7047,6 +7092,7 @@ var Application = function() {
 		var views = [];
 		
 		for (var i=0;i<viewIds.length;i++) {
+			var viewId = viewIds[i].replace(/[\#?\.?](.*)/, "$" + "1");
 			var view = self.getElement(viewId);
 			var postName = "_Class";
 
@@ -7143,6 +7189,7 @@ var Application = function() {
 
 	self.getInitialView = function() {
 		var viewId = self.getInitialViewId();
+		viewId = viewId.replace(/[\#?\.?](.*)/, "$" + "1");
 		var view = self.getElement(viewId);
 		var postName = "_Class";
 
@@ -7237,7 +7284,8 @@ var Application = function() {
 		}
 		
 		value = value.replace(/^[\s\"]*/, "");
-		{ 
+		value = value.replace(/[\s\"]*$/, "");
+		value = value.replace(/^[\s"]*(.*?)[\s"]*$/, function (match, capture) { 
 			return capture;
 		});
 
@@ -7251,7 +7299,9 @@ var Application = function() {
 			return null;
 		}
 		
-		value = value.replace(/^[\s\"]*/, ""); { 
+		value = value.replace(/^[\s\"]*/, "");
+		value = value.replace(/[\s\"]*$/, "");
+		value = value.replace(/^[\s"]*(.*?)[\s"]*$/, function (match, capture) { 
 			return capture;
 		});
 
@@ -7623,6 +7673,7 @@ var Application = function() {
 		var expression = /.+(\d\.\d)s.+/;
 
 		if (animation && animation.match(expression)) {
+			duration = parseFloat(animation.replace(expression, "$" + "1"));
 			if (duration && inMilliseconds) duration = duration * 1000;
 		}
 
@@ -7979,7 +8030,7 @@ window.application = new Application();
 			<rect id="Rectngulo_1" rx="10" ry="10" x="0" y="0" width="998" height="127">
 			</rect>
 		</svg>
-		<img id="logo" src="logo.png" srcset="logo.png 1x, logo@2x.png 2x">
+		<img id="logo" src="logo.png">
 		<svg class="Lnea_1" viewBox="0 0 1 126">
 			<path id="Lnea_1" d="M 0 0 L 0 126">
 			</path>
@@ -8020,13 +8071,17 @@ window.application = new Application();
 			<span style="text-transform:uppercase;">Código</span><span style="text-transform:lowercase;">:</span>
 		</div>
 		<div id="Nomenclatura_v">
-			<span>DIGAMOS QUE EL DE LA UNIVERSIDAD 20171732002</span>
+			<script>
+				document.write(codigo);
+			</script>
 		</div>
 		<div id="Nomenclatura_w">
 			<span style="text-transform:uppercase;">PROYECTO</span><span style="text-transform:lowercase;">:</span>
 		</div>
 		<div id="Nomenclatura_x">
-			<span>PROYECTO CURRICULAR DE ING TOPOGRÁFICA SOCIO JAJAJA</span>
+			<script>
+				document.write(proyecto);
+			</script>
 		</div>
 		<svg class="Lnea_6" viewBox="0 0 1 126">
 			<path id="Lnea_6" d="M 0 0 L 0 126">
@@ -8040,7 +8095,9 @@ window.application = new Application();
 			<span>PUNTO:</span>
 		</div>
 		<div id="Nomenclatura_ba">
-			<span>GPS ÑAÑAI 2 rick Sanchez rick Sanchez rick Sanchez</span>
+			<script>
+				document.write(punto);
+			</script>
 		</div>
 		<svg class="Rectngulo_3">
 			<rect id="Rectngulo_3" rx="10" ry="10" x="0" y="0" width="577" height="111">
@@ -8160,7 +8217,9 @@ window.application = new Application();
 			<span>Nombre:</span>
 		</div>
 		<div id="Nomenclatura_bz">
-			<span>RICK SANCHEZ</span>
+			<script>
+				document.write(operador);
+			</script>
 		</div>
 		<svg class="Rectngulo_12">
 			<rect id="Rectngulo_12" rx="10" ry="10" x="0" y="0" width="577" height="675">
@@ -8296,7 +8355,7 @@ window.application = new Application();
 			<path id="Lnea_41" d="M 0 0 L 415 0">
 			</path>
 		</svg>
-		<img id="Imagen_1" src="Imagen_1.png" srcset="Imagen_1.png 1x, Imagen_1@2x.png 2x">
+		<img id="Imagen_1" src="Imagen_1.png">
 		<svg class="Lnea_42" viewBox="0 0 415 1">
 			<path id="Lnea_42" d="M 0 0 L 415 0">
 			</path>
@@ -8305,7 +8364,9 @@ window.application = new Application();
 			<span>Trípode</span>
 		</div>
 		<div id="Nomenclatura_da">
-			<span>Topcon</span>
+			<script>
+				document.write(marca_rec);
+			</script>
 		</div>
 		<div id="Nomenclatura_db">
 			<span style="text-transform:uppercase;">I</span><span style="text-transform:capitalize;">nicio</span>
@@ -8313,7 +8374,7 @@ window.application = new Application();
 		<div id="Nomenclatura_dc">
 			<span style="text-transform:uppercase;">F</span><span style="text-transform:capitalize;">inal</span>
 		</div>
-		<img id="Imagen_4" src="Imagen_4.png" srcset="Imagen_4.png 1x, Imagen_4@2x.png 2x">
+		<img id="Imagen_4" src="Imagen_4.png">
 		<svg class="Lnea_45" viewBox="0 0 415 1">
 			<path id="Lnea_45" d="M 0 0 L 415 0">
 			</path>
@@ -8336,7 +8397,7 @@ window.application = new Application();
 		<div id="Nomenclatura_de">
 			<span>Pilastra</span>
 		</div>
-		<img id="Imagen_5" src="Imagen_5.png" srcset="Imagen_5.png 1x, Imagen_5@2x.png 2x">
+		<img id="Imagen_5" src="Imagen_5.png">
 		<svg class="Lnea_50" viewBox="0 0 165 1">
 			<path id="Lnea_50" d="M 0 0 L 165 0">
 			</path>
@@ -8558,493 +8619,513 @@ window.application = new Application();
 			<span>S</span>
 		</div>
 		<div id="X">
-			<span>X</span>
+			<script>
+				document.write(tipo_lev_e);
+			</script>
 		</div>
 		<div id="X_e">
-			<span>X</span>
+			<script>
+				document.write(tipo_lev_c);
+			</script>
 		</div>
 		<div id="X_fa">
-			<span>X</span>
+			<script>
+				document.write(tipo_lev_re);
+			</script>
 		</div>
 		<div id="X_fb">
-			<span>X</span>
+			<script>
+				document.write(tipo_pun_b);
+			</script>
 		</div>
 		<div id="X_fc">
-			<span>X</span>
+			<script>
+				document.write(tipo_pun_m);
+			</script>
 		</div>
 		<div id="Nomenclatura_fd">
-			<span>Topcon</span>
+			<script>
+				document.write(marca_ant);
+			</script>
 		</div>
 		<div id="Nomenclatura_fe">
-			<span>Topcon</span>
+			<script>
+				document.write(modelo_rec);
+			</script>
 		</div>
 		<div id="Nomenclatura_ff">
-			<span>Topcon</span>
+			<script>
+				document.write(modelo_ant);
+			</script>
 		</div>
 		<div id="Nomenclatura_fg">
-			<span>Topcon</span>
+			<script>
+				document.write(serial_rec);
+			</script>
 		</div>
 		<div id="Nomenclatura_fh">
-			<span>Topcon</span>
+			<script>
+				document.write(serial_ant)
+			</script>
 		</div>
 		<div id="Nomenclatura_fi">
-			<span>1.2344</span>
+			<script>document.write(tripode_i);</script>
 		</div>
 		<div id="Nomenclatura_fj">
-			<span>1.2344</span>
+			<script>document.write(tripode_f);</script>
 		</div>
 		<div id="Nomenclatura_fk">
-			<span>1.2344</span>
+			<script>document.write(baston_i);</script>
 		</div>
 		<div id="Nomenclatura_fl">
-			<span>1.2344</span>
+			<script>document.write(baston_f);</script>
 		</div>
 		<div id="Nomenclatura_fm">
-			<span>1.2344</span>
+			<script>document.write(pilastra_i);</script>
 		</div>
 		<div id="Nomenclatura_fn">
-			<span>1.2344</span>
+			<script>document.write(pilastra_f);</script>
 		</div>
 		<div id="Grupo_2">
 			<div id="Grupo_1">
 				<div id="Nomenclatura_fo">
-					<span>10:20 am</span>
+					<script>document.write(hora);</script>
 				</div>
 			</div>
 		</div>
 		<div id="Nomenclatura_fp">
-			<span>12345678</span>
+			<script>document.write(n_epocas);</script>
 		</div>
 		<div id="Nomenclatura_fq">
-			<span>4.584</span>
+			<script>document.write(gdop);</script>
 		</div>
 		<div id="Nomenclatura_fr">
-			<span>100%</span>
+			<script>document.write(memoria);</script>
 		</div>
 		<div id="Nomenclatura_fs">
-			<span>80%</span>
+			<script>document.write(bateria_a);</script>
 		</div>
 		<div id="Nomenclatura_ft">
-			<span>50%</span>
+			<script>document.write(bateria_b);</script>
 		</div>
 		<div id="Nomenclatura_fu">
-			<span>10%</span>
+			<script>document.write(bateria_ex);</script>
 		</div>
 		<div id="Nomenclatura_fv">
-			<span>12345678</span>
+			<script>document.write(n_epocas);</script>
 		</div>
 		<div id="Nomenclatura_fw">
-			<span>4.584</span>
+			<script>document.write(gdop);</script>
 		</div>
 		<div id="Nomenclatura_fx">
-			<span>100%</span>
+			<script>document.write(memoria);</script>
 		</div>
 		<div id="Nomenclatura_fy">
-			<span>80%</span>
+			<script>document.write(bateria_a);</script>
 		</div>
 		<div id="Nomenclatura_fz">
-			<span>50%</span>
+			<script>document.write(bateria_b);</script>
 		</div>
 		<div id="Nomenclatura_f">
-			<span>10%</span>
+			<script>document.write(bateria_ex);</script>
 		</div>
 		<div id="Nomenclatura_ga">
-			<span>12345678</span>
+			<script>document.write(n_epocas);</script>
 		</div>
 		<div id="Nomenclatura_gb">
-			<span>4.584</span>
+			<script>document.write(gdop);</script>
 		</div>
 		<div id="Nomenclatura_gc">
-			<span>100%</span>
+			<script>document.write(memoria);</script>
 		</div>
 		<div id="Nomenclatura_gd">
-			<span>80%</span>
+			<script>document.write(bateria_a);</script>
 		</div>
 		<div id="Nomenclatura_ge">
-			<span>50%</span>
+			<script>document.write(bateria_b);</script>
 		</div>
 		<div id="Nomenclatura_gf">
-			<span>10%</span>
+			<script>document.write(bateria_ex);</script>
 		</div>
 		<div id="Nomenclatura_gg">
-			<span>12345678</span>
+			<script>document.write(n_epocas);</script>
 		</div>
 		<div id="Nomenclatura_gh">
-			<span>4.584</span>
+			<script>document.write(gdop);</script>
 		</div>
 		<div id="Nomenclatura_gi">
-			<span>100%</span>
+			<script>document.write(memoria);</script>
 		</div>
 		<div id="Nomenclatura_gj">
-			<span>80%</span>
+			<script>document.write(bateria_a);</script>
 		</div>
 		<div id="Nomenclatura_gk">
-			<span>50%</span>
+			<script>document.write(bateria_b);</script>
 		</div>
 		<div id="Nomenclatura_gl">
-			<span>10%</span>
+			<script>document.write(bateria_ex);</script>
 		</div>
 		<div id="Nomenclatura_gm">
-			<span>12345678</span>
+			<script>document.write(n_epocas);</script>
 		</div>
 		<div id="Nomenclatura_gn">
-			<span>4.584</span>
+			<script>document.write(gdop);</script>
 		</div>
 		<div id="Nomenclatura_go">
-			<span>100%</span>
+			<script>document.write(memoria);</script>
 		</div>
 		<div id="Nomenclatura_gp">
-			<span>80%</span>
+			<script>document.write(bateria_a);</script>
 		</div>
 		<div id="Nomenclatura_gq">
-			<span>50%</span>
+			<script>document.write(bateria_b);</script>
 		</div>
 		<div id="Nomenclatura_gr">
-			<span>10%</span>
+			<script>document.write(bateria_ex);</script>
 		</div>
 		<div id="Nomenclatura_gs">
-			<span>12345678</span>
+			<script>document.write(n_epocas);</script>
 		</div>
 		<div id="Nomenclatura_gt">
-			<span>4.584</span>
+			<script>document.write(gdop);</script>
 		</div>
 		<div id="Nomenclatura_gu">
-			<span>100%</span>
+			<script>document.write(memoria);</script>
 		</div>
 		<div id="Nomenclatura_gv">
-			<span>80%</span>
+			<script>document.write(bateria_a);</script>
 		</div>
 		<div id="Nomenclatura_gw">
-			<span>50%</span>
+			<script>document.write(bateria_b);</script>
 		</div>
 		<div id="Nomenclatura_gx">
-			<span>10%</span>
+			<script>document.write(bateria_ex);</script>
 		</div>
 		<div id="Nomenclatura_gy">
-			<span>12345678</span>
+			<script>document.write(n_epocas);</script>
 		</div>
 		<div id="Nomenclatura_gz">
-			<span>4.584</span>
+			<script>document.write(gdop);</script>
 		</div>
 		<div id="Nomenclatura_g">
-			<span>100%</span>
+			<script>document.write(memoria);</script>
 		</div>
 		<div id="Nomenclatura_ha">
-			<span>80%</span>
+			<script>document.write(bateria_a);</script>
 		</div>
 		<div id="Nomenclatura_hb">
-			<span>50%</span>
+			<script>document.write(bateria_b);</script>
 		</div>
 		<div id="Nomenclatura_hc">
-			<span>10%</span>
+			<script>document.write(bateria_ex);</script>
 		</div>
 		<div id="Nomenclatura_hd">
-			<span>12345678</span>
+			<script>document.write(n_epocas);</script>
 		</div>
 		<div id="Nomenclatura_he">
-			<span>4.584</span>
+			<script>document.write(gdop);</script>
 		</div>
 		<div id="Nomenclatura_hf">
-			<span>100%</span>
+			<script>document.write(memoria);</script>
 		</div>
 		<div id="Nomenclatura_hg">
-			<span>80%</span>
+			<script>document.write(bateria_a);</script>
 		</div>
 		<div id="Nomenclatura_hh">
-			<span>50%</span>
+			<script>document.write(bateria_b);</script>
 		</div>
 		<div id="Nomenclatura_hi">
-			<span>10%</span>
+			<script>document.write(bateria_ex);</script>
 		</div>
 		<div id="Nomenclatura_hj">
-			<span>12345678</span>
+			<script>document.write(n_epocas);</script>
 		</div>
 		<div id="Nomenclatura_hk">
-			<span>4.584</span>
+			<script>document.write(gdop);</script>
 		</div>
 		<div id="Nomenclatura_hl">
-			<span>100%</span>
+			<script>document.write(memoria);</script>
 		</div>
 		<div id="Nomenclatura_hm">
-			<span>80%</span>
+			<script>document.write(bateria_a);</script>
 		</div>
 		<div id="Nomenclatura_hn">
-			<span>50%</span>
+			<script>document.write(bateria_b);</script>
 		</div>
 		<div id="Nomenclatura_ho">
-			<span>10%</span>
+			<script>document.write(bateria_ex);</script>
 		</div>
 		<div id="Nomenclatura_hp">
-			<span>12345678</span>
+			<script>document.write(n_epocas);</script>
 		</div>
 		<div id="Nomenclatura_hq">
-			<span>4.584</span>
+			<script>document.write(gdop);</script>
 		</div>
 		<div id="Nomenclatura_hr">
-			<span>100%</span>
+			<script>document.write(memoria);</script>
 		</div>
 		<div id="Nomenclatura_hs">
-			<span>80%</span>
+			<script>document.write(bateria_a);</script>
 		</div>
 		<div id="Nomenclatura_ht">
-			<span>50%</span>
+			<script>document.write(bateria_b);</script>
 		</div>
 		<div id="Nomenclatura_hu">
-			<span>10%</span>
+			<script>document.write(bateria_ex);</script>
 		</div>
 		<div id="Nomenclatura_hv">
-			<span>12345678</span>
+			<script>document.write(n_epocas);</script>
 		</div>
 		<div id="Nomenclatura_hw">
-			<span>4.584</span>
+			<script>document.write(gdop);</script>
 		</div>
 		<div id="Nomenclatura_hx">
-			<span>100%</span>
+			<script>document.write(memoria);</script>
 		</div>
 		<div id="Nomenclatura_hy">
-			<span>80%</span>
+			<script>document.write(bateria_a);</script>
 		</div>
 		<div id="Nomenclatura_hz">
-			<span>50%</span>
+			<script>document.write(bateria_b);</script>
 		</div>
 		<div id="Nomenclatura_h">
-			<span>10%</span>
+			<script>document.write(bateria_ex);</script>
 		</div>
 		<div id="Nomenclatura_ia">
-			<span>12345678</span>
+			<script>document.write(n_epocas);</script>
 		</div>
 		<div id="Nomenclatura_ib">
-			<span>4.584</span>
+			<script>document.write(gdop);</script>
 		</div>
 		<div id="Nomenclatura_ic">
-			<span>100%</span>
+			<script>document.write(memoria);</script>
 		</div>
 		<div id="Nomenclatura_id">
-			<span>80%</span>
+			<script>document.write(bateria_a);</script>
 		</div>
 		<div id="Nomenclatura_ie">
-			<span>50%</span>
+			<script>document.write(bateria_b);</script>
 		</div>
 		<div id="Nomenclatura_if">
-			<span>10%</span>
+			<script>document.write(bateria_ex);</script>
 		</div>
 		<div id="Nomenclatura_ig">
-			<span>12345678</span>
+			<script>document.write(n_epocas);</script>
 		</div>
 		<div id="Nomenclatura_ih">
-			<span>4.584</span>
+			<script>document.write(gdop);</script>
 		</div>
 		<div id="Nomenclatura_ii">
-			<span>100%</span>
+			<script>document.write(memoria);</script>
 		</div>
 		<div id="Nomenclatura_ij">
-			<span>80%</span>
+			<script>document.write(bateria_a);</script>
 		</div>
 		<div id="Nomenclatura_ik">
-			<span>50%</span>
+			<script>document.write(bateria_b);</script>
 		</div>
 		<div id="Nomenclatura_il">
-			<span>10%</span>
+			<script>document.write(bateria_ex);</script>
 		</div>
 		<div id="Nomenclatura_im">
-			<span>12345678</span><br>
+			<script>document.write(n_epocas);</script><br>
 		</div>
 		<div id="Nomenclatura_in">
-			<span>4.584</span>
+			<script>document.write(gdop);</script>
 		</div>
 		<div id="Nomenclatura_io">
-			<span>100%</span>
+			<script>document.write(memoria);</script>
 		</div>
 		<div id="Nomenclatura_ip">
-			<span>80%</span>
+			<script>document.write(bateria_a);</script>
 		</div>
 		<div id="Nomenclatura_iq">
-			<span>50%</span>
+			<script>document.write(bateria_b);</script>
 		</div>
 		<div id="Nomenclatura_ir">
-			<span>10%</span>
+			<script>document.write(bateria_ex);</script>
 		</div>
 		<div id="Nomenclatura_is">
-			<span>12345678</span><br>
+			<script>document.write(n_epocas);</script>
 		</div>
 		<div id="Nomenclatura_it">
-			<span>4.584</span>
+			<script>document.write(gdop);</script>
 		</div>
 		<div id="Nomenclatura_iu">
-			<span>100%</span>
+			<script>document.write(memoria);</script>
 		</div>
 		<div id="Nomenclatura_iv">
-			<span>80%</span>
+			<script>document.write(bateria_a);</script>
 		</div>
 		<div id="Nomenclatura_iw">
-			<span>50%</span>
+			<script>document.write(bateria_b);</script>
 		</div>
 		<div id="Nomenclatura_ix">
-			<span>10%</span>
+			<script>document.write(bateria_ex);</script>
 		</div>
 		<div id="Nomenclatura_iy">
-			<span>4</span>
+			<script>document.write(latitud_gi);</script>
 		</div>
 		<div id="Nomenclatura_iz">
-			<span>26</span>
+			<script>document.write(latitud_mi);</script>
 		</div>
 		<div id="Nomenclatura_i">
-			<span>22.12</span>
+			<script>document.write(latitud_si);</script>
 		</div>
 		<div id="Nomenclatura_ja">
-			<span>4</span>
+			<script>document.write(latitud_gf);</script>
 		</div>
 		<div id="Nomenclatura_jb">
-			<span>26</span>
+			<script>document.write(latitud_mf);</script>
 		</div>
 		<div id="Nomenclatura_jc">
-			<span>22.12</span>
+			<script>document.write(latitud_sf);</script>
 		</div>
 		<div id="Nomenclatura_jd">
-			<span>X</span>
+			<script>document.write(latitud_nsi);</script>
 		</div>
 		<div id="Nomenclatura_je">
-			<span>X</span>
+			<script>document.write(latitud_nsf);</script>
 		</div>
 		<div id="Nomenclatura_jf">
-			<span>-74</span>
+			<script>document.write(longitud_gi);</script>
 		</div>
 		<div id="Nomenclatura_jg">
-			<span>26</span>
+			<script>document.write(longitud_mi);</script>
 		</div>
 		<div id="Nomenclatura_jh">
-			<span>22.12</span>
+			<script>document.write(longitud_si);</script>
 		</div>
 		<div id="Nomenclatura_ji">
-			<span>-74</span>
+			<script>document.write(longitud_gf);</script>
 		</div>
 		<div id="Nomenclatura_jj">
-			<span>26</span>
+			<script>document.write(longitud_mf);</script>
 		</div>
 		<div id="Nomenclatura_jk">
-			<span>22.12</span>
+			<script>document.write(longitud_sf);</script>
 		</div>
 		<div id="Nomenclatura_jl">
-			<span>2547</span>
+			<script>document.write(altura_i);</script>
 		</div>
 		<div id="Nomenclatura_jm">
-			<span>2547</span>
+			<script>document.write(altura_f);</script>
 		</div>
 		<div id="Nomenclatura_jn">
-			<span>1.2344</span>
+			<script>document.write(otro_i);</script>
 		</div>
 		<div id="Nomenclatura_jo">
-			<span>1.2344</span>
+			<script>document.write(otro_f);</script>
 		</div>
 		<div id="Nomenclatura_jp">
-			<span>X</span>
+			<script>document.write(tm_inclinada);</script>
 		</div>
 		<div id="Nomenclatura_jq">
-			<span>X</span>
+			<script>document.write(tm_vertical);</script>
 		</div>
 		<div id="Nomenclatura_jr">
-			<span>X</span>
+			<script>document.write(tm_vert_ghm);</script>
 		</div>
 		<div id="Grupo_3">
 			<div id="Grupo_1_it">
 				<div id="Nomenclatura_js">
-					<span>10:20 am</span>
+					<script>document.write(hora);</script>
 				</div>
 			</div>
 		</div>
 		<div id="Grupo_4">
 			<div id="Grupo_1_iw">
 				<div id="Nomenclatura_jt">
-					<span>10:20 am</span>
+					<script>document.write(hora);</script>
 				</div>
 			</div>
 		</div>
 		<div id="Grupo_5">
 			<div id="Grupo_1_iz">
 				<div id="Nomenclatura_ju">
-					<span>10:20 am</span>
+					<script>document.write(hora);</script>
 				</div>
 			</div>
 		</div>
 		<div id="Grupo_6">
 			<div id="Grupo_1_i">
 				<div id="Nomenclatura_jv">
-					<span>10:20 am</span>
+					<script>document.write(hora);</script>
 				</div>
 			</div>
 		</div>
 		<div id="Grupo_7">
 			<div id="Grupo_1_ja">
 				<div id="Nomenclatura_jw">
-					<span>10:20 am</span>
+					<script>document.write(hora);</script>
 				</div>
 			</div>
 		</div>
 		<div id="Grupo_8">
 			<div id="Grupo_1_jb">
 				<div id="Nomenclatura_jx">
-					<span>10:20 am</span>
+					<script>document.write(hora);</script>
 				</div>
 			</div>
 		</div>
 		<div id="Grupo_9">
 			<div id="Grupo_1_jc">
 				<div id="Nomenclatura_jy">
-					<span>10:20 am</span>
+					<script>document.write(hora);</script>
 				</div>
 			</div>
 		</div>
 		<div id="Grupo_10">
 			<div id="Grupo_1_je">
 				<div id="Nomenclatura_jz">
-					<span>10:20 am</span>
+					<script>document.write(hora);</script>
 				</div>
 			</div>
 		</div>
 		<div id="Grupo_11">
 			<div id="Grupo_1_jh">
 				<div id="Nomenclatura_j">
-					<span>10:20 am</span>
+					<script>document.write(hora);</script>
 				</div>
 			</div>
 		</div>
 		<div id="Grupo_12">
 			<div id="Grupo_1_jk">
 				<div id="Nomenclatura_ka">
-					<span>10:20 am</span>
+					<script>document.write(hora);</script>
 				</div>
 			</div>
 		</div>
 		<div id="Grupo_13">
 			<div id="Grupo_1_jn">
 				<div id="Nomenclatura_kb">
-					<span>10:20 am</span>
+					<script>document.write(hora);</script>
 				</div>
 			</div>
 		</div>
 		<div id="Grupo_14">
 			<div id="Grupo_1_jq">
 				<div id="Nomenclatura_kc">
-					<span>10:20 am</span>
+					<script>document.write(hora);</script>
 				</div>
 			</div>
 		</div>
 		<div id="Grupo_15">
 			<div id="Grupo_1_jt">
 				<div id="Nomenclatura_kd">
-					<span>10:20 am</span>
+					<script>document.write(hora);</script>
 				</div>
 			</div>
 		</div>
 		<div id="Grupo_16">
 			<div id="Grupo_1_jw">
 				<div id="Nomenclatura_ke">
-					<span>10:20 am</span>
+					<script>document.write(hora);</script>
 				</div>
 			</div>
 		</div>
 		<div id="Nomenclatura_kf">
-			<span>LA LA LA LA ALNSDJHSDJFH MARIA AKJSDKAJSDLKJSADLKJAS JUANA SJDSALHDALSKHDASHSDSKAJDLASJDLSAKJDLKJSALDJASLDJLSAJDLKSAJDLKSAJDLKJSD JULIANA JASDHAJSKDHAKJSDHKJSADH BLA ASKJDHASJKDHKAJHSDJKASHDJKSA</span>
+			<script>document.write(observaciones);</script>
 		</div>
 		<svg class="Trazado_7" viewBox="-3.226 34.143 3.076 640.469">
 			<path id="Trazado_7" d="M -0.1498565673828125 34.143310546875 L -3.225654602050781 674.612548828125">
@@ -9070,15 +9151,3 @@ window.application = new Application();
 </div>
 </body>
 </html>
-    ''';
-
-    Directory appDocDir = await getApplicationDocumentsDirectory();
-    var targetPath = appDocDir.path;
-    var targetFileName = "ejemplo";
-    var pdfGenerado = await FlutterHtmlToPdf.convertFromHtmlContent(descripcionHTML, targetPath, targetFileName);
-  
-    String pdfGeneradoRuta = pdfGenerado.path;
-
-    return pdfGeneradoRuta;
-  }
-}
