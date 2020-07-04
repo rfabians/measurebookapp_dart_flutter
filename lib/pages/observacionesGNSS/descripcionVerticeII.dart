@@ -17,7 +17,9 @@ class _DescripcionVerticeIIState extends State<DescripcionVerticeII> {
   //Brujula
   bool _compassEnabled = false;
   int _degrees = 0;
+  List<Offset> obstaculosGrafica = List<Offset>();
   StreamSubscription _compassSubscription;
+
   //Camara
   CameraController _controller;
   Future<void> _initCamFuture;
@@ -53,10 +55,27 @@ class _DescripcionVerticeIIState extends State<DescripcionVerticeII> {
     double y = dy / longitudVector;
     double z = dz / longitudVector;
     int anguloVertical = (m.acos(y) * 180 / m.pi).toInt();
-    if (z >= 0) {
-      anguloVertical = anguloVertical * -1;
+    if (z <= 0) {
+      if (anguloVertical >= 90) {
+        anguloVertical = 90;
+      }
+    } else {
+      anguloVertical = 0;
     }
     return anguloVertical;
+  }
+
+  Offset coodenadasGrafica(int azimutObservado, verticalObservado) {
+    double componenteX = m.sin(azimutObservado * (m.pi / 180)) *
+            escalador *
+            (90 - verticalObservado) +
+        centrox;
+    double componenteY = m.cos(azimutObservado * (m.pi / 180)) *
+            escalador *
+            (90 - verticalObservado) +
+        centroy;
+    Offset coordenadasGraf = Offset(componenteX, componenteY);
+    return coordenadasGraf;
   }
 
   void _checkCompassAvailability() async {
@@ -192,6 +211,10 @@ class _DescripcionVerticeIIState extends State<DescripcionVerticeII> {
                           ),
                           FlatButton(
                               onPressed: () {
+                                setState(() {
+                                  obstaculosGrafica.add(coodenadasGrafica(
+                                      _degrees, anguloVertical(dX, dY, dZ)));
+                                });
                                 contadorObstaculos = contadorObstaculos + 1;
                                 obstaculos.add(Container(
                                   height: 42,
@@ -241,8 +264,9 @@ class _DescripcionVerticeIIState extends State<DescripcionVerticeII> {
                             Container(
                                 height: 400,
                                 width: 300,
-                                child:
-                                    CustomPaint(painter: FaceOutlinePainter())),
+                                child: CustomPaint(
+                                    painter: FaceOutlinePainter(
+                                        listaInportada: obstaculosGrafica))),
                             Positioned(
                               top: centroy + escalador * 10 * m.cos(m.pi / 6),
                               left: centrox + escalador * 10 * m.sin(m.pi / 6),
@@ -334,16 +358,30 @@ class _DescripcionVerticeIIState extends State<DescripcionVerticeII> {
 }
 
 class FaceOutlinePainter extends CustomPainter {
+  List<Offset> listaInportada;
+  FaceOutlinePainter({this.listaInportada});
   @override
   void paint(Canvas canvas, Size size) {
     // Define a paint object
+    //Lista Vertices Poligonos
     final paint = Paint()
       ..style = PaintingStyle.stroke
       ..strokeWidth = 1.0
       ..color = Colors.black54;
+    final paintPolygon = Paint();
+    paintPolygon.color = Colors.blueAccent;
+    final paintBorder = Paint();
+    paintBorder.color = Colors.blueAccent;
+    paintBorder.strokeWidth = 1.0;
+    paintBorder.style = PaintingStyle.stroke;
     double escalador = 1.5;
     double centrox = 180.0;
     double centroy = 135.0;
+    List<Offset> puntosPolygono = listaInportada;
+
+    var path = Path();
+    path.addPolygon(puntosPolygono, true);
+    canvas.drawPath(path, paintPolygon);
     canvas.drawCircle(Offset(centrox, centroy), 10.0 * escalador, paint);
     canvas.drawCircle(Offset(centrox, centroy), 20.0 * escalador, paint);
     canvas.drawCircle(Offset(centrox, centroy), 30.0 * escalador, paint);
@@ -354,6 +392,7 @@ class FaceOutlinePainter extends CustomPainter {
     canvas.drawCircle(Offset(centrox, centroy), 80.0 * escalador, paint);
     canvas.drawLine(Offset(60.0, centroy), Offset(centrox, centroy),
         paint); //Linea lateral izquierdo a centro
+
     canvas.drawLine(
         Offset(centrox, centroy),
         Offset(centrox + escalador * 80, centroy),
