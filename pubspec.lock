@@ -43,13 +43,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.0.0"
-  camera:
-    dependency: "direct main"
-    description:
-      name: camera
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.5.8+2"
   charcode:
     dependency: transitive
     description:
@@ -230,20 +223,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.0.6"
-  flutter_sensor_compass:
-    dependency: "direct main"
-    description:
-      name: flutter_sensor_compass
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.1.1"
-  flutter_sensors:
-    dependency: transitive
-    description:
-      name: flutter_sensors
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.1.6"
   flutter_swiper:
     dependency: "direct main"
     description:
@@ -527,13 +506,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.23.1"
-  sensors:
-    dependency: "direct main"
-    description:
-      name: sensors
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.4.2+2"
   share:
     dependency: "direct main"
     description:
