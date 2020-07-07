@@ -82,7 +82,12 @@ class _PoligonalesMainState extends State<PoligonalesMain> {
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => PoligonalCerrada()));
+                                    builder: (context) => PoligonalCerrada(
+                                          idProyeccion: widget.idProyeccion,
+                                          idUser: widget.idUser,
+                                          nombreProyecto: widget.nombreProyecto,
+                                          proyeccionMB: widget.proyeccionMB,
+                                        )));
                           }),
                       SizedBox(width: 30.0),
                       FlatButton(

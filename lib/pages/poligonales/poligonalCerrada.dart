@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:measurebookapp/clases/database.dart';
+import 'package:measurebookapp/modelos/poligonalCerrada.dart';
 import 'package:measurebookapp/modelos/puntosReferencia.dart';
 import 'package:measurebookapp/pages/gestorPuntos.dart';
 
@@ -13,24 +14,89 @@ class PoligonalCerrada extends StatefulWidget {
       this.idUser,
       this.idProyeccion})
       : super(key: key);
+
+  get sistemaCoordenadas => null;
+
+  String get idCoordenadas => null;
   @override
   _PoligonalCerradaState createState() => _PoligonalCerradaState();
 }
 
 class _PoligonalCerradaState extends State<PoligonalCerrada> {
   @override
-  List<Widget> puntosREFWidget = List<Widget>();
-  void initState() {
-    super.initState();
-  }
-
   String nombrePoligonal;
+  PoligonalCerradaDatos datospoligonal = PoligonalCerradaDatos();
   String nombreEquipo;
   String serie, referencia;
+  int puntoarmadoSelccionado = 0;
+  int puntoVisadoSeleccionado = 0;
   int precisionAngular;
+  puntosReferencia puntoArmada = puntosReferencia();
+  puntosReferencia puntoVisado = puntosReferencia();
   int indexPrecision = 0;
+  int indexSeries = 0;
   List<Widget> listReferenciaPuntos = List<Widget>();
+  //Obtener Puntos de referencia de la base de datos
+  Future<List<puntosReferencia>> listaPuntosRef() async {
+    List<puntosReferencia> listaRef = await gestorMBDatabase.db
+        .getPuntosReferenciaData(widget.nombreProyecto);
+    return listaRef;
+  }
 
+  Widget seleccionArmada(int indice) {
+    if (indice == puntoarmadoSelccionado) {
+      return Icon(Icons.check_circle, size: 25, color: Colors.blueAccent);
+    } else {
+      return Icon(Icons.check_circle, size: 25, color: Colors.black54);
+    }
+  }
+
+  Widget seleccionVisado(int indice) {
+    if (indice == puntoVisadoSeleccionado) {
+      return Icon(Icons.check_circle, size: 25, color: Colors.blueAccent);
+    } else {
+      return Icon(Icons.check_circle, size: 25, color: Colors.black54);
+    }
+  }
+
+  List<Widget> numeroSeries = [
+    Center(
+        child: Text('0',
+            style: TextStyle(fontSize: 12, color: Colors.blueAccent),
+            textAlign: TextAlign.center)),
+    Center(
+        child: Text('1',
+            style: TextStyle(fontSize: 12, color: Colors.blueAccent),
+            textAlign: TextAlign.center)),
+    Center(
+        child: Text('2',
+            style: TextStyle(fontSize: 12, color: Colors.blueAccent),
+            textAlign: TextAlign.center)),
+    Center(
+        child: Text('3',
+            style: TextStyle(fontSize: 12, color: Colors.blueAccent),
+            textAlign: TextAlign.center)),
+    Center(
+        child: Text('4',
+            style: TextStyle(fontSize: 12, color: Colors.blueAccent),
+            textAlign: TextAlign.center)),
+    Center(
+        child: Text('5',
+            style: TextStyle(fontSize: 12, color: Colors.blueAccent),
+            textAlign: TextAlign.center)),
+    Center(
+        child: Text('6',
+            style: TextStyle(fontSize: 12, color: Colors.blueAccent),
+            textAlign: TextAlign.center)),
+    Center(
+        child: Text('7',
+            style: TextStyle(fontSize: 12, color: Colors.blueAccent),
+            textAlign: TextAlign.center)),
+    Center(
+        child: Text('8',
+            style: TextStyle(fontSize: 12, color: Colors.blueAccent),
+            textAlign: TextAlign.center)),
+  ];
   List<Widget> precisionesEstacion = [
     Center(
         child: Text('1 Segundo',
@@ -62,6 +128,16 @@ class _PoligonalCerradaState extends State<PoligonalCerrada> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      floatingActionButton: FloatingActionButton(
+        hoverColor: Colors.blueAccent,
+        child: Icon(Icons.menu, color: Colors.white),
+        mini: true,
+        onPressed: () {
+          print('Boton Navegación');
+        },
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.endDocked,
+      bottomNavigationBar: this._barraNavegacionMB(context),
       body: SafeArea(
         child: SingleChildScrollView(
           child: Container(
@@ -128,109 +204,351 @@ class _PoligonalCerradaState extends State<PoligonalCerrada> {
                     SizedBox(
                       height: 20,
                     ),
-                    Text('Seleccione la precisión angular del Equipo',
-                        style: TextStyle(fontSize: 12, color: Colors.black54)),
-                    SizedBox(
-                      height: 20,
+                    Row(
+                      children: <Widget>[
+                        Column(
+                          children: [
+                            Text('Precisión Angular del Equipo',
+                                style: TextStyle(
+                                    fontSize: 12, color: Colors.black54)),
+                            SizedBox(height: 5),
+                            Container(
+                                height: 50,
+                                width:
+                                    ((MediaQuery.of(context).size.width) / 2 -
+                                        30),
+                                child: CupertinoPicker(
+                                  itemExtent: 20,
+                                  onSelectedItemChanged: (index) {
+                                    setState(() {
+                                      indexPrecision = index;
+                                    });
+                                  },
+                                  children: precisionesEstacion,
+                                  squeeze: 1.0,
+                                  looping: true,
+                                ))
+                          ],
+                        ),
+                        SizedBox(
+                          width: 20,
+                        ),
+                        Column(
+                          children: [
+                            Text('Número de Series',
+                                style: TextStyle(
+                                    fontSize: 12, color: Colors.black54)),
+                            Container(
+                                height: 50,
+                                width:
+                                    ((MediaQuery.of(context).size.width) / 2 -
+                                        30),
+                                child: CupertinoPicker(
+                                  itemExtent: 20,
+                                  onSelectedItemChanged: (index) {
+                                    setState(() {
+                                      indexSeries = index;
+                                    });
+                                  },
+                                  children: numeroSeries,
+                                  squeeze: 1.0,
+                                  looping: true,
+                                ))
+                          ],
+                        ),
+                      ],
                     ),
-                    Container(
-                        height: 50,
-                        child: CupertinoPicker(
-                          itemExtent: 20,
-                          onSelectedItemChanged: (index) {
-                            setState(() {
-                              indexPrecision = index;
-                            });
-                          },
-                          children: precisionesEstacion,
-                          squeeze: 1.0,
-                          looping: true,
-                        )),
                     SizedBox(
-                      height: 30,
+                      height: 10,
                     ),
                     Text('Seleccione el punto de Referencia (Punto Armado)',
                         style:
                             TextStyle(fontSize: 12, color: Colors.blueAccent)),
+                    SizedBox(height: 10),
                     Container(
-                        height: 90,
-                        child: SingleChildScrollView(
-                          child: FutureBuilder(
-                              future: gestorMBDatabase.db
-                                  .getPuntosReferenciaData(
-                                      widget.nombreProyecto),
-                              builder: (BuildContext context,
-                                  AsyncSnapshot<List<puntosReferencia>>
-                                      snapshot) {
-                                MediaQueryData mediaQueryData =
-                                    MediaQuery.of(context);
-                                if (snapshot.hasData) {
-                                  if (snapshot.data.length <= 0) {
-                                    return Container(
-                                        child: ListTile(
-                                      dense: true,
-                                      trailing: Icon(Icons.add_location),
-                                      title: Text('Sin Puntos de Referencia',
-                                          style: TextStyle(
-                                              color: Colors.black54,
-                                              fontSize: 12)),
-                                      subtitle: Text(
-                                          'Crear punto de Referencia',
-                                          style: TextStyle(
-                                              color: Colors.blueAccent,
-                                              fontSize: 12)),
-                                      leading: Icon(Icons.error),
-                                      onTap: () {
-                                        Navigator.push(
-                                            context,
-                                            MaterialPageRoute(
-                                                builder: (context) =>
-                                                    GestosPuntos(
-                                                      idUser: widget.idUser,
-                                                      idProyeccion:
-                                                          widget.idProyeccion,
-                                                      nombreProyecto:
-                                                          widget.nombreProyecto,
-                                                      proyeccionMB:
-                                                          widget.proyeccionMB,
-                                                    )));
-                                      },
-                                    ));
-                                  } else {
-                                    return Container(
-                                      child: Center(
-                                        child: CircularProgressIndicator(),
-                                      ),
-                                    );
-                                  }
-                                } else {
-                                  return Container(
-                                      child: Center(
-                                    child: CircularProgressIndicator(),
-                                  ));
-                                }
-                              }),
-                        )),
+                      decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(10),
+                          boxShadow: [
+                            BoxShadow(blurRadius: 5.0, color: Colors.black26)
+                          ]),
+                      height: 120,
+                      child: FutureBuilder(
+                        future: listaPuntosRef(),
+                        builder:
+                            (BuildContext context, AsyncSnapshot snapshot) {
+                          if (snapshot.hasData) {
+                            List<Widget> puntosRef = List<Widget>();
+                            if (snapshot.data.length > 0) {
+                              for (var i = 0; i < snapshot.data.length; i++) {
+                                puntosReferencia listaPuntos = snapshot.data[i];
+                                puntosRef.add(ListTile(
+                                  trailing: seleccionArmada(i),
+                                  dense: true,
+                                  title: Text('${listaPuntos.Nombre_Punto}',
+                                      style: TextStyle(
+                                          color: Colors.blueAccent,
+                                          fontSize: 12)),
+                                  subtitle: RichText(
+                                      text: TextSpan(children: <TextSpan>[
+                                    TextSpan(
+                                        text: 'Norte: ',
+                                        style: TextStyle(
+                                          fontFamily: 'Roboto',
+                                          fontSize: 12.0,
+                                          color: Color(0xff007FFF),
+                                        )),
+                                    TextSpan(
+                                        text: '${listaPuntos.Norte}m  ',
+                                        style: TextStyle(
+                                          fontFamily: 'Roboto',
+                                          fontSize: 12.0,
+                                          color: Colors.black54,
+                                        )),
+                                    TextSpan(
+                                        text: 'Este: ',
+                                        style: TextStyle(
+                                          fontFamily: 'Roboto',
+                                          fontSize: 12.0,
+                                          color: Color(0xff007FFF),
+                                        )),
+                                    TextSpan(
+                                        text: '${listaPuntos.Este}m  ',
+                                        style: TextStyle(
+                                          fontFamily: 'Roboto',
+                                          fontSize: 12.0,
+                                          color: Colors.black54,
+                                        )),
+                                    TextSpan(
+                                        text: 'Altura: ',
+                                        style: TextStyle(
+                                          fontFamily: 'Roboto',
+                                          fontSize: 12.0,
+                                          color: Color(0xff007FFF),
+                                        )),
+                                    TextSpan(
+                                        text: '${listaPuntos.Altura}m',
+                                        style: TextStyle(
+                                          fontFamily: 'Roboto',
+                                          fontSize: 12.0,
+                                          color: Colors.black54,
+                                        )),
+                                  ])),
+                                  leading: Icon(
+                                    Icons.add_location,
+                                    size: 30,
+                                    color: Colors.blueAccent,
+                                  ),
+                                  onTap: () {
+                                    setState(() {
+                                      puntoarmadoSelccionado = i;
+                                      puntoArmada.Nombre_Punto =
+                                          listaPuntos.Nombre_Punto;
+                                      puntoArmada.Norte = listaPuntos.Norte;
+                                      puntoArmada.Este = listaPuntos.Este;
+                                      puntoArmada.Altura = listaPuntos.Altura;
+                                    });
+                                  },
+                                ));
+                              }
+                              return Container(
+                                child: SingleChildScrollView(
+                                  child: Column(
+                                    children: puntosRef,
+                                  ),
+                                ),
+                              );
+                            } else {
+                              puntosRef.add(ListTile(
+                                leading: Icon(
+                                  Icons.error_outline,
+                                  color: Colors.black54,
+                                  size: 30,
+                                ),
+                                trailing: Icon(Icons.navigate_next,
+                                    color: Colors.blueAccent, size: 40),
+                                title: Text(
+                                  'No tienes Puntos de Referencia dentro del Proyecto',
+                                  style: TextStyle(
+                                      fontSize: 12, color: Colors.blueAccent),
+                                ),
+                                subtitle: Text(
+                                    'Ingrese al Gestor y agrega puntos de referencia al proyecto',
+                                    style: TextStyle(
+                                        fontSize: 12, color: Colors.black54)),
+                                onTap: () {
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) => GestosPuntos(
+                                                idProyeccion:
+                                                    widget.idProyeccion,
+                                                idUser: widget.idUser,
+                                                nombreProyecto:
+                                                    widget.nombreProyecto,
+                                                proyeccionMB:
+                                                    widget.proyeccionMB,
+                                              )));
+                                },
+                              ));
+                              return SingleChildScrollView(
+                                child: Container(
+                                  child: Column(
+                                    children: puntosRef,
+                                  ),
+                                ),
+                              );
+                            }
+                          } else {
+                            return Container(
+                              child: CircularProgressIndicator(),
+                            );
+                          }
+                        },
+                      ),
+                    ),
                     SizedBox(
-                      height: 20,
+                      height: 10,
                     ),
                     Text('Seleccione el punto de Referencia (Punto Visado)',
                         style:
                             TextStyle(fontSize: 12, color: Colors.blueAccent)),
-                    Container(
-                        height: 90,
-                        child: SingleChildScrollView(
-                          child: Column(
-                            children: puntosREFWidget,
-                          ),
-                        )),
+                    SizedBox(height: 10),
                     Divider(
                       height: 5,
-                    )
+                    ),
+                    Container(
+                      decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(10),
+                          boxShadow: [
+                            BoxShadow(blurRadius: 5.0, color: Colors.black26)
+                          ]),
+                      height: 120,
+                      child: FutureBuilder(
+                        future: listaPuntosRef(),
+                        builder:
+                            (BuildContext context, AsyncSnapshot snapshot) {
+                          if (snapshot.hasData) {
+                            List<Widget> puntosRef = List<Widget>();
+                            if (snapshot.data.length > 0) {
+                              for (var i = 0; i < snapshot.data.length; i++) {
+                                puntosReferencia listaPuntos = snapshot.data[i];
+                                puntosRef.add(ListTile(
+                                  dense: true,
+                                  trailing: Container(
+                                    child: seleccionVisado(i),
+                                  ),
+                                  leading: Icon(Icons.add_location,
+                                      color: Colors.blueAccent, size: 30),
+                                  title: Text(
+                                    '${listaPuntos.Nombre_Punto}',
+                                    style: TextStyle(
+                                        color: Colors.blueAccent, fontSize: 12),
+                                  ),
+                                  subtitle: Text(
+                                      'Norte: ${listaPuntos.Norte}  Este: ${listaPuntos.Este}  Altura: ${listaPuntos.Altura}'),
+                                  onTap: () {
+                                    setState(() {
+                                      puntoVisadoSeleccionado = i;
+                                      puntoVisado.Nombre_Punto =
+                                          listaPuntos.Nombre_Punto;
+                                      puntoVisado.Norte = listaPuntos.Norte;
+                                      puntoVisado.Este = listaPuntos.Este;
+                                      puntoVisado.Altura = listaPuntos.Altura;
+                                    });
+                                  },
+                                ));
+                              }
+                              return Container(
+                                child: SingleChildScrollView(
+                                  child: Column(
+                                    children: puntosRef,
+                                  ),
+                                ),
+                              );
+                            } else {
+                              puntosRef.add(ListTile(
+                                leading: Icon(
+                                  Icons.error_outline,
+                                  color: Colors.black54,
+                                  size: 30,
+                                ),
+                                trailing: Icon(Icons.navigate_next,
+                                    color: Colors.blueAccent, size: 40),
+                                title: Text(
+                                  'No tienes Puntos de Referencia dentro del Proyecto',
+                                  style: TextStyle(
+                                      fontSize: 12, color: Colors.blueAccent),
+                                ),
+                                subtitle: Text(
+                                    'Ingrese al Gestor y agrega puntos de referencia al proyecto',
+                                    style: TextStyle(
+                                        fontSize: 12, color: Colors.black54)),
+                                onTap: () {
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) => GestosPuntos(
+                                                idProyeccion:
+                                                    widget.idProyeccion,
+                                                idUser: widget.idUser,
+                                                nombreProyecto:
+                                                    widget.nombreProyecto,
+                                                proyeccionMB:
+                                                    widget.proyeccionMB,
+                                              )));
+                                },
+                              ));
+                              return Container(
+                                child: Column(
+                                  children: puntosRef,
+                                ),
+                              );
+                            }
+                          } else {
+                            return Container(
+                              child: CircularProgressIndicator(),
+                            );
+                          }
+                        },
+                      ),
+                    ),
+                    FlatButton(
+                        onPressed: null,
+                        child: Column(
+                          children: <Widget>[
+                            Icon(Icons.check_circle_outline,
+                                color: Colors.blueAccent, size: 40),
+                            Divider(height: 2),
+                            Text('Continuar',
+                                style: TextStyle(
+                                    fontSize: 12, color: Colors.blueAccent)),
+                          ],
+                        ))
                   ],
                 )),
           )),
         ),
+      ),
+    );
+  }
+
+  BottomAppBar _barraNavegacionMB(BuildContext context) {
+    return BottomAppBar(
+      shape: CircularNotchedRectangle(),
+      color: Colors.black54,
+      child: Row(
+        children: <Widget>[
+          Container(
+            height: 40,
+            child: Padding(
+              padding: const EdgeInsets.all(10.0),
+              child: Text('      Creación poligonal cerrada',
+                  style: TextStyle(fontSize: 12, color: Colors.white)),
+            ),
+          )
+        ],
       ),
     );
   }
