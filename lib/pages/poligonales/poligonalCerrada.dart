@@ -1,7 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:measurebookapp/clases/database.dart';
-import 'package:measurebookapp/modelos/poligonalCerrada.dart';
+import 'package:measurebookapp/pages/poligonales/poligonalCerradaDatos.dart';
+import 'package:measurebookapp/modelos/poligonal.dart';
 import 'package:measurebookapp/modelos/puntosReferencia.dart';
 import 'package:measurebookapp/pages/gestorPuntos.dart';
 
@@ -25,11 +27,11 @@ class PoligonalCerrada extends StatefulWidget {
 class _PoligonalCerradaState extends State<PoligonalCerrada> {
   @override
   String nombrePoligonal;
-  PoligonalCerradaDatos datospoligonal = PoligonalCerradaDatos();
+  Poligonal datospoligonal = Poligonal();
   String nombreEquipo;
-  String serie, referencia;
-  int puntoarmadoSelccionado = 0;
-  int puntoVisadoSeleccionado = 0;
+  String referencia;
+  int puntoarmadoSelccionado = -1;
+  int puntoVisadoSeleccionado = -1;
   int precisionAngular;
   puntosReferencia puntoArmada = puntosReferencia();
   puntosReferencia puntoVisado = puntosReferencia();
@@ -190,12 +192,12 @@ class _PoligonalCerradaState extends State<PoligonalCerrada> {
                           icon: Icon(Icons.assignment),
                           labelText: 'Serie y Referencia del Equipo Optico'),
                       style: TextStyle(color: Colors.black54, fontSize: 12),
-                      validator: (String nPoligonal) {
-                        if (nPoligonal.isEmpty) {
+                      validator: (String nReferencia) {
+                        if (nReferencia.isEmpty) {
                           return 'Ingrese la nomenclatura de la Poligonal';
                         } else {
                           setState(() {
-                            nombrePoligonal = nPoligonal;
+                            referencia = nReferencia;
                           });
                           return null;
                         }
@@ -347,6 +349,8 @@ class _PoligonalCerradaState extends State<PoligonalCerrada> {
                                       puntoArmada.Norte = listaPuntos.Norte;
                                       puntoArmada.Este = listaPuntos.Este;
                                       puntoArmada.Altura = listaPuntos.Altura;
+                                      puntoArmada.ID_Punto =
+                                          listaPuntos.ID_Punto;
                                     });
                                   },
                                 ));
@@ -456,6 +460,8 @@ class _PoligonalCerradaState extends State<PoligonalCerrada> {
                                       puntoVisado.Norte = listaPuntos.Norte;
                                       puntoVisado.Este = listaPuntos.Este;
                                       puntoVisado.Altura = listaPuntos.Altura;
+                                      puntoVisado.ID_Punto =
+                                          listaPuntos.ID_Punto;
                                     });
                                   },
                                 ));
@@ -515,7 +521,49 @@ class _PoligonalCerradaState extends State<PoligonalCerrada> {
                       ),
                     ),
                     FlatButton(
-                        onPressed: null,
+                        onPressed: () async {
+                          if (puntoArmada.Nombre_Punto ==
+                              puntoVisado.Nombre_Punto) {
+                            mostarAlertaPuntoReferencia();
+                          } else {
+                            if (_formKey.currentState.validate()) {
+                              setState(() {
+                                datospoligonal.nomPArmadoIni =
+                                    puntoArmada.ID_Punto;
+                                datospoligonal.nomPVIsadoIni =
+                                    puntoVisado.ID_Punto;
+                                datospoligonal.nomPArmadofin =
+                                    puntoArmada.ID_Punto;
+                                datospoligonal.nomPVIsadofin =
+                                    puntoVisado.ID_Punto;
+                                datospoligonal.nombrePoligonal =
+                                    nombrePoligonal;
+                                datospoligonal.serieEquipo = referencia;
+                                datospoligonal.precisionEquipo =
+                                    precisionAngularEquipo(indexPrecision);
+                                datospoligonal.numeroSeries = indexSeries;
+                                datospoligonal.tipoPoligonal = 'Cerrada';
+                              });
+                              bool validarNombre = await gestorMBDatabase.db
+                                  .validarNombrePoligonal(
+                                      datospoligonal.nombrePoligonal);
+
+                              if (validarNombre == true) {
+                                mostrarAlertaNombrePoligonal();
+                              } else {
+                                gestorMBDatabase.db.guardarPoligonal(
+                                    datospoligonal,
+                                    widget.idUser,
+                                    widget.nombreProyecto);
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) =>
+                                            PoligonalCerradaDatos()));
+                              }
+                            }
+                          }
+                        },
                         child: Column(
                           children: <Widget>[
                             Icon(Icons.check_circle_outline,
@@ -534,10 +582,34 @@ class _PoligonalCerradaState extends State<PoligonalCerrada> {
     );
   }
 
+  int precisionAngularEquipo(int indice) {
+    int precisionEstacion = 10;
+    if (indice == 0) {
+      precisionEstacion = 1;
+    } else if (indice == 1) {
+      precisionEstacion = 2;
+    } else if (indexPrecision == 2) {
+      precisionEstacion = 3;
+    } else if (indice == 3) {
+      precisionEstacion = 5;
+    } else if (indice == 4) {
+      precisionEstacion = 7;
+    }
+    return precisionEstacion;
+  }
+
+  void mostarAlertaPuntoReferencia() {
+    Fluttertoast.showToast(
+        msg: "El punto de armado no puede ser igual al Visado",
+        toastLength: Toast.LENGTH_LONG,
+        gravity: ToastGravity.BOTTOM,
+        timeInSecForIosWeb: 1);
+  }
+
   BottomAppBar _barraNavegacionMB(BuildContext context) {
     return BottomAppBar(
       shape: CircularNotchedRectangle(),
-      color: Colors.black54,
+      color: Colors.black87,
       child: Row(
         children: <Widget>[
           Container(
@@ -551,5 +623,15 @@ class _PoligonalCerradaState extends State<PoligonalCerrada> {
         ],
       ),
     );
+  }
+// Validar Nombre Poligonal
+
+  void mostrarAlertaNombrePoligonal() {
+    Fluttertoast.showToast(
+        msg: "La Poligonal ya existe",
+        fontSize: 12,
+        toastLength: Toast.LENGTH_LONG,
+        gravity: ToastGravity.BOTTOM,
+        timeInSecForIosWeb: 1);
   }
 }
