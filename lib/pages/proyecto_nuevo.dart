@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:measurebookapp/clases/database.dart';
+import 'package:measurebookapp/main.dart';
 import 'package:measurebookapp/modelos/departamentos.dart';
 import 'package:measurebookapp/modelos/municipios.dart';
+import 'package:measurebookapp/modelos/proyectos.dart';
 import 'package:measurebookapp/pages/menuPrincipal.dart';
 import 'package:measurebookapp/pages/seleccionSistemaCoordenadas.dart';
 
@@ -161,20 +163,24 @@ class _NuevoProyectoState extends State<NuevoProyecto> {
                                   if (validarNombre == true) {
                                     mostrarAlertaNombreProyecto();
                                   } else {
+                                    proyectos datosProyecto = proyectos();
+                                    datosProyecto.ID_USUARIO = widget.idUsuario;
+                                    datosProyecto.Cliente = clienteMB;
+                                    datosProyecto.Descripcion = decripcionMB;
+                                    datosProyecto.Empresa = empresaMB;
+                                    datosProyecto.Nombre_Proyecto =
+                                        nombreProyectoMB;
+                                    datosProyecto.Tipo_Proyeccion =
+                                        proyeccionMB;
+                                    datosProyecto.Ubicacion = ubicacionMB;
                                     Navigator.push(
                                         context,
                                         MaterialPageRoute(
                                           builder: (context) =>
                                               SeleccionSistemaCoordendas(
-                                            clienteMB: clienteMB,
-                                            decripcionMB: decripcionMB,
-                                            empresaMB: empresaMB,
-                                            nombreProyectoMB: nombreProyectoMB,
-                                            proyeccionMB: proyeccionMB,
-                                            ubicacionMB: ubicacionMB,
+                                            datosProyectos: datosProyecto,
                                             gauss: true,
                                             fk_Municipio: 1,
-                                            id_Usuario: widget.idUsuario,
                                           ),
                                         ));
                                   }
@@ -234,21 +240,26 @@ class _NuevoProyectoState extends State<NuevoProyecto> {
                                   if (validarNombre == true) {
                                     mostrarAlertaNombreProyecto();
                                   } else {
+                                    proyectos datosProyecto = proyectos();
+                                    datosProyecto.ID_USUARIO = widget.idUsuario;
+                                    datosProyecto.Cliente = clienteMB;
+                                    datosProyecto.Descripcion = decripcionMB;
+                                    datosProyecto.Empresa = empresaMB;
+                                    datosProyecto.ID_Proyeccion =
+                                        'Origen Nacional';
+                                    datosProyecto.ID_USUARIO = widget.idUsuario;
+                                    datosProyecto.Nombre_Proyecto =
+                                        nombreProyectoMB;
+                                    datosProyecto.Tipo_Proyeccion =
+                                        'Transversal de Mercator';
+                                    datosProyecto.Ubicacion = ubicacionMB;
                                     gestorMBDatabase.db.InserDataSQL(
                                         'INSERT INTO PROYECTOS (ID_USUARIO, Nombre_Proyecto, Tipo_Proyeccion, ID_Proyeccion, Ubicacion, Empresa, Cliente, Descripcion) VALUES ("${widget.idUsuario}", "${nombreProyectoMB}", "Transversal de Mercator", "Origen Nacional", "${ubicacionMB}", "${empresaMB}", "${clienteMB}",  "${decripcionMB}")');
                                     Navigator.push(
                                         context,
                                         MaterialPageRoute(
                                           builder: (context) => MenuPrincipalMB(
-                                            clienteMB: clienteMB,
-                                            decripcionMB: decripcionMB,
-                                            empresaMB: empresaMB,
-                                            id_proyeccion: 'Origen Nacional',
-                                            id_usuario: widget.idUsuario,
-                                            nombreProyectoMB: nombreProyectoMB,
-                                            proyeccionMB:
-                                                'Transversal de Mercator',
-                                            ubicacionMB: ubicacionMB,
+                                            datosProyecto: datosProyecto,
                                           ),
                                         ));
                                   }
@@ -403,25 +414,31 @@ class _NuevoProyectoState extends State<NuevoProyecto> {
                                                   onTap: () {
                                                     proyeccionMB =
                                                         'Planas Cartesianas';
+                                                    proyectos datosProyecto =
+                                                        proyectos();
+                                                    datosProyecto.ID_USUARIO =
+                                                        widget.idUsuario;
+                                                    datosProyecto.Cliente =
+                                                        clienteMB;
+                                                    datosProyecto.Descripcion =
+                                                        decripcionMB;
+                                                    datosProyecto.Empresa =
+                                                        empresaMB;
+                                                    datosProyecto
+                                                            .Nombre_Proyecto =
+                                                        nombreProyectoMB;
+                                                    datosProyecto
+                                                            .Tipo_Proyeccion =
+                                                        proyeccionMB;
+                                                    datosProyecto.Ubicacion =
+                                                        ubicacionMB;
                                                     Navigator.push(
                                                         context,
                                                         MaterialPageRoute(
                                                           builder: (context) =>
                                                               SeleccionSistemaCoordendas(
-                                                            id_Usuario: widget
-                                                                .idUsuario,
-                                                            clienteMB:
-                                                                clienteMB,
-                                                            decripcionMB:
-                                                                decripcionMB,
-                                                            empresaMB:
-                                                                empresaMB,
-                                                            nombreProyectoMB:
-                                                                nombreProyectoMB,
-                                                            proyeccionMB:
-                                                                proyeccionMB,
-                                                            ubicacionMB:
-                                                                ubicacionMB,
+                                                            datosProyectos:
+                                                                datosProyecto,
                                                             gauss: false,
                                                             fk_Municipio: listaMun
                                                                 .PK_MUNICIPIOS,

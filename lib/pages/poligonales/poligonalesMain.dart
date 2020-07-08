@@ -1,16 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:measurebookapp/modelos/proyectos.dart';
 import 'package:measurebookapp/pages/poligonales/poligonalAbierta.dart';
 import 'package:measurebookapp/pages/poligonales/poligonalCerrada.dart';
 
 class PoligonalesMain extends StatefulWidget {
-  final String nombreProyecto, proyeccionMB, idUser, idProyeccion;
-  PoligonalesMain(
-      {Key key,
-      this.nombreProyecto,
-      this.proyeccionMB,
-      this.idUser,
-      this.idProyeccion})
-      : super(key: key);
+  final proyectos datosProyecto;
+  PoligonalesMain({Key key, this.datosProyecto}) : super(key: key);
 
   @override
   _PoligonalesMainState createState() => _PoligonalesMainState();
@@ -83,10 +78,7 @@ class _PoligonalesMainState extends State<PoligonalesMain> {
                                 context,
                                 MaterialPageRoute(
                                     builder: (context) => PoligonalCerrada(
-                                          idProyeccion: widget.idProyeccion,
-                                          idUser: widget.idUser,
-                                          nombreProyecto: widget.nombreProyecto,
-                                          proyeccionMB: widget.proyeccionMB,
+                                          datosProyecto: widget.datosProyecto,
                                         )));
                           }),
                       SizedBox(width: 30.0),

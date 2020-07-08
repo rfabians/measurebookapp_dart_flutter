@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:measurebookapp/modelos/proyectos.dart';
 import 'package:measurebookapp/pages/conversionCoordenadas.dart';
 import 'package:measurebookapp/pages/nivelaciones.dart';
 import 'package:measurebookapp/pages/observacionesGNSS.dart';
@@ -7,26 +8,11 @@ import 'package:measurebookapp/pages/poligonales/poligonalesMain.dart';
 import 'gestorPuntos.dart';
 
 class MenuPrincipalMB extends StatefulWidget {
-  final String nombreProyectoMB,
-      ubicacionMB,
-      clienteMB,
-      empresaMB,
-      proyeccionMB,
-      decripcionMB,
-      id_usuario,
-      id_proyeccion;
-
-  MenuPrincipalMB(
-      {Key key,
-      this.id_usuario,
-      this.nombreProyectoMB,
-      this.proyeccionMB,
-      this.id_proyeccion,
-      this.ubicacionMB,
-      this.empresaMB,
-      this.clienteMB,
-      this.decripcionMB})
-      : super(key: key);
+  proyectos datosProyecto = proyectos();
+  MenuPrincipalMB({
+    Key key,
+    this.datosProyecto,
+  }) : super(key: key);
 
   @override
   _MenuPrincipalMBState createState() => _MenuPrincipalMBState();
@@ -109,11 +95,7 @@ class _MenuPrincipalMBState extends State<MenuPrincipalMB> {
                                   context,
                                   MaterialPageRoute(
                                       builder: (context) => GestosPuntos(
-                                            idUser: widget.id_usuario,
-                                            idProyeccion: widget.id_proyeccion,
-                                            nombreProyecto:
-                                                widget.nombreProyectoMB,
-                                            proyeccionMB: widget.proyeccionMB,
+                                            datosProyecto: widget.datosProyecto,
                                           )));
                             },
                           ),
@@ -147,11 +129,7 @@ class _MenuPrincipalMBState extends State<MenuPrincipalMB> {
                                   MaterialPageRoute(
                                       builder: (context) =>
                                           CoversionCoordenadas(
-                                            idUser: widget.id_usuario,
-                                            idProyeccion: widget.id_proyeccion,
-                                            nombreProyecto:
-                                                widget.nombreProyectoMB,
-                                            proyeccionMB: widget.proyeccionMB,
+                                            datosProyecto: widget.datosProyecto,
                                           )));
                             },
                           ),
@@ -216,11 +194,7 @@ class _MenuPrincipalMBState extends State<MenuPrincipalMB> {
                                   context,
                                   MaterialPageRoute(
                                       builder: (context) => PoligonalesMain(
-                                            idUser: widget.id_usuario,
-                                            idProyeccion: widget.id_proyeccion,
-                                            nombreProyecto:
-                                                widget.nombreProyectoMB,
-                                            proyeccionMB: widget.proyeccionMB,
+                                            datosProyecto: widget.datosProyecto,
                                           )));
                             },
                           ),

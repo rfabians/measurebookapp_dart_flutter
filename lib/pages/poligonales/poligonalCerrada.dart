@@ -2,20 +2,15 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:measurebookapp/clases/database.dart';
+import 'package:measurebookapp/modelos/proyectos.dart';
 import 'package:measurebookapp/pages/poligonales/poligonalCerradaDatos.dart';
 import 'package:measurebookapp/modelos/poligonal.dart';
 import 'package:measurebookapp/modelos/puntosReferencia.dart';
 import 'package:measurebookapp/pages/gestorPuntos.dart';
 
 class PoligonalCerrada extends StatefulWidget {
-  final String nombreProyecto, proyeccionMB, idUser, idProyeccion;
-  PoligonalCerrada(
-      {Key key,
-      this.nombreProyecto,
-      this.proyeccionMB,
-      this.idUser,
-      this.idProyeccion})
-      : super(key: key);
+  final proyectos datosProyecto;
+  PoligonalCerrada({Key key, this.datosProyecto}) : super(key: key);
 
   get sistemaCoordenadas => null;
 
@@ -41,7 +36,7 @@ class _PoligonalCerradaState extends State<PoligonalCerrada> {
   //Obtener Puntos de referencia de la base de datos
   Future<List<puntosReferencia>> listaPuntosRef() async {
     List<puntosReferencia> listaRef = await gestorMBDatabase.db
-        .getPuntosReferenciaData(widget.nombreProyecto);
+        .getPuntosReferenciaData(widget.datosProyecto.Nombre_Proyecto);
     return listaRef;
   }
 
@@ -385,13 +380,8 @@ class _PoligonalCerradaState extends State<PoligonalCerrada> {
                                       context,
                                       MaterialPageRoute(
                                           builder: (context) => GestosPuntos(
-                                                idProyeccion:
-                                                    widget.idProyeccion,
-                                                idUser: widget.idUser,
-                                                nombreProyecto:
-                                                    widget.nombreProyecto,
-                                                proyeccionMB:
-                                                    widget.proyeccionMB,
+                                                datosProyecto:
+                                                    widget.datosProyecto,
                                               )));
                                 },
                               ));
@@ -496,13 +486,8 @@ class _PoligonalCerradaState extends State<PoligonalCerrada> {
                                       context,
                                       MaterialPageRoute(
                                           builder: (context) => GestosPuntos(
-                                                idProyeccion:
-                                                    widget.idProyeccion,
-                                                idUser: widget.idUser,
-                                                nombreProyecto:
-                                                    widget.nombreProyecto,
-                                                proyeccionMB:
-                                                    widget.proyeccionMB,
+                                                datosProyecto:
+                                                    widget.datosProyecto,
                                               )));
                                 },
                               ));
@@ -553,8 +538,8 @@ class _PoligonalCerradaState extends State<PoligonalCerrada> {
                               } else {
                                 gestorMBDatabase.db.guardarPoligonal(
                                     datospoligonal,
-                                    widget.idUser,
-                                    widget.nombreProyecto);
+                                    widget.datosProyecto.ID_USUARIO,
+                                    widget.datosProyecto.Nombre_Proyecto);
                                 Navigator.push(
                                     context,
                                     MaterialPageRoute(
