@@ -162,7 +162,9 @@ class _MenuPrincipalMBState extends State<MenuPrincipalMB> {
                                   context,
                                   MaterialPageRoute(
                                       builder: (context) =>
-                                          ObservacionGNSSVertice()));
+                                          ObservacionGNSSVertice(
+                                            datosProyecto: widget.datosProyecto,
+                                          )));
                             },
                           ),
                           Divider(),
@@ -226,7 +228,9 @@ class _MenuPrincipalMBState extends State<MenuPrincipalMB> {
                               Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                      builder: (context) => Nivelaciones()));
+                                      builder: (context) => Nivelaciones(
+                                            datosproyecto: widget.datosProyecto,
+                                          )));
                             },
                           )
                         ],
