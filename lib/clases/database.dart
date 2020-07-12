@@ -104,6 +104,16 @@ class gestorMBDatabase {
     return listaDepartamentos;
   }
 
+  // Consulta lista de Poligonales
+  Future<List<Poligonal>> getPoligonales(String idUser, nombreProyecto) async {
+    Database db = await mbBasedeDatos();
+    var response = await db.rawQuery(
+        "SELECT * FROM POLIGONAL WHERE idUser = '${idUser}' AND nombreProyecto = '${nombreProyecto}'");
+    List<Poligonal> listaPoligonales =
+        response.map((c) => Poligonal.fromMap(c)).toList();
+    return listaPoligonales;
+  }
+
   // Consulta lista de Proyectos
   Future<List<proyectos>> getProyectos() async {
     Database db = await mbBasedeDatos();

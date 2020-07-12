@@ -1,11 +1,8 @@
 class Poligonal {
   String nombrePoligonal, serieEquipo, tipoPoligonal;
-  int precisionEquipo,
-      numeroSeries,
-      nomPArmadoIni,
-      nomPVIsadoIni,
-      nomPVIsadofin,
-      nomPArmadofin;
+  int precisionEquipo, numeroSeries;
+  String nomPArmadoIni, nomPVIsadoIni, nomPVIsadofin, nomPArmadofin, cerrada;
+
   Poligonal(
       {this.nombrePoligonal,
       this.tipoPoligonal,
@@ -15,7 +12,8 @@ class Poligonal {
       this.precisionEquipo,
       this.nomPArmadofin,
       this.nomPVIsadofin,
-      this.numeroSeries});
+      this.numeroSeries,
+      this.cerrada});
 
   factory Poligonal.fromMap(Map<String, dynamic> json) => new Poligonal(
         nombrePoligonal: json["nombrePoligonal"],
@@ -27,5 +25,6 @@ class Poligonal {
         nomPVIsadofin: json['nomPVIsadofin'],
         numeroSeries: json['numeroSeries'],
         precisionEquipo: json['precisionEquipo'],
+        cerrada: json['cerrada'],
       );
 }

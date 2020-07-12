@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:measurebookapp/clases/database.dart';
+import 'package:measurebookapp/modelos/poligonal.dart';
 import 'package:measurebookapp/modelos/proyectos.dart';
 import 'package:measurebookapp/pages/conversionCoordenadas.dart';
 import 'package:measurebookapp/pages/gestorPuntos.dart';
 import 'package:measurebookapp/pages/menuPrincipal.dart';
 import 'package:measurebookapp/pages/nivelaciones.dart';
 import 'package:measurebookapp/pages/observacionesGNSS/observacionGNSSVertice.dart';
+import 'package:measurebookapp/pages/poligonales/detallePoligonalCerrada.dart';
 import 'package:measurebookapp/pages/poligonales/poligonalAbierta.dart';
 import 'package:measurebookapp/pages/poligonales/poligonalCerrada.dart';
 
@@ -262,9 +265,117 @@ class _PoligonalesMainState extends State<PoligonalesMain> {
                             ]),
                         height: 400,
                         width: MediaQuery.of(context).size.width,
-                        child: Column(
-                          children: <Widget>[Text('Listado de Poligonales')],
-                        ),
+                        child: FutureBuilder(
+                            future: gestorMBDatabase.db.getPoligonales(
+                                widget.datosProyecto.ID_USUARIO,
+                                widget.datosProyecto.Nombre_Proyecto),
+                            builder: (BuildContext context,
+                                AsyncSnapshot<List<Poligonal>> snapshot) {
+                              if (snapshot.hasData) {
+                                if (snapshot.data.length <= 0) {
+                                  return Center(
+                                    child: Text(
+                                        'Aun no tienes Poligonales Creadas'),
+                                  );
+                                } else {
+                                  return Container(
+                                    child: ListView.builder(
+                                        itemCount: snapshot.data.length,
+                                        itemBuilder:
+                                            (BuildContext context, int index) {
+                                          Poligonal listaPoligonales =
+                                              snapshot.data[index];
+                                          return Padding(
+                                            padding: EdgeInsets.only(
+                                                bottom: 3,
+                                                top: 3,
+                                                left: 15,
+                                                right: 15),
+                                            child: Container(
+                                              child: Material(
+                                                borderRadius:
+                                                    BorderRadius.circular(10),
+                                                color: Colors.white,
+                                                elevation: 5,
+                                                child: ListTile(
+                                                  leading: Icon(
+                                                    Icons.timeline,
+                                                    size: 40,
+                                                    color: Colors.black54,
+                                                  ),
+                                                  title: RichText(
+                                                      text: TextSpan(children: <
+                                                          TextSpan>[
+                                                    TextSpan(
+                                                        text:
+                                                            'Nombre Poligonal: ',
+                                                        style: TextStyle(
+                                                          fontFamily: 'Roboto',
+                                                          fontSize: 12.0,
+                                                          color:
+                                                              Color(0xff007FFF),
+                                                        )),
+                                                    TextSpan(
+                                                        text:
+                                                            '${listaPoligonales.nombrePoligonal}',
+                                                        style: TextStyle(
+                                                          fontFamily: 'Roboto',
+                                                          fontSize: 12.0,
+                                                          color: Colors.black54,
+                                                        )),
+                                                  ])),
+                                                  subtitle: RichText(
+                                                      text: TextSpan(children: <
+                                                          TextSpan>[
+                                                    TextSpan(
+                                                        text:
+                                                            'Tipo de Poligonal: ',
+                                                        style: TextStyle(
+                                                          fontFamily: 'Roboto',
+                                                          fontSize: 12.0,
+                                                          color:
+                                                              Color(0xff007FFF),
+                                                        )),
+                                                    TextSpan(
+                                                        text:
+                                                            '${listaPoligonales.tipoPoligonal}\n',
+                                                        style: TextStyle(
+                                                          fontFamily: 'Roboto',
+                                                          fontSize: 12.0,
+                                                          color: Colors.black54,
+                                                        )),
+                                                  ])),
+                                                  trailing: Icon(
+                                                    Icons.navigate_next,
+                                                    size: 40,
+                                                    color: Colors.black,
+                                                  ),
+                                                  onTap: () {
+                                                    Navigator.push(
+                                                        context,
+                                                        MaterialPageRoute(
+                                                            builder: (context) =>
+                                                                DetallePoligonalCerrada(
+                                                                  datosPoligonal:
+                                                                      listaPoligonales,
+                                                                  datosProyecto:
+                                                                      widget
+                                                                          .datosProyecto,
+                                                                )));
+                                                  },
+                                                ),
+                                              ),
+                                            ),
+                                          );
+                                        }),
+                                  );
+                                }
+                              } else {
+                                return Center(
+                                  child: CircularProgressIndicator(),
+                                );
+                              }
+                            }),
                       ),
                       SizedBox(height: 30),
                       Row(

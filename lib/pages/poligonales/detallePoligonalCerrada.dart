@@ -1,6 +1,4 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:measurebookapp/main.dart';
 import 'package:measurebookapp/modelos/poligonal.dart';
 import 'package:measurebookapp/modelos/proyectos.dart';
 import 'package:measurebookapp/pages/conversionCoordenadas.dart';
@@ -8,23 +6,23 @@ import 'package:measurebookapp/pages/gestorPuntos.dart';
 import 'package:measurebookapp/pages/menuPrincipal.dart';
 import 'package:measurebookapp/pages/nivelaciones.dart';
 import 'package:measurebookapp/pages/observacionesGNSS/observacionGNSSVertice.dart';
-import 'package:measurebookapp/pages/poligonales/lecturaPoligonal.dart';
 import 'package:measurebookapp/pages/poligonales/poligonalesMain.dart';
 
-class PoligonalCerradaDatos extends StatefulWidget {
+class DetallePoligonalCerrada extends StatefulWidget {
   final proyectos datosProyecto;
   final Poligonal datosPoligonal;
-  PoligonalCerradaDatos({Key key, this.datosProyecto, this.datosPoligonal})
+  DetallePoligonalCerrada({Key key, this.datosProyecto, this.datosPoligonal})
       : super(key: key);
 
   @override
-  _PoligonalCerradaDatosState createState() => _PoligonalCerradaDatosState();
+  _DetallePoligonalCerradaState createState() =>
+      _DetallePoligonalCerradaState();
 }
 
-class _PoligonalCerradaDatosState extends State<PoligonalCerradaDatos> {
-  int _index = 0;
+class _DetallePoligonalCerradaState extends State<DetallePoligonalCerrada> {
   @override
   Widget build(BuildContext context) {
+    int _index = 0;
     List<Widget> listNavegacion = [
       //Menu Principal
       FlatButton(
@@ -193,6 +191,7 @@ class _PoligonalCerradaDatosState extends State<PoligonalCerradaDatos> {
             },
           )),
     ];
+
     return Scaffold(
       floatingActionButton: FloatingActionButton(
         hoverColor: Colors.blueAccent,
@@ -229,94 +228,10 @@ class _PoligonalCerradaDatosState extends State<PoligonalCerradaDatos> {
       floatingActionButtonLocation: FloatingActionButtonLocation.endDocked,
       bottomNavigationBar: this._barraNavegacionMB(context),
       body: SafeArea(
-          child: Container(
-        child: Center(
           child: Column(
-            children: <Widget>[
-              Image.asset('assets/images/poligonal_.png', height: 70),
-              RichText(
-                  text: TextSpan(children: <TextSpan>[
-                TextSpan(
-                    text: 'Realiza las ',
-                    style: TextStyle(
-                      fontFamily: 'Roboto',
-                      fontSize: 12.0,
-                      color: Color(0xff007FFF),
-                    )),
-                TextSpan(
-                    text: 'lecturas de tu poligonal Cerrada',
-                    style: TextStyle(
-                      fontFamily: 'Roboto',
-                      fontSize: 12.0,
-                      color: Colors.black54,
-                    )),
-              ])),
-              Divider(),
-              Padding(
-                padding: const EdgeInsets.all(10.0),
-                child: Container(
-                  height: 400,
-                  width: MediaQuery.of(context).size.width,
-                  decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(20),
-                      boxShadow: [
-                        BoxShadow(
-                            blurRadius: 5,
-                            spreadRadius: 5,
-                            color: Colors.black12)
-                      ]),
-                  child: Column(
-                    //Implementación Visualización de Observaciones
-                    children: <Widget>[],
-                  ),
-                ),
-              ),
-              Divider(),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  FlatButton(
-                      shape: new RoundedRectangleBorder(
-                          borderRadius: new BorderRadius.circular(20.0)),
-                      child: Text(
-                        'Añadir Observación',
-                        style: TextStyle(
-                          fontFamily: 'Roboto',
-                          fontSize: 12.0,
-                          color: Colors.white,
-                        ),
-                      ),
-                      color: Color(0xff007FFF),
-                      onPressed: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => LecturaPoligonal(
-                                      datosProyecto: widget.datosProyecto,
-                                      series:
-                                          widget.datosPoligonal.numeroSeries,
-                                    )));
-                      }),
-                  SizedBox(width: 30.0),
-                  FlatButton(
-                      shape: new RoundedRectangleBorder(
-                          borderRadius: new BorderRadius.circular(20.0)),
-                      child: Text(
-                        'Cerrar Poligonal',
-                        style: TextStyle(
-                          fontFamily: 'Roboto',
-                          fontSize: 12.0,
-                          color: Colors.white,
-                        ),
-                      ),
-                      color: Color(0xff007FFF),
-                      onPressed: () {}),
-                ],
-              ),
-            ],
-          ),
-        ),
+        children: <Widget>[
+          Text('as'),
+        ],
       )),
     );
   }
@@ -331,7 +246,8 @@ class _PoligonalCerradaDatosState extends State<PoligonalCerradaDatos> {
             height: 40,
             child: Padding(
               padding: const EdgeInsets.all(10.0),
-              child: Text('      Lecturas poligonal cerrada',
+              child: Text(
+                  '      Poligonal ${widget.datosPoligonal.nombrePoligonal}',
                   style: TextStyle(fontSize: 12, color: Colors.white)),
             ),
           )
