@@ -52,9 +52,9 @@ class _AlturaNiveladasMapState extends State<AlturaNiveladasMap> {
       cPlanasGenerico.este = coordenadasGauss.este;
       cPlanasGenerico.altura = alturaPunto;
       return cPlanasGenerico;
-    } else if (widget.datosProyecto.ID_Proyeccion == 'Plano Cartesiano') {
+    } else if (widget.datosProyecto.Tipo_Proyeccion == 'Plano Cartesiano') {
       CartesianasCS cartesianasCS = await gestorMBDatabase.db
-          .getOrigenCartesianoData(widget.datosProyecto.Tipo_Proyeccion);
+          .getOrigenCartesianoData(widget.datosProyecto.ID_Proyeccion);
       CoordenadasElipsoidales coordenadasElipsoidales =
           CoordenadasElipsoidales();
       coordenadasElipsoidales.latitud = latitud;
@@ -380,7 +380,9 @@ class _AlturaNiveladasMapState extends State<AlturaNiveladasMap> {
                                                             ondulacion: 0,
                                                             datosProyecto: widget
                                                                 .datosProyecto,
-                                                          )));
+                                                          ))).then((value) {
+                                                Navigator.of(context).pop();
+                                              });
                                             },
                                             trailing: Icon(
                                               Icons.chevron_right,
