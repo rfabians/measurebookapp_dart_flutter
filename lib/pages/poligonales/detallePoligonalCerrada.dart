@@ -1,11 +1,15 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:measurebookapp/modelos/poligonal.dart';
 import 'package:measurebookapp/modelos/proyectos.dart';
+import 'package:measurebookapp/modelos/puntosReferencia.dart';
 import 'package:measurebookapp/pages/conversionCoordenadas.dart';
 import 'package:measurebookapp/pages/gestorPuntos.dart';
 import 'package:measurebookapp/pages/menuPrincipal.dart';
 import 'package:measurebookapp/pages/nivelaciones.dart';
 import 'package:measurebookapp/pages/observacionesGNSS/observacionGNSSVertice.dart';
+import 'package:measurebookapp/pages/poligonales/agregarLecturaPoligonal.dart';
 import 'package:measurebookapp/pages/poligonales/poligonalesMain.dart';
 
 class DetallePoligonalCerrada extends StatefulWidget {
@@ -20,6 +24,21 @@ class DetallePoligonalCerrada extends StatefulWidget {
 }
 
 class _DetallePoligonalCerradaState extends State<DetallePoligonalCerrada> {
+  int indicePuntoArmado = 0;
+  int indicetomaLinea = 0;
+  List<Widget> deltasPoligonal = List<Widget>();
+  List<String> nombreDeltasPoligonal = List<String>();
+  @override
+  void initState() {
+    nombreDeltasPoligonal.add(widget.datosPoligonal.nomPArmadoIni);
+    nombreDeltasPoligonal.add(widget.datosPoligonal.nomPVIsadoIni);
+    deltasPoligonal.add(Text('${nombreDeltasPoligonal[0]}',
+        style: TextStyle(fontSize: 12, color: Colors.blueAccent)));
+    deltasPoligonal.add(Text('${nombreDeltasPoligonal[1]}',
+        style: TextStyle(fontSize: 12, color: Colors.blueAccent)));
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     int _index = 0;
@@ -325,6 +344,7 @@ class _DetallePoligonalCerradaState extends State<DetallePoligonalCerrada> {
             ),
             Container(
               height: 400,
+              width: MediaQuery.of(context).size.width,
               decoration: BoxDecoration(
                   color: Colors.white,
                   borderRadius: BorderRadius.circular(15),
@@ -335,11 +355,116 @@ class _DetallePoligonalCerradaState extends State<DetallePoligonalCerrada> {
                       color: Colors.black12,
                     )
                   ]),
-            )
+              child: Text('Sin Datos'),
+            ),
+            Divider(),
+            Row(
+              children: <Widget>[
+                Column(
+                  children: [
+                    Text('Punto Armado',
+                        style: TextStyle(fontSize: 12, color: Colors.black54)),
+                    SizedBox(height: 5),
+                    Container(
+                        height: 50,
+                        width: ((MediaQuery.of(context).size.width) / 2 - 30),
+                        child: CupertinoPicker(
+                          itemExtent: 20,
+                          onSelectedItemChanged: (index) {
+                            setState(() {
+                              indicePuntoArmado = index;
+                            });
+                          },
+                          children: deltasPoligonal,
+                          squeeze: 1.0,
+                        ))
+                  ],
+                ),
+                SizedBox(
+                  width: 20,
+                ),
+                Column(
+                  children: [
+                    Text('Punto Visado',
+                        style: TextStyle(fontSize: 12, color: Colors.black54)),
+                    Container(
+                        height: 50,
+                        width: ((MediaQuery.of(context).size.width) / 2 - 30),
+                        child: CupertinoPicker(
+                          itemExtent: 20,
+                          onSelectedItemChanged: (index) {
+                            setState(() {
+                              indicetomaLinea = index;
+                            });
+                          },
+                          children: deltasPoligonal,
+                          squeeze: 1.0,
+                        ))
+                  ],
+                ),
+              ],
+            ),
+            Divider(),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                FlatButton(
+                    shape: new RoundedRectangleBorder(
+                        borderRadius: new BorderRadius.circular(20.0)),
+                    child: Text(
+                      'Añadir Lectura',
+                      style: TextStyle(
+                        fontFamily: 'Roboto',
+                        fontSize: 12.0,
+                        color: Colors.white,
+                      ),
+                    ),
+                    color: Color(0xff007FFF),
+                    onPressed: () {
+                      if (indicePuntoArmado == indicetomaLinea) {
+                        mostarAlertaArmadoIgualVisado();
+                      } else {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => AgregarLecturaPoligonal(
+                                    datosPoligonal: widget.datosPoligonal,
+                                    datosProyecto: widget.datosProyecto,
+                                    puntoArmado: nombreDeltasPoligonal[
+                                        indicePuntoArmado],
+                                    puntoVisado: nombreDeltasPoligonal[
+                                        indicetomaLinea])));
+                      }
+                    }),
+                SizedBox(width: 30.0),
+                FlatButton(
+                    shape: new RoundedRectangleBorder(
+                        borderRadius: new BorderRadius.circular(20.0)),
+                    child: Text(
+                      'Cerrar Poligonal',
+                      style: TextStyle(
+                        fontFamily: 'Roboto',
+                        fontSize: 12.0,
+                        color: Colors.white,
+                      ),
+                    ),
+                    color: Color(0xff007FFF),
+                    onPressed: () {}),
+              ],
+            ),
           ],
         ),
       )),
     );
+  }
+
+  void mostarAlertaArmadoIgualVisado() {
+    Fluttertoast.showToast(
+        msg: "El punto de Armado no puede ser el mismo que el toma línea",
+        fontSize: 12,
+        toastLength: Toast.LENGTH_LONG,
+        gravity: ToastGravity.BOTTOM,
+        timeInSecForIosWeb: 1);
   }
 
   BottomAppBar _barraNavegacionMB(BuildContext context) {
