@@ -351,17 +351,27 @@ class _PoligonalesMainState extends State<PoligonalesMain> {
                                                     color: Colors.black,
                                                   ),
                                                   onTap: () {
-                                                    Navigator.push(
-                                                        context,
-                                                        MaterialPageRoute(
-                                                            builder: (context) =>
-                                                                DetallePoligonalCerrada(
-                                                                  datosPoligonal:
-                                                                      listaPoligonales,
-                                                                  datosProyecto:
-                                                                      widget
-                                                                          .datosProyecto,
-                                                                )));
+                                                    if (listaPoligonales
+                                                            .tipoPoligonal ==
+                                                        'Cerrada') {
+                                                      Navigator.push(
+                                                          context,
+                                                          MaterialPageRoute(
+                                                              builder: (context) =>
+                                                                  DetallePoligonalCerrada(
+                                                                    datosPoligonal:
+                                                                        listaPoligonales,
+                                                                    datosProyecto:
+                                                                        widget
+                                                                            .datosProyecto,
+                                                                  )));
+                                                    } else
+                                                      return Center(
+                                                        child:
+
+                                                            ///Poligonales Abiertas
+                                                            CircularProgressIndicator(),
+                                                      );
                                                   },
                                                 ),
                                               ),

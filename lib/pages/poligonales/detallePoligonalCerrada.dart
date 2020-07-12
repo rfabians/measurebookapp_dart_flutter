@@ -228,10 +228,116 @@ class _DetallePoligonalCerradaState extends State<DetallePoligonalCerrada> {
       floatingActionButtonLocation: FloatingActionButtonLocation.endDocked,
       bottomNavigationBar: this._barraNavegacionMB(context),
       body: SafeArea(
-          child: Column(
-        children: <Widget>[
-          Text('as'),
-        ],
+          child: Padding(
+        padding: const EdgeInsets.all(10.0),
+        child: Column(
+          children: <Widget>[
+            Row(
+              children: <Widget>[
+                Container(
+                  width: 70,
+                  height: 70,
+                  child: Image.asset('assets/images/poligonal_.png'),
+                ),
+                SizedBox(width: 20),
+                Container(
+                  width: 200,
+                  height: 80,
+                  child: Column(
+                    children: <Widget>[
+                      SizedBox(height: 10),
+                      Align(
+                        alignment: Alignment.bottomLeft,
+                        child: RichText(
+                            textAlign: TextAlign.left,
+                            text: TextSpan(children: <TextSpan>[
+                              TextSpan(
+                                  text: 'Poligonal: ',
+                                  style: TextStyle(
+                                    fontFamily: 'Roboto',
+                                    fontSize: 12.0,
+                                    color: Color(0xff007FFF),
+                                  )),
+                              TextSpan(
+                                  text:
+                                      '${widget.datosPoligonal.nombrePoligonal}',
+                                  style: TextStyle(
+                                    fontFamily: 'Roboto',
+                                    fontSize: 12.0,
+                                    color: Colors.black54,
+                                  )),
+                            ])),
+                      ),
+                      Divider(
+                        height: 5,
+                      ),
+                      Align(
+                        alignment: Alignment.bottomLeft,
+                        child: RichText(
+                            textAlign: TextAlign.left,
+                            text: TextSpan(children: <TextSpan>[
+                              TextSpan(
+                                  text: 'Punto de Referencia I: ',
+                                  style: TextStyle(
+                                    fontFamily: 'Roboto',
+                                    fontSize: 12.0,
+                                    color: Color(0xff007FFF),
+                                  )),
+                              TextSpan(
+                                  text:
+                                      '${widget.datosPoligonal.nomPArmadoIni}',
+                                  style: TextStyle(
+                                    fontFamily: 'Roboto',
+                                    fontSize: 12.0,
+                                    color: Colors.black54,
+                                  )),
+                            ])),
+                      ),
+                      Divider(
+                        height: 3,
+                      ),
+                      Align(
+                        alignment: Alignment.bottomLeft,
+                        child: RichText(
+                            textAlign: TextAlign.left,
+                            text: TextSpan(children: <TextSpan>[
+                              TextSpan(
+                                  text: 'Punto de Referencia II: ',
+                                  style: TextStyle(
+                                    fontFamily: 'Roboto',
+                                    fontSize: 12.0,
+                                    color: Color(0xff007FFF),
+                                  )),
+                              TextSpan(
+                                  text:
+                                      '${widget.datosPoligonal.nomPVIsadoIni}',
+                                  style: TextStyle(
+                                    fontFamily: 'Roboto',
+                                    fontSize: 12.0,
+                                    color: Colors.black54,
+                                  )),
+                            ])),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+            Container(
+              height: 400,
+              decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(15),
+                  boxShadow: [
+                    BoxShadow(
+                      blurRadius: 5.0,
+                      spreadRadius: 5.0,
+                      color: Colors.black12,
+                    )
+                  ]),
+            )
+          ],
+        ),
       )),
     );
   }

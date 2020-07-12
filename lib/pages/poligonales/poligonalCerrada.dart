@@ -7,7 +7,7 @@ import 'package:measurebookapp/pages/conversionCoordenadas.dart';
 import 'package:measurebookapp/pages/menuPrincipal.dart';
 import 'package:measurebookapp/pages/nivelaciones.dart';
 import 'package:measurebookapp/pages/observacionesGNSS/observacionGNSSVertice.dart';
-import 'package:measurebookapp/pages/poligonales/poligonalCerradaDatos.dart';
+import 'package:measurebookapp/pages/poligonales/detallePoligonalCerrada.dart';
 import 'package:measurebookapp/modelos/poligonal.dart';
 import 'package:measurebookapp/modelos/puntosReferencia.dart';
 import 'package:measurebookapp/pages/gestorPuntos.dart';
@@ -745,7 +745,7 @@ class _PoligonalCerradaState extends State<PoligonalCerrada> {
                                     context,
                                     MaterialPageRoute(
                                         builder: (context) =>
-                                            PoligonalCerradaDatos(
+                                            DetallePoligonalCerrada(
                                               datosPoligonal: datospoligonal,
                                               datosProyecto:
                                                   widget.datosProyecto,

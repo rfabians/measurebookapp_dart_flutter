@@ -52,7 +52,7 @@ class _AlturaNiveladasMapState extends State<AlturaNiveladasMap> {
       cPlanasGenerico.este = coordenadasGauss.este;
       cPlanasGenerico.altura = alturaPunto;
       return cPlanasGenerico;
-    } else if (widget.datosProyecto.Tipo_Proyeccion == 'Plano Cartesiano') {
+    } else if (widget.datosProyecto.ID_Proyeccion == 'Plano Cartesiano') {
       CartesianasCS cartesianasCS = await gestorMBDatabase.db
           .getOrigenCartesianoData(widget.datosProyecto.Tipo_Proyeccion);
       CoordenadasElipsoidales coordenadasElipsoidales =
