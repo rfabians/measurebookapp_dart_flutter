@@ -19,6 +19,7 @@ import 'dart:typed_data';
 import 'package:flutter/services.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:flutter/material.dart';
+import 'package:measurebookapp/modelos/lecturaPoligonal.dart';
 
 class gestorMBDatabase {
   gestorMBDatabase._();
@@ -69,6 +70,15 @@ class gestorMBDatabase {
         'INSERT INTO POLIGONAL ("idUser","nombreProyecto", "nombrePoligonal", "tipoPoligonal", "serieEquipo", "nomPArmadoIni", "nomPVIsadoIni", "nomPArmadofin", "nomPVIsadofin", "numeroSeries", "precisionEquipo") VALUES ("${idUser}", "${nombreProyecto}", "${dataPoligonal.nombrePoligonal}", "${dataPoligonal.tipoPoligonal}", "${dataPoligonal.serieEquipo}",  "${dataPoligonal.nomPArmadoIni}", "${dataPoligonal.nomPVIsadoIni}", "${dataPoligonal.nomPArmadofin}", "${dataPoligonal.nomPVIsadofin}", "${dataPoligonal.numeroSeries}", "${dataPoligonal.precisionEquipo}")');
   }
 
+// Guardar datos Lecturas Poligonal
+  void guardarLecturaPoligonal(
+    LecturaPoligonal lecturaPoligonal,
+  ) async {
+    Database db = await mbBasedeDatos();
+    db.rawQuery(
+        'INSERT INTO OBSERVACIONES_POLIGONAL ("ID_USER", "NOMBRE_PROYECTO", "NOMBRE_POLIGONAL", "PUNTO_ARMADO", "PUNTO_ATRAS", "PUNTO_ADELANTE", "ANGULO_HORIZONTAL_ATRAS", "ANGULO_HORIZONTAL_ADELANTE", "DISTANCIA_ATRAS", "DISTANCIA_ADELANTE", "DESVIACION_ANGULO", "DESVIACION_DISTANCIA_ADELANTE", "DESVIACION_DISTANCIA_ATRAS", "ANGULO_VERTICAL_ADELANTE","ANGULO_VERTICAL_ATRAS","ALTURA_OBJETO_ATRAS","ALTURA_OBJETO_ADELANTE","ALTURA_INSTRUMENTAL","FACTOR_ESCALA") VALUES("${lecturaPoligonal.idUser}", "${lecturaPoligonal.nombreProyecto}", "${lecturaPoligonal.nombrePoligonal}", "${lecturaPoligonal.nombrePuntoArmado}", "${lecturaPoligonal.nombreBacksite}", "${lecturaPoligonal.nombreVisado}", "${lecturaPoligonal.anguloHorizontalAtras}", "${lecturaPoligonal.anguloHorizontalAdelante}", "${lecturaPoligonal.distanciaAtras}", "${lecturaPoligonal.distanciaAdelante}", "${lecturaPoligonal.desviacionAngulo}", "${lecturaPoligonal.desviacionDistanciaAdelante}", "${lecturaPoligonal.desviacionDistanciaAtras}", "${lecturaPoligonal.anguloHorizontalAdelante}", "${lecturaPoligonal.anguloVerticalAtras}", "${lecturaPoligonal.alturaObjetoAtras}", "${lecturaPoligonal.alturaObjetoAdelante}", "${lecturaPoligonal.alturaInstrumental}", "${lecturaPoligonal.factorEscala}")');
+  }
+
   //Validar Nombre Poligonal
   Future<bool> validarNombrePoligonal(String nomPoligonal) async {
     Database db = await mbBasedeDatos();
@@ -102,6 +112,17 @@ class gestorMBDatabase {
         response.map((c) => departamentos.fromMap(c)).toList();
 
     return listaDepartamentos;
+  }
+
+  //Consulta lista de LecturasPoligonal
+  Future<List<LecturaPoligonal>> getLecturasPoligonales(
+      String idUser, nombreProyecto, nombrePoligonal) async {
+    Database db = await mbBasedeDatos();
+    var response = await db.rawQuery(
+        "SELECT * FROM OBSERVACIONES_POLIGONAL WHERE ID_USER = '${idUser}' AND NOMBRE_PROYECTO = '${nombreProyecto}' AND NOMBRE_POLIGONAL='${nombrePoligonal}'");
+    List<LecturaPoligonal> listadoObservaciones =
+        response.map((c) => LecturaPoligonal.fromMap(c)).toList();
+    return listadoObservaciones;
   }
 
   // Consulta lista de Poligonales

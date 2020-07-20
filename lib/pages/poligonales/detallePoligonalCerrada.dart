@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:measurebookapp/clases/database.dart';
+import 'package:measurebookapp/modelos/lecturaPoligonal.dart';
 import 'package:measurebookapp/modelos/poligonal.dart';
 import 'package:measurebookapp/modelos/proyectos.dart';
 import 'package:measurebookapp/modelos/puntosReferencia.dart';
@@ -99,7 +101,7 @@ class _DetallePoligonalCerradaState extends State<DetallePoligonalCerrada> {
                           )));
             },
           )),
-      //Conversión de Coordenadas
+
       FlatButton(
           onPressed: () {},
           child: ListTile(
@@ -343,20 +345,84 @@ class _DetallePoligonalCerradaState extends State<DetallePoligonalCerrada> {
               ],
             ),
             Container(
-              height: 400,
-              width: MediaQuery.of(context).size.width,
-              decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(15),
-                  boxShadow: [
-                    BoxShadow(
-                      blurRadius: 5.0,
-                      spreadRadius: 5.0,
-                      color: Colors.black12,
-                    )
-                  ]),
-              child: Text('Sin Datos'),
-            ),
+                height: 400,
+                width: MediaQuery.of(context).size.width,
+                child: FutureBuilder(
+                    future: gestorMBDatabase.db.getLecturasPoligonales(
+                        widget.datosProyecto.ID_USUARIO,
+                        widget.datosProyecto.Nombre_Proyecto,
+                        widget.datosPoligonal.nombrePoligonal),
+                    builder: (BuildContext context,
+                        AsyncSnapshot<List<LecturaPoligonal>> snapshot) {
+                      if (snapshot.hasData) {
+                        if (snapshot.data.length <= 0) {
+                          return Container(
+                            child: Center(
+                              child: Text(
+                                  'Aún no has realizado observaciones para esta Poligonal',
+                                  style: TextStyle(
+                                      color: Colors.blueAccent, fontSize: 12)),
+                            ),
+                          );
+                        } else {
+                          return ListView.builder(
+                              itemCount: snapshot.data.length,
+                              itemBuilder: (BuildContext context, int index) {
+                                return Padding(
+                                  padding: EdgeInsets.only(
+                                      bottom: 3, top: 3, left: 15, right: 15),
+                                  child: Container(
+                                    child: Material(
+                                      borderRadius: BorderRadius.circular(15),
+                                      color: Colors.white,
+                                      elevation: 5,
+                                      child: Row(
+                                        children: <Widget>[
+                                          Container(
+                                            width: MediaQuery.of(context)
+                                                    .size
+                                                    .width /
+                                                3,
+                                            child: Column(
+                                              children: <Widget>[
+                                                SizedBox(height: 5),
+                                                Text(
+                                                  'Punto de Armada',
+                                                  style: TextStyle(
+                                                      color: Colors.blueAccent,
+                                                      fontSize: 12),
+                                                ),
+                                                Divider(
+                                                  height: 5,
+                                                ),
+                                                Text(
+                                                  '${snapshot.data[index].nombrePuntoArmado}',
+                                                  style: TextStyle(
+                                                      color: Colors.black54,
+                                                      fontSize: 12),
+                                                ),
+                                                Divider(
+                                                  height: 5,
+                                                ),
+                                                Text(
+                                                    'Alt. Inst: ${snapshot.data[index].alturaInstrumental}m',
+                                                    style: TextStyle(
+                                                        fontSize: 12,
+                                                        color: Colors.black54))
+                                              ],
+                                            ),
+                                          )
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                );
+                              });
+                        }
+                      } else {
+                        return CircularProgressIndicator();
+                      }
+                    })),
             Divider(),
             Row(
               children: <Widget>[
@@ -460,7 +526,7 @@ class _DetallePoligonalCerradaState extends State<DetallePoligonalCerrada> {
 
   void mostarAlertaArmadoIgualVisado() {
     Fluttertoast.showToast(
-        msg: "El punto de Armado no puede ser el mismo que el toma línea",
+        msg: "El punto de Armado no puede ser el mismo que el Backsite",
         fontSize: 12,
         toastLength: Toast.LENGTH_LONG,
         gravity: ToastGravity.BOTTOM,
