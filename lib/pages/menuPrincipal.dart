@@ -6,6 +6,7 @@ import 'package:measurebookapp/pages/observacionesGNSS.dart';
 import 'package:measurebookapp/pages/observacionesGNSS/observacionGNSSVertice.dart';
 import 'package:measurebookapp/pages/poligonales/poligonalesMain.dart';
 import 'gestorPuntos.dart';
+import 'observacionesGNSS/menuObservacionesGNSS.dart';
 
 class MenuPrincipalMB extends StatefulWidget {
   proyectos datosProyecto = proyectos();
@@ -139,14 +140,13 @@ class _MenuPrincipalMBState extends State<MenuPrincipalMB> {
                               'assets/images/gnss.png',
                               height: 50,
                             ),
-                            title: Text('Tiempos de Rastreo',
+                            title: Text('Observaciones GNSS',
                                 style: TextStyle(
                                   fontFamily: 'Roboto',
                                   fontSize: 13.0,
                                   color: Color(0xff007FFF),
                                 )),
-                            subtitle: Text(
-                                'Cálcula los tiempos de Rastreo usando como referencia las estaciones de la RED Magna ECO y/o GeoRED',
+                            subtitle: Text('Documenta tus observaciones GNSS',
                                 style: TextStyle(
                                   fontFamily: 'Roboto',
                                   fontSize: 12.0,
@@ -162,7 +162,7 @@ class _MenuPrincipalMBState extends State<MenuPrincipalMB> {
                                   context,
                                   MaterialPageRoute(
                                       builder: (context) =>
-                                          ObservacionGNSSVertice(
+                                          MenuObservacionesGNSS(
                                             datosProyecto: widget.datosProyecto,
                                           )));
                             },

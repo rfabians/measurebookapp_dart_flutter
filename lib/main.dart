@@ -8,6 +8,7 @@ import 'package:measurebookapp/modelos/proyectos.dart';
 import 'package:measurebookapp/modelos/usuario.dart';
 import 'package:measurebookapp/pages/menuPrincipal.dart';
 import 'pages/proyecto_nuevo.dart';
+import 'pages/menuPrincipal.dart';
 import 'package:flare_flutter/flare_actor.dart';
 import 'package:measurebookapp/pages/redPasivaIGAC.dart';
 
@@ -25,7 +26,7 @@ class MeasureBookAPP extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Iniciar Sesion',
-      home: IniciarSesion(),
+      home: MenuPrincipalMB(),
     );
   }
 }
