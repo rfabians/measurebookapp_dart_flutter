@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:measurebookapp/modelos/proyectos.dart';
+import 'package:measurebookapp/pages/alturasNiveladas.dart';
 import 'package:measurebookapp/pages/conversionCoordenadas.dart';
 import 'package:measurebookapp/pages/nivelaciones.dart';
 import 'package:measurebookapp/pages/observacionesGNSS.dart';
 import 'package:measurebookapp/pages/observacionesGNSS/observacionGNSSVertice.dart';
 import 'package:measurebookapp/pages/poligonales/poligonalesMain.dart';
+import 'package:measurebookapp/pages/redPasivaIGAC.dart';
 import 'gestorPuntos.dart';
 import 'observacionesGNSS/menuObservacionesGNSS.dart';
 
@@ -73,14 +75,13 @@ class _MenuPrincipalMBState extends State<MenuPrincipalMB> {
                               'assets/images/puntos.png',
                               height: 50,
                             ),
-                            title: Text('Gestor de Puntos',
+                            title: Text('Red Pasiva IGAC',
                                 style: TextStyle(
                                   fontFamily: 'Roboto',
                                   fontSize: 13.0,
                                   color: Color(0xff007FFF),
                                 )),
-                            subtitle: Text(
-                                'Crea y edita los puntos que utilizarás como control en tus mediciones',
+                            subtitle: Text('Navega la Red Pasiva del IGAC',
                                 style: TextStyle(
                                   fontFamily: 'Roboto',
                                   fontSize: 12.0,
@@ -95,9 +96,7 @@ class _MenuPrincipalMBState extends State<MenuPrincipalMB> {
                               Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                      builder: (context) => GestosPuntos(
-                                            datosProyecto: widget.datosProyecto,
-                                          )));
+                                      builder: (context) => RedPasivaIgac()));
                             },
                           ),
                           Divider(),
@@ -134,19 +133,22 @@ class _MenuPrincipalMBState extends State<MenuPrincipalMB> {
                                           )));
                             },
                           ),
-                          Divider(),
+                          Divider(
+                            height: 30,
+                          ),
                           ListTile(
                             leading: Image.asset(
                               'assets/images/gnss.png',
                               height: 50,
                             ),
-                            title: Text('Observaciones GNSS',
+                            title: Text('Cálcular tiempos de Rastreo',
                                 style: TextStyle(
                                   fontFamily: 'Roboto',
                                   fontSize: 13.0,
                                   color: Color(0xff007FFF),
                                 )),
-                            subtitle: Text('Documenta tus observaciones GNSS',
+                            subtitle: Text(
+                                'Cálcula los tiempos de rastres GNSS usandos las Estaciones de Rastreo Continuo',
                                 style: TextStyle(
                                   fontFamily: 'Roboto',
                                   fontSize: 12.0,
@@ -162,58 +164,25 @@ class _MenuPrincipalMBState extends State<MenuPrincipalMB> {
                                   context,
                                   MaterialPageRoute(
                                       builder: (context) =>
-                                          MenuObservacionesGNSS(
-                                            datosProyecto: widget.datosProyecto,
-                                          )));
+                                          ObservacionGNSSVertice()));
                             },
                           ),
-                          Divider(),
-                          ListTile(
-                            leading: Image.asset(
-                              'assets/images/poligonal_.png',
-                              height: 50,
-                            ),
-                            title: Text('Poligonales',
-                                style: TextStyle(
-                                  fontFamily: 'Roboto',
-                                  fontSize: 13.0,
-                                  color: Color(0xff007FFF),
-                                )),
-                            subtitle: Text(
-                                'Crea, continúa y gestiona tus Poligonales',
-                                style: TextStyle(
-                                  fontFamily: 'Roboto',
-                                  fontSize: 12.0,
-                                  color: Colors.black54,
-                                )),
-                            trailing: Icon(
-                              Icons.chevron_right,
-                              size: 30.0,
-                              color: Colors.blueAccent,
-                            ),
-                            onTap: () {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => PoligonalesMain(
-                                            datosProyecto: widget.datosProyecto,
-                                          )));
-                            },
+                          Divider(
+                            height: 30,
                           ),
-                          Divider(),
                           ListTile(
                             leading: Image.asset(
                               'assets/images/nivelacion_.png',
                               height: 50,
                             ),
-                            title: Text('Nivelaciones',
+                            title: Text('Alturas Niveladas',
                                 style: TextStyle(
                                   fontFamily: 'Roboto',
                                   fontSize: 13.0,
                                   color: Color(0xff007FFF),
                                 )),
                             subtitle: Text(
-                                'Crea, continúa y gestiona tus Nivelaciones Geométricas',
+                                'Navega los puntos con alturas Niveladas de la red Pasiva del IGAC',
                                 style: TextStyle(
                                   fontFamily: 'Roboto',
                                   fontSize: 12.0,
@@ -228,9 +197,8 @@ class _MenuPrincipalMBState extends State<MenuPrincipalMB> {
                               Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                      builder: (context) => Nivelaciones(
-                                            datosproyecto: widget.datosProyecto,
-                                          )));
+                                      builder: (context) =>
+                                          AlturaNiveladasMap()));
                             },
                           )
                         ],
