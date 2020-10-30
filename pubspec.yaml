@@ -44,6 +44,7 @@ dependencies:
   flutter_html_to_pdf: ^0.5.2
   dropdownfield: ^1.0.3
   flutter_launcher_icons: "^0.8.0"
+  url_launcher: ^5.7.4
 
 
 

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:measurebookapp/clases/conversionCoordenadasMB.dart';
 import 'package:measurebookapp/clases/database.dart';
 import 'package:measurebookapp/main.dart';
@@ -4090,6 +4091,14 @@ class _ConversionPuntoState extends State<ConversionPunto> {
         );
       }
     }
+  }
+
+  void mismoSistemaCoor() {
+    Fluttertoast.showToast(
+        msg: "El sistema de coordenadas de origen es igual al sistema destino ",
+        toastLength: Toast.LENGTH_LONG,
+        gravity: ToastGravity.BOTTOM,
+        timeInSecForIosWeb: 2);
   }
 
   BottomAppBar _barraNavegacionMB(BuildContext context) {

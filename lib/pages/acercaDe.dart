@@ -29,12 +29,12 @@ class _AcercaDeState extends State<AcercaDe> {
                 ),
                 Divider(),
                 Text(
-                  'Ingenería Topográfica',
+                  'Ingeniería Topográfica',
                   style: TextStyle(fontSize: 14),
                 ),
                 Divider(),
                 Text(
-                  'Proyecto de Grado para Optar por el titulo de Ingeniero Topográfico',
+                  'Proyecto de Grado para Optar por el título de Ingeniero Topográfico',
                   style: TextStyle(fontSize: 14),
                 ),
                 Divider(
@@ -49,7 +49,9 @@ class _AcercaDeState extends State<AcercaDe> {
                   'elmaderaa@correo.udistrital.edu.co',
                   style: TextStyle(fontSize: 14, color: Colors.blueAccent),
                 ),
-                Divider(),
+                Divider(
+                  height: 30,
+                ),
                 Text(
                   'Estudiante: Layda Yaneth Gil Angel',
                   style: TextStyle(fontSize: 14),
@@ -58,6 +60,9 @@ class _AcercaDeState extends State<AcercaDe> {
                 Text(
                   'lygila@correo.udistrital.edu.co',
                   style: TextStyle(fontSize: 14, color: Colors.blueAccent),
+                ),
+                Divider(
+                  height: 30,
                 ),
                 Text(
                   'Estudiante: Rafael Fabian Sanchez Osorio',
@@ -72,7 +77,7 @@ class _AcercaDeState extends State<AcercaDe> {
                   height: 50,
                 ),
                 Text(
-                  'OCTUBRE 2020',
+                  'NOVIEMBRE 2020',
                   style: TextStyle(fontSize: 14),
                 ),
               ],

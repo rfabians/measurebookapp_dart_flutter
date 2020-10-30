@@ -303,14 +303,18 @@ class _CoversionCoordenadasState extends State<CoversionCoordenadas> {
                         ),
                         FlatButton(
                             onPressed: () {
-                              Navigator.push(
-                                  context,
-                                  new MaterialPageRoute(
-                                      builder: (context) =>
-                                          new ConversionPuntoIndividual(
-                                            destino: sistemadestinoPI,
-                                            origen: sistemaOrigenPI,
-                                          )));
+                              if (sistemadestinoPI == sistemaOrigenPI) {
+                                mismoSistemaCoor();
+                              } else {
+                                Navigator.push(
+                                    context,
+                                    new MaterialPageRoute(
+                                        builder: (context) =>
+                                            new ConversionPuntoIndividual(
+                                              destino: sistemadestinoPI,
+                                              origen: sistemaOrigenPI,
+                                            )));
+                              }
                             },
                             child: Column(
                               children: <Widget>[
@@ -538,141 +542,144 @@ class _CoversionCoordenadasState extends State<CoversionCoordenadas> {
                         ),
                         FlatButton(
                             onPressed: () {
-                              AlertDialog conversionArchivoCSV = AlertDialog(
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(10),
-                                ),
-                                content: Container(
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(10.0),
+                              if (sistemadestinoArc == sistemaOrigenArc) {
+                                mismoSistemaCoor();
+                              } else {
+                                AlertDialog conversionArchivoCSV = AlertDialog(
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(10),
                                   ),
-                                  height: 300,
-                                  width: 200,
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(2.0),
-                                    child: Column(
-                                      children: <Widget>[
-                                        Text(
-                                            'Conversión de coordendas por Archivo',
-                                            textAlign: TextAlign.center,
-                                            style: TextStyle(
-                                                color: Colors.blueAccent,
-                                                fontSize: 13)),
-                                        Divider(),
-                                        Align(
-                                          alignment: Alignment.centerLeft,
-                                          child: Text(
-                                              'Sistema de Coordenadas Origen',
-                                              style: TextStyle(
-                                                  color: Colors.black54,
-                                                  fontSize: 12)),
-                                        ),
-                                        Divider(),
-                                        Align(
-                                          alignment: Alignment.centerLeft,
-                                          child: Text('${sistemaOrigenArc}',
+                                  content: Container(
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(10.0),
+                                    ),
+                                    height: 300,
+                                    width: 200,
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(2.0),
+                                      child: Column(
+                                        children: <Widget>[
+                                          Text(
+                                              'Conversión de coordendas por Archivo',
+                                              textAlign: TextAlign.center,
                                               style: TextStyle(
                                                   color: Colors.blueAccent,
                                                   fontSize: 13)),
-                                        ),
-                                        Divider(),
-                                        Align(
-                                          alignment: Alignment.centerLeft,
-                                          child: Text(
-                                              'Sistema de Coordenadas Destino',
-                                              style: TextStyle(
-                                                  color: Colors.black54,
-                                                  fontSize: 12)),
-                                        ),
-                                        Divider(),
-                                        Align(
-                                          alignment: Alignment.centerLeft,
-                                          child: Text('${sistemadestinoArc}',
-                                              style: TextStyle(
-                                                  color: Colors.blueAccent,
-                                                  fontSize: 13)),
-                                        ),
-                                        Container(
-                                            height: 120,
-                                            width: 250,
-                                            child: Container(
-                                              child: Center(
-                                                child: Padding(
-                                                    padding:
-                                                        const EdgeInsets.all(
-                                                            2.0),
-                                                    child: FlatButton(
-                                                      onPressed: () async {
-                                                        File archivoCSVElip =
-                                                            await FilePicker.getFile(
-                                                                allowedExtensions: [
-                                                              'csv'
-                                                            ],
-                                                                type: FileType
-                                                                    .custom);
-                                                        String datosCSV =
-                                                            await archivoCSVElip
-                                                                .readAsString();
-                                                        List<List<dynamic>>
-                                                            listaDatosCSV =
-                                                            CsvToListConverter()
-                                                                .convert(
-                                                                    datosCSV);
-                                                        if (datosCSV != null) {
-                                                          setState(() {
-                                                            csvload = true;
-                                                          });
-                                                          Navigator.push(
-                                                              context,
-                                                              new MaterialPageRoute(
-                                                                  builder:
-                                                                      (context) =>
-                                                                          ConfiguracionArchivoImportado(
-                                                                            destinoCS:
-                                                                                sistemadestinoArc,
-                                                                            origenCS:
-                                                                                sistemaOrigenArc,
-                                                                            dataCSV:
-                                                                                listaDatosCSV,
-                                                                          )));
-                                                          Navigator.of(context,
-                                                                  rootNavigator:
-                                                                      true)
-                                                              .pop('dialog');
-                                                        }
-                                                      },
-                                                      child: Column(
-                                                        children: <Widget>[
-                                                          Image.asset(
-                                                            'assets/images/csv_unload.png',
-                                                            height: 80,
-                                                          ),
-                                                          Text(
-                                                              'Seleccione el archico CSV con coordenadas ${sistemaOrigenArc}',
-                                                              textAlign:
-                                                                  TextAlign
-                                                                      .center,
-                                                              style: TextStyle(
-                                                                  color: Colors
-                                                                      .black54,
-                                                                  fontSize:
-                                                                      13)),
-                                                        ],
-                                                      ),
-                                                    )),
-                                              ),
-                                            ))
-                                      ],
+                                          Divider(),
+                                          Align(
+                                            alignment: Alignment.centerLeft,
+                                            child: Text(
+                                                'Sistema de Coordenadas Origen',
+                                                style: TextStyle(
+                                                    color: Colors.black54,
+                                                    fontSize: 12)),
+                                          ),
+                                          Divider(),
+                                          Align(
+                                            alignment: Alignment.centerLeft,
+                                            child: Text('${sistemaOrigenArc}',
+                                                style: TextStyle(
+                                                    color: Colors.blueAccent,
+                                                    fontSize: 13)),
+                                          ),
+                                          Divider(),
+                                          Align(
+                                            alignment: Alignment.centerLeft,
+                                            child: Text(
+                                                'Sistema de Coordenadas Destino',
+                                                style: TextStyle(
+                                                    color: Colors.black54,
+                                                    fontSize: 12)),
+                                          ),
+                                          Divider(),
+                                          Align(
+                                            alignment: Alignment.centerLeft,
+                                            child: Text('${sistemadestinoArc}',
+                                                style: TextStyle(
+                                                    color: Colors.blueAccent,
+                                                    fontSize: 13)),
+                                          ),
+                                          Container(
+                                              height: 120,
+                                              width: 250,
+                                              child: Container(
+                                                child: Center(
+                                                  child: Padding(
+                                                      padding:
+                                                          const EdgeInsets.all(
+                                                              2.0),
+                                                      child: FlatButton(
+                                                        onPressed: () async {
+                                                          File archivoCSVElip =
+                                                              await FilePicker.getFile(
+                                                                  allowedExtensions: [
+                                                                'csv'
+                                                              ],
+                                                                  type: FileType
+                                                                      .custom);
+                                                          String datosCSV =
+                                                              await archivoCSVElip
+                                                                  .readAsString();
+                                                          List<List<dynamic>>
+                                                              listaDatosCSV =
+                                                              CsvToListConverter()
+                                                                  .convert(
+                                                                      datosCSV);
+                                                          if (datosCSV !=
+                                                              null) {
+                                                            setState(() {
+                                                              csvload = true;
+                                                            });
+                                                            Navigator.push(
+                                                                context,
+                                                                new MaterialPageRoute(
+                                                                    builder:
+                                                                        (context) =>
+                                                                            ConfiguracionArchivoImportado(
+                                                                              destinoCS: sistemadestinoArc,
+                                                                              origenCS: sistemaOrigenArc,
+                                                                              dataCSV: listaDatosCSV,
+                                                                            )));
+                                                            Navigator.of(
+                                                                    context,
+                                                                    rootNavigator:
+                                                                        true)
+                                                                .pop('dialog');
+                                                          }
+                                                        },
+                                                        child: Column(
+                                                          children: <Widget>[
+                                                            Image.asset(
+                                                              'assets/images/csv_unload.png',
+                                                              height: 80,
+                                                            ),
+                                                            Text(
+                                                                'Seleccione el archico CSV con coordenadas ${sistemaOrigenArc}',
+                                                                textAlign:
+                                                                    TextAlign
+                                                                        .center,
+                                                                style: TextStyle(
+                                                                    color: Colors
+                                                                        .black54,
+                                                                    fontSize:
+                                                                        13)),
+                                                          ],
+                                                        ),
+                                                      )),
+                                                ),
+                                              ))
+                                        ],
+                                      ),
                                     ),
                                   ),
-                                ),
-                              );
-                              showDialog(
-                                  context: context,
-                                  barrierDismissible: true,
-                                  builder: (BuildContext context) {
-                                    return conversionArchivoCSV;
-                                  });
+                                );
+                                showDialog(
+                                    context: context,
+                                    barrierDismissible: true,
+                                    builder: (BuildContext context) {
+                                      return conversionArchivoCSV;
+                                    });
+                              }
                             },
                             child: Column(
                               children: <Widget>[
@@ -701,6 +708,14 @@ class _CoversionCoordenadasState extends State<CoversionCoordenadas> {
   void sinPuntosReferencia() {
     Fluttertoast.showToast(
         msg: "Aún no tienes puntos de referencia creados en este proyecto ",
+        toastLength: Toast.LENGTH_LONG,
+        gravity: ToastGravity.BOTTOM,
+        timeInSecForIosWeb: 2);
+  }
+
+  void mismoSistemaCoor() {
+    Fluttertoast.showToast(
+        msg: "El sistema de coordenadas de origen es igual al sistema destino ",
         toastLength: Toast.LENGTH_LONG,
         gravity: ToastGravity.BOTTOM,
         timeInSecForIosWeb: 2);

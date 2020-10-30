@@ -20,6 +20,7 @@ import 'package:measurebookapp/pages/nivelaciones.dart';
 import 'package:measurebookapp/pages/observacionesGNSS/observacionGNSSVertice.dart';
 import 'package:measurebookapp/pages/poligonales/poligonalesMain.dart';
 import 'package:measurebookapp/pages/puntoIgacImportado.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'package:user_location/user_location.dart';
 import 'dart:math' as m;
 
@@ -485,6 +486,62 @@ class _AlturaNiveladasMapState extends State<AlturaNiveladasMap> {
                                                 fontSize: 14.0),
                                           ),
                                         ),
+                                        Divider(),
+                                        Center(
+                                          child: new InkWell(
+                                            child: Column(
+                                              children: [
+                                                Text(
+                                                  'Navegar Google Maps',
+                                                  style: TextStyle(
+                                                      fontSize: 12,
+                                                      color: Colors.blueAccent),
+                                                ),
+                                                Divider(),
+                                                Image.asset(
+                                                    'assets/images/google-maps.png',
+                                                    height: 70),
+                                              ],
+                                            ),
+                                            onTap: () async {
+                                              String urlMaps =
+                                                  'http://www.google.com/maps/place/${listaPuntos.latitud},${listaPuntos.longitud}';
+                                              if (await canLaunch(urlMaps)) {
+                                                await launch(urlMaps);
+                                              } else {
+                                                throw 'Error en el direccionamiento a Maps';
+                                              }
+                                            },
+                                          ),
+                                        ),
+                                        Divider(),
+                                        Center(
+                                          child: new InkWell(
+                                            child: Column(
+                                              children: [
+                                                Text(
+                                                  'Navegar con Waze',
+                                                  style: TextStyle(
+                                                      fontSize: 12,
+                                                      color: Colors.blueAccent),
+                                                ),
+                                                Divider(),
+                                                Image.asset(
+                                                    'assets/images/waze.png',
+                                                    height: 70),
+                                              ],
+                                            ),
+                                            onTap: () async {
+                                              String urlMaps =
+                                                  'https://waze.com/ul?q=${listaPuntos.latitud},${listaPuntos.longitud}';
+                                              if (await canLaunch(urlMaps)) {
+                                                await launch(urlMaps);
+                                              } else {
+                                                throw 'Error en el direccionamiento a Waze';
+                                              }
+                                            },
+                                          ),
+                                        )
                                       ],
                                     ),
                                   ),

@@ -60,7 +60,7 @@ class _MyAppState extends State<IniciarSesion> {
                     RichText(
                         text: TextSpan(children: <TextSpan>[
                       TextSpan(
-                          text: 'Navega la red Pasiva del ',
+                          text: 'Utiliza la red Geodesica del ',
                           style: TextStyle(
                             fontFamily: 'Roboto',
                             height: 12.0,
@@ -74,7 +74,7 @@ class _MyAppState extends State<IniciarSesion> {
                             height: 12.0,
                           )),
                       TextSpan(
-                          text: 'y convierte Coordenadas',
+                          text: 'y convierte tus Coordenadas',
                           style: TextStyle(
                             fontFamily: 'Roboto',
                             color: Colors.black54,
