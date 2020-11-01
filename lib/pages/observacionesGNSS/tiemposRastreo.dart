@@ -95,6 +95,37 @@ class _TiemposRastreoGNSSState extends State<TiemposRastreoGNSS> {
         mapController: mapController,
         updateMapLocationOnPositionChange: false);
 
+    var circulosPunto = <CircleMarker>[
+      CircleMarker(
+          point: LatLng(latitud, longitud),
+          color: Colors.transparent,
+          borderStrokeWidth: 2,
+          borderColor: Colors.black,
+          useRadiusInMeter: true,
+          radius: 20000),
+      CircleMarker(
+          point: LatLng(latitud, longitud),
+          color: Colors.transparent,
+          borderStrokeWidth: 2,
+          borderColor: Colors.black,
+          useRadiusInMeter: true,
+          radius: 40000),
+      CircleMarker(
+          point: LatLng(latitud, longitud),
+          color: Colors.transparent,
+          borderColor: Colors.black,
+          borderStrokeWidth: 2,
+          useRadiusInMeter: true,
+          radius: 60000),
+      CircleMarker(
+          point: LatLng(latitud, longitud),
+          color: Colors.blueAccent.withOpacity(0.15),
+          borderColor: Colors.black,
+          borderStrokeWidth: 2,
+          useRadiusInMeter: true,
+          radius: 80000),
+    ];
+
     puntoMarcadorTiempo = [
       Marker(
           height: 50,
@@ -269,6 +300,8 @@ class _TiemposRastreoGNSSState extends State<TiemposRastreoGNSS> {
                                             markers: markersUserLocation),
                                         MarkerLayerOptions(
                                             markers: puntoMarcadorTiempo),
+                                        CircleLayerOptions(
+                                            circles: circulosPunto),
                                         userLocationOptions,
                                       ],
                                       mapController: mapController,
@@ -602,6 +635,8 @@ class _TiemposRastreoGNSSState extends State<TiemposRastreoGNSS> {
                                             markers: markersUserLocation),
                                         MarkerLayerOptions(
                                             markers: puntoMarcadorTiempo),
+                                        CircleLayerOptions(
+                                            circles: circulosPunto),
                                         userLocationOptions,
                                       ],
                                       mapController: mapController,
