@@ -44,7 +44,7 @@ class _ObservacionGNSSVerticeState extends State<ObservacionGNSSVertice> {
               style: TextStyle(fontSize: 12, color: Colors.blueAccent),
               textAlign: TextAlign.center)),
       Center(
-          child: Text('EAB NS-030',
+          child: Text('EAAB NS-030',
               style: TextStyle(fontSize: 12, color: Colors.blueAccent),
               textAlign: TextAlign.center)),
     ];

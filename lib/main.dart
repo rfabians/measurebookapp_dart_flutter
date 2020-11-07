@@ -55,7 +55,7 @@ class _MyAppState extends State<IniciarSesion> {
                   children: <Widget>[
                     Image.asset(
                       'assets/images/logo.png',
-                      height: 80,
+                      height: 120,
                     ),
                     RichText(
                         text: TextSpan(children: <TextSpan>[
