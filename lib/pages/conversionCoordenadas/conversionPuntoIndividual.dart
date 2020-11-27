@@ -687,8 +687,8 @@ class _ConversionPuntoIndividualState extends State<ConversionPuntoIndividual> {
                                                                     'Sistema de Rerencia de Origen: \n' +
                                                                     'Coordenadas ${widget.origen} \n' +
                                                                     'Latitud: ${coordenadasElipsoidales.latitud}\n' +
-                                                                    'Latitud: ${coordenadasElipsoidales.longitud}\n' +
-                                                                    'Latitud: ${coordenadasElipsoidales.altitud}\n\n' +
+                                                                    'Longitud: ${coordenadasElipsoidales.longitud}\n' +
+                                                                    'Altitud: ${coordenadasElipsoidales.altitud}\n\n' +
                                                                     'Sistema de Rerencia de Destino: \n' +
                                                                     'Coordenadas Geocentricas (GRS80)\n'
                                                                         'Geocentrica X: ${roundDouble(coordenadasGeocentricas.x, 3)}\n' +
@@ -849,8 +849,8 @@ class _ConversionPuntoIndividualState extends State<ConversionPuntoIndividual> {
                                                                     'Sistema de Rerencia de Origen: \n' +
                                                                     'Coordenadas ${widget.origen} \n' +
                                                                     'Latitud: ${coordenadasElipsoidales.latitud}\n' +
-                                                                    'Latitud: ${coordenadasElipsoidales.longitud}\n' +
-                                                                    'Latitud: ${coordenadasElipsoidales.altitud}\n\n' +
+                                                                    'Longitud: ${coordenadasElipsoidales.longitud}\n' +
+                                                                    'Altitud: ${coordenadasElipsoidales.altitud}\n\n' +
                                                                     'Sistema de Rerencia de Destino: \n' +
                                                                     'Magna Origen Nacional\n'
                                                                         'Norte: ${roundDouble(coordenadasON.norte, 3)}\n' +
@@ -1119,8 +1119,8 @@ class _ConversionPuntoIndividualState extends State<ConversionPuntoIndividual> {
                                                                       'Sistema de Rerencia de Origen: \n' +
                                                                       'Coordenadas Elipsoidales (GRS80) \n' +
                                                                       'Latitud: ${coorElipdec.latitud}\n' +
-                                                                      'Latitud: ${coorElipdec.longitud}\n' +
-                                                                      'Latitud: ${coorElipdec.altitud}\n\n' +
+                                                                      'Longitud: ${coorElipdec.longitud}\n' +
+                                                                      'Altitud: ${coorElipdec.altitud}\n\n' +
                                                                       'Sistema de Rerencia de Destino: \n' +
                                                                       'Coordenadas Geocentricas (GRS80)\n'
                                                                           'Geocentrica X: ${roundDouble(coordenadasGeocentricasDec.x, 3)}\n' +
@@ -1287,8 +1287,8 @@ class _ConversionPuntoIndividualState extends State<ConversionPuntoIndividual> {
                                                                       'Sistema de Rerencia de Origen: \n' +
                                                                       'Coordenadas ${widget.origen} \n' +
                                                                       'Latitud: ${coorElipdec.latitud}\n' +
-                                                                      'Latitud: ${coorElipdec.longitud}\n' +
-                                                                      'Latitud: ${coorElipdec.altitud}\n\n' +
+                                                                      'Longitud: ${coorElipdec.longitud}\n' +
+                                                                      'Altitud: ${coorElipdec.altitud}\n\n' +
                                                                       'Sistema de Rerencia de Destino: \n' +
                                                                       'Magna Origen Nacional\n'
                                                                           'Norte: ${roundDouble(coordenadasON.norte, 3)}\n' +
@@ -4389,8 +4389,8 @@ class _ConversionPuntoIndividualState extends State<ConversionPuntoIndividual> {
                             'Sistema de Referencia de Origen: \n' +
                             'Coordenadas ${widget.origen} \n' +
                             'Latitud: ${coordenadasElp.latitud}\n' +
-                            'Latitud: ${coordenadasElp.longitud}\n' +
-                            'Latitud: ${coordenadasElp.altitud}\n\n' +
+                            'Longitud: ${coordenadasElp.longitud}\n' +
+                            'Altitud: ${coordenadasElp.altitud}\n\n' +
                             'Sistema de Rerencia de Destino: \n' +
                             'Coordenadas Gauss Krüger Origen ${gaussCS.NOMBRE}\n'
                                 'Norte: ${roundDouble(coordenadasGauss.norte, 3)}\n' +
@@ -4526,8 +4526,8 @@ class _ConversionPuntoIndividualState extends State<ConversionPuntoIndividual> {
                             'Sistema de Referencia de Origen: \n' +
                             'Coordenadas ${widget.origen} \n' +
                             'Latitud: ${elipCoor.latitud}\n' +
-                            'Latitud: ${elipCoor.longitud}\n' +
-                            'Latitud: ${elipCoor.altitud}\n\n' +
+                            'Longitud: ${elipCoor.longitud}\n' +
+                            'Altitud: ${elipCoor.altitud}\n\n' +
                             'Sistema de Referencia de Destino: \n' +
                             'Coordenadas Planas Cartesianas Origen ${cartesianasCS.NOMBRE}\n'
                                 'Norte: ${roundDouble(coordenadasCartesianas.norte, 3)}\n' +
