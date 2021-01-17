@@ -63,7 +63,7 @@ class _ObservacionGNSSVerticeState extends State<ObservacionGNSSVertice> {
               RichText(
                   text: TextSpan(children: <TextSpan>[
                 TextSpan(
-                    text: 'Cálcula ',
+                    text: 'Calcula ',
                     style: TextStyle(
                       fontFamily: 'Roboto',
                       fontSize: 12.0,
@@ -171,7 +171,7 @@ class _ObservacionGNSSVerticeState extends State<ObservacionGNSSVertice> {
                   shape: new RoundedRectangleBorder(
                       borderRadius: new BorderRadius.circular(20.0)),
                   child: Text(
-                    'Cálcular tiempos de rastreo',
+                    'Calcular tiempos de rastreo',
                     style: TextStyle(
                       fontFamily: 'Roboto',
                       fontSize: 12.0,

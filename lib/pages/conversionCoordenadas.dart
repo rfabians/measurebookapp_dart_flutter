@@ -76,7 +76,7 @@ class _CoversionCoordenadasState extends State<CoversionCoordenadas> {
                   RichText(
                       text: TextSpan(children: <TextSpan>[
                     TextSpan(
-                        text: 'Conversion de coordenadas ',
+                        text: 'Conversión de coordenadas ',
                         style: TextStyle(
                           fontFamily: 'Roboto',
                           fontSize: 13.0,

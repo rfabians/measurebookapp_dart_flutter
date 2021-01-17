@@ -50,7 +50,7 @@ class _MenuPrincipalMBState extends State<MenuPrincipalMB> {
                         color: Color(0xff007FFF),
                       )),
                   TextSpan(
-                      text: 'el tipo de Actividad que deseas realizar ',
+                      text: 'el tipo de actividad que deseas realizar ',
                       style: TextStyle(
                         fontFamily: 'Roboto',
                         fontSize: 12.0,
@@ -141,14 +141,14 @@ class _MenuPrincipalMBState extends State<MenuPrincipalMB> {
                               'assets/images/gnss.png',
                               height: 50,
                             ),
-                            title: Text('Cálcular tiempos de Rastreo',
+                            title: Text('Calcular tiempos de Rastreo',
                                 style: TextStyle(
                                   fontFamily: 'Roboto',
                                   fontSize: 13.0,
                                   color: Color(0xff007FFF),
                                 )),
                             subtitle: Text(
-                                'Cálcula los tiempos de rastres GNSS usandos las Estaciones de Rastreo Continuo',
+                                'Calcula los tiempos de rastres GNSS usandos las Estaciones de Rastreo Continuo',
                                 style: TextStyle(
                                   fontFamily: 'Roboto',
                                   fontSize: 12.0,
