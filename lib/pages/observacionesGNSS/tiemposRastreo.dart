@@ -143,338 +143,322 @@ class _TiemposRastreoGNSSState extends State<TiemposRastreoGNSS> {
     if (estacionesRef == 'Red Magna ECO') {
       return Scaffold(
         body: SafeArea(
-          child: SingleChildScrollView(
-            child: Container(
-              height: MediaQuery.of(context).size.height,
-              width: MediaQuery.of(context).size.width,
-              child: FutureBuilder(
-                future: gestorMBDatabase.db.getMagnaECO(),
-                builder: (BuildContext context, AsyncSnapshot snapshot) {
-                  if (snapshot.hasData) {
-                    List<MagnaEco> listaEst = List<MagnaEco>();
-                    if (snapshot.data.length > 0) {
-                      for (var i = 0; i < snapshot.data.length; i++) {
-                        MagnaEco listaPuntos = snapshot.data[i];
-                        listaEst.add(listaPuntos);
-                        markersClauster.add(Marker(
-                            anchorPos: AnchorPos.align(AnchorAlign.center),
-                            point: LatLng(
-                                listaPuntos.latitud, listaPuntos.longitud),
-                            builder: (ctx) => FloatingActionButton(
-                                  heroTag: 'RedPasivaIgac_1${i}',
-                                  backgroundColor: Colors.transparent,
-                                  child: Icon(Icons.location_on,
-                                      size: 40, color: Colors.blueAccent),
-                                  onPressed: () {
-                                    AlertDialog datosMagnaEco = AlertDialog(
-                                      shape: RoundedRectangleBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(20.0)),
-                                      content: Container(
-                                        height: 150,
-                                        width: 200,
-                                        child: SingleChildScrollView(
-                                          child: Column(
-                                            children: <Widget>[
-                                              Align(
+          child: Container(
+            height: MediaQuery.of(context).size.height,
+            width: MediaQuery.of(context).size.width,
+            child: FutureBuilder(
+              future: gestorMBDatabase.db.getMagnaECO(),
+              builder: (BuildContext context, AsyncSnapshot snapshot) {
+                if (snapshot.hasData) {
+                  List<MagnaEco> listaEst = List<MagnaEco>();
+                  if (snapshot.data.length > 0) {
+                    for (var i = 0; i < snapshot.data.length; i++) {
+                      MagnaEco listaPuntos = snapshot.data[i];
+                      listaEst.add(listaPuntos);
+                      markersClauster.add(Marker(
+                          anchorPos: AnchorPos.align(AnchorAlign.center),
+                          point:
+                              LatLng(listaPuntos.latitud, listaPuntos.longitud),
+                          builder: (ctx) => FloatingActionButton(
+                                heroTag: 'RedPasivaIgac_1${i}',
+                                backgroundColor: Colors.transparent,
+                                child: Icon(Icons.location_on,
+                                    size: 40, color: Colors.blueAccent),
+                                onPressed: () {
+                                  AlertDialog datosMagnaEco = AlertDialog(
+                                    shape: RoundedRectangleBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(20.0)),
+                                    content: Container(
+                                      height: 150,
+                                      width: 200,
+                                      child: SingleChildScrollView(
+                                        child: Column(
+                                          children: <Widget>[
+                                            Align(
+                                              alignment: Alignment.center,
+                                              child: Text(
+                                                '${listaPuntos.nombre}',
+                                                style: TextStyle(
+                                                    fontFamily: 'Roboto',
+                                                    color: Colors.blueAccent,
+                                                    fontSize: 16.0),
+                                              ),
+                                            ),
+                                            Divider(),
+                                            Align(
+                                              alignment: Alignment.centerRight,
+                                              child: Text(
+                                                'Latitud',
+                                                style: TextStyle(
+                                                    fontFamily: 'Roboto',
+                                                    color: Colors.black54,
+                                                    fontSize: 12.0),
+                                              ),
+                                            ),
+                                            Align(
+                                              alignment: Alignment.centerRight,
+                                              child: Text(
+                                                '${listaPuntos.latitud}',
+                                                style: TextStyle(
+                                                    fontFamily: 'Roboto',
+                                                    color: Colors.blueAccent,
+                                                    fontSize: 14.0),
+                                              ),
+                                            ),
+                                            Divider(),
+                                            Align(
+                                              alignment: Alignment.centerRight,
+                                              child: Text(
+                                                'Longitud',
+                                                style: TextStyle(
+                                                    fontFamily: 'Roboto',
+                                                    color: Colors.black54,
+                                                    fontSize: 12.0),
+                                              ),
+                                            ),
+                                            Align(
+                                              alignment: Alignment.centerRight,
+                                              child: Text(
+                                                '${listaPuntos.longitud}',
+                                                style: TextStyle(
+                                                    fontFamily: 'Roboto',
+                                                    color: Colors.blueAccent,
+                                                    fontSize: 14.0),
+                                              ),
+                                            ),
+                                            Align(
                                                 alignment: Alignment.center,
-                                                child: Text(
-                                                  '${listaPuntos.nombre}',
-                                                  style: TextStyle(
-                                                      fontFamily: 'Roboto',
-                                                      color: Colors.blueAccent,
-                                                      fontSize: 16.0),
-                                                ),
-                                              ),
-                                              Divider(),
-                                              Align(
-                                                alignment:
-                                                    Alignment.centerRight,
-                                                child: Text(
-                                                  'Latitud',
-                                                  style: TextStyle(
-                                                      fontFamily: 'Roboto',
-                                                      color: Colors.black54,
-                                                      fontSize: 12.0),
-                                                ),
-                                              ),
-                                              Align(
-                                                alignment:
-                                                    Alignment.centerRight,
-                                                child: Text(
-                                                  '${listaPuntos.latitud}',
-                                                  style: TextStyle(
-                                                      fontFamily: 'Roboto',
-                                                      color: Colors.blueAccent,
-                                                      fontSize: 14.0),
-                                                ),
-                                              ),
-                                              Divider(),
-                                              Align(
-                                                alignment:
-                                                    Alignment.centerRight,
-                                                child: Text(
-                                                  'Longitud',
-                                                  style: TextStyle(
-                                                      fontFamily: 'Roboto',
-                                                      color: Colors.black54,
-                                                      fontSize: 12.0),
-                                                ),
-                                              ),
-                                              Align(
-                                                alignment:
-                                                    Alignment.centerRight,
-                                                child: Text(
-                                                  '${listaPuntos.longitud}',
-                                                  style: TextStyle(
-                                                      fontFamily: 'Roboto',
-                                                      color: Colors.blueAccent,
-                                                      fontSize: 14.0),
-                                                ),
-                                              ),
-                                              Align(
-                                                  alignment: Alignment.center,
-                                                  child: Image.asset(
-                                                      'assets/images/igac.png',
-                                                      height: 50)),
-                                            ],
-                                          ),
+                                                child: Image.asset(
+                                                    'assets/images/igac.png',
+                                                    height: 50)),
+                                          ],
                                         ),
                                       ),
-                                    );
-                                    showDialog(
-                                        context: context,
-                                        barrierDismissible: true,
-                                        builder: (BuildContext context) {
-                                          return datosMagnaEco;
-                                        });
-                                  },
-                                )));
-                      }
-                      return Scaffold(
-                        body: Container(
-                          height: MediaQuery.of(context).size.height,
-                          width: MediaQuery.of(context).size.width,
-                          child: Column(
-                            children: <Widget>[
-                              Stack(
-                                children: <Widget>[
-                                  Container(
-                                    height:
-                                        MediaQuery.of(context).size.height * .5,
-                                    width: MediaQuery.of(context).size.width,
-                                    child: FlutterMap(
-                                      options: MapOptions(
-                                          center:
-                                              LatLng(4.5970903, -74.0656485),
-                                          zoom: 17,
-                                          plugins: [
-                                            UserLocationPlugin(),
-                                            MarkerClusterPlugin(),
-                                          ]),
-                                      layers: [
-                                        TileLayerOptions(
-                                            urlTemplate:
-                                                'https://server.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/{z}/{y}/{x}'),
-                                        MarkerClusterLayerOptions(
-                                            maxClusterRadius: 120,
-                                            size: Size(50, 50),
-                                            fitBoundsOptions: FitBoundsOptions(
-                                              padding: EdgeInsets.all(50),
-                                            ),
-                                            markers: markersClauster,
-                                            polygonOptions: PolygonOptions(
-                                                borderColor: Colors.black54,
-                                                color: Colors.black12,
-                                                borderStrokeWidth: 3),
-                                            builder: (context, markers) {
-                                              return FloatingActionButton(
-                                                heroTag: 'RedPasivaIgac_3',
-                                                onPressed: null,
-                                                child: Text(
-                                                    markers.length.toString()),
-                                                backgroundColor: Colors.black54,
-                                              );
-                                            }),
-                                        MarkerLayerOptions(
-                                            markers: markersUserLocation),
-                                        MarkerLayerOptions(
-                                            markers: puntoMarcadorTiempo),
-                                        CircleLayerOptions(
-                                            circles: circulosPunto),
-                                        userLocationOptions,
-                                      ],
-                                      mapController: mapController,
                                     ),
-                                  ),
-                                  Positioned(
-                                      left: (MediaQuery.of(context).size.width /
-                                          2),
-                                      child: Container(
-                                        height:
-                                            MediaQuery.of(context).size.height *
-                                                0.5,
-                                        width: 2,
-                                        color: Colors.black54,
-                                      )),
-                                  Positioned(
-                                      top: MediaQuery.of(context).size.height *
-                                          0.25,
-                                      child: Container(
-                                        height: 2,
-                                        width:
-                                            MediaQuery.of(context).size.width,
-                                        color: Colors.black54,
-                                      )),
-                                  Positioned(
-                                      left: (MediaQuery.of(context).size.width /
-                                              2) -
-                                          25,
-                                      top: (MediaQuery.of(context).size.height *
-                                              0.25) -
-                                          25,
-                                      child: Icon(Icons.location_searching,
-                                          size: 50)),
-                                  Positioned(
-                                      bottom: 10,
-                                      left: 20,
-                                      child: Row(
-                                        children: <Widget>[
-                                          Icon(Icons.location_searching,
-                                              color: Colors.black, size: 50),
-                                          SizedBox(width: 0),
-                                          FlatButton(
-                                              onPressed: () {
-                                                setState(() {
-                                                  actualizarPuntos();
-                                                });
-                                              },
-                                              child: Container(
-                                                  decoration: BoxDecoration(
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              8),
-                                                      color: Colors.black87),
-                                                  child: Padding(
-                                                    padding:
-                                                        const EdgeInsets.all(
-                                                            8.0),
-                                                    child: Text(
-                                                      'Establecer Ubicación',
-                                                      style: TextStyle(
-                                                          fontSize: 12,
-                                                          color: Colors.white),
-                                                    ),
-                                                  )))
-                                        ],
-                                      ))
-                                ],
-                              ),
-                              Divider(),
-                              Center(
-                                child: Text('Coordenadas Punto de referencia',
-                                    style: TextStyle(
-                                        fontSize: 12,
-                                        color: Colors.blueAccent,
-                                        fontFamily: 'Reboto')),
-                              ),
-                              Divider(),
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: <Widget>[
-                                  Text('Latitud:   ',
-                                      style: TextStyle(
-                                          color: Colors.black54, fontSize: 12)),
-                                  Container(
-                                      decoration: BoxDecoration(
-                                          borderRadius:
-                                              BorderRadius.circular(8),
-                                          color: Colors.blueAccent),
-                                      child: Padding(
-                                        padding: const EdgeInsets.all(8.0),
-                                        child: Text(
-                                          FuncionesGenericas.mb
-                                              .decimal2Hexadecimal(latitud),
-                                          style: TextStyle(
-                                              fontSize: 12,
-                                              color: Colors.white),
-                                        ),
-                                      )),
-                                  SizedBox(width: 30),
-                                  Text('Longitud:   ',
-                                      style: TextStyle(
-                                          color: Colors.black54, fontSize: 12)),
-                                  Container(
-                                      decoration: BoxDecoration(
-                                          borderRadius:
-                                              BorderRadius.circular(8),
-                                          color: Colors.blueAccent),
-                                      child: Padding(
-                                        padding: const EdgeInsets.all(8.0),
-                                        child: Text(
-                                          FuncionesGenericas.mb
-                                              .decimal2Hexadecimal(longitud),
-                                          style: TextStyle(
-                                              fontSize: 12,
-                                              color: Colors.white),
-                                        ),
-                                      ))
-                                ],
-                              ),
-                              Divider(height: 10),
-                              FlatButton(
-                                  onPressed: () {
-                                    tiempoRastreo(
-                                        LatLng(latitud, longitud), listaEst);
-                                  },
-                                  child: Container(
-                                      decoration: BoxDecoration(
-                                          borderRadius:
-                                              BorderRadius.circular(8),
-                                          color: Colors.blueAccent),
-                                      child: Padding(
-                                        padding: const EdgeInsets.all(8.0),
-                                        child: Text(
-                                          'Calcular tiempos de Rastreo',
-                                          style: TextStyle(
-                                              fontSize: 12,
-                                              color: Colors.white),
-                                        ),
-                                      ))),
-                              Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Container(
-                                  decoration: BoxDecoration(
-                                      color: Colors.white,
-                                      borderRadius: BorderRadius.circular(10),
-                                      boxShadow: [
-                                        BoxShadow(
-                                            blurRadius: 2,
-                                            color: Colors.black26)
-                                      ]),
-                                  height: 170,
-                                  child: SingleChildScrollView(
-                                      child: Column(
-                                    children: listaEstaciones,
-                                  )),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      );
-                    } else {
-                      return Center(
-                        child: CircularProgressIndicator(),
-                      );
+                                  );
+                                  showDialog(
+                                      context: context,
+                                      barrierDismissible: true,
+                                      builder: (BuildContext context) {
+                                        return datosMagnaEco;
+                                      });
+                                },
+                              )));
                     }
+                    return Scaffold(
+                      body: Container(
+                        height: MediaQuery.of(context).size.height,
+                        width: MediaQuery.of(context).size.width,
+                        child: Column(
+                          children: <Widget>[
+                            Stack(
+                              children: <Widget>[
+                                Container(
+                                  height:
+                                      MediaQuery.of(context).size.height * .5,
+                                  width: MediaQuery.of(context).size.width,
+                                  child: FlutterMap(
+                                    options: MapOptions(
+                                        center: LatLng(4.5970903, -74.0656485),
+                                        zoom: 17,
+                                        plugins: [
+                                          UserLocationPlugin(),
+                                          MarkerClusterPlugin(),
+                                        ]),
+                                    layers: [
+                                      TileLayerOptions(
+                                          urlTemplate:
+                                              'https://server.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/{z}/{y}/{x}'),
+                                      MarkerClusterLayerOptions(
+                                          maxClusterRadius: 120,
+                                          size: Size(50, 50),
+                                          fitBoundsOptions: FitBoundsOptions(
+                                            padding: EdgeInsets.all(50),
+                                          ),
+                                          markers: markersClauster,
+                                          polygonOptions: PolygonOptions(
+                                              borderColor: Colors.black54,
+                                              color: Colors.black12,
+                                              borderStrokeWidth: 3),
+                                          builder: (context, markers) {
+                                            return FloatingActionButton(
+                                              heroTag: 'RedPasivaIgac_3',
+                                              onPressed: null,
+                                              child: Text(
+                                                  markers.length.toString()),
+                                              backgroundColor: Colors.black54,
+                                            );
+                                          }),
+                                      MarkerLayerOptions(
+                                          markers: markersUserLocation),
+                                      MarkerLayerOptions(
+                                          markers: puntoMarcadorTiempo),
+                                      CircleLayerOptions(
+                                          circles: circulosPunto),
+                                      userLocationOptions,
+                                    ],
+                                    mapController: mapController,
+                                  ),
+                                ),
+                                Positioned(
+                                    left:
+                                        (MediaQuery.of(context).size.width / 2),
+                                    child: Container(
+                                      height:
+                                          MediaQuery.of(context).size.height *
+                                              0.5,
+                                      width: 2,
+                                      color: Colors.black54,
+                                    )),
+                                Positioned(
+                                    top: MediaQuery.of(context).size.height *
+                                        0.25,
+                                    child: Container(
+                                      height: 2,
+                                      width: MediaQuery.of(context).size.width,
+                                      color: Colors.black54,
+                                    )),
+                                Positioned(
+                                    left: (MediaQuery.of(context).size.width /
+                                            2) -
+                                        25,
+                                    top: (MediaQuery.of(context).size.height *
+                                            0.25) -
+                                        25,
+                                    child: Icon(Icons.location_searching,
+                                        size: 50)),
+                                Positioned(
+                                    bottom: 10,
+                                    left: 20,
+                                    child: Row(
+                                      children: <Widget>[
+                                        Icon(Icons.location_searching,
+                                            color: Colors.black, size: 50),
+                                        SizedBox(width: 0),
+                                        FlatButton(
+                                            onPressed: () {
+                                              setState(() {
+                                                actualizarPuntos();
+                                              });
+                                            },
+                                            child: Container(
+                                                decoration: BoxDecoration(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            8),
+                                                    color: Colors.black87),
+                                                child: Padding(
+                                                  padding:
+                                                      const EdgeInsets.all(8.0),
+                                                  child: Text(
+                                                    'Establecer Ubicación',
+                                                    style: TextStyle(
+                                                        fontSize: 12,
+                                                        color: Colors.white),
+                                                  ),
+                                                )))
+                                      ],
+                                    ))
+                              ],
+                            ),
+                            Divider(),
+                            Center(
+                              child: Text('Coordenadas Punto de referencia',
+                                  style: TextStyle(
+                                      fontSize: 12,
+                                      color: Colors.blueAccent,
+                                      fontFamily: 'Reboto')),
+                            ),
+                            Divider(),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: <Widget>[
+                                Text('Latitud:   ',
+                                    style: TextStyle(
+                                        color: Colors.black54, fontSize: 12)),
+                                Container(
+                                    decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(8),
+                                        color: Colors.blueAccent),
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: Text(
+                                        FuncionesGenericas.mb
+                                            .decimal2Hexadecimal(latitud),
+                                        style: TextStyle(
+                                            fontSize: 12, color: Colors.white),
+                                      ),
+                                    )),
+                                SizedBox(width: 30),
+                                Text('Longitud:   ',
+                                    style: TextStyle(
+                                        color: Colors.black54, fontSize: 12)),
+                                Container(
+                                    decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(8),
+                                        color: Colors.blueAccent),
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: Text(
+                                        FuncionesGenericas.mb
+                                            .decimal2Hexadecimal(longitud),
+                                        style: TextStyle(
+                                            fontSize: 12, color: Colors.white),
+                                      ),
+                                    ))
+                              ],
+                            ),
+                            Divider(height: 10),
+                            FlatButton(
+                                onPressed: () {
+                                  tiempoRastreo(
+                                      LatLng(latitud, longitud), listaEst);
+                                },
+                                child: Container(
+                                    decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(8),
+                                        color: Colors.blueAccent),
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: Text(
+                                        'Calcular tiempos de Rastreo',
+                                        style: TextStyle(
+                                            fontSize: 12, color: Colors.white),
+                                      ),
+                                    ))),
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Container(
+                                decoration: BoxDecoration(
+                                    color: Colors.white,
+                                    borderRadius: BorderRadius.circular(10),
+                                    boxShadow: [
+                                      BoxShadow(
+                                          blurRadius: 2, color: Colors.black26)
+                                    ]),
+                                height: 170,
+                                child: SingleChildScrollView(
+                                    child: Column(
+                                  children: listaEstaciones,
+                                )),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    );
                   } else {
                     return Center(
                       child: CircularProgressIndicator(),
                     );
                   }
-                },
-              ),
+                } else {
+                  return Center(
+                    child: CircularProgressIndicator(),
+                  );
+                }
+              },
             ),
           ),
         ),
