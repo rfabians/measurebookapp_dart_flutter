@@ -118,13 +118,24 @@ class _AlturaNiveladasMapState extends State<AlturaNiveladasMap> {
                 for (var i = 0; i < snapshot.data.length; i++) {
                   AltNiveladas listaPuntos = snapshot.data[i];
                   markersClauster.add(Marker(
+                      height: 60,
+                      width: 200,
                       anchorPos: AnchorPos.align(AnchorAlign.center),
                       point: LatLng(listaPuntos.latitud, listaPuntos.longitud),
                       builder: (ctx) => FloatingActionButton(
                             heroTag: 'AlturasNiveladas ${i}',
                             backgroundColor: Colors.transparent,
-                            child: Icon(Icons.location_on,
-                                size: 40, color: Colors.blueAccent),
+                            child: Column(
+                              children: [
+                                Text(listaPuntos.nomenclatura,
+                                    style: TextStyle(
+                                        color: Colors.black,
+                                        fontSize: 14,
+                                        fontWeight: FontWeight.bold)),
+                                Icon(Icons.my_location_rounded,
+                                    size: 40, color: Colors.white),
+                              ],
+                            ),
                             onPressed: () {
                               AlertDialog datosPuntoRedPasiva = AlertDialog(
                                 shape: RoundedRectangleBorder(

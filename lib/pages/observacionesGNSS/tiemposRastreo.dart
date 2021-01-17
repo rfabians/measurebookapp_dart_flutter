@@ -156,14 +156,24 @@ class _TiemposRastreoGNSSState extends State<TiemposRastreoGNSS> {
                       MagnaEco listaPuntos = snapshot.data[i];
                       listaEst.add(listaPuntos);
                       markersClauster.add(Marker(
-                          anchorPos: AnchorPos.align(AnchorAlign.center),
+                          height: 60,
+                          width: 200,
                           point:
                               LatLng(listaPuntos.latitud, listaPuntos.longitud),
                           builder: (ctx) => FloatingActionButton(
                                 heroTag: 'RedPasivaIgac_1${i}',
                                 backgroundColor: Colors.transparent,
-                                child: Icon(Icons.location_on,
-                                    size: 40, color: Colors.blueAccent),
+                                child: Column(
+                                  children: [
+                                    Text(listaPuntos.nombre,
+                                        style: TextStyle(
+                                            color: Colors.black,
+                                            fontSize: 14,
+                                            fontWeight: FontWeight.bold)),
+                                    Icon(Icons.my_location_rounded,
+                                        size: 40, color: Colors.white),
+                                  ],
+                                ),
                                 onPressed: () {
                                   AlertDialog datosMagnaEco = AlertDialog(
                                     shape: RoundedRectangleBorder(
@@ -479,14 +489,25 @@ class _TiemposRastreoGNSSState extends State<TiemposRastreoGNSS> {
                       GeoRED listaPuntos = snapshot.data[i];
                       listaEst.add(listaPuntos);
                       markersClauster.add(Marker(
+                          height: 60,
+                          width: 200,
                           anchorPos: AnchorPos.align(AnchorAlign.center),
                           point:
                               LatLng(listaPuntos.latitud, listaPuntos.longitud),
                           builder: (ctx) => FloatingActionButton(
                                 heroTag: 'GeoRED${i}',
                                 backgroundColor: Colors.transparent,
-                                child: Icon(Icons.location_on,
-                                    size: 40, color: Colors.blueAccent),
+                                child: Column(
+                                  children: [
+                                    Text(listaPuntos.nombre,
+                                        style: TextStyle(
+                                            color: Colors.black,
+                                            fontSize: 14,
+                                            fontWeight: FontWeight.bold)),
+                                    Icon(Icons.my_location_rounded,
+                                        size: 40, color: Colors.black),
+                                  ],
+                                ),
                                 onPressed: () {
                                   AlertDialog datosMagnaEco = AlertDialog(
                                     shape: RoundedRectangleBorder(

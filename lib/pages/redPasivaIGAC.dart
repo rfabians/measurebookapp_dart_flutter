@@ -39,13 +39,24 @@ class _RedPasivaIgacState extends State<RedPasivaIgac> {
                 for (var i = 0; i < snapshot.data.length; i++) {
                   redPIGACPuntos listaPuntos = snapshot.data[i];
                   markersClauster.add(Marker(
+                      height: 60,
+                      width: 200,
                       anchorPos: AnchorPos.align(AnchorAlign.center),
                       point: LatLng(listaPuntos.Latitud, listaPuntos.Longitud),
                       builder: (ctx) => FloatingActionButton(
                             heroTag: 'RedPasivaIgac_1',
                             backgroundColor: Colors.transparent,
-                            child: Icon(Icons.location_on,
-                                size: 40, color: Colors.blueAccent),
+                            child: Column(
+                              children: [
+                                Text(listaPuntos.Nomenclatu,
+                                    style: TextStyle(
+                                        color: Colors.black,
+                                        fontSize: 14,
+                                        fontWeight: FontWeight.bold)),
+                                Icon(Icons.my_location_rounded,
+                                    size: 40, color: Colors.white),
+                              ],
+                            ),
                             onPressed: () {
                               AlertDialog datosPuntoRedPasiva = AlertDialog(
                                 shape: RoundedRectangleBorder(
