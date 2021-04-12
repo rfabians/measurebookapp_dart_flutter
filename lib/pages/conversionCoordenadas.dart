@@ -632,7 +632,7 @@ class _CoversionCoordenadasState extends State<CoversionCoordenadas> {
                                                             });
                                                             Navigator.push(
                                                                 context,
-                                                                new MaterialPageRoute(
+                                                                MaterialPageRoute(
                                                                     builder:
                                                                         (context) =>
                                                                             ConfiguracionArchivoImportado(
@@ -640,11 +640,6 @@ class _CoversionCoordenadasState extends State<CoversionCoordenadas> {
                                                                               origenCS: sistemaOrigenArc,
                                                                               dataCSV: listaDatosCSV,
                                                                             )));
-                                                            Navigator.of(
-                                                                    context,
-                                                                    rootNavigator:
-                                                                        true)
-                                                                .pop('dialog');
                                                           }
                                                         },
                                                         child: Column(

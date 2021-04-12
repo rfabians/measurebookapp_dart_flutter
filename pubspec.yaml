@@ -36,8 +36,8 @@ dependencies:
   fluttertoast: ^4.0.0
   flutter_custom_clippers: ^1.1.1
   share: ^0.6.4+1
-  file_picker: ^1.9.0+1
-  csv: ^4.0.3
+  file_picker: 1.13.3
+  csv: ^4.1.0
   esys_flutter_share: ^1.0.2
   datetime_picker_formfield: ^1.0.0
   location: ^3.0.0
